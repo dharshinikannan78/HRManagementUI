@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiServiceService } from '../service/api-service.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-attendance',
@@ -7,9 +12,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AttendanceComponent implements OnInit {
 
-  constructor() { }
+  attendanceonEmploayee: FormGroup = new FormGroup({
+    date: new FormControl(''),
+    inTime: new FormControl(''),
+    outTime: new FormControl(''),
+    status: new FormControl(''),
+    // workDuration: new FormControl('', Validators.required),
+    // overTimeDuration: new FormControl('', Validators.required),
+
+
+  });
+
+  constructor(private router: Router, private api: ApiServiceService) {
+  }
 
   ngOnInit(): void {
   }
 
+  getEmployeeAttance() {
+
+  }
+ 
 }

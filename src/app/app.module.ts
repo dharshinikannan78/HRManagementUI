@@ -8,13 +8,18 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AttendanceComponent } from './attendance/attendance.component';
+import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AddUserComponent,
     LoginComponent,
-    AttendanceComponent
+    AttendanceComponent,
+    EmployeeDetailsComponent,
+
 
   ],
   imports: [
@@ -22,9 +27,12 @@ import { AttendanceComponent } from './attendance/attendance.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
+
+
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

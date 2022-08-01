@@ -1,0 +1,167 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <h5 class="navbar-brand text-light">Employee Details</h5>
+        <a href="#"> &nbsp; </a>
+    </div>
+</nav>
+<div class="row  mt-4 mb-4">
+    <div class="col-4">
+        <h5> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welocome Geetha kannan</h5>
+    </div>
+    <div class="col-6">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+    </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-primary leftbutton" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add Employee
+        </button>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row p-5 mt-2 g-4 bg-forrow">
+        <div class="col-md-3 col-sm-6 mt-3" *ngFor="let data of isData" data-toggle="modal"
+            (click)="getEmployeeDetails(data)">
+            <div class="card py-2">
+                <div class="row mt-2">
+                    <div class="col-2">
+                    </div>
+                </div>
+                <div class="dflex mt-1">
+                    <img src="../../assets/bg-1.png" class="card-img-top" alt="...">
+                </div>
+                <div class="card-body px-0 py-4">
+                    <h5 class="card-title mb-3 dflex"> {{data.firstName}}&nbsp;{{data.lastName}}</h5>
+                    <p class="card-text dflex">{{data.number}}<br />
+                        {{data.designation}} <br /> {{data.joiningDate}}</p>
+                    <p class="card-text text-center textCen text-black-50"><b>{{data.emailId}}</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-white"> EMPLOYEE DETAILS</h3>
+                <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
+            </div>
+            <div class="modal-body scrollbar" id="style-1">
+                <div class="row modalbody">
+                    <div class="mb-3">
+                        <label class=" form-label">First Name</label>
+                        <input class="form-control" [ngModel]="employee?.firstName" (change)="onFirstSave($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Last Name</label>
+                        <input class="form-control" [ngModel]="employee?.lastName" (change)="onlastSave($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Email Id</label>
+                        <input class="form-control" [ngModel]="employee?.emailId" (change)="onlastSave($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Number</label>
+                        <input class="form-control" [ngModel]="employee?.number" (change)="onlastSave($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Date Of Joining</label>
+                        <input class="form-control" [ngModel]="employee?.joiningDate" (change)="onlastSave($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Address</label>
+                        <input class="form-control" [ngModel]="employee?.address" (change)="onlastSave($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Desigination</label>
+                        <input class="form-control" [ngModel]="employee?.designation" (change)="onlastSave($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Date Of Birth</label>
+                        <input class="form-control" [ngModel]="employee?.dob" (change)="onlastSave($event)">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Date Of Joining</label>
+                        <input class="form-control" [ngModel]="employee?.gender" (change)="onlastSave($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" style="float: left;"
+                    (click)="showModal=false">Cancel</button>
+                <button type="button" class="btn btn-primary" style="float: right;" (click)="update()">Update and
+                    Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-white">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body scrollbar" id="style-1">
+                <div class="row modalbody">
+                    <form [formGroup]="employeeDetail" (ngSubmit)="OnSaveEmployeeDetails(employeeDetail.value)">
+                        <div class="mb-3">
+                            <label class=" form-label">First Name</label>
+                            <input type="text" class="form-control" formControlName="firstName">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Last Name</label>
+                            <input type="text" class="form-control" formControlName="lastName">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Email Id</label>
+                            <input type="text" class="form-control" formControlName="emailId">
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label class=" form-label">Date Of Birth</label>
+                            <input type="date" class="form-control" formControlName="dob">
+                        </div> -->
+                        <div class="mb-3">
+                            <label class=" form-label">Number</label>
+                            <input type="text" class="form-control" formControlName="number">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Address</label>
+                            <textarea class="form-control" formControlName="address"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Gender</label>
+                            <div>
+                                <select class="form-select" formControlName="gender">
+                                    <option value="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Desigination</label>
+                            <div>
+                                <select class="form-select" formControlName="designation">
+                                    <option value="Fron End">Fron End</option>
+                                    <option value="Back End">Back End</option>
+                                    <option value="Full Stack">Full Stack</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label class=" form-label">Date Of Joining</label>
+                            <input type="date" class="form-control" formControlName="joiningDate">
+                        </div> -->
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Add Employee</button>
+                            <button type="submit" class="btn btn-danger" style="float: right;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

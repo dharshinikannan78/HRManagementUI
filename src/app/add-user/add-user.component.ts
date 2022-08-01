@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiServiceService } from '../service/api-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-user',
@@ -10,11 +11,12 @@ import { ApiServiceService } from '../service/api-service.service';
 })
 export class AddUserComponent implements OnInit {
 
+  submitted = false;
   addUser: FormGroup = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    mailId: new FormControl(''),
-    password: new FormControl('')
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    mailId: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   })
 
   loading: boolean = false;
@@ -27,7 +29,21 @@ export class AddUserComponent implements OnInit {
 
   onSubmitt(form: any) {
     this.api.addUser(form).subscribe(data => {
-      console.log(data, 'login')
+      Swal.fire({
+        text: 'Register Sucessfully!',
+        icon: 'success',
+        timer: 2500
+      });
+      this.addUser.reset();
     });
+    this.router.navigate(['/login']);
   }
+
+  thisFormValid() {
+    if (this.addUser.invalid) {
+      return true;
+    }
+    return false;
+  }
+  get f() { return this.addUser.controls }
 }

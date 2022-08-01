@@ -49,3 +49,35 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+button {
+    width: 25%;
+}
+input {
+    border: 1px solid #d8ebf7;
+}
+input:focus {
+    border: 1px solid #d8e6f4;
+    box-shadow: none;
+}
+span {
+    font-size: 15px;
+}
+button {
+    width: 25%;
+}
+h1 {
+    font-size: 32px;
+    line-height: 28px;
+    font-weight: 800;
+    color: #242f9b;
+    font-family: "Roboto Slab";
+}
+label {
+    font-size: 15px;
+    font-weight: 400;
+    color: #231955;
+    line-height: 18px;
+}
+.invalid-feedback{
+    font-size: 15px;
+}

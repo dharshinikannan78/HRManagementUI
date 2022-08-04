@@ -7,9 +7,12 @@ import { AppComponent } from './app.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AttendanceComponent } from './attendance/attendance.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddEmployeeDetailsComponent } from './add-employee-details/add-employee-details.component';
+import { AttachmentComponent } from './attachment/attachment.component';
+import { LeaveComponent } from './leave/leave.component';
+
+
 
 
 @NgModule({
@@ -17,8 +20,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     AddUserComponent,
     LoginComponent,
-    AttendanceComponent,
     EmployeeDetailsComponent,
+    AddEmployeeDetailsComponent,
+    AttachmentComponent,
+    LeaveComponent
 
 
   ],
@@ -28,7 +33,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule,
 
 
   ],

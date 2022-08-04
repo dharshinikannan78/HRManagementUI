@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   });
 
 
-  onSubmitt(form: any) {
+  getCredentails(form: any) {
     // this.submitted = true;
     this.api.getLogin(form).subscribe(data => {
       this.submitted = true;
@@ -39,8 +39,7 @@ export class LoginComponent implements OnInit {
           timer: 1000
         });
       }
-    }
-    );
+    });
   }
 
   thisFormValid() {

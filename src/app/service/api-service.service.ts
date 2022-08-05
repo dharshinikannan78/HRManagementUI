@@ -6,16 +6,16 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class ApiServiceService {
 
-
-
   URL = 'https://localhost:44394/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
-  allEmployeeDetails = this.URL +'Employee/AllEmployee';
-  addemployeeDetail = this.URL +'Employee/AddEmployee';
-  updateEmployeeDetail = this.URL +'Employee/Update';
-    uploadFile = this.URL + 'FileAttachment/Attachment';
-  attachmentFileDetails = 'https://localhost:44394/api/FileAttachment/GetAttachmentDetails?candidateId=';
+  allEmployeeDetails = this.URL + 'Employee/AllEmployee';
+  addemployeeDetail = this.URL + 'Employee/AddEmployee';
+  updateEmployeeDetail = this.URL + 'Employee/Update';
+  uploadFile = this.URL + 'FileAttachment/Attachment';
+  attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
+  applyLeaveOn = this.URL + ''
+
 
   constructor(private http: HttpClient) { }
 
@@ -44,4 +44,5 @@ export class ApiServiceService {
   getAttachmentDetail(candidateId: any) {
     return this.http.get(this.attachmentFileDetails + candidateId);
   }
+
 }

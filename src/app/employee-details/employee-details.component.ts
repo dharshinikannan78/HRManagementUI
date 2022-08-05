@@ -16,7 +16,7 @@ import * as FileSaver from 'file-saver';
 export class EmployeeDetailsComponent implements OnInit {
 
   employeeDetail: FormGroup = new FormGroup({
-    employeeId:new FormControl(''),
+    employeeId: new FormControl(''),
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     gender: new FormControl(''),
@@ -36,6 +36,7 @@ export class EmployeeDetailsComponent implements OnInit {
   showModal: boolean = false;
   employeeDetails: any;
   attachment: any
+  isNavOpen: boolean = true;
 
 
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient) {
@@ -76,8 +77,39 @@ export class EmployeeDetailsComponent implements OnInit {
       console.log(this.attachment, 'data')
     });
   }
-  
+
   onClick() {
     this.router.navigate(['/addemployee'])
-  } 
+  }
+  showNavContent: boolean;
+  openNav() {
+    let sidenav = document.getElementById("sideNav");
+    let main = document.getElementById("main");
+    if (window.innerWidth < 500) {
+      if (this.showNavContent == false) {
+        sidenav.style.width = "0px";
+        main.style.marginLeft = "0px";
+        this.showNavContent = true;
+      }
+      else {
+        sidenav.style.width = "60px";
+        main.style.marginLeft = "60px";
+        this.showNavContent = false;
+      }
+    }
+    else {
+
+      if (this.isNavOpen == false) {
+        sidenav.style.width = "60px";
+        main.style.marginLeft = "60px";
+        this.isNavOpen = true;
+      }
+      else {
+        sidenav.style.width = "200px";
+        main.style.marginLeft = "200px";
+        this.isNavOpen = false;
+      }
+    }
+  }
+
 }

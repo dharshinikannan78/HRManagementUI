@@ -6,41 +6,45 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class ApiServiceService {
 
-  url = 'https://localhost:44394/api/Login/Login';
-  add = 'https://localhost:44394/api/Login/AddUser';
-  emp = 'https://localhost:44394/api/Employee/AllEmployee';
-  addemply = 'https://localhost:44394/api/Employee/AddEmployee';
-  getbyId = "https://localhost:44394/api/Employee?id=";
-  update = 'https://localhost:44394/api/Employee/Update';
-  attendance = "https://localhost:44394/api/Attendance/AddAttendance"
+  URL = 'https://localhost:44394/api/';
+  dologin = this.URL + 'Login/Login';
+  addUserCredentials = this.URL + 'Login/AddUser';
+  allEmployeeDetails = this.URL + 'Employee/AllEmployee';
+  addemployeeDetail = this.URL + 'Employee/AddEmployee';
+  updateEmployeeDetail = this.URL + 'Employee/Update';
+  uploadFile = this.URL + 'FileAttachment/Attachment';
+  attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
+  applyLeave = this.URL + 'Leave/ApplyLeave';
+
 
   constructor(private http: HttpClient) { }
 
   getLogin(params: any) {
-    return this.http.post(this.url, params)
+    return this.http.post(this.dologin, params)
   }
 
   addUser(params: any) {
-    return this.http.post(this.add, params)
+    return this.http.post(this.addUserCredentials, params)
   }
 
-  addemploye(params: any) {
-    return this.http.post(this.addemply, params)
+  addemployeeDetails(params: any) {
+    return this.http.post(this.addemployeeDetail, params)
   }
-  get() {
-    return this.http.get(this.emp)
-  }
-
-  updateApi(paramas: any) {
-    return this.http.put(this.update, paramas)
+  getallEmployeeDetails() {
+    return this.http.get(this.allEmployeeDetails)
   }
 
-  getDetailsById(id: any) {
-    return this.http.get(this.getbyId + id)
+  updateEmployeeDetails(paramas: any) {
+    return this.http.put(this.updateEmployeeDetail, paramas)
   }
 
-  attendanceonEmploy(params: any) {
-    return this.http.post(this.attendance, params)
+  uploadFileAttachment(params: any) {
+    return this.http.post(this.uploadFile, params)
   }
-
+  getAttachmentDetail(candidateId: any) {
+    return this.http.get(this.attachmentFileDetails + candidateId);
+  }
+  applyLeaveOn(params: any) {
+    return this.http.post(this.applyLeave, params)
+  }
 }

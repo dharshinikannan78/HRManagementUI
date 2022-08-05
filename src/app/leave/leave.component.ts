@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ApiServiceService } from '../service/api-service.service';
 
 @Component({
   selector: 'app-leave',
@@ -8,20 +10,29 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LeaveComponent implements OnInit {
 
-  applyOnLeave: FormGroup = new FormGroup({
-    startDate: new FormControl('',Validators.required),
-    endDate: new FormControl('',Validators.required),
-    dob: new FormControl('',Validators.required),
-    gender: new FormControl('',Validators.required),
-    designation: new FormControl('',Validators.required),
-    address: new FormControl('',Validators.required),
-  });
-  constructor() { }
 
-  ngOnInit(): void {
+  EmployeeId: string = localStorage.getItem('customerId');
+
+  applyOnLeave: FormGroup = new FormGroup({
+    startDate: new FormControl('', Validators.required),
+    endDate: new FormControl('', Validators.required),
+    leaveType: new FormControl('', Validators.required),
+    reason: new FormControl('', Validators.required),
+    employeeId: new FormControl(this.EmployeeId)
+  });
+
+  constructor(private router: Router, private api: ApiServiceService) {
   }
 
-  applyLeave() {
-    console.log('geetha')
+
+  ngOnInit(): void {
+    console.log(this.EmployeeId, 'helo')
+  }
+
+
+  applyLeave(params: any) {
+    this.api.applyLeaveOn(params).subscribe(data => {
+      console.log(data, 'data')
+    });
   }
 }

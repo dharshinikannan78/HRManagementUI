@@ -14,7 +14,7 @@ export class ApiServiceService {
   updateEmployeeDetail = this.URL + 'Employee/Update';
   uploadFile = this.URL + 'FileAttachment/Attachment';
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
-  applyLeaveOn = this.URL + ''
+  applyLeave = this.URL + 'Leave/ApplyLeave';
 
 
   constructor(private http: HttpClient) { }
@@ -44,5 +44,7 @@ export class ApiServiceService {
   getAttachmentDetail(candidateId: any) {
     return this.http.get(this.attachmentFileDetails + candidateId);
   }
-
+  applyLeaveOn(params: any) {
+    return this.http.post(this.applyLeave, params)
+  }
 }

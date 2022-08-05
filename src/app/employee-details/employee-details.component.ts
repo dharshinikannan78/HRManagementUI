@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import * as FileSaver from 'file-saver';
+import { UserServiceService } from '../service/user-service.service';
 
 
 
@@ -39,7 +40,7 @@ export class EmployeeDetailsComponent implements OnInit {
   isNavOpen: boolean = true;
 
 
-  constructor(private router: Router, private api: ApiServiceService, private http: HttpClient) {
+  constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userDervice: UserServiceService) {
   }
 
   ngOnInit(): void {
@@ -111,5 +112,10 @@ export class EmployeeDetailsComponent implements OnInit {
       }
     }
   }
-
+  leaveApplyOn(id: any) {
+    console.log(id, 'helo')
+    this.userDervice.EmployeeId = id
+    console.log(this.userDervice.EmployeeId, 'pid')
+    this.router.navigate(['/leave']);
+  }
 }

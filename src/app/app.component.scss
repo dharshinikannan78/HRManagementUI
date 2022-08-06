@@ -1,0 +1,61 @@
+nav {
+    background-color: darkblue !important;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+ul li {
+    padding: 13px 0;
+    color: #f1f1f1;
+    display: flex;
+    align-items: center;
+}
+ul li p {
+    padding: 0 10px;
+    margin: 0;
+    transition: all 20s;
+}
+
+.likeUl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sideNav {
+    height: 100%;
+    width: 60px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #1a076c;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+main {
+    margin-left: 60px;
+    transition: margin-left 0.5s;
+}
+.show {
+    display: block;
+    // visibility: visible;
+    opacity: 1;
+    transition: 0.5s ease;
+}
+.none {
+    display: none;
+    opacity: 0;
+    // visibility: hidden;
+    transition: 0.5s ease;
+}
+@media (max-width: 500px) {
+    .sideNav {
+        width: 0;
+    }
+    main {
+        margin-left: 0;
+    }
+}

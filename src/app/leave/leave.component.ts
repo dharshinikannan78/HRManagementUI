@@ -10,7 +10,8 @@ import { ApiServiceService } from '../service/api-service.service';
 })
 export class LeaveComponent implements OnInit {
 
-
+  leaveDetails: any;
+  isShow: boolean = false;
   EmployeeId: string = localStorage.getItem('customerId');
 
   applyOnLeave: FormGroup = new FormGroup({
@@ -26,13 +27,24 @@ export class LeaveComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getLeaveDetails();
     console.log(this.EmployeeId, 'helo')
   }
-
+  leaveForm() {
+    console.log('helo')
+    this.isShow = !this.isShow;
+  }
+  getLeaveDetails() {
+    this.api.getLeaveDetails().subscribe(data => {
+      this.leaveDetails = data;
+      console.log(data, 'leave')
+    })
+  }
 
   applyLeave(params: any) {
     this.api.applyLeaveOn(params).subscribe(data => {
       console.log(data, 'data')
+      this.isShow = false;
     });
   }
 }

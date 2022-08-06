@@ -20,146 +20,104 @@
     </div>
 </div>-->
 
-<div id="wrap">
-    <div id="sideNav" class="sideNav">
-        <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
-            <div class="d-flex align-items-center justify-content-center">
-                <div>
-                    <img src="../../assets/bg-1.png" class="margin-auto h-100" width="60px" alt="">
-                    <div class="d-flex pt-3 align-items-center justify-content-center">
-                        <h6 class="text-light">Geetha<br /><span style="font-weight: 400; font-size: 14px;">Admin</span>
-                        </h6>
+
+
+
+<div class="container-fluid">
+    <div class="row mt-2 g-4 bg-forrow justify-content-evenly">
+        <div class="col-md-3 col-sm-6 mt-3" *ngFor="let data of isData" data-toggle="modal">
+            <div class="card d-flex align-items-center">
+                <div class="row g-0">
+                    <div class="col-4 col-md-12 col-sm-4 dflex align-items-center">
+                        <div class="dflex pt-3 ">
+                            <img src="../../assets/bg-1.png" class="card-img-top" alt="..."
+                                (click)="getEmployeeDetails(data)">
+                        </div>
+                    </div>
+                    <div class="col-8 col-md-12 col-sm-8">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3 dflex"> {{data.firstName}}&nbsp;{{data.lastName}}
+                            </h5>
+                            <p class="card-text text-center">{{data.number}}<br />
+                            <p class="card-text text-center textCen text-black-50">{{data.designation}}
+                                <br />
+                                {{data.joiningDate | date:'dd-MM-yyyy'}}
+                            </p>
+                            <p class="card-text text-center textCen text-black-50"><b>{{data.emailId}}</b>
+                            </p>
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                (click)="leaveApplyOn(data.employeeId)">Apply Leave</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="likeUl">
-            <ul>
-                <li><i class="fa-solid fa-house"></i>
-                    <p [ngClass]="isNavOpen ? 'none': 'show'">Home</p>
-                </li>
-                <li><i class="fa-solid fa-user-gear"></i>
-                    <p [ngClass]="isNavOpen ? 'none': 'show'">Employee</p>
-                </li>
-                <li><i class="fa-solid fa-display"></i>
-                    <p [ngClass]="isNavOpen ? 'none': 'show'">Dashboard</p>
-                </li>
-                <li><i class="fa-solid fa-sheet-plastic"></i>
-                    <p [ngClass]="isNavOpen ? 'none': 'show'">Project</p>
-                </li>
-            </ul>
         </div>
     </div>
-    <main id="main">
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" (click)="openNav()" data-bs-toggle="collapse"
-                    data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+</div>
+
+<div class="modal" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+        <div class="modal-content" [formGroup]="employeeDetail">
+            <div class="modal-header">
+                <h3 class="modal-title text-white"> EMPLOYEE DETAILS</h3>
+                <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
             </div>
-        </nav>
-        <div class="container-fluid">
-            <div class="row mt-2 g-4 bg-forrow justify-content-evenly">
-                <div class="col-md-3 col-sm-6 mt-3" *ngFor="let data of isData" data-toggle="modal">
-                    <div class="card d-flex align-items-center">
-                        <div class="row g-0">
-                            <div class="col-4 col-md-12 col-sm-4 dflex align-items-center">
-                                <div class="dflex pt-3 ">
-                                    <img src="../../assets/bg-1.png" class="card-img-top" alt="..."
-                                        (click)="getEmployeeDetails(data)">
-                                </div>
-                            </div>
-                            <div class="col-8 col-md-12 col-sm-8">
-                                <div class="card-body">
-                                    <h5 class="card-title mb-3 dflex"> {{data.firstName}}&nbsp;{{data.lastName}}
-                                    </h5>
-                                    <p class="card-text text-center">{{data.number}}<br />
-                                    <p class="card-text text-center textCen text-black-50">{{data.designation}}
-                                        <br />
-                                        {{data.joiningDate | date:'dd-MM-yyyy'}}
-                                    </p>
-                                    <p class="card-text text-center textCen text-black-50"><b>{{data.emailId}}</b>
-                                    </p>
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        (click)="leaveApplyOn(data.employeeId)">Apply Leave</button>
-                                </div>
-                            </div>
-                        </div>
+            <div class="modal-body scrollbar" id="style-1">
+                <div class="row modalbody">
+                    <div class="mb-3">
+                        <label class=" form-label">First Name</label>
+                        <input class="form-control" [ngModel]="employee?.employeeId" formControlName="employeeId">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">First Name</label>
+                        <input class="form-control" [ngModel]="employee?.firstName" formControlName="firstName">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Last Name</label>
+                        <input class="form-control" [ngModel]="employee?.lastName" formControlName="lastName">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Email Id</label>
+                        <input class="form-control" [ngModel]="employee?.emailId" formControlName="emailId">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Date Of Birth</label>
+                        <input class="form-control" [ngModel]="employee?.dob" formControlName="dob">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Number</label>
+                        <input class="form-control" [ngModel]="employee?.number" formControlName="number">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Date Of Joining</label>
+                        <input class="form-control" [ngModel]="employee?.joiningDate" formControlName="joiningDate">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Address</label>
+                        <input class="form-control" [ngModel]="employee?.address" formControlName="address">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Desigination</label>
+                        <input class="form-control" [ngModel]="employee?.designation" formControlName="designation">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Gender</label>
+                        <input class="form-control" [ngModel]="employee?.gender" formControlName="gender">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class=" form-label">Download Attachment</label>
+                        <app-attachment [attachmentId]="attachment"> </app-attachment>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="modal" [style.display]="showModal ? 'block' : 'none'">
-            <div class="modal-dialog">
-                <div class="modal-content" [formGroup]="employeeDetail">
-                    <div class="modal-header">
-                        <h3 class="modal-title text-white"> EMPLOYEE DETAILS</h3>
-                        <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
-                    </div>
-                    <div class="modal-body scrollbar" id="style-1">
-                        <div class="row modalbody">
-                            <div class="mb-3">
-                                <label class=" form-label">First Name</label>
-                                <input class="form-control" [ngModel]="employee?.employeeId"
-                                    formControlName="employeeId">
-                            </div>
-                            <div class="mb-3">
-                                <label class=" form-label">First Name</label>
-                                <input class="form-control" [ngModel]="employee?.firstName" formControlName="firstName">
-                            </div>
-                            <div class="mb-3">
-                                <label class=" form-label">Last Name</label>
-                                <input class="form-control" [ngModel]="employee?.lastName" formControlName="lastName">
-                            </div>
-                            <div class="mb-3">
-                                <label class=" form-label">Email Id</label>
-                                <input class="form-control" [ngModel]="employee?.emailId" formControlName="emailId">
-                            </div>
-                            <div class="mb-3">
-                                <label class=" form-label">Date Of Birth</label>
-                                <input class="form-control" [ngModel]="employee?.dob" formControlName="dob">
-                            </div>
-                            <div class="mb-3">
-                                <label class=" form-label">Number</label>
-                                <input class="form-control" [ngModel]="employee?.number" formControlName="number">
-                            </div>
-                            <div class="mb-3">
-                                <label class=" form-label">Date Of Joining</label>
-                                <input class="form-control" [ngModel]="employee?.joiningDate"
-                                    formControlName="joiningDate">
-                            </div>
-                            <div class="mb-3">
-                                <label class=" form-label">Address</label>
-                                <input class="form-control" [ngModel]="employee?.address" formControlName="address">
-                            </div>
-                            <div class="mb-3">
-                                <label class=" form-label">Desigination</label>
-                                <input class="form-control" [ngModel]="employee?.designation"
-                                    formControlName="designation">
-                            </div>
-                            <div class="mb-3">
-                                <label class=" form-label">Gender</label>
-                                <input class="form-control" [ngModel]="employee?.gender" formControlName="gender">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class=" form-label">Download Attachment</label>
-                                <app-attachment [attachmentId]="attachment"> </app-attachment>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" style="float: left;"
-                            (click)="showModal=false">Cancel</button>
-                        <button type="button" class="btn btn-primary" style="float: right;"
-                            (click)="updateEmployee(employeeDetail.value)">Update and
-                            Save</button>
-                    </div>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" style="float: left;"
+                    (click)="showModal=false">Cancel</button>
+                <button type="button" class="btn btn-primary" style="float: right;"
+                    (click)="updateEmployee(employeeDetail.value)">Update and
+                    Save</button>
             </div>
         </div>
-    </main>
+    </div>
 </div>

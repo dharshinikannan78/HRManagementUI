@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class ApiServiceService {
 
-  URL = 'https://localhost:44394/api/';
+  URL = 'https://localhost:5001/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   allEmployeeDetails = this.URL + 'Employee/AllEmployee';

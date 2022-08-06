@@ -1,2 +1,41 @@
-
-<router-outlet></router-outlet>
+<div id="sideNav" class="sideNav">
+    <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
+        <div class="d-flex align-items-center justify-content-center">
+            <div>
+                <img src="../../assets/bg-1.png" class="margin-auto h-100" width="60px" alt="">
+                <div class="d-flex pt-3 align-items-center justify-content-center">
+                    <h6 class="text-light">Geetha<br /><span style="font-weight: 400; font-size: 14px;">Admin</span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="likeUl">
+        <ul>
+            <li class="cursorP" routerLink="/addemployee"><i class="fa-solid fa-house"></i>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">Home</p>
+            </li>
+            <li><i class="fa-solid fa-user-gear"></i>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">Employee</p>
+            </li>
+            <li><i class="fa-solid fa-display"></i>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">Dashboard</p>
+            </li>
+            <li><i class="fa-solid fa-sheet-plastic"></i>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">Project</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<main id="main">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" (click)="openNav()" data-bs-toggle="collapse"
+                data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <router-outlet></router-outlet>
+</main>

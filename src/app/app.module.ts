@@ -11,6 +11,7 @@ import { EmployeeDetailsComponent } from './employee-details/employee-details.co
 import { AddEmployeeDetailsComponent } from './add-employee-details/add-employee-details.component';
 import { AttachmentComponent } from './attachment/attachment.component';
 import { LeaveComponent } from './leave/leave.component';
+import { AttendanceComponent } from './attendance/attendance.component';
 
 
 
@@ -23,7 +24,8 @@ import { LeaveComponent } from './leave/leave.component';
     EmployeeDetailsComponent,
     AddEmployeeDetailsComponent,
     AttachmentComponent,
-    LeaveComponent
+    LeaveComponent,
+    AttendanceComponent
 
 
   ],

@@ -11,7 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./attendance.component.scss']
 })
 export class AttendanceComponent implements OnInit {
-  EmployeeId: string = localStorage.getItem('customerId');
+  EmployeeId: string = localStorage.getItem('employeeId');
   addAttendance: FormGroup = new FormGroup({
     
     inTime: new FormControl('', Validators.required),

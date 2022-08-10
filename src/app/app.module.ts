@@ -16,6 +16,7 @@ import { AttendanceComponent } from './attendance/attendance.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,7 @@ import { AttendanceComponent } from './attendance/attendance.component';
     AddEmployeeDetailsComponent,
     AttachmentComponent,
     LeaveComponent,
-    AttendanceComponent
+    AttendanceComponent,
 
 
   ],
@@ -35,6 +36,8 @@ import { AttendanceComponent } from './attendance/attendance.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+   
+     
 
 
   ],

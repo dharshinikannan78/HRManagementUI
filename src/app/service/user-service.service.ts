@@ -16,7 +16,7 @@ private _role:string=null;
   }
 
   set EmployeeId(id: string) {
-    localStorage.setItem('customerId', id);
+    localStorage.setItem('employeeId', id);
     this._emplyId = id;
   }
 
@@ -39,6 +39,13 @@ setUserId(params: any) {
 }
 getUserId(): string {
   return this.UserId;
+}
+
+  setEmployeeId(params: any) {
+    this._emplyId = params;
+  }
+  getEmployeeId(): string {
+    return this._emplyId;
 }
 
 }

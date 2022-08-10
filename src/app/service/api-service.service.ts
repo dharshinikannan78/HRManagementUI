@@ -17,7 +17,8 @@ export class ApiServiceService {
   applyLeave = this.URL + 'Leave/ApplyLeave';
   attendance = "https://localhost:5001/api/Attendance/AddAttendance";
   getAttendance="https://localhost:5001/api/Attendance/AllAttendance";
-
+  employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
+getUser="https://localhost:5001/api/Employee/GetUser?data=";
 
   constructor(private http: HttpClient) { }
 
@@ -34,6 +35,9 @@ export class ApiServiceService {
   }
   getallEmployeeDetails() {
     return this.http.get(this.allEmployeeDetails)
+  }
+  getUserDetails(data:any){
+    return this.http.get(this.getUser+data)
   }
 
   updateEmployeeDetails(paramas: any) {
@@ -54,5 +58,9 @@ export class ApiServiceService {
   }
   getAttendanceDetails(){
     return this.http.get(this.getAttendance)
+  }
+  
+  getLeaveDetails() {
+    return this.http.get(this.employeeLeaveDetails)
   }
 }

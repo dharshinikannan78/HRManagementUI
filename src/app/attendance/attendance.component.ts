@@ -4,18 +4,20 @@ import { ApiServiceService } from '../service/api-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
+
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
   styleUrls: ['./attendance.component.scss']
 })
 export class AttendanceComponent implements OnInit {
-
+  EmployeeId: string = localStorage.getItem('customerId');
   addAttendance: FormGroup = new FormGroup({
-    date: new FormControl(''),
-    inTime: new FormControl(''),
-    outTime: new FormControl(''),
-    status: new FormControl(''),
+    
+    inTime: new FormControl('', Validators.required),
+    outTime: new FormControl('', Validators.required),
+    status: new FormControl('', Validators.required),
+    employeeId: new FormControl(this.EmployeeId)
    
   });
   attDetails: any;
@@ -25,13 +27,14 @@ export class AttendanceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.addAttendance.value.inTime, "time")
+    
   }
 
-  attendanceDetails(params: any) {console.log(this.addAttendance.value.inTime, "time")
+  attendanceDetails(params: any) {
    
     this.api.addAttendance(params).subscribe(data => {
       console.log(data, 'attendance');
+      this.addAttendance.reset();
         });
   }
   getAttendanceDetail(){

@@ -2,55 +2,36 @@
 
 
 <section class="attendance-header pt-2">
-    <div class="container">
-      <button type="button" style="float: right;" class=" add-btn btn btn-primary " data-bs-toggle="modal"
-        data-bs-target="#attendanceModal">
-        Add Attendance
-      </button>
-    </div>
-  </section>
-  <div class="modal fade" id="attendanceModal" tabindex="-1" aria-labelledby="attendanceModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title" id="exampleModalLabel">Attendance Details</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+     <div class="container">
         <form [formGroup]="addAttendance" (ngSubmit)="attendanceDetails(addAttendance.value)">
-          <ul class="attendance-ul">
-            <li class="attendance-li">
-              <label class="form-label">Date</label>
-              <input type="date" class="form-control" formControlName="date">
-            </li>
-            <li class="attendance-li">
+        <div class="row"> 
+          <div class="col-md-4">
               <label class="form-label">CheckIn</label>
               <input type="datetime-local" class="form-control" formControlName="inTime">
-            </li>
-            <li class="attendance-li">
+              <span class="text-danger" *ngIf="!addAttendance.controls['inTime'].valid && 
+              addAttendance.controls['inTime']?.touched">CheckIn Time is required *</span>
+          </div>
+          
+            <div class="col-md-4">
               <label class=" form-label">CheckOut</label>
               <input type="datetime-local" class="form-control" formControlName="outTime">
-            </li>
-  
-            <li class="attendance-li">
-              <label class=" form-label">Status</label>
-              <select class="form-select" formControlName="status">
-                <option value="Present">Present</option>
-                <option value="Absent">Absent</option>
-              </select>
-            </li>
-          </ul>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
+              <span class="text-danger" *ngIf="!addAttendance.controls['outTime'].valid && 
+              addAttendance.controls['outTime']?.touched">CheckOut Time is required *</span>
+            </div>
+           
+            <div class="col-md-4 addattendance">
+         
+            <button type="submit" class="btn btn-primary ">Submit</button>
+
           </div>
+           </div>
         </form>
       </div>
-    </div>
-  </div>
+</section>
   <section class="tbl mt-5">
     <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <table class="table">
+    
+          <table>
             <thead>
               <tr>
                 <th scope="col">Date</th>
@@ -62,25 +43,23 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of attDetails ">
-                <td>
+                <td class="col-md-2">
                   {{item.date|date:'yyyy-MM-dd'}}
                 </td>
-                <td>
+                <td  class="col-md-2">
                   {{item.inTime|date:'hh:mm'}} &nbsp;AM
                 </td>
-                <td>
+                <td  class="col-md-2">
                   {{item.outTime|date:'hh:mm'}}&nbsp;PM
                 </td>
-                <td>
+                <td  class="col-md-2">
                   {{item.workDuration}}
                 </td>
-                <td>
+                <td  class="col-md-2">
                   {{item.status}}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>

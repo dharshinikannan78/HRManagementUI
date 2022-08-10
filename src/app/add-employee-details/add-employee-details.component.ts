@@ -13,6 +13,7 @@ export class AddEmployeeDetailsComponent implements OnInit {
 
 
   employeeDetail: FormGroup = new FormGroup({
+    
     firstName: new FormControl('',Validators.required),
     lastName: new FormControl('',Validators.required),
     dob: new FormControl('',Validators.required),

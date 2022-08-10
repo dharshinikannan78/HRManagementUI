@@ -38,9 +38,10 @@ export class EmployeeDetailsComponent implements OnInit {
   employeeDetails: any;
   attachment: any
   isNavOpen: boolean = true;
+  UserId: string = localStorage.getItem('userId');
+  isShown: boolean = true;
 
-
-  constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userDervice: UserServiceService) {
+  constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService) {
   }
 
   ngOnInit(): void {
@@ -48,9 +49,12 @@ export class EmployeeDetailsComponent implements OnInit {
   }
 
   getAllDetails() {
-    this.api.getallEmployeeDetails().subscribe(data => {
-      this.isData = data
-      console.log(data, 'geetha')
+    this.api.getUserDetails(this.UserId).subscribe(data => {
+      console.log(data, 'helo')
+this.isData = data
+if(this.userService.Role=="Employee"){
+  this.isData=Array.of(this.isData)
+}
     });
   }
 
@@ -114,8 +118,14 @@ export class EmployeeDetailsComponent implements OnInit {
   }
   leaveApplyOn(id: any) {
     console.log(id, 'helo')
-    this.userDervice.EmployeeId = id
-    console.log(this.userDervice.EmployeeId, 'pid')
+    this.userService.EmployeeId = id
+    console.log(this.userService.EmployeeId, 'pid')
     this.router.navigate(['/leave']);
+  }
+  attendanceApplyOn(id: any) {
+    console.log(id, 'attendance')
+    this.userService.EmployeeId = id
+    console.log(this.userService.EmployeeId, 'pid')
+    this.router.navigate(['/attendance']);
   }
 }

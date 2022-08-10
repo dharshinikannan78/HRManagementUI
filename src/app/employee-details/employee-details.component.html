@@ -25,7 +25,7 @@
 
 <div class="container-fluid">
     <div class="row mt-2 g-4 bg-forrow justify-content-evenly">
-        <div class="col-md-3 col-sm-6 mt-3" *ngFor="let data of isData" data-toggle="modal">
+        <div class="col-md-3 col-sm-6 mt-3" *ngFor="let data of isData  " data-toggle="modal">
             <div class="card d-flex align-items-center">
                 <div class="row g-0">
                     <div class="col-4 col-md-12 col-sm-4 dflex align-items-center">
@@ -45,8 +45,11 @@
                             </p>
                             <p class="card-text text-center textCen text-black-50"><b>{{data.emailId}}</b>
                             </p>
-                            <button type="submit" class="btn btn-danger btn-sm"
+                            <button type="submit" class="btn btn-danger btn-sm w-100"
                                 (click)="leaveApplyOn(data.employeeId)">Apply Leave</button>
+
+                            <button type="submit" class="btn btn-primary btn-sm mt-1 w-100"
+                                (click)="attendanceApplyOn(data.employeeId)">Apply Attendance</button>
                         </div>
                     </div>
                 </div>

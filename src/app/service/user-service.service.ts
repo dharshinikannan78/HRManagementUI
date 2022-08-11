@@ -41,11 +41,11 @@ getUserId(): string {
   return this.UserId;
 }
 
-  setEmployeeId(params: any) {
-    this._emplyId = params;
-  }
-  getEmployeeId(): string {
-    return this._emplyId;
-}
+//   setEmployeeId(params: any) {
+//     this._emplyId = params;
+//   }
+//   getEmployeeId(): string {
+//     return this._emplyId;
+// }
 
 }

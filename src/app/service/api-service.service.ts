@@ -9,7 +9,8 @@ export class ApiServiceService {
   URL = 'https://localhost:44394/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
-  allEmployeeDetails = this.URL + 'Employee/AllEmployee';
+  // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
+  allEmployeeDetails = this.URL + 'Employee/GetEmployeeDetails';
   addemployeeDetail = this.URL + 'Employee/AddEmployee';
   updateEmployeeDetail = this.URL + 'Employee/Update';
   uploadFile = this.URL + 'FileAttachment/Attachment';

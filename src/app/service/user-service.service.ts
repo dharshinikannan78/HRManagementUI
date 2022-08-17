@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class UserServiceService {
 
-  
-  
+
+
   employeeId: any;
   _role: any;
-   
+
   constructor() { }
 
   get EmployeeId(): any {
@@ -21,23 +21,21 @@ export class UserServiceService {
     this.employeeId = id;
   }
 
-  get Role(): any {  
+  get Role(): any {
     return this._role;
-}
-set Role(role: any) {
+  }
+  set Role(role: any) {
     localStorage.setItem('Role', role);
     this._role = role;
-}
-getUserId(): string {
-  return this.UserId;
-}
+  }
 
-//   setEmployeeId(params: any) {
-//     this._emplyId = params;
-//   }
-//   getEmployeeId(): string {
-//     return this._emplyId;
-// }
+
+  //   setEmployeeId(params: any) {
+  //     this._emplyId = params;
+  //   }
+  //   getEmployeeId(): string {
+  //     return this._emplyId;
+  // }
 
 
   setEmployeeId(params: any) {
@@ -45,6 +43,6 @@ getUserId(): string {
   }
   getEmployeeId(): any {
     return this.employeeId;
-}
+  }
 
 }

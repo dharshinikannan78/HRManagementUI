@@ -1,10 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { getBootstrapBaseClassPlacement } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { ApiServiceService } from '../service/api-service.service';
-
-
 
 @Component({
   selector: 'app-leave',
@@ -20,6 +17,7 @@ export class LeaveComponent implements OnInit {
   isShow: string;
   EmployeeId: string = localStorage.getItem('customerId');
   duration: string;
+  
   applyOnLeave: FormGroup = new FormGroup({
     Duration: new FormControl('', Validators.required),
     startDate: new FormControl('', Validators.required),

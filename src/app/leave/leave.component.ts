@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { getBootstrapBaseClassPlacement } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { ApiServiceService } from '../service/api-service.service';
+import { UserServiceService } from '../service/user-service.service';
 
 
 
@@ -18,7 +19,7 @@ export class LeaveComponent implements OnInit {
 
   leaveDetails: any;
   isShow: string;
-  EmployeeId: string = localStorage.getItem('customerId');
+  EmployeeId: string = localStorage.getItem('employeeId')
   duration: string;
   applyOnLeave: FormGroup = new FormGroup({
     Duration: new FormControl('', Validators.required),
@@ -29,7 +30,7 @@ export class LeaveComponent implements OnInit {
     employeeId: new FormControl(1)
   });
 
-  constructor(private router: Router, private api: ApiServiceService) {
+  constructor(private router: Router, private api: ApiServiceService,private userService:UserServiceService) {
   }
 
 
@@ -55,10 +56,13 @@ export class LeaveComponent implements OnInit {
   }
 
   getLeaveDetails() {
-    this.api.getLeaveDetails().subscribe(data => {
-      this.leaveDetails = data;
-      console.log(data, 'leave')
-    })
+    this.api.getLeaveDetails(this.EmployeeId).subscribe(data => {
+      console.log(data, 'helo')
+      this.leaveDetails = data
+      if(this.userService.Role=="Employee"){
+        this.leaveDetails=Array.of(this.leaveDetails)
+      }
+          });
   }
 
   applyLeave(params: any) {

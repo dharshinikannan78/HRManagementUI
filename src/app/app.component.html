@@ -1,4 +1,4 @@
-<div id="sideNav" class="sideNav">
+<div *ngIf="router.url != '/login'" id="sideNav" class="sideNav">
     <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
         <div class="d-flex align-items-center justify-content-center">
             <div>

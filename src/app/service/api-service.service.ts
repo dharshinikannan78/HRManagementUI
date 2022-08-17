@@ -16,8 +16,6 @@ export class ApiServiceService {
   uploadFile = this.URL + 'FileAttachment/Attachment';
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
   applyLeave = this.URL + 'Leave/ApplyLeave';
-  attendance = "https://localhost:5001/api/Attendance/AddAttendance";
-  getAttendance="https://localhost:5001/api/Attendance/AllAttendance";
   employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
   getUser = this.URL + 'Employee/GetUser?data=';
   getLeave = this.URL + 'Leave/GetLeave?data=';
@@ -55,13 +53,7 @@ export class ApiServiceService {
   applyLeaveOn(params: any) {
     return this.http.post(this.applyLeave, params)
   }
-  addAttendance(params: any) {
-    return this.http.post(this.attendance, params)
-  }
-  getAttendanceDetails(){
-    return this.http.get(this.getAttendance)
-  }
-  
+ 
   getLeaveDetails(id: any) {
     return this.http.get(this.getLeave + id)
   }

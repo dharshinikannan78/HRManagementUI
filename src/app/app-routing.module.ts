@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AttachmentComponent } from './attachment/attachment.component';
 import { AttendanceComponent } from './attendance/attendance.component';
-import { EmployeeComponent } from './employee/employee.component';
 import { LeaveComponent } from './leave/leave.component';
 import { LoginComponent } from './login/login.component';
 

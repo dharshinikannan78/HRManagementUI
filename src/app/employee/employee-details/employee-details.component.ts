@@ -51,12 +51,11 @@ export class EmployeeDetailsComponent implements OnInit {
   }
   getAllDetails() {
     this.api.getUserDetails(this.EmployeeId).subscribe(data => {
-      
       console.log(data, 'helo')
-this.isData = data
-if(this.userService.Role=="Employee"){
-  this.isData=Array.of(this.isData)
-}
+      this.isData = data
+      if (this.userService.Role == "Employee") {
+        this.isData = Array.of(this.isData)
+      }
     });
   }
 

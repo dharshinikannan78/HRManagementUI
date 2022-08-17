@@ -13,7 +13,7 @@ export class AppComponent {
   showNavContent: boolean;
   isNavOpen: boolean = true;
   step: any;
-  constructor(private router: Router) {
+  constructor(public router: Router) {
     this.step = 'step1'
   }
 

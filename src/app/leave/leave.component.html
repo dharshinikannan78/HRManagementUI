@@ -125,7 +125,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of leaveDetails">
+            <tr *ngFor="let data of leaveDetails" (click)="getLeaveDetail(data)">
                 <td>{{data.startDate | date:'MMM d, y, h:mm a' }}</td>
                 <td>{{data.endDate | date:'MMM d, y, h:mm a' }}</td>
                 <td>{{data.noOfDays}}</td>
@@ -138,4 +138,24 @@
             </tr>
         </tbody>
     </table>
+</section>
+<section>
+    <div class="modal" [style.display]="showModal ? 'block' : 'none'">
+        <div class="modal-dialog">
+            <div class="modal-content" [formGroup]="applyOnLeave">
+                <div class="modal-header">
+                    <h3 class="modal-title text-white"> Leave DETAILS</h3>
+                <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
+                </div>
+                <div class="modal-body scrollbar" id="style-1">
+                    <div class="row modalbody">
+                        <div class="mb-3">
+                            <label class=" form-label">First Name</label>
+                            <input class="form-control" [ngModel]="employeeLeaveDetails?.employeeId" formControlName="employeeId">
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
 </section>

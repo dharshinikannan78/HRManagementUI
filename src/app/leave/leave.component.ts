@@ -18,6 +18,8 @@ export class LeaveComponent implements OnInit {
 
   leaveDetails: any;
   isShow: string;
+  showModal: boolean = false;
+  employeeLeaveDetails:any;
   EmployeeId: string = localStorage.getItem('customerId');
   duration: string;
   applyOnLeave: FormGroup = new FormGroup({
@@ -36,7 +38,12 @@ export class LeaveComponent implements OnInit {
   ngOnInit(): void {
     this.getLeaveDetails();
   }
+  getLeaveDetail(data: any) {
+    console.log(data, 'geetha')
+    this.showModal = true;
+    this.employeeLeaveDetails = data;
 
+  }
   changeDuration(params: any) {
     let elements = document.getElementsByClassName("forSelectMenu");
     if (params.target.value != 'Day') {

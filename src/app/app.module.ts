@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeModule } from './employee/employee.module';
 import { LeaveComponent } from './leave/leave.component';
-import { RenderComponent } from './render.component';
+import { AttendanceComponent } from './attendance/attendance.component';
 
 
 
@@ -21,7 +21,7 @@ import { RenderComponent } from './render.component';
     AddUserComponent,
     LoginComponent,
     LeaveComponent,
-    RenderComponent
+    AttendanceComponent
     
   ],
   imports: [

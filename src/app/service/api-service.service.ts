@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class ApiServiceService {
 
-  URL = 'https://localhost:44394/api/';
+  URL = 'https://localhost:5001/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
@@ -16,9 +16,13 @@ export class ApiServiceService {
   uploadFile = this.URL + 'FileAttachment/Attachment';
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
   applyLeave = this.URL + 'Leave/ApplyLeave';
+  attendance = "https://localhost:5001/api/Attendance/AddAttendance";
+  getAttendance="https://localhost:5001/api/Attendance/AllAttendance";
   employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
-
-
+  getUser = this.URL + 'Employee/GetUser?data=';
+  getLeave = this.URL + 'Leave/GetLeave?data=';
+  getAttendance = this.URL + 'Attendance/GetAttendance?data=';
+  attendance = this.URL + 'Attendance/AddAttendance';
   constructor(private http: HttpClient) { }
 
   getLogin(params: any) {
@@ -35,7 +39,9 @@ export class ApiServiceService {
   getallEmployeeDetails() {
     return this.http.get(this.allEmployeeDetails)
   }
-
+  getUserDetails(data: any) {
+    return this.http.get(this.getUser + data)
+  }
   updateEmployeeDetails(paramas: any) {
     return this.http.put(this.updateEmployeeDetail, paramas)
   }
@@ -49,10 +55,21 @@ export class ApiServiceService {
   applyLeaveOn(params: any) {
     return this.http.post(this.applyLeave, params)
   }
-  
-  getLeaveDetails() {
-    return this.http.get(this.employeeLeaveDetails)
+  addAttendance(params: any) {
+    return this.http.post(this.attendance, params)
   }
-
+  getAttendanceDetails(){
+    return this.http.get(this.getAttendance)
+  }
+  
+  getLeaveDetails(id: any) {
+    return this.http.get(this.getLeave + id)
+  }
+  addAttendance(params: any) {
+    return this.http.post(this.attendance, params)
+  }
+  getAttendanceDetails(id: any) {
+    return this.http.get(this.getAttendance + id)
+  }
 
 }

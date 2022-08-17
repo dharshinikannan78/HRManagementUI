@@ -32,8 +32,8 @@
    
          <table>
            <thead>
-             <tr>
-               <th scope="col">Date&nbsp;&nbsp;</th>
+            <tr class="thead">
+               <th scope="col">Date</th>
                <th scope="col">CheckIn</th>
                <th scope="col">CheckOut</th>
                <th scope="col">Workduration</th>
@@ -42,21 +42,21 @@
            </thead>
            <tbody>
              <tr *ngFor="let item of attDetails ">
-               <td class="col-md-2">
+               <td>
                  {{item.date|date:'yyyy-MM-dd'}}
                </td>
-               <td  class="col-md-2">
+               <td>
                  {{item.inTime|date:'hh:mm'}} &nbsp;AM
                </td>
-               <td  class="col-md-2">
+               <td>
                  {{item.outTime|date:'hh:mm'}}&nbsp;PM
                </td>
-               <td  class="col-md-2">
+               <td>
                  {{item.workDuration}} &nbsp;&nbsp; Working Hours
                </td>
-               <td  class="col-md-2">
-                 {{item.status}}
-               </td>
+               <td><span
+                [ngClass]="{'redBadge': item.status === 'Rejected', 'orangeBadge': item.status === 'Pending' }"
+                class="badge">{{item.status}}</span></td>
              </tr>
            </tbody>
          </table>

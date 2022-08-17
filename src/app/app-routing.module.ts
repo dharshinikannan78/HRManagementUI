@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'addUser', component: AddUserComponent },
   { path: 'login', component: LoginComponent },
   { path: 'Employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule) },
+
   { path: 'attachment', component: AttachmentComponent },
   { path: 'leave', component: LeaveComponent },
   { path: 'attendance', component: AttendanceComponent },

@@ -4,12 +4,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserServiceService {
+  [x: string]: any;
 
   
   
   employeeId: any;
   _role: any;
-   
+   UserId:any
   constructor() { }
 
   get EmployeeId(): any {

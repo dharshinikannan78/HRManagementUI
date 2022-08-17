@@ -17,6 +17,7 @@ export class AddUserComponent implements OnInit {
     lastName: new FormControl('', Validators.required),
     mailId: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
+    employeeId: new FormControl('', Validators.required),
     role: new FormControl('', Validators.required),
 
   })
@@ -36,9 +37,9 @@ export class AddUserComponent implements OnInit {
         icon: 'success',
         timer: 2500
       });
-      this.addUser.reset();
     });
     this.router.navigate(['/login']);
+    this.addUser.reset();
   }
 
   thisFormValid() {

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiServiceService } from '../service/api-service.service';
 import Swal from 'sweetalert2';
+import { UserServiceService } from '../service/user-service.service';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,13 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
 
   submitted = false;
+ role:any;
 
-  constructor(private router: Router, private api: ApiServiceService) {
+  constructor(
+    private router: Router,
+     private api: ApiServiceService,
+     private userService:UserServiceService
+    ) {
   }
 
   ngOnInit(): void {
@@ -25,21 +31,41 @@ export class LoginComponent implements OnInit {
   });
 
 
-  getCredentails(form: any) {
-    // this.submitted = true;
-    this.api.getLogin(form).subscribe(data => {
-      this.submitted = true;
-      this.router.navigate(['/addUser']);
-      console.log(data, 'login')
-    }, (error: Response) => {
-      if (error.status === 404) {
-        Swal.fire({
-          text: 'You have enter the Wrong Credentials',
-          icon: 'error',
-          timer: 1000
-        });
-      }
-    });
+  // getCredentails(form: any) {
+    // // this.submitted = true;
+    // this.api.getLogin(form).subscribe(data => {
+    //   this.submitted = true;
+    //   this.router.navigate(['/addUser']);
+    //   console.log(data, 'login')
+    // }, (error: Response) => {
+    //   if (error.status === 404) {
+    //     Swal.fire({
+    //       text: 'You have enter the Wrong Credentials',
+    //       icon: 'error',
+    //       timer: 1000
+    //     });
+    //   }
+    // });
+    getCredentails(form: any) {
+      this.api.getLogin(this.dologin.value).subscribe((data: any) => {
+          if (data) {
+            console.log(data,"role")
+              this.userService.Role = data.role;
+              this.userService.Users = data.userId;
+              if (data.role == "Admin") {
+            
+            
+                  this.router.navigate(['/employeeDetails'], { replaceUrl: true });
+              }
+              else {
+            
+            
+                  this.router.navigate(['/employeeDetails'], { replaceUrl: true });
+              }
+          } 
+         
+  
+});
   }
 
   thisFormValid() {

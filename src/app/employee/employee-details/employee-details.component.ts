@@ -38,6 +38,8 @@ export class EmployeeDetailsComponent implements OnInit {
   employeeDetails: any;
   attachment: any
   isNavOpen: boolean = true;
+  UserId: string = localStorage.getItem('userId');
+  isShown: boolean = true;
 
   EmployeeId: any = localStorage.getItem('employeeId');
 
@@ -121,5 +123,11 @@ if(this.userService.Role=="Employee"){
     this.userService.EmployeeId = id
     console.log(this.userService.EmployeeId, 'pid')
     this.router.navigate(['/leave']);
+  }
+  attendanceApplyOn(id: any) {
+    console.log(id, 'attendance')
+    this.userService.EmployeeId = id
+    console.log(this.userService.EmployeeId, 'pid')
+    this.router.navigate(['/attendance']);
   }
 }

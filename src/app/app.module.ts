@@ -7,9 +7,7 @@ import { AppComponent } from './app.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
-import { AddEmployeeDetailsComponent } from './add-employee-details/add-employee-details.component';
-import { AttachmentComponent } from './attachment/attachment.component';
+import { EmployeeModule } from './employee/employee.module';
 import { LeaveComponent } from './leave/leave.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 
@@ -22,13 +20,9 @@ import { AttendanceComponent } from './attendance/attendance.component';
     AppComponent,
     AddUserComponent,
     LoginComponent,
-    EmployeeDetailsComponent,
-    AddEmployeeDetailsComponent,
-    AttachmentComponent,
     LeaveComponent,
-    AttendanceComponent,
-
-
+    AttendanceComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -36,10 +30,7 @@ import { AttendanceComponent } from './attendance/attendance.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-   
-     
-
-
+    EmployeeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

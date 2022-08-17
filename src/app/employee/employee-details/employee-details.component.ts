@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiServiceService } from '../service/api-service.service';
+import { ApiServiceService } from '../../service/api-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import * as FileSaver from 'file-saver';
-import { UserServiceService } from '../service/user-service.service';
+import { UserServiceService } from '../../service/user-service.service';
 
 
 
@@ -41,15 +41,17 @@ export class EmployeeDetailsComponent implements OnInit {
   UserId: string = localStorage.getItem('userId');
   isShown: boolean = true;
 
+  EmployeeId: any = localStorage.getItem('employeeId');
+
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService) {
   }
 
   ngOnInit(): void {
     this.getAllDetails();
   }
-
   getAllDetails() {
-    this.api.getUserDetails(this.UserId).subscribe(data => {
+    this.api.getUserDetails(this.EmployeeId).subscribe(data => {
+      
       console.log(data, 'helo')
 this.isData = data
 if(this.userService.Role=="Employee"){

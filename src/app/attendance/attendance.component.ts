@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiServiceService } from '../service/api-service.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-
+import { UserServiceService } from '../service/user-service.service';
 
 @Component({
   selector: 'app-attendance',
@@ -11,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./attendance.component.scss']
 })
 export class AttendanceComponent implements OnInit {
+
   EmployeeId: string = localStorage.getItem('employeeId');
   addAttendance: FormGroup = new FormGroup({
     
@@ -21,8 +21,9 @@ export class AttendanceComponent implements OnInit {
    
   });
   attDetails: any;
+  
 
-  constructor(private router: Router, private api: ApiServiceService) {
+  constructor(private router: Router, private api: ApiServiceService,private userService:UserServiceService) {
    this.getAttendanceDetail();
   }
 
@@ -38,11 +39,17 @@ export class AttendanceComponent implements OnInit {
         });
   }
   getAttendanceDetail(){
-    this.api.getAttendanceDetails().subscribe(data =>{
+    this.api.getAttendanceDetails(this.EmployeeId).subscribe(data =>{
       console.log(data,"fgfgdfg");
       this.attDetails=data
+      
+      if(this.userService.Role=="Employee"){
+        this.attDetails=Array.of(this.attDetails)
+      }
+          });
 
-    });
+    
   }
  
+
 }

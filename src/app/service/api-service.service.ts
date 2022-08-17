@@ -9,7 +9,8 @@ export class ApiServiceService {
   URL = 'https://localhost:5001/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
-  allEmployeeDetails = this.URL + 'Employee/AllEmployee';
+  // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
+  allEmployeeDetails = this.URL + 'Employee/GetEmployeeDetails';
   addemployeeDetail = this.URL + 'Employee/AddEmployee';
   updateEmployeeDetail = this.URL + 'Employee/Update';
   uploadFile = this.URL + 'FileAttachment/Attachment';
@@ -18,8 +19,10 @@ export class ApiServiceService {
   attendance = "https://localhost:5001/api/Attendance/AddAttendance";
   getAttendance="https://localhost:5001/api/Attendance/AllAttendance";
   employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
-getUser="https://localhost:5001/api/Employee/GetUser?data=";
-
+  getUser = this.URL + 'Employee/GetUser?data=';
+  getLeave = this.URL + 'Leave/GetLeave?data=';
+  getAttendance = this.URL + 'Attendance/GetAttendance?data=';
+  attendance = this.URL + 'Attendance/AddAttendance';
   constructor(private http: HttpClient) { }
 
   getLogin(params: any) {
@@ -36,10 +39,9 @@ getUser="https://localhost:5001/api/Employee/GetUser?data=";
   getallEmployeeDetails() {
     return this.http.get(this.allEmployeeDetails)
   }
-  getUserDetails(data:any){
-    return this.http.get(this.getUser+data)
+  getUserDetails(data: any) {
+    return this.http.get(this.getUser + data)
   }
-
   updateEmployeeDetails(paramas: any) {
     return this.http.put(this.updateEmployeeDetail, paramas)
   }
@@ -60,7 +62,14 @@ getUser="https://localhost:5001/api/Employee/GetUser?data=";
     return this.http.get(this.getAttendance)
   }
   
-  getLeaveDetails() {
-    return this.http.get(this.employeeLeaveDetails)
+  getLeaveDetails(id: any) {
+    return this.http.get(this.getLeave + id)
   }
+  addAttendance(params: any) {
+    return this.http.post(this.attendance, params)
+  }
+  getAttendanceDetails(id: any) {
+    return this.http.get(this.getAttendance + id)
+  }
+
 }

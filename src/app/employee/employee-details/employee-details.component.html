@@ -1,42 +1,17 @@
-<!-- <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-        <h5 class="navbar-brand text-light">Employee Details</h5>
-        <a href="#"> &nbsp; </a>
-    </div>
-</nav> -->
-<!-- <div class="container-fluid">
-    <div class="row mt-4 mb-4">
-        <div class="col-4">
-        <h6>+611515</h6>
-        </div>
-        <div class="col-4">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        </div>
-        <div class="col-4">
-            <button type="button" class="btn btn-primary btn-sm" (click)="onClick()">
-                Add Employee
-            </button>
-        </div>
-    </div>
-</div>-->
-
-
-
-
 <div class="container-fluid">
-    <div class="row mt-2 g-4 bg-forrow justify-content-evenly">
-        <div class="col-md-3 col-sm-6 mt-3" *ngFor="let data of isData  " data-toggle="modal">
-            <div class="card d-flex align-items-center">
+    <div class="row mt-2  bg-forrow justify-content-evenly">
+        <div class="col-md-3 col-sm-6 mt-3" *ngFor="let data of isData" data-toggle="modal">
+            <div class="card h-100">
                 <div class="row g-0">
                     <div class="col-4 col-md-12 col-sm-4 dflex align-items-center">
                         <div class="dflex pt-3 ">
-                            <img src="../../assets/bg-1.png" class="card-img-top" alt="..."
+                            <img [src]="'https://localhost:44394/' + data.attachmentPath" class="card-img-top" alt="..."
                                 (click)="getEmployeeDetails(data)">
                         </div>
                     </div>
                     <div class="col-8 col-md-12 col-sm-8">
                         <div class="card-body">
-                            <h5 class="card-title mb-3 dflex"> {{data.firstName}}&nbsp;{{data.lastName}}
+                            <h5 class="card-title text-center mb-3"> {{data.firstName}}&nbsp;{{data.lastName}}
                             </h5>
                             <p class="card-text text-center">{{data.number}}<br />
                             <p class="card-text text-center textCen text-black-50">{{data.designation}}
@@ -57,6 +32,8 @@
         </div>
     </div>
 </div>
+
+
 
 <div class="modal" [style.display]="showModal ? 'block' : 'none'">
     <div class="modal-dialog">

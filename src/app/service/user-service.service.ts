@@ -5,37 +5,28 @@ import { Injectable } from '@angular/core';
 })
 export class UserServiceService {
 
-private _emplyId: string = null;
-private _role:string=null;
- private _Users: any=null;
-  UserId: any;
+  
+  
+  employeeId: any;
+  _role: any;
+   
   constructor() { }
 
-  get EmployeeId(): string {
-    return this._emplyId;
+  get EmployeeId(): any {
+    return this.employeeId;
   }
 
-  set EmployeeId(id: string) {
+  set EmployeeId(id: any) {
     localStorage.setItem('employeeId', id);
-    this._emplyId = id;
+    this.employeeId = id;
   }
 
-  get Role(): string {
+  get Role(): any {  
     return this._role;
 }
-set Role(role: string) {
+set Role(role: any) {
     localStorage.setItem('Role', role);
     this._role = role;
-}
-get Users(): any {
-  return this._Users;
-}
-set Users(user: any) {
-  localStorage.setItem('userId', user);
-  this._Users = user;
-}
-setUserId(params: any) {
-  this.UserId = params;
 }
 getUserId(): string {
   return this.UserId;
@@ -47,5 +38,13 @@ getUserId(): string {
 //   getEmployeeId(): string {
 //     return this._emplyId;
 // }
+
+
+  setEmployeeId(params: any) {
+    this.employeeId = params;
+  }
+  getEmployeeId(): any {
+    return this.employeeId;
+}
 
 }

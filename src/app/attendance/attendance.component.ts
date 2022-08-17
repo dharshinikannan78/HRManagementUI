@@ -13,43 +13,43 @@ export class AttendanceComponent implements OnInit {
 
   EmployeeId: string = localStorage.getItem('employeeId');
   addAttendance: FormGroup = new FormGroup({
-    
+
     inTime: new FormControl('', Validators.required),
     outTime: new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
     employeeId: new FormControl(this.EmployeeId)
-   
+
   });
   attDetails: any;
-  
 
-  constructor(private router: Router, private api: ApiServiceService,private userService:UserServiceService) {
-   this.getAttendanceDetail();
+
+  constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) {
+    this.getAttendanceDetail();
   }
 
   ngOnInit(): void {
-    
+
   }
 
   attendanceDetails(params: any) {
-   
+
     this.api.addAttendance(params).subscribe(data => {
       console.log(data, 'attendance');
       this.addAttendance.reset();
-        });
+    });
   }
-  getAttendanceDetail(){
-    this.api.getAttendanceDetails(this.EmployeeId).subscribe(data =>{
-      console.log(data,"fgfgdfg");
-      this.attDetails=data
-      
-      if(this.userService.Role=="Employee"){
-        this.attDetails=Array.of(this.attDetails)
-      }
-          });
+  getAttendanceDetail() {
+    this.api.getAttendanceDetails(this.EmployeeId).subscribe(data => {
+      console.log(data, "fgfgdfg");
+      this.attDetails = data
 
-    
+      if (this.userService.Role == "Employee") {
+        this.attDetails = Array.of(this.attDetails)
+      }
+    });
+
+
   }
- 
+
 
 }

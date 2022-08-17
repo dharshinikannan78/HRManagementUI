@@ -113,29 +113,112 @@
 
 <section class="px-4">
     <table class="table">
-        <thead>
+        <thead style="text-align: center;">
             <tr class="thead">
+                <th scope="col">Name</th>
+                <th scope="col">Desigination</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">End Date</th>
                 <th scope="col">No Of Days</th>
                 <th scope="col">LeaveType</th>
                 <th scope="col">AppliedOn</th>
-                <th colspan="3" scope="col">Reason</th>
                 <th scope="col">ApprovalStatus</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of leaveDetails">
-                <td>{{data.startDate | date:'MMM d, y, h:mm a' }}</td>
-                <td>{{data.endDate | date:'MMM d, y, h:mm a' }}</td>
-                <td>{{data.noOfDays}}</td>
-                <td>{{data.leaveType}}</td>
-                <td>{{data.appliedOn | date:'MMM d, y'}}</td>
-                <td colspan="3">{{data.reason}}</td>
-                <td><span
+            <tr *ngFor="let data of leaveDetails" (click)="getLeaveDetail(data)" style="text-align: center;">
+                <td class="col-md-2">{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
+                <td class="col-md-2"> {{data.designation}}</td>
+                <td class="col-md-2">{{data.startDate | date:'MMM d, y, h:mm a' }}</td>
+                <td class="col-md-2">{{data.endDate | date:'MMM d, y, h:mm a' }}</td>
+                <td class="col-md-1">{{data.noOfDays}}</td>
+                <td class="col-md-1">{{data.leaveType}}</td>
+                <td class="col-md-2">{{data.appliedOn | date:'MMM d, y'}}</td>
+                <td class="col-md-2"><span
                         [ngClass]="{'redBadge': data.approvalStatus === 'Rejected', 'orangeBadge': data.approvalStatus === 'Pending' }"
                         class="badge">{{data.approvalStatus}}</span></td>
             </tr>
         </tbody>
     </table>
+</section>
+<section>
+    <div class="modal" [style.display]="showModal ? 'block' : 'none'">
+        <div class="modal-dialog">
+            <div class="modal-content" [formGroup]="updateLeaveForm">
+                <div class="modal-header">
+                    <h3 class="modal-title text-white">LEAVE DETAILS</h3>
+                    <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
+                </div>
+                <div class="modal-body scrollbar" id="style-1">
+                    <div class="row modalbody">
+                        <div class="mb-3" style="display: none;">
+                            <label class=" form-label">Start Date</label>
+                            <input class="form-control" [ngModel]="employeeLeaveDetails?.employeeId"
+                                formControlName="employeeId">
+                        </div>
+                        <div class="mb-3" style="display: none;">
+                            <label class=" form-label">Start Date</label>
+                            <input class="form-control" [ngModel]="employeeLeaveDetails?.leaveId"
+                                formControlName="leaveId">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Name</label>
+                            <input class="form-control" [ngModel]="employeeLeaveDetails?.firstName"
+                                formControlName="firstName">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Desigination</label>
+                            <input class="form-control" [ngModel]="employeeLeaveDetails?.designation"
+                                formControlName="designation">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Applied On</label>
+                            <input class="form-control" [ngModel]="employeeLeaveDetails?.appliedOn"
+                                formControlName="appliedOn">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Start Date</label>
+                            <input class="form-control" [ngModel]="employeeLeaveDetails?.startDate"
+                                formControlName="startDate">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">End Date</label>
+                            <input class="form-control" [ngModel]="employeeLeaveDetails?.endDate"
+                                formControlName="endDate">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">No of Days</label>
+                            <input class="form-control" [ngModel]="employeeLeaveDetails?.noOfDays"
+                                formControlName="noOfDays">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Leave Type</label>
+                            <input class="form-control" [ngModel]="employeeLeaveDetails?.leaveType"
+                                formControlName="leaveType">
+                        </div>
+                        <div class="mb-3">
+                            <label class=" form-label">Reason</label>
+                            <textarea class="form-control" [ngModel]="employeeLeaveDetails?.reason"
+                                formControlName="reason">
+                                </textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class=" form-label">Status</label>
+                            <select class="form-select" class="form-control" (change)="approvalStatus($event)"
+                                formControlName="approvalStatus">
+                                <option disabled selected value> -- select an option -- </option>
+                                <option value="Apporved">Apporved</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary" style="float: right;" type="submit"
+                                (click)="updateLeaveDetails(updateLeaveForm.value)"> Submitted</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

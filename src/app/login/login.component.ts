@@ -13,13 +13,13 @@ import { UserServiceService } from '../service/user-service.service';
 export class LoginComponent implements OnInit {
 
   submitted = false;
- role:any;
+
 
   constructor(
     private router: Router,
-     private api: ApiServiceService,
-     private userService:UserServiceService
-    ) {
+    private api: ApiServiceService,
+    private userService: UserServiceService
+  ) {
   }
 
   ngOnInit(): void {
@@ -32,40 +32,42 @@ export class LoginComponent implements OnInit {
 
 
   // getCredentails(form: any) {
-    // // this.submitted = true;
-    // this.api.getLogin(form).subscribe(data => {
-    //   this.submitted = true;
-    //   this.router.navigate(['/addUser']);
-    //   console.log(data, 'login')
-    // }, (error: Response) => {
-    //   if (error.status === 404) {
-    //     Swal.fire({
-    //       text: 'You have enter the Wrong Credentials',
-    //       icon: 'error',
-    //       timer: 1000
-    //     });
-    //   }
-    // });
-    getCredentails(form: any) {
-      this.api.getLogin(this.dologin.value).subscribe((data: any) => {
-          if (data) {
-            console.log(data,"role")
-              this.userService.Role = data.role;
-              this.userService.EmployeeId = data.employeeId;
-              if (data.role == "Admin") {
-            
-            
-                  this.router.navigate(['/employeeDetails'], { replaceUrl: true });
-              }
-              else {
-            
-            
-                  this.router.navigate(['/employeeDetails'], { replaceUrl: true });
-              }
-          } 
-         
-  
-});
+  // // this.submitted = true;
+  // this.api.getLogin(form).subscribe(data => {
+  //   this.submitted = true;
+  //   this.router.navigate(['/addUser']);
+  //   console.log(data, 'login')
+  // }, (error: Response) => {
+  //   if (error.status === 404) {
+  //     Swal.fire({
+  //       text: 'You have enter the Wrong Credentials',
+  //       icon: 'error',
+  //       timer: 1000
+  //     });
+  //   }
+  // });
+  getCredentails(form: any) {
+    this.api.getLogin(this.dologin.value).subscribe((data: any) => {
+      if (data) {
+        console.log(data, "role")
+        // this.userService.Role = data.role;
+        // this.userService.employeeId = data.employeeId;
+        this.userService.EmployeeId = data.employeeId;
+        this.userService.Role = data.role;
+        if (data.role == "Admin") {
+
+
+          this.router.navigate(['/Employee'], { replaceUrl: true });
+        }
+        else {
+
+
+          this.router.navigate(['/Employee'], { replaceUrl: true });
+        }
+      }
+
+
+    });
   }
 
   thisFormValid() {

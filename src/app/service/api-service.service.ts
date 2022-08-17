@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class ApiServiceService {
 
-  URL = 'https://localhost:5001/api/';
+  URL = 'https://localhost:44394/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
@@ -16,11 +16,14 @@ export class ApiServiceService {
   uploadFile = this.URL + 'FileAttachment/Attachment';
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
   applyLeave = this.URL + 'Leave/ApplyLeave';
+  // attendance = "https://localhost:5001/api/Attendance/AddAttendance";
+  // getAttendance="https://localhost:5001/api/Attendance/AllAttendance";
   employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
   getUser = this.URL + 'Employee/GetUser?data=';
   getLeave = this.URL + 'Leave/GetLeave?data=';
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
   attendance = this.URL + 'Attendance/AddAttendance';
+  updateLeaveDetail = this.URL + 'Leave/UpdateLeaveDetails'
   constructor(private http: HttpClient) { }
 
   getLogin(params: any) {
@@ -53,7 +56,16 @@ export class ApiServiceService {
   applyLeaveOn(params: any) {
     return this.http.post(this.applyLeave, params)
   }
- 
+  updateLeaveDetails(paramas: any) {
+    return this.http.put(this.updateLeaveDetail, paramas)
+  }
+  // addAttendance(params: any) {
+  //   return this.http.post(this.attendance, params)
+  // }
+  // getAttendanceDetails(){
+  //   return this.http.get(this.getAttendance)
+  // }
+
   getLeaveDetails(id: any) {
     return this.http.get(this.getLeave + id)
   }

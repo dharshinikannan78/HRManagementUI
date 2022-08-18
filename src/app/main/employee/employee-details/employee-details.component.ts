@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiServiceService } from '../../service/api-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import * as FileSaver from 'file-saver';
-import { UserServiceService } from '../../service/user-service.service';
+import { ApiServiceService } from 'src/app/service/api-service.service';
+import { UserServiceService } from 'src/app/service/user-service.service';
 
 
 

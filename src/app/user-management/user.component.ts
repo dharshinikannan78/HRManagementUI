@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 
+
 @Component({
-    selector: 'app-render',
+    selector: 'app-user',
     template: '<router-outlet></router-outlet>'
+
 })
-export class RenderComponent { }
+export class UserComponent { }

@@ -4,37 +4,27 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddUserComponent } from './add-user/add-user.component';
-import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { EmployeeModule } from './employee/employee.module';
-import { LeaveComponent } from './leave/leave.component';
-import { AttendanceComponent } from './attendance/attendance.component';
 import { RouterModule } from '@angular/router';
-import { RenderComponent } from './render.component';
-
-
-
-
+import { MainModule } from './main/main.module';
+import { UserManagementModule } from './user-management/user.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AddUserComponent,
-    LoginComponent,
-    LeaveComponent,
-    AttendanceComponent,
-    RenderComponent
-    
+    AppComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    RouterModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    EmployeeModule,
-    RouterModule
+    RouterModule,
+    MainModule,
+    UserManagementModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiServiceService } from '../service/api-service.service';
-import { UserServiceService } from '../service/user-service.service';
+import { ApiServiceService } from '../../service/api-service.service';
+import { UserServiceService } from '../../service/user-service.service';
+
 
 @Component({
   selector: 'app-attendance',

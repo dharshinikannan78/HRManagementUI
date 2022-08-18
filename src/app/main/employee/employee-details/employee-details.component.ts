@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiServiceService } from '../../service/api-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import * as FileSaver from 'file-saver';
-import { UserServiceService } from '../../service/user-service.service';
+import { ApiServiceService } from 'src/app/service/api-service.service';
+import { UserServiceService } from 'src/app/service/user-service.service';
 
 
 
@@ -51,12 +51,11 @@ export class EmployeeDetailsComponent implements OnInit {
   }
   getAllDetails() {
     this.api.getUserDetails(this.EmployeeId).subscribe(data => {
-      
       console.log(data, 'helo')
-this.isData = data
-if(this.userService.Role=="Employee"){
-  this.isData=Array.of(this.isData)
-}
+      this.isData = data
+      if (this.userService.Role == "Employee") {
+        this.isData = Array.of(this.isData)
+      }
     });
   }
 

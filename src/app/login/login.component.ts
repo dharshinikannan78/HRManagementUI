@@ -50,8 +50,6 @@ export class LoginComponent implements OnInit {
     this.api.getLogin(this.dologin.value).subscribe((data: any) => {
       if (data) {
         console.log(data, "role")
-        // this.userService.Role = data.role;
-        // this.userService.employeeId = data.employeeId;
         this.userService.EmployeeId = data.employeeId;
         this.userService.Role = data.role;
         if (data.role == "Admin") {
@@ -60,6 +58,14 @@ export class LoginComponent implements OnInit {
         else {
           this.router.navigate(['/Employee'], { replaceUrl: true });
         }
+      }
+    }, (error: Response) => {
+      if (error.status === 404) {
+        Swal.fire({
+          text: 'You have enter the Wrong Credentials',
+          icon: 'error',
+          timer: 1000
+        });
       }
     });
   }

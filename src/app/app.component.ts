@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  UserName: string = localStorage.getItem('userName')
+
   title = 'hrmanagementapplication';
 
   showNavContent: boolean;

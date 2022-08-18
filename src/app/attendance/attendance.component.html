@@ -1,5 +1,5 @@
 <section class="attendance-header pt-2">
-  <div class="container" >
+  <div class="container">
     <form [formGroup]="addAttendance" (ngSubmit)="attendanceDetails(addAttendance.value)">
       <div class="row mt-5 mb-5" style="margin-left: 5rem;">
         <div class="col-md-5">
@@ -8,18 +8,14 @@
           <span class="text-danger" *ngIf="!addAttendance.controls['inTime'].valid && 
              addAttendance.controls['inTime']?.touched">CheckIn Time is required *</span>
         </div>
-
         <div class="col-md-5">
           <label class=" form-label">CheckOut</label>
           <input type="datetime-local" class="form-control" formControlName="outTime">
           <span class="text-danger" *ngIf="!addAttendance.controls['outTime'].valid && 
              addAttendance.controls['outTime']?.touched">CheckOut Time is required *</span>
         </div>
-
         <div class="col-md-2 addattendance">
-
-          <button type="submit" class="btn btn-primary ">Submit</button>
-
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </div>
     </form>
@@ -27,7 +23,6 @@
 </section>
 <section class="tbl mt-5">
   <div class="container">
-
     <section class="px-4">
       <table class="table">
         <thead style="text-align: center;">

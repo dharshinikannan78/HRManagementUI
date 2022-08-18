@@ -55,18 +55,12 @@ export class LoginComponent implements OnInit {
         this.userService.EmployeeId = data.employeeId;
         this.userService.Role = data.role;
         if (data.role == "Admin") {
-
-
           this.router.navigate(['/Employee'], { replaceUrl: true });
         }
         else {
-
-
           this.router.navigate(['/Employee'], { replaceUrl: true });
         }
       }
-
-
     });
   }
 

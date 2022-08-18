@@ -32,7 +32,8 @@ export class LeaveComponent implements OnInit {
     endDate: new FormControl('', Validators.required),
     leaveType: new FormControl('', Validators.required),
     reason: new FormControl('', Validators.required),
-    employeeId: new FormControl(1)
+    approvalStatus: new FormControl('', Validators.required),
+    employeeId: new FormControl(this.EmployeeId)
   });
   updateLeaveForm: FormGroup = new FormGroup({
     // startDate: new FormControl('', Validators.required),
@@ -52,16 +53,17 @@ export class LeaveComponent implements OnInit {
   constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) {
   }
 
-
   ngOnInit(): void {
     this.getLeaveDetails();
   }
+
   getLeaveDetail(data: any) {
     console.log(data, 'geetha')
     this.showModal = true;
     this.employeeLeaveDetails = data;
-
+    console.log(this.employeeLeaveDetails, 'employeeLeaveDetails')
   }
+
   changeDuration(params: any) {
     let elements = document.getElementsByClassName("forSelectMenu");
     if (params.target.value != 'Day') {
@@ -75,8 +77,6 @@ export class LeaveComponent implements OnInit {
         elements[i].setAttribute('type', 'date');
       }
     }
-
-
   }
 
   getLeaveDetails() {
@@ -97,10 +97,11 @@ export class LeaveComponent implements OnInit {
     });
     this.closeModal.nativeElement.click();
   }
+
   approvalStatus(event: any) {
     console.log(event, 'event')
-
   }
+
   updateLeaveDetails(updateLeaveForm: any) {
     console.log('dataEmployee')
 

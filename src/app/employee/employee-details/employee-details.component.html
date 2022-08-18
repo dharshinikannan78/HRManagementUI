@@ -5,13 +5,16 @@
                 <div class="row g-0">
                     <div class="col-4 col-md-12 col-sm-4 dflex align-items-center">
                         <div class="dflex pt-3 ">
-                            <img [src]="'https://localhost:44394/' + data.attachmentPath" class="card-img-top" alt="..."
-                                (click)="getEmployeeDetails(data)">
+                            <!-- <img [src]="'https://localhost:44394/' + data.attachmentPath" class="card-img-top" alt="..."
+                                (click)="getEmployeeDetails(data)"> -->
+                            <img src="../assets/bg-1.png" class="card-img-top" alt="..."
+                                (click)="getEmployeeDetails(data)" />
                         </div>
                     </div>
                     <div class="col-8 col-md-12 col-sm-8">
                         <div class="card-body">
-                            <h5 class="card-title text-center mb-3">{{data.employeeId}} &nbsp; {{data.firstName}}&nbsp;{{data.lastName}}
+                            <h5 class="card-title text-center mb-3">{{data.employeeId}} &nbsp;
+                                {{data.firstName}}&nbsp;{{data.lastName}}
                             </h5>
                             <p class="card-text text-center">{{data.number}}<br />
                             <p class="card-text text-center textCen text-black-50">{{data.designation}}

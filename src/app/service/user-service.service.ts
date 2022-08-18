@@ -9,6 +9,7 @@ export class UserServiceService {
 
   employeeId: any;
   _role: any;
+  _userName: any;
 
   constructor() { }
 
@@ -27,6 +28,13 @@ export class UserServiceService {
   set Role(role: any) {
     localStorage.setItem('Role', role);
     this._role = role;
+  }
+  get UserName(): any {
+    return this._userName;
+  }
+  set UserName(userName: any) {
+    localStorage.setItem('userName', userName);
+    this._userName = userName;
   }
 
 

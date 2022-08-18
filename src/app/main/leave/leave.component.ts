@@ -2,10 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { ApiServiceService } from '../service/api-service.service';
-import { UserServiceService } from '../service/user-service.service';
-
-
+import { ApiServiceService } from '../../service/api-service.service';
+import { UserServiceService } from '../../service/user-service.service';
 
 @Component({
   selector: 'app-leave',
@@ -29,6 +27,7 @@ export class LeaveComponent implements OnInit {
 
 
   duration: string;
+  
   applyOnLeave: FormGroup = new FormGroup({
     Duration: new FormControl('', Validators.required),
     startDate: new FormControl('', Validators.required),

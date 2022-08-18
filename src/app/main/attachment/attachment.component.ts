@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as FileSaver from 'file-saver';
-import { ApiServiceService } from '../service/api-service.service';
+import { ApiServiceService } from 'src/app/service/api-service.service';
+
 
 @Component({
   selector: 'app-attachment',

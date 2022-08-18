@@ -1,5 +1,6 @@
 <div style="text-align: right;">
-    <button type="button" class="btn btn-primary mt-4 mb-4" data-bs-toggle="modal" data-bs-target="#LeaveModal">
+    <button type="button" class="btn btn-primary mt-4 mb-4" style="margin-right: 2rem;" data-bs-toggle="modal"
+        data-bs-target="#LeaveModal">
         Apply Leave
     </button>
 </div>
@@ -9,7 +10,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Leave Management</h5>
+                <h5 class="modal-title text-white" id="exampleModalLabel">Leave Management</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -146,10 +147,11 @@
         <div class="modal-dialog">
             <div class="modal-content" [formGroup]="updateLeaveForm">
                 <div class="modal-header">
-                    <h3 class="modal-title text-white">LEAVE DETAILS</h3>
+                    <h6 class="modal-title text-white">LEAVE DETAILS</h6>
                     <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
                 </div>
-                <div class="modal-body scrollbar" id="style-1">
+
+                <div class="modal-body scrollbar" id="style-1" style="padding: 2rem;">
                     <div class="row modalbody">
                         <div class="mb-3" style="display: none;">
                             <label class=" form-label">Start Date</label>
@@ -205,9 +207,11 @@
 
                         <div class="mb-3">
                             <label class=" form-label">Status</label>
-                            <select class="form-select" class="form-control" (change)="approvalStatus($event)"
-                                formControlName="approvalStatus">
-                                <option disabled selected value> -- select an option -- </option>
+                            <select class="form-select" class="form-control"
+                                [ngModel]="employeeLeaveDetails?.approvalStatus" formControlName="approvalStatus">
+                                <!-- <option disabled selected value> -- select an option -- </option> -->
+                                <option value="Pending">Pending</option>
+
                                 <option value="Apporved">Apporved</option>
                                 <option value="Rejected">Rejected</option>
                             </select>

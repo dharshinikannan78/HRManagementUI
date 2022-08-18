@@ -6,14 +6,14 @@ import { MainComponent } from './main.component';
 
 const routes: Routes = [
   {
-    path: 'main', component: MainComponent, children: [
+    path: '', component: MainComponent, children: [
       { path: 'leave', component: LeaveComponent },
       { path: 'attendance', component: AttendanceComponent },
       { path: 'Employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule) },
-      { path: '', redirectTo: '/main/leave', pathMatch: 'full' },
+      { path: '', redirectTo: 'leave', pathMatch: 'full' },
     ]
   },
-  { path: '', redirectTo: '/main/attendance', pathMatch: 'full' }
+  { path: '', redirectTo: 'attendance', pathMatch: 'full' }
 ];
 
 @NgModule({

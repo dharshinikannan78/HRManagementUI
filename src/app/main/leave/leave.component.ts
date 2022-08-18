@@ -81,10 +81,7 @@ export class LeaveComponent implements OnInit {
   getLeaveDetails() {
     this.api.getLeaveDetails(this.EmployeeId).subscribe(data => {
       console.log(data, 'helo')
-      this.leaveDetails = data
-      if (this.userService.Role == "Employee") {
-        this.leaveDetails = Array.of(this.leaveDetails)
-      }
+      this.leaveDetails = data;
     });
   }
 
@@ -97,8 +94,7 @@ export class LeaveComponent implements OnInit {
     this.closeModal.nativeElement.click();
   }
   approvalStatus(event: any) {
-    console.log(event, 'event')
-
+    console.log(event, 'event');
   }
   updateLeaveDetails(updateLeaveForm: any) {
     console.log('dataEmployee')

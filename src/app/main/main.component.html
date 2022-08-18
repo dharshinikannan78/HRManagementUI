@@ -34,7 +34,7 @@
                         <p [ngClass]="isNavOpen ? 'none': 'show'">Employee Details</p>
                     </li>
                     <li class="cursorP" [ngClass]="{'active': step==='step6'}"
-                        (click)="step='step6' ; shortNav('/Employee')">
+                        (click)="step='step6' ; shortNav('/Employee/addEmployee')">
                         <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                             aria-controls="collapseExample" class="fa-solid fa-user-gear"></i>
                         <p [ngClass]="isNavOpen ? 'none': 'show'">Add Employee</p>

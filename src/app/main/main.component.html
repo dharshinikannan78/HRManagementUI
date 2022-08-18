@@ -4,7 +4,8 @@
             <div>
                 <img src="https://localhost:44394/File/resume/7/bg11.jpg" class="margin-auto h-100" width="60px" alt="">
                 <div class="d-flex pt-3 align-items-center justify-content-center">
-                    <h6 class="text-dark">Geetha<br /><span style="font-weight: 400; font-size: 14px;">Admin</span>
+                    <h6 class="text-dark">{{ loggerName }}<br /><span
+                            style="font-weight: 400; font-size: 14px;">Admin</span>
                     </h6>
                 </div>
             </div>
@@ -18,11 +19,11 @@
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Home</p>
 
             </li>
-            <li class="cursorP" [ngClass]="{'active': step==='step2'}" (click)="step='step2'"
+            <li class="cursorP" [ngClass]="{'active': step==='step2'}" data-bs-toggle="collapse" href="#collapseExample"
+                role="button" aria-expanded="false" aria-controls="collapseExample" (click)="step='step2'"
                 (click)="isNavOpen ? shortNav('/Employee'): 'none'">
                 <i class="fa-solid fa-user-gear"></i>
-                <p [ngClass]="isNavOpen ? 'none': 'show'" data-bs-toggle="collapse" href="#collapseExample"
-                    role="button" aria-expanded="false" aria-controls="collapseExample">Employee</p>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">Employee</p>
             </li>
             <div class="collapse" id="collapseExample">
                 <ul [ngClass]="isNavOpen ? 'none': 'show'">
@@ -58,9 +59,12 @@
             <button class="navbar-toggler" type="button" (click)="openNav()">
                 <i class="fa-solid fa-bars text-dark"></i>
             </button>
-            <a class="navbar-brand" href="#">
-                <img src="../assets/bg-1.png" alt="" height="35px" class="w-100 d-inline-block align-text-top">
-            </a>
+            <div class="d-flex align-items-center">
+                <p class="m-0">{{ loggerName }}</p>
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/bg-1.png" alt="" height="35px" class="w-100 d-inline-block align-text-top">
+                </a>
+            </div>
         </div>
     </nav>
     <router-outlet></router-outlet>

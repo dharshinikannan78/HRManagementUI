@@ -24,10 +24,13 @@ ul li p {
     transition: all 20s;
     white-space: nowrap;
     color: #c0c0c0;
+
 }
+
 ul li i {
     min-width: 20px;
 }
+
 .menuList {
     width: 200px;
 }
@@ -45,10 +48,9 @@ ul li i {
     z-index: 1;
     top: 0;
     left: 0;
-    // background-color: #f6f7f9;
     background-color: #fff;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.5s ease;
     padding-top: 60px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -58,15 +60,14 @@ i {
 }
 
 main {
- 
+
     margin-left: 60px;
-    transition: margin-left 0.5s;
+    transition: margin-left 0.5s ease;
     height: 100vh;
 }
 
 .show {
     display: block;
-    // visibility: visible;
     opacity: 1;
     transition: 0.5s ease;
 }
@@ -74,7 +75,6 @@ main {
 .none {
     display: none;
     opacity: 0;
-    // visibility: hidden;
     transition: 0.5s ease;
 }
 
@@ -89,11 +89,9 @@ main {
 }
 
 .active {
-    // background-color: #0803AE;
     background-color: #1919f4;
     border-radius: 7px;
     transition: background-color 0.3s ease-in;
-    // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     box-shadow: 0px 6px 89px -12px rgba(25, 25, 244, 0.91);
 
     i {

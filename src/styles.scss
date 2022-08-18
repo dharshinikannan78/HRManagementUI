@@ -1,10 +1,17 @@
-
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
 .cursorP {
     cursor: pointer;
 }
+
 * {
     font-family: "poppins", sans-serif;
     font-size: 15px;
+}
+
+.dflex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

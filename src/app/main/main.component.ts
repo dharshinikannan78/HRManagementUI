@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserServiceService } from '../service/user-service.service';
 
 @Component({
   selector: 'app-main',
@@ -11,8 +12,10 @@ export class MainComponent {
   showNavContent: boolean;
   isNavOpen: boolean = true;
   step: any;
-  constructor(public router: Router) {
+  loggerName: string;
+  constructor(public router: Router, userService: UserServiceService) {
     this.step = 'step1'
+    this.loggerName = userService.Name;
   }
 
   openNav() {

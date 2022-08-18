@@ -50,23 +50,16 @@ export class LoginComponent implements OnInit {
     this.api.getLogin(this.dologin.value).subscribe((data: any) => {
       if (data) {
         console.log(data, "role")
-        // this.userService.Role = data.role;
-        // this.userService.employeeId = data.employeeId;
         this.userService.EmployeeId = data.employeeId;
         this.userService.Role = data.role;
+        this.userService.Name = data.firstName + data.lastName;
         if (data.role == "Admin") {
-
-
-          this.router.navigate(['/Employee'], { replaceUrl: true });
+          this.router.navigate(['main'], { replaceUrl: true });
         }
         else {
-
-
-          this.router.navigate(['/Employee'], { replaceUrl: true });
+          this.router.navigate(['main'], { replaceUrl: true });
         }
       }
-
-
     });
   }
 
@@ -74,7 +67,6 @@ export class LoginComponent implements OnInit {
     if (this.dologin.invalid) {
       return true;
     }
-
     return false;
   }
 

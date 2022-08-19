@@ -60,6 +60,14 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['main'], { replaceUrl: true });
         }
       }
+    }, (error: Response) => {
+      if (error.status === 404) {
+        Swal.fire({
+          text: 'You have enter the Wrong Credentials',
+          icon: 'error',
+          timer: 1000
+        })
+      }
     });
   }
 

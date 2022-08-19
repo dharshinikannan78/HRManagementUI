@@ -13,9 +13,11 @@ export class MainComponent {
   isNavOpen: boolean = true;
   step: any;
   loggerName: string;
+  loggerRole: string;
   constructor(public router: Router, userService: UserServiceService) {
     this.step = 'step1'
     this.loggerName = userService.Name;
+    this.loggerRole = userService.Role;
   }
 
   openNav() {
@@ -56,7 +58,7 @@ export class MainComponent {
     let sidenav = document.getElementById("sideNav");
     let main = document.getElementById("main");
     if (window.innerWidth < 600) {
-      this.router.navigate(['/main' + params]);
+      this.router.navigate([params]);
       sidenav.style.width = "0px";
       main.style.marginLeft = "0px";
       this.isNavOpen = true;
@@ -65,7 +67,7 @@ export class MainComponent {
     else {
       sidenav.style.width = "60px";
       main.style.marginLeft = "60px";
-      this.router.navigate(['/main' + params]);
+      this.router.navigate([params]);
       this.isNavOpen = true;
       this.showNavContent = true;
     }

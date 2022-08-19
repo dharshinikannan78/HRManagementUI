@@ -44,12 +44,6 @@ export class AttendanceComponent implements OnInit {
       console.log(data, "fgfgdfg");
       this.attDetails = data
       console.log(this.attDetails, "this.attDetails");
-
-      if (this.userService.Role == "Employee") {
-        this.attDetails = Array.of(this.attDetails)
-        console.log(this.attDetails, "attDetails");
-
-      }
     });
 
 

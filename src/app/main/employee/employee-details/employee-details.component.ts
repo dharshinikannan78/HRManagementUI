@@ -30,7 +30,7 @@ export class EmployeeDetailsComponent implements OnInit {
   });
 
   isData: any;
-  oneEmployee: boolean = false;
+  oneEmployee: boolean = true;
   employee: any
   isEditTable: boolean = false;
   firstName: any;
@@ -54,8 +54,10 @@ export class EmployeeDetailsComponent implements OnInit {
     this.api.getUserDetails(this.EmployeeId).subscribe(data => {
       console.log(data, 'helo')
       this.isData = data
+      console.log(this.oneEmployee, "wonenknkn")
       if (this.userService.Role == "Employee") {
-        this.oneEmployee = true;
+        this.oneEmployee = false;
+        console.log(this.oneEmployee, "wonenknkn")
         this.isData = Array.of(this.isData);
       }
     });

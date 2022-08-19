@@ -43,10 +43,7 @@ export class AttendanceComponent implements OnInit {
     this.api.getAttendanceDetails(this.EmployeeId).subscribe(data => {
       console.log(data, "fgfgdfg");
       this.attDetails = data
-
-      if (this.userService.Role == "Employee") {
-        this.attDetails = Array.of(this.attDetails)
-      }
+      console.log(this.attDetails, "this.attDetails");
     });
 
 

@@ -22,7 +22,7 @@ export class AddEmployeeDetailsComponent implements OnInit {
     number: new FormControl('', Validators.required),
     emailId: new FormControl('', Validators.required),
     joiningDate: new FormControl('', Validators.required),
-    employeeReferenceNo: new FormControl('', Validators.required),
+    // employeeReferenceNo: new FormControl('', Validators.required),
     workMode: new FormControl('', Validators.required),
     filesResume: new FormControl('', Validators.required),
     // files: new FormControl('', Validators.required)

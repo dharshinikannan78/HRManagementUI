@@ -13,9 +13,11 @@ export class MainComponent {
   isNavOpen: boolean = true;
   step: any;
   loggerName: string;
+  loggerRole: string;
   constructor(public router: Router, userService: UserServiceService) {
     this.step = 'step1'
     this.loggerName = userService.Name;
+    this.loggerRole = userService.Role;
   }
 
   openNav() {

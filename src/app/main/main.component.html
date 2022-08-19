@@ -2,11 +2,14 @@
     <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
         <div class="d-flex align-items-center justify-content-center">
             <div>
-                <img src="https://localhost:44394/File/resume/7/bg11.jpg" class="margin-auto h-100" width="60px" alt="">
+                <img src="../assets/bg-1.png" class="margin-auto h-100" width="60px" alt="">
                 <div class="d-flex pt-3 align-items-center justify-content-center">
-                    <h6 class="text-dark">{{ loggerName }}<br /><span
-                            style="font-weight: 400; font-size: 14px;">Admin</span>
-                    </h6>
+                    <!-- <h6 class="text-dark">{{ loggerName }}<br /><span
+                            style="font-weight: 400; margin-top: 1rem; font-size: 14px;">{{loggerRole}}</span>
+                    </h6> -->
+                    <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
+                        {{ loggerRole }}</h6>
+
                 </div>
             </div>
 
@@ -15,8 +18,8 @@
     <div class="likeUl">
         <ul [ngClass]="isNavOpen ? '':'menuList'">
             <li class="cursorP bg-select" [ngClass]="{'active': step==='step1'}"
-                (click)="step='step1' ; shortNav('/user/addUser')"><i class="fa-solid fa-house"></i>
-                <p [ngClass]="isNavOpen ? 'none': 'show'">Home</p>
+                (click)="step='step1' ; shortNav('/Employee')"><i class="fa-solid fa-house"></i>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">About</p>
 
             </li>
             <li class="cursorP" [ngClass]="{'active': step==='step2'}" data-bs-toggle="collapse" href="#collapseExample"
@@ -28,10 +31,10 @@
             <div class="collapse" id="collapseExample">
                 <ul [ngClass]="isNavOpen ? 'none': 'show'">
                     <li class="cursorP" [ngClass]="{'active': step==='step5'}"
-                        (click)="step='step5' ; shortNav('/Employee')">
+                        (click)="step='step5' ; shortNav('addUser')">
                         <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                             aria-controls="collapseExample" class="fa-solid fa-user-gear"></i>
-                        <p [ngClass]="isNavOpen ? 'none': 'show'">Employee Details</p>
+                        <p [ngClass]="isNavOpen ? 'none': 'show'">Add User</p>
                     </li>
                     <li class="cursorP" [ngClass]="{'active': step==='step6'}"
                         (click)="step='step6' ; shortNav('/Employee/addEmployee')">
@@ -43,7 +46,7 @@
             </div>
             <li [ngClass]="{'active': step==='step3'}" (click)="step='step3' ; shortNav('/attendance')" class="cursorP">
                 <i class="fa-solid fa-display"></i>
-                <p [ngClass]="isNavOpen ? 'none': 'show'">Dashboard</p>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">Attendance</p>
             </li>
             <li [ngClass]="{'active': step==='step4'}" (click)="step='step4' ; shortNav('/leave')" class="cursorP">
                 <i class="fa-solid fa-sheet-plastic"></i>

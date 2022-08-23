@@ -1,0 +1,65 @@
+.attendance-ul {
+  list-style: none;
+  padding: 8px;
+  border: 1px;
+}
+
+.attendance-li {
+  padding: 8px;
+  border: 1px;
+}
+
+table {
+  width: 100%;
+}
+th {
+  color: #54525b;
+  background-color: #e9eef5;
+  vertical-align: middle;
+}
+
+table th:first-child {
+  border-radius: 18px 0 0 0;
+}
+
+table th:last-child {
+  border-radius: 0 18px 0 0;
+}
+
+tr {
+  height: 60px;
+}
+
+td {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+tbody {
+  vertical-align: middle;
+}
+
+.addattendance {
+  padding: 2rem;
+}
+label {
+  font-weight: 600;
+  color: #3c4ac8;
+}
+input {
+  color: #a49e9e;
+}
+.modal-header {
+  // background: #8e2de2;
+  // background: -webkit-linear-gradient(to left, #4f10cb, #8e2de2);
+  // background: linear-gradient(to left, #4a00e0, #8e2de2);\
+  background: darkblue !important;
+}
+.modal-content {
+  border: none !important;
+}
+.modal {
+  background-color: rgb(0, 0, 0, 0.6);
+}
+.closebutton {
+  color: white;
+}

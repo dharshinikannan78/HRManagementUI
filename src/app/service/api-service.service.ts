@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class ApiServiceService {
 
-  URL = 'https://localhost:5001/api/';
+  URL = 'https://localhost:44394/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
@@ -23,6 +23,7 @@ export class ApiServiceService {
   getLeave = this.URL + 'Leave/GetLeave?data=';
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
   attendance = this.URL + 'Attendance/AddAttendance';
+  updateLeaveDetail = this.URL + 'Leave/UpdateLeaveDetails'
   constructor(private http: HttpClient) { }
   logout = () => {
     localStorage.removeItem('employeeId');

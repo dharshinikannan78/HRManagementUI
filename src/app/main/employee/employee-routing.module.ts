@@ -6,18 +6,16 @@ import { EmployeeComponent } from './employee.component';
 
 
 const routes: Routes = [
-  
+
   {
-    path: 'Employee', component: EmployeeComponent,
+    path: '', component: EmployeeComponent,
     children: [
       { path: 'employeeDetails', component: EmployeeDetailsComponent },
       { path: 'addEmployee', component: AddEmployeeDetailsComponent },
-      { path: '', redirectTo: '/Employee/employeeDetails', pathMatch: 'full' }
+      { path: '', redirectTo: 'employeeDetails', pathMatch: 'full' }
     ]
-  },
-  {path: '', redirectTo: '/Employee/employeeDetails', pathMatch: 'full'}
-
-
+  }
+  
 ];
 
 @NgModule({

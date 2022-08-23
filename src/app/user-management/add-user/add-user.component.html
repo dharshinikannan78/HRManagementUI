@@ -1,10 +1,10 @@
 <section id="login" class="login d-flex align-items-center">
     <div class="container bg-light">
-        <div class="row mt-5 g-5">
+        <div class="row mt-3 g-5">
             <div class="col-md-5 order-1">
                 <h1 class="mt-1 mb-5">Add User</h1>
                 <form [formGroup]="addUser" (ngSubmit)="onSubmitt(addUser.value)">
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label class="form-label">First Name</label>
                         <input type="text" class="form-control mb-1" formControlName="firstName">
                         <span class="text-danger" *ngIf="!addUser.controls['firstName'].valid && 
@@ -15,7 +15,7 @@
                         <input type="text" class="form-control mb-1" formControlName="lastName">
                         <span class=" text-danger" *ngIf="!addUser.controls['lastName'].valid && 
                         addUser.controls['lastName']?.touched"> <b>Last Name</b> is required *</span>
-                    </div>
+                    </div> -->
                     <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" class="form-control mb-1" formControlName="mailId">
@@ -27,6 +27,12 @@
                         <input type="password" class="form-control mb-1" formControlName="password">
                         <span class=" text-danger" *ngIf="!addUser.controls['password'].valid && 
                         addUser.controls['password']?.touched"> <b>Password</b> is required *</span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Employee Id</label>
+                        <input type="text" class="form-control mb-1" formControlName="employeeId">
+                        <span class=" text-danger" *ngIf="!addUser.controls['employeeId'].valid && 
+                        addUser.controls['employeeId']?.touched"> <b>EmployeeId</b> is required *</span>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Role</label>

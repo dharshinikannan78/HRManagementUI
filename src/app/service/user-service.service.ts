@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ComponentFactoryResolver, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class UserServiceService {
   [x: string]: any;
 
-  
-  
+
+
   employeeId: any;
   _role: any;
    UserId:any;
@@ -38,30 +38,25 @@ set User(user: string) {
     this.employeeId = id;
   }
 
-  get Role(): any {  
-    return this._role;
-}
-set Role(role: any) {
+  get Role(): any {
+    return localStorage.getItem('Role');
+  }
+  set Role(role: any) {
     localStorage.setItem('Role', role);
     this._role = role;
-}
-getUserId(): string {
-  return this.UserId;
-}
-
-//   setEmployeeId(params: any) {
-//     this._emplyId = params;
-//   }
-//   getEmployeeId(): string {
-//     return this._emplyId;
-// }
-
-
+  }
+  get Name(): any {
+    return localStorage.getItem("Name");
+  }
+  set Name(name: any) {
+    localStorage.setItem('Name', name);
+    this._name = name;
+  }
   setEmployeeId(params: any) {
     this.employeeId = params;
   }
   getEmployeeId(): any {
     return this.employeeId;
-}
+  }
 
 }

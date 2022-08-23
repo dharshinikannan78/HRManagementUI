@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiServiceService } from '../service/api-service.service';
+import { ApiServiceService } from '../../service/api-service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,10 +13,11 @@ export class AddUserComponent implements OnInit {
 
   submitted = false;
   addUser: FormGroup = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
+    // firstName: new FormControl('', Validators.required),
+    // lastName: new FormControl('', Validators.required),
     mailId: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
+    employeeId: new FormControl('', Validators.required),
     role: new FormControl('', Validators.required),
 
   })
@@ -36,9 +37,9 @@ export class AddUserComponent implements OnInit {
         icon: 'success',
         timer: 2500
       });
-      this.addUser.reset();
     });
     this.router.navigate(['/login']);
+    this.addUser.reset();
   }
 
   thisFormValid() {

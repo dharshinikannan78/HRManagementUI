@@ -1,0 +1,90 @@
+<div style="text-align: right;">
+  <button type="button" class="btn btn-primary mt-5 mb-5" style="margin-right: 8rem;" data-bs-toggle="modal"
+    data-bs-target="#LeaveModal">
+    Attendance
+  </button>
+</div>
+
+
+
+
+<div class="modal fade" id="LeaveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-white" id="exampleModalLabel">Leave Management</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <form [formGroup]="addAttendance" (ngSubmit)="attendanceDetails(addAttendance.value)">
+              <div class="row mt-2 g-3">
+                <div class="mb-3">
+                  <label class="form-label">CheckIn</label>
+                  <input type="datetime-local" class="form-control" formControlName="inTime">
+                  <span class="text-danger" *ngIf="!addAttendance.controls['inTime'].valid && 
+             addAttendance.controls['inTime']?.touched">CheckIn Time is required *</span>
+                </div>
+                <div class="mb-3">
+                  <label class=" form-label">CheckOut</label>
+                  <input type="datetime-local" class="form-control" formControlName="outTime">
+                  <span class="text-danger" *ngIf="!addAttendance.controls['outTime'].valid && 
+             addAttendance.controls['outTime']?.touched">CheckOut Time is required *</span>
+                </div>
+                <div class="mb-3">
+                  <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<section class="tbl">
+  <div class="container">
+    <section class="px-4">
+      <table class="table">
+        <thead style="text-align: center;">
+          <tr class="thead">
+            <th scope="col">Name</th>
+            <th scope="col">Desigination</th>
+            <th scope="col">Date</th>
+            <th scope="col">CheckIn</th>
+            <th scope="col">CheckOut</th>
+            <th scope="col">WorkDuration</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody style="text-align: center;">
+          <tr *ngFor="let item of attDetails ">
+            <td class="col-md-2">
+              {{item.firstName}}&nbsp;&nbsp;{{item.lastName}}
+            </td>
+            <td class="col-md-2">
+              {{item.designation}}
+            </td>
+            <td class="col-md-2">
+              {{item.date|date:'yyyy-MM-dd'}}
+            </td>
+            <td class="col-md-2">
+              {{item.inTime|date:'hh:mm'}} &nbsp;AM
+            </td>
+            <td class="col-md-2">
+              {{item.outTime|date:'hh:mm'}}&nbsp;PM
+            </td>
+            <td class="col-md-2">
+              {{item.workDuration}} &nbsp;&nbsp; Working Hours
+            </td>
+            <td class="col-md-2">
+              {{item.status}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>

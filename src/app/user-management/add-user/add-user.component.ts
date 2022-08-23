@@ -13,8 +13,8 @@ export class AddUserComponent implements OnInit {
 
   submitted = false;
   addUser: FormGroup = new FormGroup({
-    // firstName: new FormControl('', Validators.required),
-    // lastName: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
     mailId: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     employeeId: new FormControl('', Validators.required),

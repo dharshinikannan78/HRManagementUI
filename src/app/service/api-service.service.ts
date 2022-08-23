@@ -24,10 +24,24 @@ export class ApiServiceService {
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
   attendance = this.URL + 'Attendance/AddAttendance';
   updateLeaveDetail = this.URL + 'Leave/UpdateLeaveDetails'
+  taskDetails = this.URL + 'TaskDetails/AddTaskDeatils';
+  getEmployeeTaskDetails = this.URL + 'TaskDetails/getemployeeId?id=';
+  getTeamTaskDetails = this.URL + 'TaskDetails/employeeId?id=';
+  // jwtToken = this.URL + "jwt";
+
   constructor(private http: HttpClient) { }
 
+  public headers = new HttpHeaders({
+    'content-type': 'application/json',
+    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+  });
+  
+  // getToken() {
+  //   return this.http.get(this.jwtToken)
+  // }
+
   getLogin(params: any) {
-    return this.http.post(this.dologin, params)
+    return this.http.post(this.dologin, params, { responseType: 'text' })
   }
 
   addUser(params: any) {
@@ -75,5 +89,13 @@ export class ApiServiceService {
   getAttendanceDetails(id: any) {
     return this.http.get(this.getAttendance + id)
   }
-
+  addTaskDetails(params: any) {
+    return this.http.post(this.taskDetails, params)
+  }
+  employeeTaskDetail(employeeId: any) {
+    return this.http.get(this.getEmployeeTaskDetails + employeeId);
+  }
+  getAllEmployeeDetails(employeeId: any) {
+    return this.http.get(this.getTeamTaskDetails + employeeId,  { headers: this.headers });
+  }
 }

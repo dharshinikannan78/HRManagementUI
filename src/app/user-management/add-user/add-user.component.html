@@ -2,9 +2,9 @@
     <div class="container bg-light">
         <div class="row mt-3 g-5">
             <div class="col-md-5 order-1">
-                <h1 class="mt-1 mb-5">Add User</h1>
+                <h1 class="mt-1 mb-4">Add User</h1>
                 <form [formGroup]="addUser" (ngSubmit)="onSubmitt(addUser.value)">
-                    <!-- <div class="mb-3">
+                    <div class="mb-3">
                         <label class="form-label">First Name</label>
                         <input type="text" class="form-control mb-1" formControlName="firstName">
                         <span class="text-danger" *ngIf="!addUser.controls['firstName'].valid && 
@@ -15,7 +15,7 @@
                         <input type="text" class="form-control mb-1" formControlName="lastName">
                         <span class=" text-danger" *ngIf="!addUser.controls['lastName'].valid && 
                         addUser.controls['lastName']?.touched"> <b>Last Name</b> is required *</span>
-                    </div> -->
+                    </div>
                     <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" class="form-control mb-1" formControlName="mailId">

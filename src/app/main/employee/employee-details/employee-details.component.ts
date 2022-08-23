@@ -133,4 +133,12 @@ export class EmployeeDetailsComponent implements OnInit {
     console.log(this.userService.EmployeeId, 'pid')
     this.router.navigate(['/attendance']);
   }
+  taskDetails(id: any) {
+    console.log(id, 'id')
+    this.userService.UserId = id;
+    console.log(this.userService.UserId, 'userId')
+    this.router.navigate(['/taskDetails']);
+
+
+  }
 }

@@ -79,8 +79,22 @@
                     <div>
                         <select class="form-select" class="form-control" formControlName="workMode">
                             <option disabled selected value> -- select an option -- </option>
-                            <option value="Fron End">Part Time</option>
+                            <option value="Front End">Part Time</option>
                             <option value="Back End">Full Time</option>
+                        </select>
+                        <span class="text-danger" *ngIf="!employeeDetail.controls['workMode'].valid && 
+                            employeeDetail.controls['workMode']?.touched"> <b>WorkMode</b> is required *</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class=" form-label">Team</label>
+                    <div>
+                        <select class="form-select" class="form-control" formControlName="team">
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="E-pub">E-pub</option>
+                            <option value="XML">XML</option>
+                            <option value="Table">Table</option>
+                            <option value="SoftWare">SoftWare</option>
                         </select>
                         <span class="text-danger" *ngIf="!employeeDetail.controls['workMode'].valid && 
                             employeeDetail.controls['workMode']?.touched"> <b>WorkMode</b> is required *</span>
@@ -104,10 +118,10 @@
                     </div>
                 </div>
                 <!-- <div class="mb-3">
-                            <label class="form-label">Any Certification</label>
-                            <input type="file" class="input-box" #file formControlName="files"
-                                placeholder="choose the file" (change)="uploadcandidateFile(file.files,'Certificate')">
-                        </div> -->
+                    <label class="form-label">Any Certification</label>
+                    <input type="file" class="input-box" #file formControlName="files" placeholder="choose the file"
+                        (change)="uploadcandidateFile(file.files,'Certificate')">
+                </div> -->
                 <div class="submitButton mb-3">
                     <button type="submit" style="float: right;" class="btn btn-primary" [disabled]="thisFormValid()">Add
                         Employee</button>

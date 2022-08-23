@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiServiceService } from '../../service/api-service.service';
 import Swal from 'sweetalert2';
@@ -13,21 +13,22 @@ import { UserServiceService } from '../../service/user-service.service';
 export class LoginComponent implements OnInit {
 
   submitted = false;
-
+  isData: any;
 
   constructor(
     private router: Router,
     private api: ApiServiceService,
-    private userService: UserServiceService
+    private userService: UserServiceService,
+    private formBuilder: FormBuilder,
   ) {
   }
 
   ngOnInit(): void {
   }
-
-  dologin: FormGroup = new FormGroup({
-    mailId: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
+  bearerToken: any
+  dologin: FormGroup = this.formBuilder.group({
+    mailId: ['', Validators.required],
+    password: ['', Validators.required]
   });
 
 
@@ -47,26 +48,27 @@ export class LoginComponent implements OnInit {
   //   }
   // });
   getCredentails(form: any) {
-    this.api.getLogin(this.dologin.value).subscribe((data: any) => {
-      if (data) {
+    this.api.getLogin(form).subscribe((data: any) => {
+      if ( this.isData) {
         console.log(data, "role")
         this.userService.EmployeeId = data.employeeId;
         this.userService.Role = data.role;
         this.userService.Name = data.firstName + data.lastName;
-        if (data.role == "Admin") {
-          this.router.navigate(['main'], { replaceUrl: true });
-        }
-        else {
-          this.router.navigate(['main'], { replaceUrl: true });
-        }
-      }
-    }, (error: Response) => {
-      if (error.status === 404) {
-        Swal.fire({
-          text: 'You have enter the Wrong Credentials',
-          icon: 'error',
-          timer: 1000
-        })
+    //     if (data.role == "Admin") {
+    //       this.router.navigate(['main'], { replaceUrl: true });
+    //     }
+    //     else {
+    //       this.router.navigate(['main'], { replaceUrl: true });
+    //     }
+    //   }
+    // },
+    //  (error: Response) => {
+    //   if (error.status === 404) {
+    //     Swal.fire({
+    //       text: 'You have enter the Wrong Credentials',
+    //       icon: 'error',
+    //       timer: 1000
+    //     })
       }
     });
   }

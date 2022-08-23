@@ -6,7 +6,7 @@
                     <div class="row g-0">
                         <div class="col-4 col-md-12 col-sm-4 dflex align-items-center">
                             <div class="dflex pt-3 ">
-                                <img src="../assets/bg-1.png" (click)="getEmployeeDetails(data)"/>
+                                <img src="../assets/bg-1.png" (click)="getEmployeeDetails(data)" />
                                 <!-- <img [src]="'https://localhost:44394/' + data.attachmentPath" class="card-img-top"
                                     alt="..." (click)="getEmployeeDetails(data)"> -->
                             </div>
@@ -23,11 +23,8 @@
                                 </p>
                                 <p class="card-text text-center textCen text-black-50"><b>{{data.emailId}}</b>
                                 </p>
-                                <!-- <button type="submit" class="btn btn-danger btn-sm w-100"
-                                    (click)="leaveApplyOn(data.employeeId)">Apply Leave</button>
-
-                                <button type="submit" class="btn btn-primary btn-sm mt-1 w-100"
-                                    (click)="attendanceApplyOn(data.employeeId)">Apply Attendance</button> -->
+                                <button type="submit" class="btn btn-primary btn-sm w-100"
+                                    (click)="taskDetails(data.employeeId)">Apply Task</button>
                             </div>
                         </div>
                     </div>
@@ -39,9 +36,18 @@
                 <img src="../../../../assets/bg8.jpg" class="img-9" alt="">
             </div>
             <div class="p-5">
-                <h2 class="fw-bold">
+                <!-- <h2 class="fw-bold">
                     Senior Product Designer
-                </h2>
+                </h2> -->
+                <div class="row">
+                    <div class="col-2">
+                        <h2>{{isData[0].designation}}</h2>
+                    </div>
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-primary btn-sm w-100"
+                            (click)="taskDetails(isData[0].employeeId)">Show Task</button>
+                    </div>
+                </div>
                 <div class="row my-5">
                     <div class="col-md-4">
                         <p>Employee Id: &nbsp;&nbsp;<span class="fw-bold">{{ isData[0].employeeId }}</span></p>
@@ -53,6 +59,7 @@
                         <p>Work Mode: &nbsp;&nbsp;<span class="fw-bold">{{ isData[0].workMode }}</span></p>
                     </div>
                 </div>
+
             </div>
         </ng-container>
     </div>

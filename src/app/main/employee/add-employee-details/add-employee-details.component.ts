@@ -22,8 +22,8 @@ export class AddEmployeeDetailsComponent implements OnInit {
     number: new FormControl('', Validators.required),
     emailId: new FormControl('', Validators.required),
     joiningDate: new FormControl('', Validators.required),
-    // employeeReferenceNo: new FormControl('', Validators.required),
     workMode: new FormControl('', Validators.required),
+    team: new FormControl('', Validators.required),
     filesResume: new FormControl('', Validators.required),
     // files: new FormControl('', Validators.required)
   });
@@ -50,13 +50,13 @@ export class AddEmployeeDetailsComponent implements OnInit {
         timer: 1500
       });
     });
-    this.api.uploadFileAttachment(this.formData).subscribe((data: any) => {
-      console.log(data, 'file');
-      this.attachmentIds.push(data.attachmentId);
-      this.attachmentName.push(data.attachmentPath);
-      console.log(this.attachmentIds, 'file');
-      console.log(this.attachmentName, 'file');
-    });
+    // this.api.uploadFileAttachment(this.formData).subscribe((data: any) => {
+    //   console.log(data, 'file');
+    //   this.attachmentIds.push(data.attachmentId);
+    //   this.attachmentName.push(data.attachmentPath);
+    //   console.log(this.attachmentIds, 'file');
+    //   console.log(this.attachmentName, 'file');
+    // });
   }
 
   thisFormValid() {
@@ -65,12 +65,19 @@ export class AddEmployeeDetailsComponent implements OnInit {
     }
     return false;
   }
-formData:any;
+  formData: any;
   uploadcandidateFile = (files: any, fileType: string) => {
     let filetoUpoload = <File>files[0];
     this.formData = new FormData();
     this.formData.append('file', filetoUpoload, filetoUpoload.name);
     this.formData.append('fileType', fileType);
+    this.api.uploadFileAttachment(this.formData).subscribe((data: any) => {
+      console.log(data, 'file');
+      this.attachmentIds.push(data.attachmentId);
+      this.attachmentName.push(data.attachmentPath);
+      console.log(this.attachmentIds, 'file');
+      console.log(this.attachmentName, 'file');
+    });
   }
 }
 

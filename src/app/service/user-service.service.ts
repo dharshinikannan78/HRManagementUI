@@ -10,6 +10,7 @@ export class UserServiceService {
   employeeId: any;
   _role: any;
   _name: any;
+  _userId: any;
   constructor() { }
 
   get EmployeeId(): any {
@@ -27,6 +28,13 @@ export class UserServiceService {
   set Role(role: any) {
     localStorage.setItem('Role', role);
     this._role = role;
+  }
+  get UserId(): any {
+    return localStorage.getItem('UserId');
+  }
+  set UserId(Id: any) {
+    localStorage.setItem('UserId', Id);
+    this._userId = Id;
   }
   get Name(): any {
     return localStorage.getItem("Name");

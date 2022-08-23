@@ -24,7 +24,12 @@ export class ApiServiceService {
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
   attendance = this.URL + 'Attendance/AddAttendance';
   constructor(private http: HttpClient) { }
-
+  logout = () => {
+    localStorage.removeItem('employeeId');
+    localStorage.removeItem('Role');
+   
+   
+}
   getLogin(params: any) {
     return this.http.post(this.dologin, params)
   }

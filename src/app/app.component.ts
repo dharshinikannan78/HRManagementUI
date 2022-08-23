@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiServiceService } from './service/api-service.service';
+import { UserServiceService } from './service/user-service.service';
 
 
 @Component({
@@ -13,9 +16,17 @@ export class AppComponent {
   showNavContent: boolean;
   isNavOpen: boolean = true;
   step: any;
-  constructor(private router: Router) {
+  currentUser: string = localStorage.getItem('userName');
+    role: string = localStorage.getItem('Role')
+  
+  constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService) {
     this.step = 'step1'
   }
+  logout = () => {
+    this.api.logout();
+    this.router.navigate(['./login']);
+
+}
 
   openNav() {
     let sidenav = document.getElementById("sideNav");

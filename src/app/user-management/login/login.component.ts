@@ -48,29 +48,31 @@ export class LoginComponent implements OnInit {
   //   }
   // });
   getCredentails(form: any) {
-    this.api.getLogin(form).subscribe((data: any) => {
-      if ( this.isData) {
+    this.api.getLogin(form).subscribe((data:any) => {
+
+      if (data) {
         console.log(data, "role")
         this.userService.EmployeeId = data.employeeId;
         this.userService.Role = data.role;
         this.userService.Name = data.firstName + data.lastName;
-    //     if (data.role == "Admin") {
-    //       this.router.navigate(['main'], { replaceUrl: true });
-    //     }
-    //     else {
-    //       this.router.navigate(['main'], { replaceUrl: true });
-    //     }
-    //   }
-    // },
-    //  (error: Response) => {
-    //   if (error.status === 404) {
-    //     Swal.fire({
-    //       text: 'You have enter the Wrong Credentials',
-    //       icon: 'error',
-    //       timer: 1000
-    //     })
+        if (data.role == "Admin") {
+          this.router.navigate(['main'], { replaceUrl: true });
+        }
+        else {
+          this.router.navigate(['main'], { replaceUrl: true });
+        }
       }
+    }, (error: Response) => {
+      if (error.status === 404) {
+        Swal.fire({
+          text: 'You have enter the Wrong Credentials',
+          icon: 'error',
+          timer: 1000
+        })
+      }
+      
     });
+    
   }
 
   thisFormValid() {

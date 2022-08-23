@@ -4,13 +4,30 @@ import { ComponentFactoryResolver, Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserServiceService {
+  [x: string]: any;
 
 
 
   employeeId: any;
   _role: any;
-  _name: any;
+   UserId:any;
+   _user:any;
   constructor() { }
+  isValid = () => {
+    const user = localStorage.getItem('userName');
+    if (!user) {
+        return false;
+    }
+    return true;
+}
+
+get User(): string {
+    return this._user;
+}
+set User(user: string) {
+    localStorage.setItem('userName', user);
+    this._user = user;
+}
 
   get EmployeeId(): any {
     return this.employeeId;

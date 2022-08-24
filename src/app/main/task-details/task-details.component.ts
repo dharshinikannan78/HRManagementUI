@@ -29,6 +29,7 @@ export class TaskDetailsComponent implements OnInit {
   constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) {
     this.getTaskDetails();
     this.loggerName = userService.Name;
+    this.getAllTeamLeaders('TeamLeaders');
 
   }
 
@@ -65,4 +66,11 @@ export class TaskDetailsComponent implements OnInit {
       });
     }
   }
+
+  getAllTeamLeaders(params: any) {
+    this.api.getTeamLeaders(params).subscribe(data => {
+      console.log(data, "geeth paithiyam");
+    })
+  }
+  
 }

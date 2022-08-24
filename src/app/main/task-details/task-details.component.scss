@@ -1,0 +1,20 @@
+.card-footer {
+    border-color: #dce0e6;
+    background-color: #fff;
+}
+.badge {
+    background-color: rgba(255, 196, 9, 0.18);
+    color: #e0ac08;
+    min-width: 100px;
+    padding: 9px 12px;
+    border-radius: 25px;
+    letter-spacing: 0.5px;
+    font-weight: 800;
+}
+
+.badge:hover {
+    background-color: rgba(45, 211, 111, 0.16);
+}
+.card {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

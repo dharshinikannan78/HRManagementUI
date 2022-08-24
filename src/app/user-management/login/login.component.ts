@@ -48,13 +48,19 @@ export class LoginComponent implements OnInit {
   //   }
   // });
   getCredentails(form: any) {
-    this.api.getLogin(form).subscribe((data:any) => {
-
+    this.api.getLogin(form).subscribe((data: any) => {
+      console.log(data, 'geetha')
       if (data) {
         console.log(data, "role")
         this.userService.EmployeeId = data.employeeId;
+        console.log(this.userService.EmployeeId, " this.userService.EmployeeId")
+
         this.userService.Role = data.role;
+        console.log(this.userService.Role, " this.userService.Role")
+
         this.userService.Name = data.firstName + data.lastName;
+        console.log(this.userService.Name, "this.userService.Name")
+
         if (data.role == "Admin") {
           this.router.navigate(['main'], { replaceUrl: true });
         }
@@ -70,9 +76,9 @@ export class LoginComponent implements OnInit {
           timer: 1000
         })
       }
-      
+
     });
-    
+
   }
 
   thisFormValid() {

@@ -10,21 +10,21 @@ export class UserServiceService {
 
   employeeId: any;
   _role: any;
-<<<<<<< HEAD
-   UserId:any;
+
+  //  UserId:any;
    _user:any;
-=======
+
   _name: any;
   _userId: any;
->>>>>>> geetha
+
   constructor() { }
-  isValid = () => {
-    const user = localStorage.getItem('userName');
-    if (!user) {
-        return false;
-    }
-    return true;
-}
+//   isValid = () => {
+//     const user = localStorage.getItem('userName');
+//     if (!user) {
+//         return false;
+//     }
+//     return true;
+// }
 
 get User(): string {
     return this._user;
@@ -41,13 +41,13 @@ set User(user: string) {
     return true;
 }
 
-get User(): string {
-    return this._user;
-}
-set User(user: string) {
-    localStorage.setItem('userName', user);
-    this._user = user;
-}
+// get User(): string {
+//     return this._user;
+// }
+// set User(user: string) {
+//     localStorage.setItem('userName', user);
+//     this._user = user;
+// }
 
   get EmployeeId(): any {
     return this.employeeId;

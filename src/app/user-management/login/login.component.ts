@@ -48,8 +48,8 @@ export class LoginComponent implements OnInit {
   //   }
   // });
   getCredentails(form: any) {
-    this.api.getLogin(form).subscribe((data:any) => {
-
+    this.api.getLogin(form).subscribe((data: any) => {
+      console.log(data, 'data')
       if (data) {
         console.log(data, "role")
         this.userService.EmployeeId = data.employeeId;
@@ -70,9 +70,9 @@ export class LoginComponent implements OnInit {
           timer: 1000
         })
       }
-      
+
     });
-    
+
   }
 
   thisFormValid() {

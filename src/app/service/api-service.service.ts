@@ -30,14 +30,14 @@ export class ApiServiceService {
   // jwtToken = this.URL + "jwt";
 
   constructor(private http: HttpClient) { }
-<<<<<<< HEAD
+
   logout = () => {
     localStorage.removeItem('employeeId');
     localStorage.removeItem('Role');
    
    
 }
-=======
+
 
   public headers = new HttpHeaders({
     'content-type': 'application/json',
@@ -48,7 +48,7 @@ export class ApiServiceService {
   //   return this.http.get(this.jwtToken)
   // }
 
->>>>>>> geetha
+
   getLogin(params: any) {
     return this.http.post(this.dologin, params, { responseType: 'text' })
   }
@@ -79,7 +79,9 @@ export class ApiServiceService {
   applyLeaveOn(params: any) {
     return this.http.post(this.applyLeave, params)
   }
-  
+  updateLeaveDetails(paramas: any) {
+    return this.http.put(this.updateLeaveDetail, paramas)
+  }
   
   getLeaveDetails(id: any) {
     return this.http.get(this.getLeave + id)

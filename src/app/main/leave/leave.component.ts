@@ -95,9 +95,9 @@ export class LeaveComponent implements OnInit {
     this.api.getLeaveDetails(this.EmployeeId).subscribe(data => {
       console.log(data, 'helo')
       this.leaveDetails = data
-      // if (this.userService.Role == "Employee") {
-      //   this.leaveDetails = Array.of(this.leaveDetails)
-      // }
+      if (this.userService.Role == "Employee") {
+        this.leaveDetails = Array.of(this.leaveDetails)
+      }
     });
   }
 
@@ -121,8 +121,7 @@ export class LeaveComponent implements OnInit {
     // this.isPopUp = !this.isPopUp;
 
     this.api.updateLeaveDetails(updateLeaveForm).subscribe(data => {
-
-      console.log('dataEmployee')
+      console.log(data, 'dataEmployee')
       Swal.fire({
         text: 'Updated Sucessfully!',
         icon: 'success',

@@ -14,7 +14,7 @@ export class LeaveComponent implements OnInit {
 
   @ViewChild('closeModal') closeModal: ElementRef
 
-
+  isPopUp: boolean = false;
   leaveDetails: any;
   isShow: string;
 
@@ -22,16 +22,20 @@ export class LeaveComponent implements OnInit {
   employeeLeaveDetails: any;
 
   EmployeeId: string = localStorage.getItem('employeeId')
+  Role: string = localStorage.getItem('Role')
+
+
 
   duration: string;
-  
+
   applyOnLeave: FormGroup = new FormGroup({
     Duration: new FormControl('', Validators.required),
     startDate: new FormControl('', Validators.required),
     endDate: new FormControl('', Validators.required),
     leaveType: new FormControl('', Validators.required),
     reason: new FormControl('', Validators.required),
-    employeeId: new FormControl(1)
+    approvalStatus: new FormControl('', Validators.required),
+    employeeId: new FormControl(this.EmployeeId)
   });
   updateLeaveForm: FormGroup = new FormGroup({
     // startDate: new FormControl('', Validators.required),
@@ -51,16 +55,27 @@ export class LeaveComponent implements OnInit {
   constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) {
   }
 
-
   ngOnInit(): void {
     this.getLeaveDetails();
   }
-  getLeaveDetail(data: any) {
-    console.log(data, 'geetha')
-    this.showModal = true;
-    this.employeeLeaveDetails = data;
 
+  getLeaveDetail(data: any) {
+    console.log('dataEmployee')
+    console.log(this.Role, 'this.userService.Role')
+    if (this.Role == "Admin") {
+      console.log('userService')
+      this.showModal = true;
+      console.log(data, 'geetha')
+      this.employeeLeaveDetails = data;
+      console.log(this.employeeLeaveDetails, 'employeeLeaveDetails')
+    } else if (this.Role == "Employee") {
+      console.log('Employee')
+
+      this.showModal = false;
+
+    }
   }
+
   changeDuration(params: any) {
     let elements = document.getElementsByClassName("forSelectMenu");
     if (params.target.value != 'Day') {
@@ -74,21 +89,20 @@ export class LeaveComponent implements OnInit {
         elements[i].setAttribute('type', 'date');
       }
     }
-
-
   }
 
   getLeaveDetails() {
     this.api.getLeaveDetails(this.EmployeeId).subscribe(data => {
       console.log(data, 'helo')
       this.leaveDetails = data
-      if (this.userService.Role == "Employee") {
-        this.leaveDetails = Array.of(this.leaveDetails)
-      }
+      // if (this.userService.Role == "Employee") {
+      //   this.leaveDetails = Array.of(this.leaveDetails)
+      // }
     });
   }
 
   applyLeave(params: any) {
+
     this.api.applyLeaveOn(params).subscribe(data => {
       console.log(data, 'data');
       console.log("after the await");
@@ -96,15 +110,19 @@ export class LeaveComponent implements OnInit {
     });
     this.closeModal.nativeElement.click();
   }
+
+
   approvalStatus(event: any) {
     console.log(event, 'event')
-
   }
+
   updateLeaveDetails(updateLeaveForm: any) {
     console.log('dataEmployee')
+    // this.isPopUp = !this.isPopUp;
 
     this.api.updateLeaveDetails(updateLeaveForm).subscribe(data => {
-      console.log(data, 'dataEmployee')
+
+      console.log('dataEmployee')
       Swal.fire({
         text: 'Updated Sucessfully!',
         icon: 'success',
@@ -112,7 +130,9 @@ export class LeaveComponent implements OnInit {
       });
       this.showModal = false;
       location.reload();
+
     });
   }
 }
+
 

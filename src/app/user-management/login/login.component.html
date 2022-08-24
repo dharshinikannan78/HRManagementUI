@@ -2,7 +2,7 @@
   <div class="container bg-light">
     <div class="row p-5 g-5">
       <div class="col-md-4 order-1">
-        <h1 class="mt-1 mb-5">Login</h1>
+        <h1 class="mt-5 mb-5">Login</h1>
         <form [formGroup]="dologin" (ngSubmit)="getCredentails(dologin.value)">
           <div class="mb-3">
             <label class="form-label">Email address</label>
@@ -16,11 +16,11 @@
             <span class=" text-danger mt-1" *ngIf="!dologin.controls['password'].valid && 
             dologin.controls['password']?.touched"> <b>Password</b> is required *</span>
           </div>
-          <div class="mb-3 form-check">
+          <!-- <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input">
             <label class="form-check-label" for="exampleCheck1">Remember me</label>
-          </div>
-          <button type="submit" class="btn btn-primary" [ngClass]="{ 'is-invalid': submitted}"
+          </div> -->
+          <button type="submit" class="btn btn-primary mt-5" [ngClass]="{ 'is-invalid': submitted}"
             [disabled]="thisFormValid()">Submit</button>
           <div class="invalid-feedback mb-4 mt-4">
             Incorrect EmailId & Password

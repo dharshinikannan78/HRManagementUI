@@ -12,17 +12,10 @@ const routes: Routes = [
       { path: 'attendance', component: AttendanceComponent },
       { path: 'taskDetails', component: TaskDetailsComponent },
       { path: 'Employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule) },
-<<<<<<< HEAD
       { path: '', redirectTo: 'leave', pathMatch: 'full' },
     ]
   },
   { path: '', redirectTo: 'attendance', pathMatch: 'full' }
-=======
-      { path: '', redirectTo: 'Employee', pathMatch: 'full' },
-    ]
-  },
-  { path: '', redirectTo: '/main/attendance', pathMatch: 'full' },
->>>>>>> geetha
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiServiceService } from '../../service/api-service.service';
 import Swal from 'sweetalert2';
@@ -13,21 +13,22 @@ import { UserServiceService } from '../../service/user-service.service';
 export class LoginComponent implements OnInit {
 
   submitted = false;
-
+  isData: any;
 
   constructor(
     private router: Router,
     private api: ApiServiceService,
-    private userService: UserServiceService
+    private userService: UserServiceService,
+    private formBuilder: FormBuilder,
   ) {
   }
 
   ngOnInit(): void {
   }
-
-  dologin: FormGroup = new FormGroup({
-    mailId: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
+  bearerToken: any
+  dologin: FormGroup = this.formBuilder.group({
+    mailId: ['', Validators.required],
+    password: ['', Validators.required]
   });
 
 
@@ -47,7 +48,8 @@ export class LoginComponent implements OnInit {
   //   }
   // });
   getCredentails(form: any) {
-    this.api.getLogin(this.dologin.value).subscribe((data: any) => {
+    this.api.getLogin(form).subscribe((data: any) => {
+      console.log(data, 'data')
       if (data) {
         console.log(data, "role")
         this.userService.EmployeeId = data.employeeId;
@@ -68,7 +70,9 @@ export class LoginComponent implements OnInit {
           timer: 1000
         })
       }
+
     });
+
   }
 
   thisFormValid() {

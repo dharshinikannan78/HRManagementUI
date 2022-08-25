@@ -121,8 +121,7 @@ export class LeaveComponent implements OnInit {
     // this.isPopUp = !this.isPopUp;
 
     this.api.updateLeaveDetails(updateLeaveForm).subscribe(data => {
-
-      console.log('dataEmployee')
+      console.log(data, 'dataEmployee')
       Swal.fire({
         text: 'Updated Sucessfully!',
         icon: 'success',

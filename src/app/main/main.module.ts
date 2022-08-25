@@ -8,14 +8,16 @@ import { RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AvatarModule } from 'ngx-avatar';
+import { TaskDetailsComponent } from './task-details/task-details.component';
+
 
 
 @NgModule({
   declarations: [
     LeaveComponent,
     AttendanceComponent,
-    MainComponent
+    MainComponent,
+    TaskDetailsComponent
   ],
   imports: [
     CommonModule,

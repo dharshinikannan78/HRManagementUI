@@ -16,18 +16,41 @@ export class ApiServiceService {
   uploadFile = this.URL + 'FileAttachment/Attachment';
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
   applyLeave = this.URL + 'Leave/ApplyLeave';
-  // attendance = "https://localhost:5001/api/Attendance/AddAttendance";
-  // getAttendance="https://localhost:5001/api/Attendance/AllAttendance";
+  
+ 
   employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
   getUser = this.URL + 'Employee/GetUser?data=';
   getLeave = this.URL + 'Leave/GetLeave?data=';
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
   attendance = this.URL + 'Attendance/AddAttendance';
   updateLeaveDetail = this.URL + 'Leave/UpdateLeaveDetails'
+  taskDetails = this.URL + 'TaskDetails/AddTaskDeatils';
+  getEmployeeTaskDetails = this.URL + 'TaskDetails/getemployeeId?id=';
+  getTeamTaskDetails = this.URL + 'TaskDetails/employeeId?id=';
+  // jwtToken = this.URL + "jwt";
+
   constructor(private http: HttpClient) { }
 
+  logout = () => {
+    localStorage.removeItem('employeeId');
+    localStorage.removeItem('Role');
+   
+   
+}
+
+
+  public headers = new HttpHeaders({
+    'content-type': 'application/json',
+    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+  });
+  
+  // getToken() {
+  //   return this.http.get(this.jwtToken)
+  // }
+
+
   getLogin(params: any) {
-    return this.http.post(this.dologin, params)
+    return this.http.post(this.dologin, params, { responseType: 'text' })
   }
 
   addUser(params: any) {
@@ -59,13 +82,7 @@ export class ApiServiceService {
   updateLeaveDetails(paramas: any) {
     return this.http.put(this.updateLeaveDetail, paramas)
   }
-  // addAttendance(params: any) {
-  //   return this.http.post(this.attendance, params)
-  // }
-  // getAttendanceDetails(){
-  //   return this.http.get(this.getAttendance)
-  // }
-
+  
   getLeaveDetails(id: any) {
     return this.http.get(this.getLeave + id)
   }
@@ -75,5 +92,13 @@ export class ApiServiceService {
   getAttendanceDetails(id: any) {
     return this.http.get(this.getAttendance + id)
   }
-
+  addTaskDetails(params: any) {
+    return this.http.post(this.taskDetails, params)
+  }
+  employeeTaskDetail(employeeId: any) {
+    return this.http.get(this.getEmployeeTaskDetails + employeeId);
+  }
+  getAllEmployeeDetails(employeeId: any) {
+    return this.http.get(this.getTeamTaskDetails + employeeId,  { headers: this.headers });
+  }
 }

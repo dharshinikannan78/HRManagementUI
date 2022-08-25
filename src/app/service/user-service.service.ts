@@ -4,13 +4,50 @@ import { ComponentFactoryResolver, Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserServiceService {
+  [x: string]: any;
 
 
 
   employeeId: any;
   _role: any;
+
+  //  UserId:any;
+   _user:any;
+
   _name: any;
+  _userId: any;
+
   constructor() { }
+//   isValid = () => {
+//     const user = localStorage.getItem('userName');
+//     if (!user) {
+//         return false;
+//     }
+//     return true;
+// }
+
+get User(): string {
+    return this._user;
+}
+set User(user: string) {
+    localStorage.setItem('userName', user);
+    this._user = user;
+}
+  isValid = () => {
+    const user = localStorage.getItem('userName');
+    if (!user) {
+        return false;
+    }
+    return true;
+}
+
+// get User(): string {
+//     return this._user;
+// }
+// set User(user: string) {
+//     localStorage.setItem('userName', user);
+//     this._user = user;
+// }
 
   get EmployeeId(): any {
     return this.employeeId;
@@ -27,6 +64,13 @@ export class UserServiceService {
   set Role(role: any) {
     localStorage.setItem('Role', role);
     this._role = role;
+  }
+  get UserId(): any {
+    return localStorage.getItem('UserId');
+  }
+  set UserId(Id: any) {
+    localStorage.setItem('UserId', Id);
+    this._userId = Id;
   }
   get Name(): any {
     return localStorage.getItem("Name");

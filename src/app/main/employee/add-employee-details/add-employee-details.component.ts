@@ -9,24 +9,42 @@ import Swal from 'sweetalert2';
   templateUrl: './add-employee-details.component.html',
   styleUrls: ['./add-employee-details.component.scss']
 })
+
+
 export class AddEmployeeDetailsComponent implements OnInit {
 
+  step:number=1;
+  isenable:boolean=false;
+  employeeDetail = new FormGroup({
 
-  employeeDetail: FormGroup = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    dob: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
-    designation: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    number: new FormControl('', Validators.required),
-    emailId: new FormControl('', Validators.required),
-    joiningDate: new FormControl('', Validators.required),
-    // employeeReferenceNo: new FormControl('', Validators.required),
-    workMode: new FormControl('', Validators.required),
-    filesResume: new FormControl('', Validators.required),
-    files: new FormControl('', Validators.required)
+  
+      firstName: new FormControl(  '',Validators.required),
+      lastName: new FormControl(  '',Validators.required),
+      dob: new FormControl( '',Validators.required ),
+   
+  
+    gender: new FormControl( '',Validators.required ),
+    address: new FormControl( '',Validators.required ),
+    number: new FormControl( '',Validators.required ),
+    emailId: new FormControl( '',Validators.required ),
+   
+  
+   
+    qualification: new FormControl( '',Validators.required ),
+    college: new FormControl( '',Validators.required ),
+    passedOut: new FormControl( '',Validators.required ),
+    skills: new FormControl( '',Validators.required ),
+  
+    // employeeReferenceNo: new FormControl( '',Validators.required ),
+    workMode: new FormControl( '',Validators.required ),
+   filesResume: new FormControl( '',Validators.required ),
+    designation: new FormControl( '',Validators.required ),
+    joiningDate: new FormControl( '',Validators.required)
   });
+   
+  
+
+  
 
   attachmentIds: any = [];
   attachmentName: any = [];

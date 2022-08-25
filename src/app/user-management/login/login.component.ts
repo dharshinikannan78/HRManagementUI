@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         console.log(data, "role")
         this.userService.EmployeeId = data.employeeId;
         this.userService.Role = data.role;
-        this.userService.Name = data.firstName + data.lastName;
+        this.userService.Name = data.firstName + " " + data.lastName;
         if (data.role == "Admin") {
           this.router.navigate(['main'], { replaceUrl: true });
         }

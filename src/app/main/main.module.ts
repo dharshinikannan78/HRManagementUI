@@ -27,6 +27,7 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
     HttpClientModule,
     MainRoutingModule,
     EmployeeModule,
+    AvatarModule
   ]
 })
 export class MainModule { }

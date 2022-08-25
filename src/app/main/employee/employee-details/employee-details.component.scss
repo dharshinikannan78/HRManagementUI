@@ -4,9 +4,9 @@
     display: flex;
 }
 
-img {
-    width: 6rem;
-    aspect-ratio: 1;
+.avatar-container {
+    width: 6rem !important;
+    aspect-ratio: 1 !important;
     border-radius: 50%;
     background: no-repeat center;
     background-size: cover;

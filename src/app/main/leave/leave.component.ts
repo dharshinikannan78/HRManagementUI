@@ -95,9 +95,9 @@ export class LeaveComponent implements OnInit {
     this.api.getLeaveDetails(this.EmployeeId).subscribe(data => {
       console.log(data, 'helo')
       this.leaveDetails = data
-      if (this.userService.Role == "Employee") {
-        this.leaveDetails = Array.of(this.leaveDetails)
-      }
+      // if (this.userService.Role == "Employee") {
+      //   this.leaveDetails = Array.of(this.leaveDetails)
+      // }
     });
   }
 

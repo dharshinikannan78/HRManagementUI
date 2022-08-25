@@ -95,19 +95,27 @@
                 </div> -->
                 <div class="mb-3">
                     <div class="my-label required">
-                        <label class="form-label">Resume</label>
-                        <input type="file" accept="image/*,application/msword,application/pdf,.doc,.docx"
-                            class="input-box" #resume formControlName="filesResume" placeholder="choose the photo"
-                            (change)="uploadcandidateFile(resume.files,'photo')">
+                        <label class="form-label">Image</label>
+                        <input type="file" class="input-box" #image formControlName="filesResume"
+                            placeholder="choose the photo" (change)="uploadcandidateFile(image.files, 'image')">
                         <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
                             employeeDetail.controls['filesResume']?.touched"> <b>FilesResume</b> is required *</span>
                     </div>
                 </div>
-                <!-- <div class="mb-3">
-                            <label class="form-label">Any Certification</label>
-                            <input type="file" class="input-box" #file formControlName="files"
-                                placeholder="choose the file" (change)="uploadcandidateFile(file.files,'Certificate')">
-                        </div> -->
+                <div class="mb-3">
+                    <div class="my-label required">
+                        <label class="form-label">Resume</label>
+                        <input type="file" class="input-box" #resume formControlName="filesResume"
+                            placeholder="choose the photo" (change)="uploadcandidateFile(resume.files, 'resume')">
+                        <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
+                            employeeDetail.controls['filesResume']?.touched"> <b>FilesResume</b> is required *</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Any Certification</label>
+                    <input type="file" class="input-box" #file formControlName="files" placeholder="choose the file"
+                        (change)="uploadcandidateFile(file.files, 'other')">
+                </div>
                 <div class="submitButton mb-3">
                     <button type="submit" style="float: right;" class="btn btn-primary" [disabled]="thisFormValid()">Add
                         Employee</button>

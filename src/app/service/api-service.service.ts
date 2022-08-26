@@ -16,6 +16,7 @@ export class ApiServiceService {
   uploadFile = this.URL + 'FileAttachment/Attachment';
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
   applyLeave = this.URL + 'Leave/ApplyLeave';
+  getEmployeeDetailById = this.URL + 'Employee/GetEmployeeDetailsById?id='
   
  
   employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
@@ -50,7 +51,7 @@ export class ApiServiceService {
 
 
   getLogin(params: any) {
-    return this.http.post(this.dologin, params, { responseType: 'text' })
+    return this.http.post(this.dologin, params)
   }
 
   addUser(params: any) {
@@ -100,5 +101,8 @@ export class ApiServiceService {
   }
   getAllEmployeeDetails(employeeId: any) {
     return this.http.get(this.getTeamTaskDetails + employeeId,  { headers: this.headers });
+  }
+  getEmployeeDetailsById(params:string) {
+    return this.http.get(this.getEmployeeDetailById + params);
   }
 }

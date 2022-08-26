@@ -6,7 +6,7 @@
                     <div class="row g-0">
                         <div class="col-4 col-md-12 col-sm-4 dflex align-items-center">
                             <div class="dflex pt-3 ">
-                                <ngx-avatar size="96" [name]="data.firstName + ' ' + data.lastName"
+                                <ngx-avatar size="96" [style]="customStyle" [name]="data.firstName + ' ' + data.lastName"
                                     [src]="'https://localhost:44394/' + data.photoPath" class="card-img-top" alt="..."
                                     (click)="getEmployeeDetails(data)"></ngx-avatar>                                
                             </div>
@@ -23,17 +23,19 @@
                                 </p>
                                 <p class="card-text text-center textCen text-black-50"><b>{{data.emailId}}</b>
                                 </p>
-                                <button type="submit" class="btn btn-primary btn-sm w-100"
-                                    (click)="taskDetails(data.employeeId)">Apply Task</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </ng-container>
+
+
+
+        
         <ng-container *ngIf="!oneEmployee">
             <div class="coverImage dflex">
-                <img src="../../../../assets/bg8.jpg" class="img-9" alt="">
+                <img [src]="'https://localhost:44394/'+ isData[0].photoPath" class="img-9" alt="">
             </div>
             <div class="p-5">
                 <!-- <h2 class="fw-bold">

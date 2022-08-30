@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class ApiServiceService {
 
-  URL = 'https://localhost:44394/api/';
+  URL = 'https://localhost:5001/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
@@ -16,6 +16,7 @@ export class ApiServiceService {
   uploadFile = this.URL + 'FileAttachment/Attachment';
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
   applyLeave = this.URL + 'Leave/ApplyLeave';
+  getEmployeeDetailById = this.URL + 'Employee/GetEmployeeDetailsById?id='
   
  
   employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
@@ -23,6 +24,7 @@ export class ApiServiceService {
   getLeave = this.URL + 'Leave/GetLeave?data=';
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
   attendance = this.URL + 'Attendance/AddAttendance';
+  updAttendance=this.URL+'Attendance/updateAttendance';
   updateLeaveDetail = this.URL + 'Leave/UpdateLeaveDetails'
   taskDetails = this.URL + 'TaskDetails/AddTaskDeatils';
   getEmployeeTaskDetails = this.URL + 'TaskDetails/getemployeeId?id=';
@@ -50,7 +52,7 @@ export class ApiServiceService {
 
 
   getLogin(params: any) {
-    return this.http.post(this.dologin, params, { responseType: 'text' })
+    return this.http.post(this.dologin, params)
   }
 
   addUser(params: any) {
@@ -86,8 +88,11 @@ export class ApiServiceService {
   getLeaveDetails(id: any) {
     return this.http.get(this.getLeave + id)
   }
-  addAttendance(params: any) {
-    return this.http.post(this.attendance, params)
+  addAttendance(params:any) {
+    return this.http.post(this.attendance,params)
+  }
+  updateAttendance(params:any) {
+    return this.http.put(this.updAttendance,params)
   }
   getAttendanceDetails(id: any) {
     return this.http.get(this.getAttendance + id)
@@ -100,5 +105,8 @@ export class ApiServiceService {
   }
   getAllEmployeeDetails(employeeId: any) {
     return this.http.get(this.getTeamTaskDetails + employeeId,  { headers: this.headers });
+  }
+  getEmployeeDetailsById(params:string) {
+    return this.http.get(this.getEmployeeDetailById + params);
   }
 }

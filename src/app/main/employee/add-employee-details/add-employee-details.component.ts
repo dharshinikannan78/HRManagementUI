@@ -13,41 +13,33 @@ import Swal from 'sweetalert2';
 
 export class AddEmployeeDetailsComponent implements OnInit {
 
-  step:number=1;
-  isenable:boolean=false;
-  employeeDetail = new FormGroup({
-
-  
-      firstName: new FormControl(  '',Validators.required),
-      lastName: new FormControl(  '',Validators.required),
-      dob: new FormControl( '',Validators.required ),
-   
-  
-    gender: new FormControl( '',Validators.required ),
-    address: new FormControl( '',Validators.required ),
-    number: new FormControl( '',Validators.required ),
-    emailId: new FormControl( '',Validators.required ),
-   
-  
-   
-    qualification: new FormControl( '',Validators.required ),
-    college: new FormControl( '',Validators.required ),
-    passedOut: new FormControl( '',Validators.required ),
-    skills: new FormControl( '',Validators.required ),
-  
-    // employeeReferenceNo: new FormControl( '',Validators.required ),
-    workMode: new FormControl( '',Validators.required ),
-   filesResume: new FormControl( '',Validators.required ),
-    designation: new FormControl( '',Validators.required ),
-    joiningDate: new FormControl( '',Validators.required)
-  });
-   
-  
-
-  
-
+  step: number = 1;
+  isenable: boolean = false;
+  formData: any;
+  fileList: any[] = [];
+  resumeFormat: string[] = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'application/msword'];
+  imageFormat: string[] = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
   attachmentIds: any = [];
   attachmentName: any = [];
+
+  employeeDetail = new FormGroup({
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    dob: new FormControl('', Validators.required),
+    gender: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    number: new FormControl('', Validators.required),
+    emailId: new FormControl('', Validators.required),
+    qualification: new FormControl('', Validators.required),
+    college: new FormControl('', Validators.required),
+    passedOut: new FormControl('', Validators.required),
+    skills: new FormControl('', Validators.required),
+    // employeeReferenceNo: new FormControl( '',Validators.required ),
+    workMode: new FormControl('', Validators.required),
+    filesResume: new FormControl('', Validators.required),
+    designation: new FormControl('', Validators.required),
+    joiningDate: new FormControl('', Validators.required)
+  });
 
   constructor(private router: Router, private api: ApiServiceService) {
     this.formData = new FormData();
@@ -57,8 +49,6 @@ export class AddEmployeeDetailsComponent implements OnInit {
   }
 
   OnSaveEmployeeDetails(employeeDetail: any) {
-
-
     this.api.uploadFileAttachment(this.formData).subscribe((data: any) => {
       console.log(data, 'file 1');
       this.attachmentIds.push(data.attachmentId);
@@ -80,10 +70,7 @@ export class AddEmployeeDetailsComponent implements OnInit {
           timer: 1500
         });
       });
-
     });
-
-
   }
 
   thisFormValid() {
@@ -92,11 +79,6 @@ export class AddEmployeeDetailsComponent implements OnInit {
     }
     return false;
   }
-
-  formData: any;
-  fileList: any[] = [];
-  resumeFormat: string[] = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'application/msword'];
-  imageFormat: string[] = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
   uploadcandidateFile = (files: any, type: string) => {
     console.log(files)
@@ -117,6 +99,39 @@ export class AddEmployeeDetailsComponent implements OnInit {
         }
       }
     }
+  }
+
+  submit(employeeDetail: any) {
+    if (this.step == 4)
+      this.api.uploadFileAttachment(this.formData).subscribe((data: any) => {
+        this.attachmentIds.push(data.attachmentId);
+        this.attachmentName.push(data.attachmentPath);
+
+        employeeDetail.AttachmentIds = this.attachmentIds.toString();
+
+        this.api.addemployeeDetails(employeeDetail).subscribe((data: any) => {
+          this.step = this.step + 1;
+          setTimeout(() => {
+            this.step = this.step = 1;
+          }, 200);
+          console.log(data, 'data')
+          console.log(employeeDetail, 'employee');
+          this.employeeDetail.reset();
+          Swal.fire({
+            text: 'Added Sucessfully!',
+            icon: 'success',
+            timer: 1500
+          });
+        });
+      });
+  }
+
+  prev() {
+    this.step = this.step - 1;
+  }
+
+  next() {
+    this.step = this.step + 1;
   }
 
 }

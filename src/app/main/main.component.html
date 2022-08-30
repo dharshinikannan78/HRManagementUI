@@ -2,11 +2,9 @@
     <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
         <div class="d-flex align-items-center justify-content-center">
             <div>
-                <img src="../assets/bg-1.png" class="margin-auto h-100" width="60px" alt="">
+                <ngx-avatar [name]="loggerName" class="margin-auto dflex" size="80" [style]="customStyle"
+                    [src]="'https://localhost:44394/'+ forNav[0].photoPath"></ngx-avatar>
                 <div class="d-flex pt-3 align-items-center justify-content-center">
-                    <!-- <h6 class="text-dark">{{ loggerName }}<br /><span
-                            style="font-weight: 400; margin-top: 1rem; font-size: 14px;">{{loggerRole}}</span>
-                    </h6> -->
                     <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
                         {{ loggerRole }}</h6>
 
@@ -20,7 +18,7 @@
             <li class="cursorP bg-select" [ngClass]="{'active': step==='step1'}"
                 (click)="step='step1' ; shortNav('/user/addUser')"><i class="fa-solid fa-house"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Home</p>
-                
+
             </li>
             <li class="cursorP" [ngClass]="{'active': step==='step2'}" data-bs-toggle="collapse" href="#collapseExample"
                 role="button" aria-expanded="false" aria-controls="collapseExample" (click)="step='step2'"
@@ -65,8 +63,8 @@
             <div class="d-flex align-items-center">
                 <p class="m-0">{{ loggerName }}</p>
                 <a class="navbar-brand" href="#">
-                    <!-- <img src="../assets/bg-1.png" alt="" height="35px" class="w-100 d-inline-block align-text-top"> -->
-                    <ngx-avatar [name]="loggerName" src="../../assets/bg2.png"></ngx-avatar>
+                    <ngx-avatar [name]="loggerName" [style]="customStyle"
+                        [src]="'https://localhost:44394/'+ forNav[0].photoPath"></ngx-avatar>
                 </a>
             </div>
         </div>

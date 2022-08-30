@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class ApiServiceService {
 
-  URL = 'https://localhost:44394/api/';
+  URL = 'https://localhost:5001/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
@@ -24,6 +24,7 @@ export class ApiServiceService {
   getLeave = this.URL + 'Leave/GetLeave?data=';
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
   attendance = this.URL + 'Attendance/AddAttendance';
+  updAttendance=this.URL+'Attendance/updateAttendance';
   updateLeaveDetail = this.URL + 'Leave/UpdateLeaveDetails'
   taskDetails = this.URL + 'TaskDetails/AddTaskDeatils';
   getEmployeeTaskDetails = this.URL + 'TaskDetails/getemployeeId?id=';
@@ -87,8 +88,11 @@ export class ApiServiceService {
   getLeaveDetails(id: any) {
     return this.http.get(this.getLeave + id)
   }
-  addAttendance(params: any) {
-    return this.http.post(this.attendance, params)
+  addAttendance(params:any) {
+    return this.http.post(this.attendance,params)
+  }
+  updateAttendance(params:any) {
+    return this.http.put(this.updAttendance,params)
   }
   getAttendanceDetails(id: any) {
     return this.http.get(this.getAttendance + id)

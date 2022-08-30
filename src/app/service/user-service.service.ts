@@ -4,11 +4,12 @@ import { ComponentFactoryResolver, Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserServiceService {
-  [x: string]: any;
+
 
 
 
   employeeId: any;
+  attendanceId:any;
   _role: any;
 
   //  UserId:any;
@@ -57,6 +58,14 @@ set User(user: string) {
     localStorage.setItem('employeeId', id);
     this.employeeId = id;
   }
+  get AttendanceId(): any {
+    return this.attendanceId;
+  }
+
+  set AttendanceId(id: any) {
+    localStorage.setItem('AttendanceId', id);
+    this.attendanceId = id;
+  }
 
   get Role(): any {
     return localStorage.getItem('Role');
@@ -84,6 +93,12 @@ set User(user: string) {
   }
   getEmployeeId(): any {
     return this.employeeId;
+  }
+  setAttendanceId(params: any) {
+    this.attendanceId = params;
+  }
+  getAttendanceId(): any {
+    return this.attendanceId;
   }
 
 }

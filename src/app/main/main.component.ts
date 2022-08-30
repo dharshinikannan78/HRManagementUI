@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiServiceService } from '../service/api-service.service';
 import { UserServiceService } from '../service/user-service.service';
 
 @Component({
@@ -14,10 +15,14 @@ export class MainComponent {
   step: any;
   loggerName: string;
   loggerRole: string;
-  constructor(public router: Router, userService: UserServiceService) {
+  customStyle = {
+    objectFit: "cover"
+  };
+  constructor(public router: Router, userService: UserServiceService, private api: ApiServiceService) {
     this.step = 'step1'
     this.loggerName = userService.Name;
     this.loggerRole = userService.Role;
+    this.getImageForNav();
   }
 
   openNav() {
@@ -71,6 +76,13 @@ export class MainComponent {
       this.isNavOpen = true;
       this.showNavContent = true;
     }
+  }
+  forNav: any;
+  getImageForNav() {
+    this.api.getEmployeeDetailsById(localStorage.getItem("employeeId")).subscribe(data => {
+      this.forNav = data;
+      console.log(data, "photo foe nav")
+    })
   }
 
 }

@@ -19,7 +19,7 @@
             </li>
         </ul>
     </div>
-    <form class="add-form " (ngSubmit)="submit(employeeDetail.value)" [formGroup]="employeeDetail">
+    <form class="add-form" (ngSubmit)="submit(employeeDetail.value)" [formGroup]="employeeDetail">
         <div *ngIf="step==1" id="step1">
             <h4>Basic Details</h4>
             <div class="form-group">
@@ -130,17 +130,30 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Resume</label>
-                <input type="file" accept="image/*,application/msword,application/pdf,.doc,.docx" class="input-box"
-                    #resume formControlName="filesResume" placeholder="choose the photo"
-                    (change)="uploadcandidateFile(resume.files,'photo')">
+                <input type="file" class="input-box form-control" #resume formControlName="filesResume"
+                    placeholder="choose the photo" (change)="uploadcandidateFile(resume.files,'resume')">
+                <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
+                            employeeDetail.controls['filesResume']?.touched"> <b>FilesResume</b> is required *</span>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Image</label>
+                <input type="file" class="input-box form-control" #image formControlName="filesResume" placeholder="choose the photo"
+                    (change)="uploadcandidateFile(image.files,'image')">
+                <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
+                            employeeDetail.controls['filesResume']?.touched"> <b>FilesResume</b> is required *</span>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Certificate</label>
+                <input type="file" class="input-box form-control" #certificate formControlName="filesResume"
+                    placeholder="choose the photo" (change)="uploadcandidateFile(certificate.files,'other')">
                 <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
                             employeeDetail.controls['filesResume']?.touched"> <b>FilesResume</b> is required *</span>
             </div>
         </div>
         <div>
-        <button type="button" class="btn btn-primary " *ngIf="step!=4 " (click)=" next()">Next</button>
-        <button type="submit" class="btn btn-primary " *ngIf="step==4" [disabled]="thisFormValid()">Finish</button>
-        <button type="button" class="btn btn-primary " *ngIf="step!=1" (click)="prev()">Previous</button>
-    </div>
+            <button type="button" class="btn btn-primary " *ngIf="step!=4 " (click)=" next()">Next</button>
+            <button type="submit" class="btn btn-primary " *ngIf="step==4" [disabled]="thisFormValid()">Finish</button>
+            <button type="button" class="btn btn-primary " *ngIf="step!=1" (click)="prev()">Previous</button>
+        </div>
     </form>
 </div>

@@ -1,33 +1,33 @@
 <!-- <div class="row">
     <div class="col-5"> -->
-        <section *ngIf="isOpenTask">
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-6">
-                        <form [formGroup]="taskDetails">
-                            <div class="mb-3">
-                                <label class=" form-label">Project Title</label>
-                                <select class="form-select" class="form-control" formControlName="projectTitle">
-                                    <option disabled selected value> -- select an option -- </option>
-                                    <option value="E-pub">E-pub</option>
-                                    <option value="XML">XML</option>
-                                    <option value="Table">Table</option>
-                                    <option value="SoftWare">SoftWare</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class=" form-label">Summary</label>
-                                <textarea class="form-control" formControlName="summary"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <button type="button" class="btn btn-primary mt-3"
-                                    (click)="addTaskDetails(taskDetails.value)">Task
-                                </button>
-                            </div>
-                        </form>
+<section *ngIf="isOpenTask">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-6">
+                <form [formGroup]="taskDetails">
+                    <div class="mb-3">
+                        <label class=" form-label">Project Title</label>
+                        <select class="form-select" class="form-control" formControlName="projectTitle">
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="E-pub">E-pub</option>
+                            <option value="XML">XML</option>
+                            <option value="Table">Table</option>
+                            <option value="SoftWare">SoftWare</option>
+                        </select>
                     </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Summary</label>
+                        <textarea class="form-control" formControlName="summary"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-primary mt-3"
+                            (click)="addTaskDetails(taskDetails.value)">Task
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-                    <!-- <div class="container mt-5" *ngFor="let data of isTaskDetails">
+            <!-- <div class="container mt-5" *ngFor="let data of isTaskDetails">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
                                 <button type="button" class="btn btn-primary" (click)="getTaskDetails(data.assigingId)">
@@ -38,10 +38,10 @@
                         </div>
                     </div> -->
 
-                </div>
-            </div>
-        </section>
-    <!-- </div>
+        </div>
+    </div>
+</section>
+<!-- </div>
 </div> -->
 
 <section>
@@ -57,16 +57,16 @@
             <div class="col" *ngFor="let data of isTaskDetails">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">{{data.projectTitle}}</h5>
-                        <p class="card-text">{{data.summary}}</p>
-                        <span class="badge">{{data.status}}</span>
+                        <h5 class="card-title fw-bold">{{data.taskName}}</h5>
+                        <p class="card-text">{{data.taskDescription}}</p>
+                        <span class="badge">{{data.taskStatus}}</span>
 
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">Task To {{loggerName}} </small>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
     <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
         <div class="d-flex align-items-center justify-content-center">
             <div>
-                <img src="../assets/bg-1.png" class="margin-auto h-100" width="60px" alt="">
+                <img src="../assets/bg-1.png" style="margin-left:2.5rem" class="margin-auto h-100" width="60px" alt="">
                 <div class="d-flex pt-3 align-items-center justify-content-center">
                     <!-- <h6 class="text-dark">{{ loggerName }}<br /><span
                             style="font-weight: 400; margin-top: 1rem; font-size: 14px;">{{loggerRole}}</span>
@@ -37,7 +37,7 @@
                         <p [ngClass]="isNavOpen ? 'none': 'show'">Add User</p>
                     </li>
                     <li class="cursorP" [ngClass]="{'active': step==='step6'}"
-                        (click)="step='step6' ; shortNav('/Employee/addEmployee')">
+                        (click)="step='step6' ; shortNav('main/Employee/addEmployee')">
                         <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                             aria-controls="collapseExample" class="fa-solid fa-user-gear"></i>
                         <p [ngClass]="isNavOpen ? 'none': 'show'">Add Employee</p>
@@ -51,6 +51,16 @@
             <li [ngClass]="{'active': step==='step4'}" (click)="step='step4' ; shortNav('/leave')" class="cursorP">
                 <i class="fa-solid fa-sheet-plastic"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Leave</p>
+            </li>
+            <li [ngClass]="{'active': step==='step5'}" (click)="step='step4' ; shortNav('/projectDetails')"
+                class="cursorP">
+                <i class="fa-solid fa-sheet-plastic"></i>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">Project</p>
+            </li>
+            <li class="cursorP" [ngClass]="{'active': step==='step6'}" (click)="step='step6' ; shortNav('/list')">
+                <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+                    aria-controls="collapseExample" class="fa-solid fa-user-gear"></i>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">ProjectDetails</p>
             </li>
         </ul>
     </div>

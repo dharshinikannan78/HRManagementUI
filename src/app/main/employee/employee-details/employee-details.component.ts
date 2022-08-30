@@ -42,7 +42,7 @@ export class EmployeeDetailsComponent implements OnInit {
   UserId: string = localStorage.getItem('userId');
   isShown: boolean = true;
 
-  EmployeeId: any = localStorage.getItem('employeeId');
+  EmployeeId: any = localStorage.getItem('EmployeeId');
 
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService) {
   }

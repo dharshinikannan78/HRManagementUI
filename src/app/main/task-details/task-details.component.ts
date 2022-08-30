@@ -15,7 +15,7 @@ export class TaskDetailsComponent implements OnInit {
   UserId: any = localStorage.getItem('UserId');
   Role: string = localStorage.getItem('Role')
   isTaskDetails: any;
-  EmployeeId: any = localStorage.getItem('employeeId');
+  EmployeeId: any = localStorage.getItem('EmployeeId');
   taskDetails: FormGroup = new FormGroup({
     projectTitle: new FormControl(''),
     summary: new FormControl(''),

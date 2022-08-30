@@ -74,12 +74,11 @@ export class LoginComponent implements OnInit {
           text: 'You have enter the Wrong Credentials',
           icon: 'error',
           timer: 1000
-        })
+        });
       }
-
     });
-
   }
+  
 
   thisFormValid() {
     if (this.dologin.invalid) {

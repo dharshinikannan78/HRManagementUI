@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { ApiServiceService } from '../../service/api-service.service';
 import { UserServiceService } from '../../service/user-service.service';
 
@@ -38,6 +39,13 @@ export class AttendanceComponent implements OnInit {
       console.log(data, 'attendance');
       this.addAttendance.reset();
     });
+    Swal.fire({
+      text: 'Updated Sucessfully!',
+      icon: 'success',
+      timer: 900
+    });
+    // this.showModal = false;
+    location.reload();
   }
   getAttendanceDetail() {
     this.api.getAttendanceDetails(this.EmployeeId).subscribe(data => {

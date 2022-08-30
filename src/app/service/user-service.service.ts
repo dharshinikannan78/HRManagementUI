@@ -9,16 +9,35 @@ export class UserServiceService {
 
   employeeId: any;
   _role: any;
+
+  _user: any;
+
   _name: any;
   _userId: any;
   constructor() { }
+
+
+  get User(): string {
+    return this._user;
+  }
+  set User(user: string) {
+    localStorage.setItem('userName', user);
+    this._user = user;
+  }
+  isValid = () => {
+    const user = localStorage.getItem('userName');
+    if (!user) {
+      return false;
+    }
+    return true;
+  }
 
   get EmployeeId(): any {
     return this.employeeId;
   }
 
   set EmployeeId(id: any) {
-    localStorage.setItem('employeeId', id);
+    localStorage.setItem('EmployeeId', id);
     this.employeeId = id;
   }
 
@@ -29,6 +48,7 @@ export class UserServiceService {
     localStorage.setItem('Role', role);
     this._role = role;
   }
+
   get UserId(): any {
     return localStorage.getItem('UserId');
   }

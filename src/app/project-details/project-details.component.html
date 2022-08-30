@@ -1,0 +1,28 @@
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6">
+            <form [formGroup]="addProjectDetail">
+                <div class="mb-3">
+                    <label class=" form-label">Project Title</label>
+                    <select class="form-select" class="form-control" formControlName="projectTitle">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="E-pub">E-pub</option>
+                        <option value="XML">XML</option>
+                        <option value="Table">Table</option>
+                        <option value="SoftWare">SoftWare</option>
+                    </select>
+                    <div class="mb-3">
+                        <label class=" form-label">Project Description</label>
+                        <textarea class="form-control" formControlName="projectDescription"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" (click)="addProjectDetails(addProjectDetail.value)"
+                            class="btn btn-primary mt-3">Task
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

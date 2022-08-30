@@ -21,7 +21,7 @@ export class LeaveComponent implements OnInit {
   showModal: boolean = false;
   employeeLeaveDetails: any;
 
-  EmployeeId: string = localStorage.getItem('employeeId')
+  EmployeeId: string = localStorage.getItem('EmployeeId')
   Role: string = localStorage.getItem('Role')
 
 

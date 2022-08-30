@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgModel, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 import { ApiServiceService } from '../../service/api-service.service';
 import { UserServiceService } from '../../service/user-service.service';
@@ -63,6 +64,13 @@ updateAttendance: FormGroup = new FormGroup({
     //  this.userService.AttendanceId=data.attendanceId;
       this.check=!this.check
     });
+    Swal.fire({
+      text: 'Updated Sucessfully!',
+      icon: 'success',
+      timer: 900
+    });
+    // this.showModal = false;
+    location.reload();
   }
     updateattendanceDetails(params:any) {
       this.api.updateAttendance(params).subscribe(data => {

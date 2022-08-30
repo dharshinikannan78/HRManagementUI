@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-3">
+            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('xml')">
+                <div class="card-body">
+                    <h5 class="card-title">XML</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('software')">
+                <div class="card-body">
+                    <h5 class="card-title">SoftWare</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('E-Pup')">
+                <div class="card-body">
+                    <h5 class="card-title">E-Pup</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('Table')">
+                <div class="card-body">
+                    <h5 class="card-title">Table</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-5" *ngIf="isOpen">
+
+    <div class="row">
+        <div class="col" *ngFor="let data of ProjectDetails">
+            <div>
+                <div class="card border-secondary mb-3">
+                    <div class="card-header text-secondary">{{data.projectTitle}}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{data.projectDescription}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" *ngFor="let data of teamMembers">
+            <div>
+                <div class="card border-secondary mb-3">
+                    <div class="card-header text-secondary">{{data.firstName}}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{data.teamName}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" *ngFor="let data of taskDetails">
+            <div>
+                <div class="card border-secondary mb-3">
+                    <div class="card-header text-secondary">{{data.firstName}}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{data.taskName}}</h5>
+                        <p>{{data.taskDescription}}</p>
+
+                        <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
+                                class="badge">{{data.position}}</span> </p>
+                        <p><span [ngClass]="{'redBadge': data.taskStatus=== 'Rejected', 'orangeBadge': data.taskStatus === 'Pending' }"
+                                class="badge">{{data.taskStatus}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- <div class="container mt-5 card text-bg-dark mb-3" style="max-width: 18rem;">
+    <div class="card-header">Header</div>
+    <div class="card-body">
+        <h5 class="card-title">Dark card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+    </div>
+</div> -->

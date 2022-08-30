@@ -26,6 +26,10 @@ export class EmployeeDetailsComponent implements OnInit {
     joiningDate: new FormControl(''),
   });
 
+  customStyle = {
+    objectFit: "cover",
+    cursor: "pointer"
+  };
   isData: any;
   oneEmployee: boolean = true;
   employee: any
@@ -54,8 +58,10 @@ export class EmployeeDetailsComponent implements OnInit {
       console.log(this.oneEmployee, "wonenknkn")
       if (this.userService.Role == "Employee") {
         this.oneEmployee = false;
-        console.log(this.oneEmployee, "wonenknkn")
-        this.isData = Array.of(this.isData);
+        // console.log(this.oneEmployee, "wonenknkn")
+        // this.isData = Array.of(this.isData);
+
+        // console.log(this.isData, "while one emp");
       }
     });
   }

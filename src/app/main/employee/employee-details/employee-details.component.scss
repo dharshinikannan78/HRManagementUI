@@ -4,13 +4,22 @@
     display: flex;
 }
 
-.avatar-container {
+.avatar-container img {
     width: 6rem !important;
     aspect-ratio: 1 !important;
     border-radius: 50%;
     background: no-repeat center;
     background-size: cover;
 }
+
+.avatar-content {
+    object-fit: cover !important;
+}
+
+.my-avatar .avatar-content {
+    object-fit: cover !important;
+}
+
 
 .modal-header {
     // background: #8e2de2;
@@ -186,7 +195,25 @@ main {
     height: 350px;
     background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(171, 102, 255, 1) 0%, rgba(116, 182, 247, 1) 90%);
 }
+
 .img-9 {
+    border-radius: 50%;
     width: 9rem !important;
+    aspect-ratio: 1;
+    background-size: cover;
+    object-fit: cover;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.iconWrap i {
+    padding: 13px;
+    background-color: #e6e6e6;
+    border-radius: 6px;
+}
+
+.bg-White {
+    background-color: #fff;
+}
+.greybg {
+    background-color: #ececec;
 }

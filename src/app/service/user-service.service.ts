@@ -7,7 +7,9 @@ export class UserServiceService {
 
 
 
+
   employeeId: any;
+  attendanceId:any;
   _role: any;
 
   _user: any;
@@ -40,6 +42,14 @@ export class UserServiceService {
     localStorage.setItem('EmployeeId', id);
     this.employeeId = id;
   }
+  get AttendanceId(): any {
+    return this.attendanceId;
+  }
+
+  set AttendanceId(id: any) {
+    localStorage.setItem('AttendanceId', id);
+    this.attendanceId = id;
+  }
 
   get Role(): any {
     return localStorage.getItem('Role');
@@ -68,6 +78,12 @@ export class UserServiceService {
   }
   getEmployeeId(): any {
     return this.employeeId;
+  }
+  setAttendanceId(params: any) {
+    this.attendanceId = params;
+  }
+  getAttendanceId(): any {
+    return this.attendanceId;
   }
 
 }

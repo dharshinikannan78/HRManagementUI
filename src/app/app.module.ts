@@ -9,8 +9,8 @@ import { RouterModule } from '@angular/router';
 import { MainModule } from './main/main.module';
 import { UserManagementModule } from './user-management/user.module';
 import { CommonModule } from '@angular/common';
-import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { ProjectListComponent } from './projectDetails/project-list/project-list.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
 
 @NgModule({
   declarations: [

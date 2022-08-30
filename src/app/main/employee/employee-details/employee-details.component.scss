@@ -15,8 +15,8 @@
 .avatar-content {
     object-fit: cover !important;
 }
+
 .my-avatar .avatar-content {
-    background-color : red !important;
     object-fit: cover !important;
 }
 
@@ -203,4 +203,17 @@ main {
     background-size: cover;
     object-fit: cover;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.iconWrap i {
+    padding: 13px;
+    background-color: #e6e6e6;
+    border-radius: 6px;
+}
+
+.bg-White {
+    background-color: #fff;
+}
+.greybg {
+    background-color: #ececec;
 }

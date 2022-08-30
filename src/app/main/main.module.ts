@@ -9,6 +9,7 @@ import { MainComponent } from './main.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TaskDetailsComponent } from './task-details/task-details.component';
+import { AvatarModule } from 'ngx-avatar';
 
 
 
@@ -27,6 +28,7 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
     HttpClientModule,
     MainRoutingModule,
     EmployeeModule,
+    AvatarModule
   ]
 })
 export class MainModule { }

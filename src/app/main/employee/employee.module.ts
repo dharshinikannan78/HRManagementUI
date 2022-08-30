@@ -8,9 +8,10 @@ import { AttachmentComponent } from '../attachment/attachment.component';
 import { EmployeeComponent } from './employee.component';
 import { RouterModule } from '@angular/router';
 import { EmployeeRoutingModule } from './employee-routing.module';
+import { AvatarModule } from 'ngx-avatar';
 
 
-
+const avatarColors = ["#FFB6C1", "#2c3e50", "#95a5a6", "#f39c12", "#1abc9c"];
 
 @NgModule({
   declarations: [
@@ -25,7 +26,10 @@ import { EmployeeRoutingModule } from './employee-routing.module';
     HttpClientModule,
     FormsModule,
     RouterModule,
-    EmployeeRoutingModule
+    EmployeeRoutingModule,
+    AvatarModule.forRoot({
+      colors: avatarColors
+    })
   ]
 })
 export class EmployeeModule { }

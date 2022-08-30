@@ -6,9 +6,9 @@
                     <div class="row g-0">
                         <div class="col-4 col-md-12 col-sm-4 dflex align-items-center">
                             <div class="dflex pt-3 ">
-                                <img src="../assets/bg-1.png" (click)="getEmployeeDetails(data)" />
-                                <!-- <img [src]="'https://localhost:44394/' + data.attachmentPath" class="card-img-top"
-                                    alt="..." (click)="getEmployeeDetails(data)"> -->
+                                <ngx-avatar size="96" [name]="data.firstName + ' ' + data.lastName"
+                                    [src]="'https://localhost:44394/' + data.photoPath" class="card-img-top" alt="..."
+                                    (click)="getEmployeeDetails(data)"></ngx-avatar>                                
                             </div>
                         </div>
                         <div class="col-8 col-md-12 col-sm-8">
@@ -33,7 +33,7 @@
         </ng-container>
         <ng-container *ngIf="!oneEmployee">
             <div class="coverImage dflex">
-                <img src="../../../../assets/bg-1.png" class="img-9" alt="">
+                <img src="../../../../assets/bg8.jpg" class="img-9" alt="">
             </div>
             <div class="p-5">
                 <!-- <h2 class="fw-bold">

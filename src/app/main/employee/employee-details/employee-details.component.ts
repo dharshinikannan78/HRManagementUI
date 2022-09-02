@@ -42,8 +42,9 @@ export class EmployeeDetailsComponent implements OnInit {
   isNavOpen: boolean = true;
   UserId: string = localStorage.getItem('userId');
   isShown: boolean = true;
+  EmployeeId: any = localStorage.getItem("EmployeeId");
 
-  EmployeeId: any = localStorage.getItem('EmployeeId');
+
 
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService) {
   }

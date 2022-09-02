@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         this.userService.Role = data.role;
         console.log(this.userService.Role, " this.userService.Role")
 
-        this.userService.Name = data.firstName + data.lastName;
+        this.userService.Name = data.firstName + ' ' + data.lastName;
         console.log(this.userService.Name, "this.userService.Name")
 
         if (data.role == "Admin") {

@@ -120,9 +120,10 @@ input {
     background-color: #22577e;
 }
 
-// .leftbutton {
-//     margin-left: 3rem;
-// }
+.leftbutton {
+    margin-left: 3rem;
+}
+
 ul {
     padding: 0;
     margin: 0;
@@ -173,10 +174,8 @@ main {
 }
 
 .none {
-
     display: none;
     opacity: 0;
-    // visibility: hidden;
     transition: 0.5s ease;
 }
 
@@ -188,7 +187,6 @@ main {
     main {
         margin-left: 0;
     }
-
 }
 
 .coverImage {
@@ -214,6 +212,132 @@ main {
 .bg-White {
     background-color: #fff;
 }
+
 .greybg {
     background-color: #ececec;
+}
+
+.iconBox {
+    min-width: 48px;
+    width: 48px;
+}
+
+.our-team {
+    text-overflow: ellipsis;
+    padding: 20px 0 40px;
+    margin-top: 1.5rem;
+    background-color: #f7f5ec;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.our-team .picture {
+    display: inline-block;
+    height: 100px;
+    width: 100px;
+    margin-bottom: 50px;
+    z-index: 1;
+    position: relative;
+}
+
+.our-team .picture::before {
+    content: "";
+    width: 100%;
+    height: 0;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: 135%;
+    right: 0;
+    left: 0;
+    opacity: 0.9;
+    transform: scale(3);
+    transition: all 0.3s linear 0s;
+}
+
+.our-team:hover .picture::before {
+    height: 100%;
+}
+
+.our-team .picture::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.our-team .picture .images {
+    width: 100%;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: all 0.9s ease 0s;
+}
+
+.our-team:hover .picture .images {
+    box-shadow: 0 0 0 14px #f7f5ec;
+    transform: scale(0.7);
+}
+
+.our-team .name {
+    text-transform: uppercase;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.our-team .title {
+    display: block;
+    font-size: 15px;
+    color: #ea7405;
+}
+
+.our-team .contact {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    transition: all 0.5s ease 0s;
+}
+
+.our-team:hover .contact {
+    bottom: 0;
+}
+
+.our-team .contact {
+    display: inline-block;
+}
+
+.our-team .contact .mob-num {
+    display: block;
+    padding: 6px;
+    font-size: 14px;
+    color: white;
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+}
+
+.our-team .contact .mob-num:hover {
+    color: #f7f5ec;
+    background-color: #1369ce;
+}
+.data{
+   
+    border:rgb(242, 229, 229) .01px solid;
+   
+    text-transform: uppercase;
+   
+
+}
+.row{
+ 
+  height: 100%;
 }

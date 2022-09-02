@@ -1,223 +1,231 @@
-<section class="greybg h-100 w-100">
-    <div class="container">
-        <ng-container *ngIf="oneEmployee">
-            <div class="row mt-5 mb-5  bg-forrow">
-
-                <div class="col-md-3 col-sm-6 mt-3" *ngFor="let data of isData" data-toggle="modal">
-                    <div class="card h-100">
-                        <div class="row g-0">
-                            <div class="col-4 col-md-12 col-sm-4 dflex align-items-center">
-                                <div class="dflex pt-3 ">
-                                    <ngx-avatar size="96" [style]="customStyle"
-                                        [name]="data.firstName + ' ' + data.lastName"
-                                        [src]="'https://localhost:44394/' + data.photoPath" class="card-img-top"
-                                        alt="..." (click)="getEmployeeDetails(data)"></ngx-avatar>
-                                </div>
-                            </div>
-                            <div class="col-8 col-md-12 col-sm-8">
-                                <div class="card-body" style="padding: 2rem;">
-                                    <h5 class="card-title text-center mb-3">{{data.employeeId}} &nbsp;
-                                        {{data.firstName}}&nbsp;{{data.lastName}}
-                                    </h5>
-                                    <p class="card-text text-center">{{data.number}}<br />
-                                    <p class="card-text text-center textCen text-black-50">{{data.designation}}
-                                        <br />
-                                        {{data.joiningDate | date:'dd-MM-yyyy'}}
-                                    </p>
-                                    <p class="card-text text-center textCen text-black-50"><b>{{data.emailId}}</b>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+<div class="container">
+  <ng-container *ngIf="oneEmployee">
+        <div class="row">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 h-100" *ngFor="let data of isData" data-toggle="modal">
+                <div class="our-team ">
+                    <div class="picture">
+                        <p class="images">
+                            <ngx-avatar size="100" [style]="customStyle" [name]="data.firstName + ' ' + data.lastName"
+                                [src]="'https://localhost:5001/'+data.photoPath" alt="..."
+                                (click)="getEmployeeDetails(data)"></ngx-avatar>
+                        </p>
+                        <h6 class="title">EMPID-{{data.employeeId}}</h6>
+                    </div>
+                    <div class="team-content">
+                        <h5 class="name">{{data.firstName}}&nbsp;{{data.lastName}}</h5>
+                        <h6 class="title">{{data.designation}}</h6>
+                    </div>
+                    <div class="contact">
+                        <h6 class="mob-num"><i class="fa-solid fa-mobile"></i>&nbsp;{{data.number}}</h6>
                     </div>
                 </div>
             </div>
-        </ng-container>
-
-
-
-        <ng-container *ngIf="!oneEmployee">
-            <!-- <div class="coverImage dflex">
-                <img [src]="'https://localhost:44394/'+ isData[0].photoPath" class="img-9" alt="">
+        </div> 
+    </ng-container> 
+    <!-- <ng-container *ngIf="oneEmployee">
+        <div class="row">
+            <div class="card col-12 col-sm-6 col-md-4 col-lg-3 m-2" *ngFor="let data of isData" data-toggle="modal">
+            <div class="row ">
+                <div class="col-2 data">
+                    
+                            <ngx-avatar size="25" [style]="customStyle" [name]="data.firstName + ' ' + data.lastName"
+                                [src]="'https://localhost:5001/'+data.photoPath" alt="..."
+                                (click)="getEmployeeDetails(data)"></ngx-avatar>
+                    
+                    </div>
+                    <div class="col-10 data">
+                        <h5 class="name">{{data.firstName}}&nbsp;{{data.lastName}}</h5>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-6 data">
+                        <h6 class="title">{{data.designation}}</h6>
+                    </div>
+                    <div class="col-6 data">
+                        <h6 class="title">{{data.designation}}</h6>
+                    </div>
+                </div>
             </div>
-            <div class="p-5">
-                 <h2 class="fw-bold">
-                    Senior Product Designer
-                </h2>
+                </div>
+          
+    </ng-container>  -->
+    <ng-container *ngIf="!oneEmployee">
+        <div class="coverImage dflex">
+            <img [src]="'https://localhost:5001/'+ isData[0].photoPath" class="img-9" alt="">
+        </div>
+        <div class="p-5">
+            <h2 class="fw-bold">
+                Senior Product Designer
+            </h2>
+            <div class="row">
+                <div class="col-2">
+                    <h2>{{isData[0].designation}}</h2>
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary btn-sm w-100"
+                        (click)="taskDetails(isData[0].employeeId)">Show Task</button>
+                </div>
+            </div>
+          
+        </div>
+        <div class="row py-4">
+            <div class="col-md-6">
                 <div class="row">
-                    <div class="col-2">
-                        <h2>{{isData[0].designation}}</h2>
-                    </div>
-                    <div class="col-2">
-                        <button type="submit" class="btn btn-primary btn-sm w-100"
-                            (click)="taskDetails(isData[0].employeeId)">Show Task</button>
-                    </div>
-                </div>
-                <div class="row my-5">
-                    <div class="col-md-4">
-                        <p>Employee Id: &nbsp;&nbsp;<span class="fw-bold">{{ isData[0].employeeId }}</span></p>
-                        <p>Mail Id: &nbsp;&nbsp;<span class="fw-bold">{{ isData[0].emailId }}</span></p>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Joining Date: &nbsp;&nbsp;<span class="fw-bold">{{ isData[0].joiningDate | date:'dd-MM-yyyy'
-                                }}</span></p>
-                        <p>Work Mode: &nbsp;&nbsp;<span class="fw-bold">{{ isData[0].workMode }}</span></p>
-                    </div>
-                </div>
-            </div> -->
-
-            <div class="row py-4">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-12 Ename p-4 rounded-4 bg-white d-flex align-items-center">
-                            <ngx-avatar size="46" [style]="customStyle"
-                                [name]="isData[0].firstName + ' ' + isData[0].lastName"
-                                [src]="'https://localhost:44394/' + isData[0].photoPath" alt="...">
-                            </ngx-avatar>
-                            <div class="mx-4">
+                    <div class="col-md-12 Ename p-4 rounded-4 bg-white d-flex align-items-center">
+                        <div class="row">
+                            <div class="col">
+                                <ngx-avatar size="25" [style]="customStyle"
+                                    [name]="isData[0].firstName + ' ' + isData[0].lastName"
+                                    [src]="'https://localhost:5001/' + isData[0].photoPath" alt="...">
+                                </ngx-avatar>
+                            </div>
+                            <div class="col">
                                 <h5 class="m-0 fw-600">{{isData[0].firstName + ' ' +
                                     isData[0].lastName}}</h5>
-                                <p class="m-0">{{isData[0].designation}}</p>
                             </div>
                         </div>
-                        <div class="col-md-12 rounded-4 bg-white my-3 p-4">
-                            <h5 class="mb-4">All Personal Details<span class="float-end primary-textc"><i
-                                        class="fa-solid fa-pencil"></i>&nbsp;Edit</span></h5>
-                            <div class="row g-5">
-                                <div class="col-md-6  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-at"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].emailId}}</p>
-                                        <h6 class="m-0">Mail Address</h6>
-                                    </div>
-                                </div>
-                                <div class="col-md-6  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-mobile-screen-button"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].number}}</p>
-                                        <h6 class="m-0">Mobile Number</h6>
-                                    </div>
-                                </div>
-                                <div class="col-md-6  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-cake-candles"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].dob | date:'MMMM d, y'}}</p>
-                                        <h6 class="m-0">DOB</h6>
-                                    </div>
-                                </div>
+                        <div class="mx-4">
+                            <i class="fa-solid fa-at"></i>
 
-                                <div class="col-md-6  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-file-signature"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].joiningDate | date:'MMMM d, y'}}</p>
-                                        <h6 class="m-0">Date of Joining</h6>
-                                    </div>
+                            <p class="m-0">{{isData[0].designation}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 rounded-4 bg-white my-3 p-4">
+                        <h5 class="mb-4">All Personal Details<span class="float-end primary-textc"><i
+                                    class="fa-solid fa-pencil"></i>&nbsp;Edit</span></h5>
+                        <div class="row g-5">
+                            <div class="col-md-6  d-flex align-items-center">
+                                <div class="iconWrap d-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-at"></i>
                                 </div>
-                                <div class="col-md-12  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-location-arrow"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].address}}</p>
-                                        <h6 class="m-0">Address</h6>
-                                    </div>
+                                <div class="ms-3">
+                                    <p class="m-0 fw-bold">{{isData[0].emailId}}</p>
+                                    <h6 class="m-0">Mail Address</h6>
                                 </div>
-                                <div class="col-md-12  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-computer-mouse"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].workMode}}</p>
-                                        <h6 class="m-0">Work Mode</h6>
-                                    </div>
+                            </div>
+                            <div class="col-md-6  d-flex align-items-center">
+                                <div class="iconWrap d-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-mobile-screen-button"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <p class="m-0 fw-bold">{{isData[0].number}}</p>
+                                    <h6 class="m-0">Mobile Number</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-6  d-flex align-items-center">
+                                <div class="iconWrap d-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-cake-candles"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <p class="m-0 fw-bold">{{isData[0].dob | date:'MMMM d, y'}}</p>
+                                    <h6 class="m-0">DOB</h6>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6  d-flex align-items-center">
+                                <div class="iconWrap d-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-file-signature"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <p class="m-0 fw-bold">{{isData[0].joiningDate | date:'MMMM d, y'}}</p>
+                                    <h6 class="m-0">Date of Joining</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12  d-flex align-items-center">
+                                <div class="iconWrap d-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-location-arrow"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <p class="m-0 fw-bold">{{isData[0].address}}</p>
+                                    <h6 class="m-0">Address</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12  d-flex align-items-center">
+                                <div class="iconWrap d-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-computer-mouse"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <p class="m-0 fw-bold">{{isData[0].workMode}}</p>
+                                    <h6 class="m-0">Work Mode</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <h5>Task Details</h5>
-
                 </div>
             </div>
-        </ng-container>
-    </div>
+            <div class="col-md-4">
+                <h5>Task Details</h5>
+
+            </div>
+        </div>
+    </ng-container>
+</div>
 
 
 
-    <div class="modal" [style.display]="showModal ? 'block' : 'none'">
-        <div class="modal-dialog">
-            <div class="modal-content" [formGroup]="employeeDetail">
-                <div class="modal-header">
-                    <h3 class="modal-title text-white"> EMPLOYEE DETAILS</h3>
-                    <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
-                </div>
-                <div class="modal-body scrollbar" id="style-1">
-                    <div class="row modalbody">
-                        <div class="mb-3">
-                            <label class=" form-label">First Name</label>
-                            <input class="form-control" [ngModel]="employee?.employeeId" formControlName="employeeId">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">First Name</label>
-                            <input class="form-control" [ngModel]="employee?.firstName" formControlName="firstName">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Last Name</label>
-                            <input class="form-control" [ngModel]="employee?.lastName" formControlName="lastName">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Email Id</label>
-                            <input class="form-control" [ngModel]="employee?.emailId" formControlName="emailId">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Date Of Birth</label>
-                            <input class="form-control" [ngModel]="employee?.dob" formControlName="dob">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Number</label>
-                            <input class="form-control" [ngModel]="employee?.number" formControlName="number">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Date Of Joining</label>
-                            <input class="form-control" [ngModel]="employee?.joiningDate" formControlName="joiningDate">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Address</label>
-                            <input class="form-control" [ngModel]="employee?.address" formControlName="address">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Desigination</label>
-                            <input class="form-control" [ngModel]="employee?.designation" formControlName="designation">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Gender</label>
-                            <input class="form-control" [ngModel]="employee?.gender" formControlName="gender">
-                        </div>
+<div class="modal" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+        <div class="modal-content" [formGroup]="employeeDetail">
+            <div class="modal-header">
+                <h3 class="modal-title text-white"> EMPLOYEE DETAILS</h3>
+                <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
+            </div>
+            <div class="modal-body scrollbar" id="style-1">
+                <div class="row modalbody">
+                    <div class="mb-3" style="display:none;">
 
-                        <div class="mb-3">
-                            <label class=" form-label">Download Attachment</label>
-                            <app-attachment [attachmentId]="attachment"> </app-attachment>
-                        </div>
+                        <input class="form-control" [ngModel]="employee?.employeeId" formControlName="employeeId">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">First Name</label>
+                        <input class="form-control" [ngModel]="employee?.firstName" formControlName="firstName">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Last Name</label>
+                        <input class="form-control" [ngModel]="employee?.lastName" formControlName="lastName">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Email Id</label>
+                        <input class="form-control" [ngModel]="employee?.emailId" formControlName="emailId">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Date Of Birth</label>
+                        <input class="form-control" [ngModel]="employee?.dob" formControlName="dob">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Number</label>
+                        <input class="form-control" [ngModel]="employee?.number" formControlName="number">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Date Of Joining</label>
+                        <input class="form-control" [ngModel]="employee?.joiningDate" formControlName="joiningDate">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Address</label>
+                        <input class="form-control" [ngModel]="employee?.address" formControlName="address">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Desigination</label>
+                        <input class="form-control" [ngModel]="employee?.designation" formControlName="designation">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Gender</label>
+                        <input class="form-control" [ngModel]="employee?.gender" formControlName="gender">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class=" form-label">Download Attachment</label>
+                        <app-attachment [attachmentId]="attachment"> </app-attachment>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" style="float: left;"
-                        (click)="showModal=false">Cancel</button>
-                    <button type="button" class="btn btn-primary" style="float: right;"
-                        (click)="updateEmployee(employeeDetail.value)">Update and
-                        Save</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" style="float: left;"
+                    (click)="showModal=false">Cancel</button>
+                <button type="button" class="btn btn-primary" style="float: right;"
+                    (click)="updateEmployee(employeeDetail.value)">Update and
+                    Save</button>
             </div>
         </div>
     </div>
-
-</section>
+</div>

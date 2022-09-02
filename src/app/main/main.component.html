@@ -2,8 +2,8 @@
     <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
         <div class="d-flex align-items-center justify-content-center">
             <div>
-                <ngx-avatar [name]="loggerName" class="margin-auto dflex" size="80" [style]="customStyle"
-                    [src]="'https://localhost:44394/'+ forNav[0].photoPath"></ngx-avatar>
+                <ngx-avatar name="salman khan" class="margin-auto dflex" size="80" [style]="customStyle"></ngx-avatar>
+                <!-- [src]="'https://localhost:44394/'+ forNav[0].photoPath" -->
                 <div class="d-flex pt-3 align-items-center justify-content-center">
                     <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
                         {{ loggerRole }}</h6>
@@ -18,7 +18,6 @@
             <li class="cursorP bg-select" [ngClass]="{'active': step==='step1'}"
                 (click)="step='step1' ; shortNav('/Employee')"><i class="fa-solid fa-house"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">About</p>
-
             </li>
             <li class="cursorP" [ngClass]="{'active': step==='step2'}" data-bs-toggle="collapse" href="#collapseExample"
                 role="button" aria-expanded="false" aria-controls="collapseExample" (click)="step='step2'"
@@ -73,8 +72,8 @@
             <div class="d-flex align-items-center">
                 <p class="m-0">{{ loggerName }}</p>
                 <a class="navbar-brand" href="#">
-                    <ngx-avatar [name]="loggerName" [style]="customStyle"
-                        [src]="'https://localhost:44394/'+ forNav[0].photoPath"></ngx-avatar>
+                    <ngx-avatar [name]="loggerName" [style]="customStyle"></ngx-avatar>
+                    <!-- [src]="'https://localhost:44394/'+ forNav[0].photoPath" -->
                 </a>
             </div>
         </div>

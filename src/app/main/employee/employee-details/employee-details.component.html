@@ -2,7 +2,6 @@
     <div class="container">
         <ng-container *ngIf="oneEmployee">
             <div class="row mt-5 mb-5  bg-forrow">
-
                 <div class="col-md-3 col-sm-6 mt-3" *ngFor="let data of isData" data-toggle="modal">
                     <div class="card h-100">
                         <div class="row g-0">
@@ -150,8 +149,6 @@
             </div>
         </ng-container>
     </div>
-
-
 
     <div class="modal" [style.display]="showModal ? 'block' : 'none'">
         <div class="modal-dialog">

@@ -22,27 +22,31 @@ export class AddEmployeeDetailsComponent implements OnInit {
   attachmentIds: any = [];
   attachmentName: any = [];
 
-  employeeDetail = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    dob: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    number: new FormControl('', Validators.required),
-    emailId: new FormControl('', Validators.required),
-    qualification: new FormControl('', Validators.required),
-    college: new FormControl('', Validators.required),
-    passedOut: new FormControl('', Validators.required),
-    skills: new FormControl('', Validators.required),
-    // employeeReferenceNo: new FormControl( '',Validators.required ),
-    workMode: new FormControl('', Validators.required),
-    filesResume: new FormControl('', Validators.required),
-    designation: new FormControl('', Validators.required),
-    joiningDate: new FormControl('', Validators.required)
-  });
-
+  
+  employeeDetail:any;
   constructor(private router: Router, private api: ApiServiceService) {
     this.formData = new FormData();
+    
+
+
+    this.employeeDetail = new FormGroup({
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      dob: new FormControl('', Validators.required),
+      gender: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
+      number: new FormControl('', Validators.required),
+      emailId: new FormControl('', Validators.required),
+      qualification: new FormControl('', Validators.required),
+      college: new FormControl('', Validators.required),
+      passedOut: new FormControl('', Validators.required),
+      skills: new FormControl('', Validators.required),
+      // employeeReferenceNo: new FormControl( '',Validators.required ),
+      workMode: new FormControl('', Validators.required),
+      filesResume: new FormControl('', Validators.required),
+      designation: new FormControl('', Validators.required),
+      joiningDate: new FormControl('', Validators.required)
+    });
   }
 
   ngOnInit(): void {

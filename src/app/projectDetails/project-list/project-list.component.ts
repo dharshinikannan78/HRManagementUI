@@ -16,7 +16,7 @@ export class ProjectListComponent implements OnInit {
   constructor(private api: ApiServiceService, private router: Router, private userService: UserServiceService) { }
 
   ngOnInit(): void {
-    // this.getProjectDetails('');
+    this.getProjectDetails('xml');
   }
 
   getProjectDetails(params: any) {

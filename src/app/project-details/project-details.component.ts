@@ -21,6 +21,7 @@ export class ProjectDetailsComponent implements OnInit {
   addProjectDetail: FormGroup = new FormGroup({
     assiginedId: new FormControl(this.EmployeeId),
     projectTitle: new FormControl(''),
+    projectName: new FormControl(''),
     projectDescription: new FormControl(''),
     createBy: new FormControl(this.createdBy),
   });

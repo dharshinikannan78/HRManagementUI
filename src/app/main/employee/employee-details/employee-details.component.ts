@@ -53,8 +53,8 @@ export class EmployeeDetailsComponent implements OnInit {
   }
   getAllDetails() {
     this.api.getUserDetails(this.EmployeeId).subscribe(data => {
-      console.log(data, 'helo')
-      this.isData = data
+      console.log(data, 'Geetha')
+      this.isData = data;
       console.log(this.oneEmployee, "wonenknkn")
       if (this.userService.Role == "Employee") {
         this.oneEmployee = false;

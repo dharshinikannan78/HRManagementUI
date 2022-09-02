@@ -79,7 +79,8 @@ export class MainComponent {
   }
   forNav: any;
   getImageForNav() {
-    this.api.getEmployeeDetailsById(localStorage.getItem("employeeId")).subscribe(data => {
+    this.api.getEmployeeDetailsById(localStorage.getItem("EmployeeId")).subscribe(data => {
+      console.log(data, 'data');
       this.forNav = data;
       console.log(data, "photo foe nav")
     })

@@ -32,6 +32,7 @@ export class ApiServiceService {
   getProjectDetails = this.URL + 'ProjectDetails/getDetails?projectTitle=';
   getProjectMembers = this.URL + 'ProjectDetails/TeamMembers?team=';
   getTaskDetails = this.URL + 'ProjectDetails/TaskName?taskName=';
+  getTaskDetailsById = this.URL + 'TaskDetails/EmployeeId?EmployeeId=';
   // jwtToken = this.URL + "jwt";
 
   constructor(private http: HttpClient) { }
@@ -117,5 +118,8 @@ export class ApiServiceService {
   }
   getEmployeeDetailsById(params: string) {
     return this.http.get(this.getEmployeeDetailById + params);
+  }
+  getTaskDetailById = (params: any) => {
+    return this.http.get(this.getTaskDetailsById + params);
   }
 }

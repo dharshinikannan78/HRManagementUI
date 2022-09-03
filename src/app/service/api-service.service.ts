@@ -9,7 +9,7 @@ export class ApiServiceService {
   URL = 'https://localhost:44394/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
-  // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
+  employeeDetailsName = this.URL + 'Employee/AllEmployee';
   allEmployeeDetails = this.URL + 'Employee/GetEmployeeDetails';
   addemployeeDetail = this.URL + 'Employee/AddEmployee';
   updateEmployeeDetail = this.URL + 'Employee/Update';
@@ -41,10 +41,9 @@ export class ApiServiceService {
     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
   });
 
-  // getToken() {
-  //   return this.http.get(this.jwtToken)
-  // }
-
+  getEmployeeName() {
+    return this.http.get(this.employeeDetailsName)
+  }
 
   getLogin(params: any) {
     return this.http.post(this.dologin, params)

@@ -1,114 +1,118 @@
-<!-- <span class="badge rounded-pill text-bg-primary">Primary</span>
-<span class="badge rounded-pill text-bg-secondary">Secondary</span>
-<span class="badge rounded-pill text-bg-success">Success</span>
-<span class="badge rounded-pill text-bg-danger">Danger</span>
-<span class="badge rounded-pill text-bg-warning">Warning</span>
-<span class="badge rounded-pill text-bg-info">Info</span>
-<span class="badge rounded-pill text-bg-light">Light</span>
-<span class="badge rounded-pill text-bg-dark">Dark</span> -->
-
-
+<!-- <div class="mt-2 mr-2 mb-2" style="float:right">
+        <button type="button" class="btn btn-primary">Create Project</button>
+    </div> -->
 <div class="container mt-5 row">
-    <div class="col-1">
+    <div class="col-2">
         <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('xml')">XML</span>
     </div>
-    <div class="col-1">
+    <div class="col-2">
         <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('E-pup')">E - Pub</span>
     </div>
-    <div class="col-1">
+    <div class="col-2">
         <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('Table')">Table</span>
     </div>
-    <div class="col-1">
+    <div class="col-2">
         <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('software')">Software</span>
     </div>
 </div>
 
-<!-- 
-<div class="container">
-    <div class="row mt-5">
-        <div class="col-3">
-            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('xml')">
-                <div class="card-body">
-                    <h5 class="card-title">XML</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('software')">
-                <div class="card-body">
-                    <h5 class="card-title">SoftWare</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('E-Pup')">
-                <div class="card-body">
-                    <h5 class="card-title">E-Pup</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('Table')">
-                <div class="card-body">
-                    <h5 class="card-title">Table</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 
-
-<div class="container row" *ngIf="isOpen">
+<div class="container-fluid row" *ngIf="isOpen">
     <div class="col-4">
         <div class="row mt-5">
-            <div class="col-12" *ngFor="let data of ProjectDetails">
-                <!-- <h1 >{{data.projectTitle}}</h1> -->
-                <div class="card mb-3">
-                    <!-- <div class=""><b>{{data.projectName}}</b> TEAM</div> -->
-                    <div class="card-body">
-                        <p class="card-text"><small class="text-muted"><b>{{data.projectName}}</b> TEAM</small></p>
+            <div class="scrollbar" id="style-1">
 
-                        <h6><b>{{data.projectTitle}}</b></h6>
-                        <div class="row mt-3">
-                            <div class="col-8">
-                                <p class="card-text"><small class="text-muted">Created By <b>{{data.createdBy}}</b>
-                                        <br /> Created On <b>{{data.startDate | date:'dd MMM YYYY'}}</b></small></p>
-                            </div>
-                            <div class="col-3 mt-3">
-                                <p><span class="badge text-bg-primary">{{data.projectStatus}}</span></p>
-                            </div>
-                        </div>
-                        <p class="card-text"><small class="text-muted">{{data.projectDescription}}</small></p>
-                        <!-- <p>{{data.projectStatus}}</p> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="row mt-5">
-            <div class="col" *ngFor="let data of teamMembers">
-                <div class="card mb-3">
-                    <!-- <div class=""><b>{{data.projectName}}</b> TEAM</div> -->
-                    <div class="card-body">
-                        <p class="card-text"><small class="text-muted"><b>{{data.firstName}}</b></small></p>
-                    </div>
-                </div>
-                <!-- <div>
-                    <div class="card border-secondary">
-                        <div class="card-header text-secondary">{{data.firstName}}</div>
+                <div class="col-12" *ngFor="let data of ProjectDetails">
+                    <div class="card mt-4">
                         <div class="card-body">
-                            <h5 class="card-title">{{data.firstName}}</h5>
+                            <div class="row mb-2">
+                                <div class="col-10">
+                                    <p class="card-text"><small class="text-muted"><b>{{data.projectName}}</b>
+                                            TEAM</small>
+                                    </p>
+                                </div>
+                                <div class="col-2">
+                                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal"> -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" (click)="getProjectId(data.projectId)">
+                                        <i class="fa-sharp fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <h6><b>{{data.projectTitle}}</b></h6>
+                            <div class="row mt-3">
+                                <div class="col-8">
+                                    <p class="card-text"><small class="text-muted">Created By <b>{{data.createdBy}}</b>
+                                            <br /> Created On <b>{{data.startDate | date:'dd MMM YYYY'}}</b></small></p>
+                                </div>
+                                <div class="col-3 mt-3">
+                                    <p><span [ngClass]="{'redBadge': data.projectStatus === 'Inprogress', 'orangeBadge': data.projectStatus === 'Completed' }"
+                                            class="badge">{{data.projectStatus}}</span></p>
+                                </div>
+                            </div>
+                            <p class="card-text"><small class="text-muted">{{data.projectDescription}}</small></p>
+                            <!-- <p>{{data.projectStatus}}</p> -->
                         </div>
                     </div>
-                </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="row mt-5">
+            <div class="scrollbar" id="style-1">
+
+                <div class="col-12" *ngFor="let data of teamMembers">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img class="avatar  avatar-user" src="../../../assets/bg-1.png" width="40"
+                                        height="40" />
+                                </div>
+                                <div class="col-10 mt-2">
+                                    <p class="card-text"><small class="text-muted">{{data.firstName}} {{data.lastName}}
+                                        </small>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
+                                    class="badge">{{data.position }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-4">
         <div class="row mt-5">
             <div class="col-12" *ngFor="let data of taskDetails">
-                <div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <h6>{{data.firstName}} &nbsp;{{data.lastName}}</h6>
+                            <div class="col-4">
+                                <p class="card-text"><small class="text-muted"> {{data.taskName}}
+                                    </small></p>
+                            </div>
+                            <div class="col-4">
+                                <p><span [ngClass]="{'redBadge': data.taskStatus=== 'Rejected', 'orangeBadge': data.taskStatus === 'Pending' }"
+                                        class="badge">{{data.taskStatus}}</span></p>
+                            </div>
+                            <!-- <div class="col-4">
+                                <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
+                                        class="badge">{{data.position}}</span> </p>
+                            </div> -->
+                            <p class="card-text mt-1"><small class="text-muted">{{data.taskDescription}}</small></p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div>
                     <div class="card border-secondary mb-3">
                         <div class="card-header text-secondary">{{data.firstName}}</div>
                         <div class="card-body">
@@ -121,7 +125,7 @@
                                     class="badge">{{data.taskStatus}}</span></p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -178,11 +182,81 @@
 
 
 
-<!-- <div class="container mt-5 card text-bg-dark mb-3" style="max-width: 18rem;">
-    <div class="card-header">Header</div>
-    <div class="card-body">
-        <h5 class="card-title">Dark card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add People</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="scrollbar" id="style-1">
+                <div class="modal-body" *ngFor="let data of employeName">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    {{data.firstName}} {{data.lastName}}
+
+                                </div>
+                                <div class="col-3">
+                                    {{data.teamName}}
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="getEmployeId(data.employeeId)" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal1">
+                                        <i class="fa-sharp fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-</div> -->
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add People</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="addProjectDetail">
+                    <div class="mb-3">
+                        <label class=" form-label">Project Name</label>
+                        <select class="form-select" class="form-control" formControlName="taskName">
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="E-pub">E-pub</option>
+                            <option value="XML">XML</option>
+                            <option value="Table">Table</option>
+                            <option value="SoftWare">SoftWare</option>
+                        </select>
+                    </div>
+                    <!-- <div class="mb-3">
+                        <label class=" form-label">Project Title</label>
+                        <input class="form-control" formControlName="taskName">
+                    </div> -->
+                    <div class="mb-3">
+                        <label class=" form-label">Project Description</label>
+                        <textarea class="form-control" formControlName="taskDescription"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" (click)="addProjectDetails(addProjectDetail.value)"
+                            class="btn btn-primary mt-3">Task
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

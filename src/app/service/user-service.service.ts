@@ -9,13 +9,15 @@ export class UserServiceService {
 
 
   employeeId: any;
-  attendanceId:any;
+  attendanceId: any;
   _role: any;
-
+  _projectId: any
   _user: any;
 
   _name: any;
   _userId: any;
+  _employeeTaskId: any;
+
   constructor() { }
 
 
@@ -38,9 +40,25 @@ export class UserServiceService {
     return this.employeeId;
   }
 
+  set ProjectId(id: any) {
+    localStorage.setItem('ProjectId', id);
+    this._projectId = id;
+  }
+  get ProjectId(): any {
+    return this._projectId;
+  }
+
   set EmployeeId(id: any) {
     localStorage.setItem('EmployeeId', id);
     this.employeeId = id;
+  }
+  get EmployeeTaskId(): any {
+    return this._employeeTaskId;
+  }
+
+  set EmployeeTaskId(id: any) {
+    localStorage.setItem('EmployeeTaskId', id);
+    this._employeeTaskId = id;
   }
   get AttendanceId(): any {
     return this.attendanceId;

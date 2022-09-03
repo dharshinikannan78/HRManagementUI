@@ -1,8 +1,8 @@
 <!-- <h4>Add Employee Details</h4> -->
-                    
-<div class="container " style="margin-left: 20rem; margin-top: 2rem;">
+
+<div class="container">
     <div class="step-wizard mt-3 mb-3">
-        <ul class="step-wizard-list">
+        <ul class="step-wizard-list p-0">
             <li class="step-wizard-item  " [class.current-item]="step==1">
                 <span class="progress-count">1</span>
                 <span class="progress-label">Basic Details</span>
@@ -21,139 +21,144 @@
             </li>
         </ul>
     </div>
+</div>
+<div class="container">
     <form class="add-form" (ngSubmit)="submit(employeeDetail.value)" [formGroup]="employeeDetail">
-        <div *ngIf="step==1" id="step1">
-            <h4>Basic Details</h4>
-            <div class="form-group mb-3">
-                <label class=" form-label">First Name</label>
-                <input type="text" class="form-control" formControlName="firstName">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['firstName'].valid && 
+        <div class="widhtTest">
+            <div *ngIf="step==1" id="step1" class="row">
+                <h4>Basic Details</h4>
+                <div class="form-group col-md-6">
+                    <label class=" form-label">First Name</label>
+                    <input type="text" class="form-control" formControlName="firstName">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['firstName'].valid && 
                 employeeDetail.controls['firstName']?.touched"> <b>First Name</b> is required *</span>
-            </div>
-            <div class="form-group mb-3">
-                <label class=" form-label">Last Name</label>
-                <input type="text" class="form-control" formControlName="lastName">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['lastName'].valid && 
+                </div>
+                <div class="form-group col-md-6">
+                    <label class=" form-label">Last Name</label>
+                    <input type="text" class="form-control" formControlName="lastName">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['lastName'].valid && 
                 employeeDetail.controls['lastName']?.touched"> <b>Last Name </b> is required *</span>
-            </div>
-            <div class="form-group mb-3">
-                <label class=" form-label">Date Of Birth</label>
-                <input type="date" class="form-control" formControlName="dob">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['dob'].valid && 
+                </div>
+                <div class="form-group col">
+                    <label class=" form-label">Date Of Birth</label>
+                    <input type="date" class="form-control" formControlName="dob">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['dob'].valid && 
                 employeeDetail.controls['dob']?.touched"> <b>Dob</b> is required *</span>
+                </div>
             </div>
-        </div>
-        <div *ngIf="step==2" id="step2">
-            <h4>Contact Details</h4>
-            <div class="form-group">
-                <label class=" form-label mb-3">Email Id</label>
-                <input type="text" class="form-control" formControlName="emailId">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['emailId'].valid && 
+            <div *ngIf="step==2" id="step2">
+                <h4>Contact Details</h4>
+                <div class="form-group">
+                    <label class=" form-label">Email Id</label>
+                    <input type="text" class="form-control" formControlName="emailId">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['emailId'].valid && 
                 employeeDetail.controls['emailId']?.touched"> <b>Email Id</b> is required *</span>
-            </div>
-            <div class="form-group mb-3">
-                <label class=" form-label">Mobile Number</label>
-                <input type="text" class="form-control" formControlName="number">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['number'].valid && 
+                </div>
+                <div class="form-group">
+                    <label class=" form-label">Mobile Number</label>
+                    <input type="text" class="form-control" formControlName="number">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['number'].valid && 
                     employeeDetail.controls['number']?.touched"> <b>Number</b> is required *</span>
-            </div>
-            <div class="form-group mb-3">
-                <label class=" form-label">Address</label>
-                <textarea class="form-control" formControlName="address"></textarea>
-                <span class="text-danger" *ngIf="!employeeDetail.controls['address'].valid && 
+                </div>
+                <div class="form-group">
+                    <label class=" form-label">Address</label>
+                    <textarea class="form-control" formControlName="address"></textarea>
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['address'].valid && 
                             employeeDetail.controls['address']?.touched"> <b>Address</b> is required *</span>
-            </div>
-            <div class="form-group">
-                <label class=" form-label mb-3">Gender</label>
-                <select class="form-select" class="form-control" formControlName="gender">
-                    <option disabled selected value> -- select an option -- </option>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
-                </select>
-                <span class="text-danger" *ngIf="!employeeDetail.controls['gender'].valid && 
+                </div>
+                <div class="form-group">
+                    <label class=" form-label">Gender</label>
+                    <select class="form-select" class="form-control" formControlName="gender">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                    </select>
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['gender'].valid && 
                             employeeDetail.controls['gender']?.touched"> <b>Gender</b> is required *</span>
+                </div>
             </div>
-        </div>
-        <div *ngIf="step==3" id="step3">
-            <h4>Education Details</h4>
-            <div class="form-group mb-3">
-                <label class=" form-label">Qualification</label>
-                <input type="text" class="form-control" formControlName="qualification">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['qualification'].valid && 
+            <div *ngIf="step==3" id="step3">
+                <h4>Education Details</h4>
+                <div class="form-group">
+                    <label class=" form-label">Qualification</label>
+                    <input type="text" class="form-control" formControlName="qualification">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['qualification'].valid && 
                 employeeDetail.controls['qualification']?.touched"> <b>Qualification</b> is required *</span>
-            </div>
-            <div class="form-group mb-3">
-                <label class=" form-label">College/University</label>
-                <input type="text" class="form-control" formControlName="college">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['college'].valid && 
+                </div>
+                <div class="form-group">
+                    <label class=" form-label">College/University</label>
+                    <input type="text" class="form-control" formControlName="college">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['college'].valid && 
                     employeeDetail.controls['college']?.touched"> <b>College/University</b> is required *</span>
-            </div>
-            <div class="form-group mb-3">
-                <label class=" form-label">Year Of Passing</label>
-                <input type="date" class="form-control" formControlName="passedOut">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['passedOut'].valid && 
+                </div>
+                <div class="form-group">
+                    <label class=" form-label">Year Of Passing</label>
+                    <input type="date" class="form-control" formControlName="passedOut">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['passedOut'].valid && 
                         employeeDetail.controls['passedOut']?.touched"> <b>Year Of Passing</b> is required *</span>
-            </div>
-            <div class="form-group mb-3">
-                <label class=" form-label">Skills</label>
-                <input type="text" class="form-control" formControlName="skills">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['skills'].valid && 
+                </div>
+                <div class="form-group">
+                    <label class=" form-label">Skills</label>
+                    <input type="text" class="form-control" formControlName="skills">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['skills'].valid && 
                         employeeDetail.controls['skills']?.touched"> <b>Skills</b> is required *</span>
+                </div>
             </div>
-        </div>
-        <div *ngIf="step==4" id="step4">
-            <h4>Work Details</h4>
-            <div class="form-group mb-3">
-                <label class=" form-label">Designation</label>
-                <select class="form-select" class="form-control" formControlName="designation">
-                    <option disabled selected value> -- select an option -- </option>
-                    <option value="Fron End">Fron End</option>
-                    <option value="Back End">Back End</option>
-                    <option value="Full Stack">Full Stack</option>
-                </select>
-                <span class="text-danger" *ngIf="!employeeDetail.controls['designation'].valid && 
+            <div *ngIf="step==4" class="row" id="step4">
+                <h4>Work Details</h4>
+                <div class="form-group col-md-6">
+                    <label class=" form-label">Designation</label>
+                    <select class="form-select" class="form-control" formControlName="designation">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="Fron End">Fron End</option>
+                        <option value="Back End">Back End</option>
+                        <option value="Full Stack">Full Stack</option>
+                    </select>
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['designation'].valid && 
                         employeeDetail.controls['designation']?.touched"> <b>Designation</b> is required *</span>
-            </div>
-            <div class="form-group mb-3">
-                <label class=" form-label">Joining Date</label>
-                <input type="date" class="form-control" formControlName="joiningDate">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['joiningDate'].valid && 
+                </div>
+                <div class="form-group col-md-6">
+                    <label class=" form-label">Joining Date</label>
+                    <input type="date" class="form-control" formControlName="joiningDate">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['joiningDate'].valid && 
                         employeeDetail.controls['joiningDate']?.touched"> <b>Joining Date</b> is required *</span>
-            </div>
-            <div class="form-group mb-3">
-                <label class=" form-label">Work Mode</label>
-                <select class="form-select" class="form-control" formControlName="workMode">
-                    <option disabled selected value> -- select an option -- </option>
-                    <option value="Frontt End">Part Time</option>
-                    <option value="Back End">Full Time</option>
-                </select>
-                <span class="text-danger" *ngIf="!employeeDetail.controls['workMode'].valid && 
+                </div>
+                <div class="form-group col-md-12">
+                    <label class=" form-label">Work Mode</label>
+                    <select class="form-select" class="form-control" formControlName="workMode">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="Frontt End">Part Time</option>
+                        <option value="Back End">Full Time</option>
+                    </select>
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['workMode'].valid && 
                             employeeDetail.controls['workMode']?.touched"> <b>WorkMode</b> is required *</span>
-            </div>
-            <div class="form-group mb-3">
-                <label class="form-label">Resume</label>
-                <input type="file" class="input-box form-control" #resume formControlName="filesResume"
-                    placeholder="choose the photo" (change)="uploadcandidateFile(resume.files,'resume')">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label class="form-label">Resume</label>
+                    <input type="file" class="input-box form-control" #resume formControlName="filesResume"
+                        placeholder="choose the photo" (change)="uploadcandidateFile(resume.files,'resume')">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
                             employeeDetail.controls['filesResume']?.touched"> <b>FilesResume</b> is required *</span>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Image</label>
-                <input type="file" class="input-box form-control" #image formControlName="filesResume" placeholder="choose the photo"
-                    (change)="uploadcandidateFile(image.files,'image')">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="form-label">Image</label>
+                    <input type="file" class="input-box form-control" #image formControlName="filesResume"
+                        placeholder="choose the photo" (change)="uploadcandidateFile(image.files,'image')">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
                             employeeDetail.controls['filesResume']?.touched"> <b>FilesResume</b> is required *</span>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Certificate</label>
-                <input type="file" class="input-box form-control" #certificate formControlName="filesResume"
-                    placeholder="choose the photo" (change)="uploadcandidateFile(certificate.files,'other')">
-                <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="form-label">Certificate</label>
+                    <input type="file" class="input-box form-control" #certificate formControlName="filesResume"
+                        placeholder="choose the photo" (change)="uploadcandidateFile(certificate.files,'other')">
+                    <span class="text-danger" *ngIf="!employeeDetail.controls['filesResume'].valid && 
                             employeeDetail.controls['filesResume']?.touched"> <b>FilesResume</b> is required *</span>
+                </div>
             </div>
         </div>
-        <div class="mt-3" style="margin-right:5rem">
-            <button type="button" class="btn btn-primary "  *ngIf="step!=4 " (click)=" next()">Next</button>
+        <div class="mt-3 butt">
+            <button type="button" class="btn btn-primary " *ngIf="step!=4 " (click)=" next()">Next</button>
             <button type="submit" class="btn btn-primary " style="margin-right: 1rem;" *ngIf="step==4"
                 [disabled]="thisFormValid()">Finish</button>
             <button type="button" class="btn btn-primary " style="margin-right: 1rem; text-align: center !important;"

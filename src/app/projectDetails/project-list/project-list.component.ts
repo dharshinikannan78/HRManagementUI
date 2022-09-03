@@ -20,9 +20,9 @@ export class ProjectListComponent implements OnInit {
   createdBy = this.userService.Name;
   EmployeeId: any = localStorage.getItem('EmployeeId');
   EmployeeTaskId: any = localStorage.getItem('EmployeeTaskId')
-  ProjectId :any = localStorage.getItem('ProjectId')
+  ProjectId: any = localStorage.getItem('ProjectId')
 
-  addProjectDetail: FormGroup = new FormGroup({
+  addTaskDetail: FormGroup = new FormGroup({
     assigingId: new FormControl(this.EmployeeId),
     employeeId: new FormControl(this.EmployeeTaskId),
     projectId: new FormControl(this.ProjectId),
@@ -31,12 +31,31 @@ export class ProjectListComponent implements OnInit {
     taskDescription: new FormControl(''),
     createBy: new FormControl(this.createdBy),
   });
+  addProjectDetail: FormGroup = new FormGroup({
+    assiginedId: new FormControl(this.EmployeeId),
+    projectTitle: new FormControl(''),
+    projectName: new FormControl(''),
+    projectDescription: new FormControl(''),
+    createBy: new FormControl(this.createdBy),
+  });
   constructor(private api: ApiServiceService, private router: Router, private userService: UserServiceService) { }
 
   ngOnInit(): void {
     this.getEmployeeName();
     this.getEmployeId('');
     this.getProjectDetails('xml');
+  }
+  addProjectDetails(params: any) {
+    this.api.addProjectDetails(params).subscribe((data: any) => {
+      console.log(data, 'projectDetails');
+      Swal.fire({
+        text: 'Added Sucessfully!',
+        icon: 'success',
+        timer: 1500
+      });
+      // this.addProjectDetail.reset();
+      this.router.navigate(['taskDetails'])
+    });
   }
   getProjectId(params: any) {
     this.userService.ProjectId = params;
@@ -65,7 +84,7 @@ export class ProjectListComponent implements OnInit {
       console.log(data, 'task')
     })
   }
-  addProjectDetails(params: any) {
+  addTaskDetails(params: any) {
     this.api.addTaskDetails(params).subscribe((data: any) => {
       console.log(data, 'projectDetails');
       Swal.fire({

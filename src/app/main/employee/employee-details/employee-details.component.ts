@@ -141,7 +141,5 @@ export class EmployeeDetailsComponent implements OnInit {
     this.userService.UserId = id;
     console.log(this.userService.UserId, 'userId')
     this.router.navigate(['/taskDetails']);
-
-
   }
 }

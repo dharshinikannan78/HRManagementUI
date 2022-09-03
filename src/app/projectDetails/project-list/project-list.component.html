@@ -1,28 +1,28 @@
 <div class="container">
     <div class="row mt-5">
-        <div class="col-3">
-            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('xml')">
+        <div class="col-3" *ngIf="isXml">
+            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" >
                 <div class="card-body">
                     <h5 class="card-title">XML</h5>
                 </div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('software')">
+        <div class="col-3" *ngIf="isSoftware">
+            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" >
                 <div class="card-body">
                     <h5 class="card-title">SoftWare</h5>
                 </div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('E-Pup')">
+        <div class="col-3" *ngIf="isEpub">
+            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" >
                 <div class="card-body">
                     <h5 class="card-title">E-Pup</h5>
                 </div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" (click)="getProjectDetails('Table')">
+        <div class="col-3" *ngIf="isTable">
+            <div class="card text-bg-dark mb-3" style="max-width: 15rem;" >
                 <div class="card-body">
                     <h5 class="card-title">Table</h5>
                 </div>

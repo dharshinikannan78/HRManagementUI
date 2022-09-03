@@ -15,7 +15,7 @@ import { UserServiceService } from '../../service/user-service.service';
 })
 export class AttendanceComponent implements OnInit {
 
-  EmployeeId: string = localStorage.getItem('employeeId');
+  EmployeeId: string = localStorage.getItem('EmployeeId');
   AttendanceId:string=localStorage.getItem('AttendanceId')
   attDetails: any;
 hour:any;
@@ -61,6 +61,7 @@ updateAttendance: FormGroup = new FormGroup({
    this.api.addAttendance(params).subscribe((data:any) => {
       console.log(data, 'attendance');
  localStorage.setItem("AttendanceId", data.attendanceId);
+
     //  this.userService.AttendanceId=data.attendanceId;
       this.check=!this.check
     });
@@ -70,9 +71,10 @@ updateAttendance: FormGroup = new FormGroup({
       timer: 900
     });
     // this.showModal = false;
-    location.reload();
+
   }
     updateattendanceDetails(params:any) {
+      
       this.api.updateAttendance(params).subscribe(data => {
         console.log(data, 'updattendance');
         this.check=!this.check

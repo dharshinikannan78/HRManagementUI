@@ -17,8 +17,6 @@ export class ApiServiceService {
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
   applyLeave = this.URL + 'Leave/ApplyLeave';
   getEmployeeDetailById = this.URL + 'Employee/GetEmployeeDetailsById?id='
-  
- 
   employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
   getUser = this.URL + 'Employee/GetUser?data=';
   getLeave = this.URL + 'Leave/GetLeave?data=';

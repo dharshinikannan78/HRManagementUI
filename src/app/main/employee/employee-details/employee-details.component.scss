@@ -294,19 +294,20 @@ main {
 .our-team .title {
     display: block;
     font-size: 15px;
-    color: #ea7405;
+    color: #1369ce;
 }
 
 .our-team .contact {
     width: 100%;
     padding: 0;
     margin: 0;
-    background-color: #1369ce;
+    background-color: #f7f5ec;
     position: absolute;
     bottom: -100px;
     left: 0;
     transition: all 0.5s ease 0s;
 }
+ 
 
 .our-team:hover .contact {
     bottom: 0;
@@ -327,17 +328,12 @@ main {
 
 .our-team .contact .mob-num:hover {
     color: #f7f5ec;
-    background-color: #1369ce;
 }
 .data{
-   
-    border:rgb(242, 229, 229) .01px solid;
-   
+    padding: 5px;
     text-transform: uppercase;
-   
-
-}
+   }
 .row{
- 
   height: 100%;
 }
+

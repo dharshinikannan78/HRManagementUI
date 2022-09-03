@@ -3,7 +3,8 @@
         <div class="d-flex align-items-center justify-content-center">
             <div>
                 <ngx-avatar [name]="loggerName" class="margin-auto dflex" size="80" [style]="customStyle"
-                    [src]="'https://localhost:44394/'+ forNav[0].photoPath"></ngx-avatar>
+                  ></ngx-avatar>
+                  <!-- [src]="'https://localhost:44394/'+ forNav[0].photoPath" -->
                 <div class="d-flex pt-3 align-items-center justify-content-center">
                     <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
                         {{ loggerRole }}</h6>
@@ -22,11 +23,11 @@
             </li>
             <li class="cursorP" [ngClass]="{'active': step==='step2'}" data-bs-toggle="collapse" href="#collapseExample"
                 role="button" aria-expanded="false" aria-controls="collapseExample" (click)="step='step2'"
-                (click)="isNavOpen ? shortNav('/Employee'): 'none'">
+                (click)="isNavOpen ? shortNav('/Employee'): 'none'" *ngIf="!isEmployee" >
                 <i class="fa-solid fa-user-gear"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Employee</p>
             </li>
-            <div class="collapse" id="collapseExample">
+            <div class="collapse" id="collapseExample" *ngIf="!isEmployee">
                 <ul [ngClass]="isNavOpen ? 'none': 'show'">
                     <li class="cursorP" [ngClass]="{'active': step==='step5'}"
                         (click)="step='step5' ; shortNav('addUser')">
@@ -51,7 +52,7 @@
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Leave</p>
             </li>
             <li [ngClass]="{'active': step==='step5'}" (click)="step='step4' ; shortNav('/projectDetails')"
-                class="cursorP">
+                class="cursorP" *ngIf="!isEmployee">
                 <i class="fa-solid fa-sheet-plastic"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Project</p>
             </li>
@@ -74,7 +75,8 @@
                 <p class="m-0">{{ loggerName }}</p>
                 <a class="navbar-brand" href="#">
                     <ngx-avatar [name]="loggerName" [style]="customStyle"
-                        [src]="'https://localhost:44394/'+ forNav[0].photoPath"></ngx-avatar>
+                        ></ngx-avatar>
+                        <!-- [src]="'https://localhost:44394/'+ forNav[0].photoPath" -->
                 </a>
             </div>
         </div>

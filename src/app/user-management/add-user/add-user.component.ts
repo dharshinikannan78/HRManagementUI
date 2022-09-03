@@ -18,6 +18,7 @@ export class AddUserComponent implements OnInit {
     mailId: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     employeeId: new FormControl('', Validators.required),
+    teamName:new FormControl('',Validators.required),
     role: new FormControl('', Validators.required),
 
   })

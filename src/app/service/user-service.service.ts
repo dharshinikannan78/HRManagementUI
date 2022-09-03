@@ -16,6 +16,7 @@ export class UserServiceService {
 
   _name: any;
   _userId: any;
+  _team:any;
   constructor() { }
 
 
@@ -57,6 +58,13 @@ export class UserServiceService {
   set Role(role: any) {
     localStorage.setItem('Role', role);
     this._role = role;
+  }
+  get Team(): any {
+    return localStorage.getItem('Team');
+  }
+  set Team(team: any) {
+    localStorage.setItem('Team', team);
+    this._team = team;
   }
 
   get UserId(): any {

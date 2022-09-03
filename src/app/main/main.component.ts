@@ -9,6 +9,9 @@ import { UserServiceService } from '../service/user-service.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
+ 
+isEmployee:boolean=true;
+
 
   showNavContent: boolean;
   isNavOpen: boolean = true;
@@ -18,12 +21,37 @@ export class MainComponent {
   customStyle = {
     objectFit: "cover"
   };
+  userService: any;
+ 
   constructor(public router: Router, userService: UserServiceService, private api: ApiServiceService) {
     this.step = 'step1'
     this.loggerName = userService.Name;
-    this.loggerRole = userService.Role;
-    this.getImageForNav();
+   this.loggerRole = userService.Role;
+   console.log(this.loggerRole,"logg")
+   if (this.loggerRole=="Admin")
+   {
+     console.log(this.loggerRole,"admin")
+ this.isEmployee=false;    
+   }
+   else
+  if(this.loggerRole=="TeamLeader")
+  { console.log(this.loggerRole,"Teamleader")
+    this.isEmployee=true;
   }
+  else
+if(this.loggerRole=="TeamMember")
+  {
+   console.log(this.loggerRole,"teammember")
+    this.isEmployee=true;
+  }
+
+   
+    this.getImageForNav();
+   
+  }
+ 
+
+  
 
   openNav() {
     let sidenav = document.getElementById("sideNav");
@@ -79,10 +107,14 @@ export class MainComponent {
   }
   forNav: any;
   getImageForNav() {
-    this.api.getEmployeeDetailsById(localStorage.getItem("employeeId")).subscribe(data => {
+   
+    this.api.getEmployeeDetailsById(localStorage.getItem("EmployeeId")).subscribe(data => {
+     
       this.forNav = data;
       console.log(data, "photo foe nav")
+     
     })
   }
+
 
 }

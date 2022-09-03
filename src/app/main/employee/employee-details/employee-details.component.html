@@ -2,7 +2,6 @@
     <div class="container">
         <ng-container *ngIf="oneEmployee">
             <div class="row mt-5 mb-5  bg-forrow">
-
                 <div class="col-md-3 col-sm-6 mt-3" *ngFor="let data of isData" data-toggle="modal">
                     <div class="card h-100">
                         <div class="row g-0">
@@ -66,9 +65,9 @@
                 </div>
             </div> -->
 
-            <div class="row py-4">
-                <div class="col-md-6">
-                    <div class="row">
+            <div class="row py-4 g-3">
+                <div class="col-md-8">
+                    <div class="row g-3">
                         <div class="col-md-12 Ename p-4 rounded-4 bg-white d-flex align-items-center">
                             <ngx-avatar size="46" [style]="customStyle"
                                 [name]="isData[0].firstName + ' ' + isData[0].lastName"
@@ -80,7 +79,7 @@
                                 <p class="m-0">{{isData[0].designation}}</p>
                             </div>
                         </div>
-                        <div class="col-md-12 rounded-4 bg-white my-3 p-4">
+                        <div class="col-md-12 rounded-4 bg-white mt-3 p-4">
                             <h5 class="mb-4">All Personal Details<span class="float-end primary-textc"><i
                                         class="fa-solid fa-pencil"></i>&nbsp;Edit</span></h5>
                             <div class="row g-5">
@@ -143,15 +142,96 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <h5>Task Details</h5>
+                <div class="col-md-4 taskDetails position-relative">
+                    <div class="p-3 testingOverflow rounded-4 bg-white">
+                        <h5>Task Details</h5>
+                        <div class="row g-2">
+                            <div class="col-12" *ngFor="let item of taskDetails">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{item.taskName}}<span
+                                                [ngClass]="{'redBadge': item.taskStatus === 'Rejected', 'orangeBadge': item.taskStatus === 'Pending' }"
+                                                class="badge float-end">{{item.taskStatus}}</span></h5>
+                                        <p class="card-text">{{item.taskDescription}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroll">
+                        <div class="scrollWrap rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 p-0">
+                    <div class="rounded-4 bg-white p-3">
+                        <h5>Attendance Details</h5>
+
+                        <!-- calendar -->
+                        <div class="row text-center">
+                            <div class="col-md-4">
+                                <div class="btn-group">
+                                    <div class="btn btn-primary" mwlCalendarPreviousView [view]="view"
+                                        [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                                        Previous
+                                    </div>
+                                    <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+                                        Today
+                                    </div>
+                                    <div class="btn btn-primary" mwlCalendarNextView [view]="view"
+                                        [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                                        Next
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+                            </div>
+                            <!-- <div class="col-md-4">
+                                <div class="btn-group">
+                                    <div class="btn btn-primary" (click)="setView(CalendarView.Month)"
+                                        [class.active]="view === CalendarView.Month">
+                                        Month
+                                    </div>
+                                    <div class="btn btn-primary" (click)="setView(CalendarView.Week)"
+                                        [class.active]="view === CalendarView.Week">
+                                        Week
+                                    </div>
+                                    <div class="btn btn-primary" (click)="setView(CalendarView.Day)"
+                                        [class.active]="view === CalendarView.Day">
+                                        Day
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <br />
+                        <div>
+                            <mwl-calendar-month-view [viewDate]="viewDate"
+                                [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen"
+                                (dayClicked)="dayClicked($event.day)"
+                                (eventClicked)="handleEvent('Clicked', $event.event)"
+                                (eventTimesChanged)="eventTimesChanged($event)">
+                            </mwl-calendar-month-view>
+                            <!-- <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate"
+                                [events]="events" [refresh]="refresh"
+                                (eventClicked)="handleEvent('Clicked', $event.event)"
+                                (eventTimesChanged)="eventTimesChanged($event)">
+                            </mwl-calendar-week-view>
+                            <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate"
+                                [events]="events" [refresh]="refresh"
+                                (eventClicked)="handleEvent('Clicked', $event.event)"
+                                (eventTimesChanged)="eventTimesChanged($event)">
+                            </mwl-calendar-day-view> -->
+                        </div>
+
+                    </div>
+
 
                 </div>
             </div>
         </ng-container>
     </div>
-
-
 
     <div class="modal" [style.display]="showModal ? 'block' : 'none'">
         <div class="modal-dialog">

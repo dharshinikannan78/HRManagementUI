@@ -22,12 +22,12 @@ export class AddEmployeeDetailsComponent implements OnInit {
   attachmentIds: any = [];
   attachmentName: any = [];
 
-
-
-
+  
   employeeDetail:any;
   constructor(private router: Router, private api: ApiServiceService) {
     this.formData = new FormData();
+    
+
 
     this.employeeDetail = new FormGroup({
       firstName: new FormControl('', Validators.required),
@@ -47,7 +47,6 @@ export class AddEmployeeDetailsComponent implements OnInit {
       designation: new FormControl('', Validators.required),
       joiningDate: new FormControl('', Validators.required)
     });
-
   }
 
   ngOnInit(): void {

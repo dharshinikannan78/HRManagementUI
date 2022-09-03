@@ -214,6 +214,80 @@ main {
 .bg-White {
     background-color: #fff;
 }
+
 .greybg {
     background-color: #ececec;
+}
+
+.badge {
+    background-color: rgba(45, 211, 111, 0.12);
+    color: #28ba62;
+    min-width: 80px;
+    padding: 6px 9px;
+    border-radius: 25px;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.badge:hover {
+    background-color: rgba(45, 211, 111, 0.16);
+}
+
+.redBadge {
+    background-color: rgba(235, 68, 90, 0.15) !important;
+    color: #cf3c4f !important;
+}
+
+.redBadge:hover {
+    background-color: rgba(235, 68, 90, 0.18) !important;
+}
+
+.orangeBadge {
+    background-color: rgba(255, 196, 9, 0.18) !important;
+    color: #e0ac08 !important;
+}
+
+.orangeBadge:hover {
+    background-color: rgba(255, 196, 9, 0.21) !important;
+}
+
+.testingOverflow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    overflow-x: auto;
+}
+
+@media (max-width: 500px) {
+    .testingOverflow {
+        min-height: 500px;
+    }
+    .scrollWrap {
+        opacity: 0 !important;
+    }
+}
+
+.testingOverflow::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll {
+    position: absolute;
+    bottom: 0;
+    right: 42%;
+}
+
+.taskDetails:hover {
+    .scrollWrap {
+        opacity: 1;
+    }
+}
+
+.scrollWrap {
+    border-radius: 50%;
+    width: 40px;
+    aspect-ratio: 1;
+    background-color: #bbc6d7;
+    opacity: 0;
 }

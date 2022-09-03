@@ -9,6 +9,8 @@ import { EmployeeComponent } from './employee.component';
 import { RouterModule } from '@angular/router';
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { AvatarModule } from 'ngx-avatar';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 const avatarColors = ["#FFB6C1", "#2c3e50", "#95a5a6", "#f39c12", "#1abc9c"];
@@ -29,7 +31,11 @@ const avatarColors = ["#FFB6C1", "#2c3e50", "#95a5a6", "#f39c12", "#1abc9c"];
     EmployeeRoutingModule,
     AvatarModule.forRoot({
       colors: avatarColors
-    })
+    }),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ]
 })
 export class EmployeeModule { }

@@ -19,7 +19,6 @@
             <li class="cursorP bg-select" [ngClass]="{'active': step==='step1'}"
                 (click)="step='step1' ; shortNav('/Employee')"><i class="fa-solid fa-house"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">About</p>
-
             </li>
             <li class="cursorP" [ngClass]="{'active': step==='step2'}" data-bs-toggle="collapse" href="#collapseExample"
                 role="button" aria-expanded="false" aria-controls="collapseExample" (click)="step='step2'"

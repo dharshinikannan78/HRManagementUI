@@ -107,9 +107,8 @@ if(this.loggerRole=="TeamMember")
   }
   forNav: any;
   getImageForNav() {
-   
     this.api.getEmployeeDetailsById(localStorage.getItem("EmployeeId")).subscribe(data => {
-     
+      console.log(data, 'data');
       this.forNav = data;
       console.log(data, "photo foe nav")
      

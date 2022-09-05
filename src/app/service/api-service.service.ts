@@ -22,7 +22,7 @@ export class ApiServiceService {
   getLeave = this.URL + 'Leave/GetLeave?data=';
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
   attendance = this.URL + 'Attendance/AddAttendance';
-  updAttendance=this.URL+'Attendance/updateAttendance';
+  updAttendance = this.URL + 'Attendance/updateAttendance';
   updateLeaveDetail = this.URL + 'Leave/UpdateLeaveDetails'
   taskDetails = this.URL + 'TaskDetails/AddTaskDeatils';
   getEmployeeTaskDetails = this.URL + 'TaskDetails/EmployeeId?EmployeeId=';
@@ -32,6 +32,7 @@ export class ApiServiceService {
   getProjectDetails = this.URL + 'ProjectDetails/getDetails?projectTitle=';
   getProjectMembers = this.URL + 'ProjectDetails/TeamMembers?team=';
   getTaskDetails = this.URL + 'ProjectDetails/TaskName?taskName=';
+  getTaskDetailsById = this.URL + 'TaskDetails/EmployeeId?EmployeeId=';
   // jwtToken = this.URL + "jwt";
 
   constructor(private http: HttpClient) { }
@@ -83,11 +84,11 @@ export class ApiServiceService {
   getLeaveDetails(id: any) {
     return this.http.get(this.getLeave + id)
   }
-  addAttendance(params:any) {
-    return this.http.post(this.attendance,params)
+  addAttendance(params: any) {
+    return this.http.post(this.attendance, params)
   }
-  updateAttendance(params:any) {
-    return this.http.put(this.updAttendance,params)
+  updateAttendance(params: any) {
+    return this.http.put(this.updAttendance, params)
   }
   getAttendanceDetails(id: any) {
     return this.http.get(this.getAttendance + id)
@@ -116,7 +117,10 @@ export class ApiServiceService {
   getprojectTaskDetails(params: any) {
     return this.http.get(this.getTaskDetails + params)
   }
-  getEmployeeDetailsById(params:string) {
+  getEmployeeDetailsById(params: string) {
     return this.http.get(this.getEmployeeDetailById + params);
+  }
+  getTaskDetailById = (params: any) => {
+    return this.http.get(this.getTaskDetailsById + params);
   }
 }

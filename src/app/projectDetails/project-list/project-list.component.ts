@@ -122,7 +122,7 @@ this.isSoftware=false;
 this.api.getprojectTaskDetails(params).subscribe(data => {
   this.taskDetails = data;
   console.log(data, 'task')
-})
+});
 }
 }
 }

@@ -13,7 +13,7 @@ export class UserServiceService {
   _role: any;
   _projectId: any
   _user: any;
-
+  _inTime: any
   _name: any;
   _userId: any;
   _employeeTaskId: any;
@@ -67,6 +67,15 @@ export class UserServiceService {
   set AttendanceId(id: any) {
     localStorage.setItem('AttendanceId', id);
     this.attendanceId = id;
+  }
+
+  get InTime(): any {
+    return this._inTime;
+  }
+
+  set InTime(intime: any) {
+    localStorage.setItem('InTime', intime);
+    this._inTime = intime;
   }
 
   get Role(): any {

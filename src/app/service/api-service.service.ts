@@ -10,6 +10,7 @@ export class ApiServiceService {
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   employeeDetailsName = this.URL + 'Employee/AllEmployee';
+  getOverAllAttendance = this.URL + 'Attendance/AllAttendance';
   allEmployeeDetails = this.URL + 'Employee/GetEmployeeDetails';
   addemployeeDetail = this.URL + 'Employee/AddEmployee';
   updateEmployeeDetail = this.URL + 'Employee/Update';
@@ -29,6 +30,7 @@ export class ApiServiceService {
   getTeamTaskDetails = this.URL + 'TaskDetails/employeeId?id=';
   getTeamLeader = this.URL + 'TaskDetails/Team?team=';
   addProjectDetail = this.URL + 'ProjectDetails/AddEmployeeDetails';
+  updateProjectDetails = this.URL + 'ProjectDetails/UpdateTaskDetails';
   getProjectDetails = this.URL + 'ProjectDetails/getDetails?projectTitle=';
   getProjectMembers = this.URL + 'ProjectDetails/TeamMembers?team=';
   getTaskDetails = this.URL + 'ProjectDetails/TaskName?taskName=';
@@ -41,6 +43,10 @@ export class ApiServiceService {
     'content-type': 'application/json',
     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
   });
+
+  allEmployeeAttendance() {
+    return this.http.get(this.getOverAllAttendance)
+  }
 
   getEmployeeName() {
     return this.http.get(this.employeeDetailsName)
@@ -66,7 +72,9 @@ export class ApiServiceService {
   updateEmployeeDetails(paramas: any) {
     return this.http.put(this.updateEmployeeDetail, paramas)
   }
-
+  updateProject(paramas: any) {
+    return this.http.put(this.updateProjectDetails, paramas)
+  }
   uploadFileAttachment(params: any) {
     return this.http.post(this.uploadFile, params)
   }

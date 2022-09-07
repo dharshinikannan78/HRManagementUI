@@ -1,195 +1,109 @@
-<!-- <div class="mt-2 mr-2 mb-2" style="float:right">
-        <button type="button" class="btn btn-primary">Create Project</button>
-    </div> -->
-
 <div class="container mt-5 mb-2">
-    <button style="float: right;" type="button" class="btn btn-primary" data-bs-toggle="modal"
-        data-bs-target="#example">Create project </button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#example">Create project
+    </button>
 </div>
 
 
-<div class="container mt-5 row">
-    <div class="col-2">
-        <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('xml')">XML</span>
-    </div>
-    <div class="col-2">
-        <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('E-pup')">E - Pub</span>
-    </div>
-    <div class="col-2">
-        <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('Table')">Table</span>
-    </div>
-    <div class="col-2">
-        <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('software')">Software</span>
+<div class="container mt-5" style="margin-top: 2rem;">
+    <div class="row">
+        <div class="col-2">
+            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('xml')">XML</span>
+        </div>
+        <div class="col-2">
+            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('E-pup')">E - Pub</span>
+        </div>
+        <div class="col-2">
+            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('Table')">Table</span>
+        </div>
+        <div class="col-2">
+            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('software')">Software</span>
+        </div>
     </div>
 </div>
 
 
-<div class="container-fluid row" *ngIf="isOpen">
-    <div class="col-4">
-        <div class="row mt-5">
-            <div class="scrollbar" id="style-1">
+<div class="container-fluid" *ngIf="isOpen">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mt-4" *ngFor="let data of ProjectDetails">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-10">
+                            <p class="card-text" (click)="getPopProjectDetails(data)"><small
+                                    class="text-muted"><b>{{data.projectName}}</b>
+                                    TEAM</small>
+                            </p>
+                        </div>
+                        <div class="col-2">
 
-                <div class="col-12" *ngFor="let data of ProjectDetails">
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <div class="row mb-2">
-                                <div class="col-10">
-                                    <p class="card-text"><small class="text-muted"><b>{{data.projectName}}</b>
-                                            TEAM</small>
-                                    </p>
-                                </div>
-                                <div class="col-2">
-                                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"> -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" (click)="getProjectId(data.projectId)">
-                                        <i class="fa-sharp fa-solid fa-plus"></i></button>
-                                </div>
-                            </div>
-                            <h6><b>{{data.projectTitle}}</b></h6>
-                            <div class="row mt-3">
-                                <div class="col-8">
-                                    <p class="card-text"><small class="text-muted">Created By <b>{{data.createdBy}}</b>
-                                            <br /> Created On <b>{{data.startDate | date:'dd MMM YYYY'}}</b></small></p>
-                                </div>
-                                <div class="col-3 mt-3">
-                                    <p><span [ngClass]="{'redBadge': data.projectStatus === 'Inprogress', 'orangeBadge': data.projectStatus === 'Completed' }"
-                                            class="badge">{{data.projectStatus}}</span></p>
-                                </div>
-                            </div>
-                            <p class="card-text"><small class="text-muted">{{data.projectDescription}}</small></p>
-                            <!-- <p>{{data.projectStatus}}</p> -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" (click)="getProjectId(data.projectId)">
+                                <i class="fa-sharp fa-solid fa-plus"></i></button>
                         </div>
                     </div>
+                    <h6><b>{{data.projectTitle}}</b></h6>
+                    <div class="row mt-3">
+                        <div class="col-8">
+                            <p class="card-text"><small class="text-muted">Created By
+                                    <b>{{data.createdBy}}</b>
+                                    <br /> Created On <b>{{data.startDate | date:'dd MMM YYYY'}}</b></small>
+                            </p>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <p><span [ngClass]="{'redBadge': data.projectStatus === 'Inprogress', 'orangeBadge': data.projectStatus === 'Completed' }"
+                                    class="badge">{{data.projectStatus}}</span></p>
+                        </div>
+                    </div>
+                    <p class="card-text"><small class="text-muted">{{data.projectDescription}}</small></p>
+
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-4">
-        <div class="row mt-5">
-            <div class="scrollbar" id="style-1">
-
-                <div class="col-12" *ngFor="let data of teamMembers">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img class="avatar  avatar-user" src="../../../assets/bg-1.png" width="40"
-                                        height="40" />
-                                </div>
-                                <div class="col-10 mt-2">
-                                    <p class="card-text"><small class="text-muted">{{data.firstName}} {{data.lastName}}
-                                        </small>
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="card-footer">
-                            <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
-                                    class="badge">{{data.position }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="row mt-5">
-            <div class="col-12" *ngFor="let data of taskDetails">
-                <div class="card mb-3">
+        <div class="col-md-4 mt-4  col-12">
+            <div class="." id="">
+                <div class="card mb-3" *ngFor="let data of teamMembers">
                     <div class="card-body">
                         <div class="row">
-                            <h6>{{data.firstName}} &nbsp;{{data.lastName}}</h6>
-                            <div class="col-4">
-                                <p class="card-text"><small class="text-muted"> {{data.taskName}}
-                                    </small></p>
+                            <div class="col-2">
+                                <img class="avatar  avatar-user" src="../../../assets/bg-1.png" width="40"
+                                    height="40" />
                             </div>
-                            <div class="col-4">
-                                <p><span [ngClass]="{'redBadge': data.taskStatus=== 'Rejected', 'orangeBadge': data.taskStatus === 'Pending' }"
-                                        class="badge">{{data.taskStatus}}</span></p>
+                            <div class="col-10 mt-2">
+                                <p class="card-text"><small class="text-muted">{{data.firstName}}
+                                        {{data.lastName}}
+                                    </small>
+                                </p>
                             </div>
-                            <!-- <div class="col-4">
-                                <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
-                                        class="badge">{{data.position}}</span> </p>
-                            </div> -->
-                            <p class="card-text mt-1"><small class="text-muted">{{data.taskDescription}}</small></p>
                         </div>
                     </div>
+                    <div class="card-footer">
+                        <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
+                                class="badge">{{data.position }}</span>
+                    </div>
                 </div>
-
-
-                <!-- <div>
-                    <div class="card border-secondary mb-3">
-                        <div class="card-header text-secondary">{{data.firstName}}</div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{data.taskName}}</h5>
-                            <p>{{data.taskDescription}}</p>
-
-                            <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
-                                    class="badge">{{data.position}}</span> </p>
+            </div>
+        </div>
+        <div class="col-md-4 mt-4">
+            <div class="card mb-3" *ngFor="let data of taskDetails">
+                <div class="card-body">
+                    <div class="row">
+                        <h6>{{data.firstName}} &nbsp;{{data.lastName}}</h6>
+                        <div class="col-4">
+                            <p class="card-text"><small class="text-muted"> {{data.taskName}}
+                                </small></p>
+                        </div>
+                        <div class="col-4">
                             <p><span [ngClass]="{'redBadge': data.taskStatus=== 'Rejected', 'orangeBadge': data.taskStatus === 'Pending' }"
                                     class="badge">{{data.taskStatus}}</span></p>
                         </div>
+                        <p class="card-text mt-1"><small class="text-muted">{{data.taskDescription}}</small>
+                        </p>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-<!-- <div class="container mt-5" *ngIf="isOpen">
-
-    <div class="row">
-        <div class="col" *ngFor="let data of ProjectDetails">
-            <div class="card border-secondary mb-3">
-                <div class="card-header text-secondary">{{data.projectTitle}}</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{data.projectDescription}}</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col" *ngFor="let data of teamMembers">
-            <div>
-                <div class="card border-secondary mb-3">
-                    <div class="card-header text-secondary">{{data.firstName}}</div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{data.teamName}}</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col" *ngFor="let data of taskDetails">
-            <div>
-                <div class="card border-secondary mb-3">
-                    <div class="card-header text-secondary">{{data.firstName}}</div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{data.taskName}}</h5>
-                        <p>{{data.taskDescription}}</p>
-
-                        <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
-                                class="badge">{{data.position}}</span> </p>
-                        <p><span [ngClass]="{'redBadge': data.taskStatus=== 'Rejected', 'orangeBadge': data.taskStatus === 'Pending' }"
-                                class="badge">{{data.taskStatus}}</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-
-
-
-
-
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -249,10 +163,6 @@
                             <option value="SoftWare">SoftWare</option>
                         </select>
                     </div>
-                    <!-- <div class="mb-3">
-                        <label class=" form-label">Project Title</label>
-                        <input class="form-control" formControlName="taskName">
-                    </div> -->
                     <div class="mb-3">
                         <label class=" form-label">Project Description</label>
                         <textarea class="form-control" formControlName="taskDescription"></textarea>
@@ -267,9 +177,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 <div class="modal fade" id="example" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -304,6 +211,42 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+        <div class="modal-content" [formGroup]="addProjectDetail">
+            <div class="modal-header">
+                <h3 class="modal-title text-white"> EMPLOYEE DETAILS</h3>
+                <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
+            </div>
+            <div class="modal-body scrollbar" id="style-1">
+                <div class="row modalbody">
+                    <div class="mb-3">
+                        <label class=" form-label">Project Title</label>
+                        <input class="form-control" [ngModel]="details?.projectTitle" formControlName="projectTitle">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Project Name</label>
+                        <input class="form-control" [ngModel]="details?.projectName" formControlName="projectName">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Project Description</label>
+                        <textarea class="form-control" style="height:7rem" [ngModel]="details?.projectDescription"
+                            formControlName="projectDescription"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" style="float: left;"
+                    (click)="showModal=false">Cancel</button>
+                <button type="button" class="btn btn-primary" style="float: right;"
+                    (click)="updateProject(addProjectDetail.value)">Update and
+                    Save</button>
             </div>
         </div>
     </div>

@@ -1,19 +1,23 @@
 <div class="clock">
-  <button type="button" *ngIf="check" class="btn btn-secondary" (click)="attendanceDetails(addAttendance.value)" 
+  <button type="button" *ngIf="check" class="btn btn-secondary" (click)="attendanceDetails(addAttendance.value)"
     style="float:right;background: green;">
     <div class="checkIn">
       CheckIn
     </div>
     {{hour}}:{{minute}}:{{second}}:{{AMPM}}
   </button>
-  <button type="button" *ngIf="!check" class="btn btn-secondary" (click)="updateattendanceDetails(updateAttendance.value)"
-    style="float:right;background: red;">
+  <!-- <div *ngFor="let data of attendace">
+    {{data.attendanceId}} -->
+  
+  <button  type="button" *ngIf="!check" class="btn btn-secondary"
+    (click)="updateattendanceDetails(updateAttendance.value)" style="float:right;background: red;">
     <div class="checkOut">
       CheckOut
     </div>
     {{hour}}:{{minute}}:{{second}}:{{AMPM}}
   </button>
 </div>
+
 
 <section class="tbl">
   <div class="container">

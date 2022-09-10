@@ -136,6 +136,35 @@ export class EmployeeDetailsComponent implements OnInit {
     });
   }
 
+
+  deleteEmployeedetails(id:any,uname:any){
+    Swal.fire({
+      title: "Are you sure want to delete "+uname+" ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.isConfirmed) {
+    this.api.deleteUser(id).subscribe(()=>{
+      Swal.fire({
+        text: 'Deleted Sucessfully!',
+        icon: 'success',
+        timer: 1000
+      });
+      this.getAllDetails();
+    });
+      }
+});
+  }
+  
+
+
+
+  
+     
+  
+
   onClick() {
     this.router.navigate(['/addemployee'])
   }

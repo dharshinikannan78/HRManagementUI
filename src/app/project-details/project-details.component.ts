@@ -43,9 +43,7 @@ export class ProjectDetailsComponent implements OnInit {
         timer: 1500
       });
       // this.addProjectDetail.reset();
-      this.router.navigate(['/list'])
+      this.router.navigate(['taskDetails'])
     });
-
-
   }
 }

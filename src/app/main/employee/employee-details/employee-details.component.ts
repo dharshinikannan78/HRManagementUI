@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef
+  Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef, ComponentFactoryResolver
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,7 +21,6 @@ import {
   addHours,
 } from 'date-fns';
 import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -29,6 +28,7 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
+import * as moment from 'moment';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -83,14 +83,44 @@ export class EmployeeDetailsComponent implements OnInit {
   UserId: string = localStorage.getItem('userId');
   isShown: boolean = true;
   EmployeeId: any = localStorage.getItem("EmployeeId");
+  // AttendanceId: any = localStorage.getItem('AttendanceId');
+  // InTime: any = localStorage.getItem('InTime');
+  attDetails: any;
+  hour: any;
+  minute: string;
+  second: string;
+  AMPM: any;
+  check: boolean = true;
+  AttendanceIds: any = [];
+  InTime: any = [];
+  addAttendance: FormGroup = new FormGroup({
+    inTime: new FormControl(moment().format()),
+    employeeId: new FormControl(this.EmployeeId)
+  });
 
+  updateAttendance: FormGroup = new FormGroup({
+    attendanceId: new FormControl(),
+    inTime: new FormControl(),
+    outTime: new FormControl(moment().format()),
+    employeeId: new FormControl(this.EmployeeId)
+  });
 
 
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService,
   ) {
+    console.log("came");
   }
 
   ngOnInit(): void {
+    setInterval(() => {
+      const date = new Date();
+      this.updateDate(date);
+    }, 1000);
+    // this.attendanceDetails('')
+    // this.api.allEmployeeAttendance().subscribe(data => {
+    //   this.attendace = data;
+    //   console.log(this.attendace, 'dat')
+    // })
     this.getAllDetails();
   }
   getAllDetails() {
@@ -325,5 +355,66 @@ export class EmployeeDetailsComponent implements OnInit {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+  updateDate(date: Date) {
+    const hours = date.getHours();
+    this.AMPM = hours >= 12 ? 'PM' : 'AM';
+    this.hour = hours % 12;
+    this.hour = this.hour ? this.hour : 12;
+    this.hour = this.hour < 10 ? '0' + this.hour : this.hour;
+    const minutes = date.getMinutes();
+    this.minute = minutes < 10 ? '0' + minutes : minutes.toString();
+    const seconds = date.getSeconds();
+    this.second = seconds < 10 ? '0' + seconds : seconds.toString();
+  }
+
+  attendanceDetails(params: any) {
+    this.api.addAttendance(params).subscribe((data: any) => {
+      this.AttendanceIds.push(data.attendanceId);
+      this.InTime.push(data.inTime);
+      this.check = !this.check;
+    });
+  }
+
+  updateattendanceDetails(params: any) {
+    params.attendanceId = this.AttendanceIds.toString();
+    params.inTime = this.InTime.toString();
+    this.api.updateAttendance(params).subscribe((data: any) => {
+      this.check = !this.check;
+    });
+    Swal.fire({
+      text: 'Updated Sucessfully!',
+      icon: 'success',
+      timer: 900
+    });
+  }
+
+  getAttendanceDetail() {
+    this.api.getAttendanceDetails(this.EmployeeId).subscribe(data => {
+      console.log(data, "fgfgdfg");
+      this.attDetails = data
+      console.log(this.attDetails, "this.attDetails");
+    });
+  }
+
+  deleteEmployeedetails(id: any, uname: any) {
+    Swal.fire({
+      title: "Are you sure want to delete " + uname + " ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.deleteUser(id).subscribe(() => {
+          Swal.fire({
+            text: 'Deleted Sucessfully!',
+            icon: 'success',
+            timer: 1000
+          });
+          this.getAllDetails();
+        });
+      }
+    });
   }
 }

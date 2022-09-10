@@ -9,13 +9,15 @@ export class UserServiceService {
 
 
   employeeId: any;
-  attendanceId:any;
+  attendanceId: any;
   _role: any;
-
+  _projectId: any
   _user: any;
-
+  _inTime: any
   _name: any;
   _userId: any;
+  _employeeTaskId: any;
+_team:any
   constructor() { }
 
 
@@ -38,9 +40,25 @@ export class UserServiceService {
     return this.employeeId;
   }
 
+  set ProjectId(id: any) {
+    localStorage.setItem('ProjectId', id);
+    this._projectId = id;
+  }
+  get ProjectId(): any {
+    return this._projectId;
+  }
+
   set EmployeeId(id: any) {
     localStorage.setItem('EmployeeId', id);
     this.employeeId = id;
+  }
+  get EmployeeTaskId(): any {
+    return this._employeeTaskId;
+  }
+
+  set EmployeeTaskId(id: any) {
+    localStorage.setItem('EmployeeTaskId', id);
+    this._employeeTaskId = id;
   }
   get AttendanceId(): any {
     return this.attendanceId;
@@ -49,6 +67,22 @@ export class UserServiceService {
   set AttendanceId(id: any) {
     localStorage.setItem('AttendanceId', id);
     this.attendanceId = id;
+  }
+  get Team(): any {
+    return localStorage.getItem('Team');
+  }
+  set Team(team: any) {
+    localStorage.setItem('Team', team);
+    this._team = team;
+  }
+
+  get InTime(): any {
+    return this._inTime;
+  }
+
+  set InTime(intime: any) {
+    localStorage.setItem('InTime', intime);
+    this._inTime = intime;
   }
 
   get Role(): any {

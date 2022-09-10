@@ -46,7 +46,42 @@ export class LoginComponent implements OnInit {
   //       timer: 1000
   //     });
   //   }
-  // });
+  // // });
+  // getCredentails(form: any) {
+  //   this.api.getLogin(form).subscribe((data: any) => {
+  //     console.log(data, 'geetha')
+  //     if (data) {
+  //       console.log(data, "role")
+  //       this.userService.EmployeeId = data.employeeId;
+  //       console.log(this.userService.EmployeeId, " this.userService.EmployeeId")
+
+  //       this.userService.Role = data.role;
+  //       console.log(this.userService.Role, " this.userService.Role")
+
+  //       this.userService.Name = data.firstName + ' ' + data.lastName;
+  //       console.log(this.userService.Name, "this.userService.Name")
+
+  //       this.userService.Team = data.teamName;
+  //       console.log(this.userService.Team,"team")
+
+  //       if (data.role == "Admin") {
+  //         this.router.navigate(['main'], { replaceUrl: true });
+  //       }
+  //       else {
+  //         this.router.navigate(['main'], { replaceUrl: true });
+  //       }
+  //     }
+  //   }, (error: Response) => {
+  //     if (error.status === 404) {
+  //       Swal.fire({
+  //         text: 'You have enter the Wrong Credentials',
+  //         icon: 'error',
+  //         timer: 1000
+  //       });
+  //     }
+  //   });
+  // }
+
   getCredentails(form: any) {
     this.api.getLogin(form).subscribe((data: any) => {
       console.log(data, 'geetha')
@@ -61,6 +96,8 @@ export class LoginComponent implements OnInit {
         this.userService.Name = data.firstName + ' ' + data.lastName;
         console.log(this.userService.Name, "this.userService.Name")
 
+        this.userService.Team = data.teamName;
+        console.log(this.userService.Team, "team")
         if (data.role == "Admin") {
           this.router.navigate(['main'], { replaceUrl: true });
         }
@@ -68,7 +105,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['main'], { replaceUrl: true });
         }
       }
-    }, (error: Response) => {
+    }), (error: Response) => {
       if (error.status === 404) {
         Swal.fire({
           text: 'You have enter the Wrong Credentials',
@@ -76,9 +113,8 @@ export class LoginComponent implements OnInit {
           timer: 1000
         });
       }
-    });
+    };
   }
-  
 
   thisFormValid() {
     if (this.dologin.invalid) {

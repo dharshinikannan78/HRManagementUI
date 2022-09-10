@@ -1,4 +1,5 @@
 <section class="greybg h-100 w-100">
+
     <div class="container">
         <div class="clock py-5 text-end">
             <button type="button" *ngIf="check" class="btn btn-secondary"
@@ -17,11 +18,16 @@
             </button>
         </div>
 
+        <!-- admin view -->
         <ng-container *ngIf="oneEmployee">
             <div class="row mb-5 g-4 bg-forrow">
                 <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let data of isData" data-toggle="modal">
                     <div class="card h-100">
-                        <div class="card-body">
+                        <div class="card-body position-relative">
+                            <div class="deleteButton btn"  (click)="deleteEmployeedetails(data.employeeId,data.firstName)">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </div>
+
                             <div class="row g-0 dflex">
                                 <div class="col-5 col-sm-4 dflex">
                                     <div class="me-4">
@@ -45,7 +51,7 @@
                 </div>
             </div>
         </ng-container>
-
+        <!-- admin view ends -->
 
 
         <ng-container *ngIf="!oneEmployee">

@@ -1,12 +1,11 @@
-<div class="clock">
-  <button type="button" *ngIf="check" class="btn btn-secondary" (click)="attendanceDetails(addAttendance.value)" 
-    style="float:right;background: green;">
-    <div class="checkIn">
+<div class="clock" >
+  <button  type="button" *ngIf="check" class="btn btn-secondary" (click)="attendanceDetails(addAttendance.value)"       style="float:right;background: green;" >
+    <div class="checkIn" >
       CheckIn
     </div>
     {{hour}}:{{minute}}:{{second}}:{{AMPM}}
   </button>
-  <button type="button" *ngIf="!check" class="btn btn-secondary" (click)="updateattendanceDetails(updateAttendance.value)"
+  <button type="button" *ngIf="!check" class="btn btn-secondary" (click)="updateattendanceDetails(updateAttendance.value)" 
     style="float:right;background: red;">
     <div class="checkOut">
       CheckOut

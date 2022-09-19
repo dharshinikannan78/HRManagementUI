@@ -83,27 +83,29 @@ export class EmployeeDetailsComponent implements OnInit {
   UserId: string = localStorage.getItem('userId');
   isShown: boolean = true;
   EmployeeId: any = localStorage.getItem("EmployeeId");
-
-
+Team:string=localStorage.getItem("teamName");
+isOpen:boolean=false;
 
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService,
   ) {
   }
 
   ngOnInit(): void {
-    this.getAllDetails();
+    this.getAllDetails('');
   }
-  getAllDetails() {
-    this.api.getUserDetails(this.EmployeeId).subscribe(data => {
-      console.log(data, 'Geetha')
+  getAllDetails(params:any) {
+    this.api.getUserDetails(this.EmployeeId,params).subscribe((data:any) => {
+      console.log(data,"data for accordion")
+      if(this.userService.Role=="Admin"){
       this.isData = data;
-      console.log(this.oneEmployee, "wonenknkn")
-      if (this.userService.Role == "Employee") {
+   
+   }  
+      if (this.userService.Role == "TeamLeader"||this.userService.Role=="TeamMember") {
         this.oneEmployee = false;
-        // console.log(this.oneEmployee, "wonenknkn")
-        // this.isData = Array.of(this.isData);
+        console.log(this.oneEmployee, "wonenknkn")
+         this.isData = Array.of(this.isData);
 
-        // console.log(this.isData, "while one emp");
+         console.log(this.isData, "while one emp");
       }
       this.api.getTaskDetailById(this.EmployeeId).subscribe(data => {
         this.taskDetails = data;
@@ -152,7 +154,7 @@ export class EmployeeDetailsComponent implements OnInit {
         icon: 'success',
         timer: 1000
       });
-      this.getAllDetails();
+      this.getAllDetails('');
     });
       }
 });
@@ -356,3 +358,4 @@ export class EmployeeDetailsComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 }
+

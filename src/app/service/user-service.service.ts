@@ -11,12 +11,12 @@ export class UserServiceService {
   employeeId: any;
   attendanceId:any;
   _role: any;
-
   _user: any;
-
   _name: any;
   _userId: any;
   _team:any;
+  _check:any;
+  _inTime: any
   constructor() { }
 
 
@@ -43,6 +43,7 @@ export class UserServiceService {
     localStorage.setItem('EmployeeId', id);
     this.employeeId = id;
   }
+ 
   get AttendanceId(): any {
     return this.attendanceId;
   }
@@ -81,6 +82,16 @@ export class UserServiceService {
     localStorage.setItem('Name', name);
     this._name = name;
   }
+
+  get InTime(): any {
+    return this._inTime;
+  }
+
+  set InTime(intime: any) {
+    localStorage.setItem('InTime', intime);
+    this._inTime = intime;
+  }
+
   setEmployeeId(params: any) {
     this.employeeId = params;
   }

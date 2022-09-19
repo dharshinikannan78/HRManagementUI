@@ -45,7 +45,9 @@ export class AddEmployeeDetailsComponent implements OnInit {
       workMode: new FormControl('', Validators.required),
       filesResume: new FormControl('', Validators.required),
       designation: new FormControl('', Validators.required),
-      joiningDate: new FormControl('', Validators.required)
+      joiningDate: new FormControl('', Validators.required),
+     
+      
     });
   }
 

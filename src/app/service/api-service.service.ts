@@ -33,6 +33,7 @@ export class ApiServiceService {
   getProjectMembers = this.URL + 'ProjectDetails/TeamMembers?team=';
   getTaskDetails = this.URL + 'ProjectDetails/TaskName?taskName=';
   getTaskDetailsById = this.URL + 'TaskDetails/EmployeeId?EmployeeId=';
+  deleteEmployee=this.URL+"Employee/DeleteEmployee?Id=" 
   // jwtToken = this.URL + "jwt";
 
   constructor(private http: HttpClient) { }
@@ -61,8 +62,8 @@ export class ApiServiceService {
   getallEmployeeDetails() {
     return this.http.get(this.allEmployeeDetails)
   }
-  getUserDetails(data: any) {
-    return this.http.get(this.getUser + data)
+  getUserDetails(data: any,team:any) {
+    return this.http.get(this.getUser + data )
   }
   updateEmployeeDetails(paramas: any) {
     return this.http.put(this.updateEmployeeDetail, paramas)
@@ -122,5 +123,10 @@ export class ApiServiceService {
   }
   getTaskDetailById = (params: any) => {
     return this.http.get(this.getTaskDetailsById + params);
+  }
+
+deleteUser(id:any){
+  return this.http.delete(this.deleteEmployee+id)
+
   }
 }

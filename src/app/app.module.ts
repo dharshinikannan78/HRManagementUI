@@ -12,11 +12,14 @@ import { CommonModule } from '@angular/common';
 import { ProjectListComponent } from './projectDetails/project-list/project-list.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     ProjectDetailsComponent,
     ProjectListComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,9 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
     FormsModule,
     RouterModule,
     MainModule,
-    UserManagementModule
+    UserManagementModule,
+    
+   
   ],
   providers: [],
   bootstrap: [AppComponent],

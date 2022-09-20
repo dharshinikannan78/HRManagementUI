@@ -7,10 +7,8 @@
                 <div class="d-flex pt-3 align-items-center justify-content-center">
                     <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
                         {{ loggerRole }}</h6>
-
                 </div>
             </div>
-
         </div>
     </div>
     <div class="likeUl">
@@ -41,10 +39,10 @@
                     </li>
                 </ul>
             </div>
-            <li [ngClass]="{'active': step==='step3'}" (click)="step='step3' ; shortNav('/attendance')" class="cursorP">
+            <!-- <li [ngClass]="{'active': step==='step3'}" (click)="step='step3' ; shortNav('/attendance')" class="cursorP">
                 <i class="fa-solid fa-display"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Attendance</p>
-            </li>
+            </li> -->
             <li [ngClass]="{'active': step==='step4'}" (click)="step='step4' ; shortNav('/leave')" class="cursorP">
                 <i class="fa-solid fa-person-walking-luggage"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Leave</p>
@@ -65,7 +63,7 @@
 
 <main id="main">
     <nav class="navbar navbar-dark">
-        <div class="container-fluid">
+        <div class="container-fluid" style="height: 4rem;">
             <button class="navbar-toggler" type="button" (click)="openNav()">
                 <i class="fa-solid fa-bars text-dark"></i>
             </button>
@@ -73,7 +71,6 @@
                 <p class="m-0">{{ loggerName }}</p>
                 <a class="navbar-brand" href="#">
                     <ngx-avatar [name]="loggerName" [style]="customStyle"></ngx-avatar>
-                    <!-- [src]="'https://localhost:44394/'+ forNav[0].photoPath" -->
                 </a>
             </div>
         </div>

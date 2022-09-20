@@ -1,6 +1,6 @@
 .dflex {
     justify-content: center;
-    text-align: center;
+    align-items: center;
     display: flex;
 }
 
@@ -19,7 +19,6 @@
 .my-avatar .avatar-content {
     object-fit: cover !important;
 }
-
 
 .modal-header {
     // background: #8e2de2;
@@ -104,6 +103,7 @@ input {
 .scrollbar {
     height: 450px;
     overflow-y: scroll;
+    overflow-x: hidden;
     // margin-top: 25px;
     // margin-bottom: 25px;
 }
@@ -173,7 +173,6 @@ main {
 }
 
 .none {
-
     display: none;
     opacity: 0;
     // visibility: hidden;
@@ -188,12 +187,15 @@ main {
     main {
         margin-left: 0;
     }
-
 }
 
 .coverImage {
     height: 350px;
-    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(171, 102, 255, 1) 0%, rgba(116, 182, 247, 1) 90%);
+    background-image: radial-gradient(
+        circle farthest-corner at 10% 20%,
+        rgba(171, 102, 255, 1) 0%,
+        rgba(116, 182, 247, 1) 90%
+    );
 }
 
 .img-9 {
@@ -216,6 +218,7 @@ main {
 }
 
 .greybg {
+    // margin-top: 3rem;
     background-color: #ececec;
 }
 
@@ -291,4 +294,11 @@ main {
     aspect-ratio: 1;
     background-color: #bbc6d7;
     opacity: 0;
+}
+.deleteButton {
+    position: absolute;
+    top: 7%;
+    right: 6%;
+    color: #a5a2a2;
+    padding: 6px;
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,11 +30,15 @@ export class ApiServiceService {
   getEmployeeTaskDetails = this.URL + 'TaskDetails/EmployeeId?EmployeeId=';
   getTeamTaskDetails = this.URL + 'TaskDetails/employeeId?id=';
   getTeamLeader = this.URL + 'TaskDetails/Team?team=';
-  addProjectDetail = this.URL + 'ProjectDetails/AddEmployee';
+  addProjectDetail = this.URL + 'ProjectDetails/AddEmployeeDetails';
+  updateProjectDetails = this.URL + 'ProjectDetails/UpdateTaskDetails';
   getProjectDetails = this.URL + 'ProjectDetails/getDetails?projectTitle=';
   getProjectMembers = this.URL + 'ProjectDetails/TeamMembers?team=';
   getTaskDetails = this.URL + 'ProjectDetails/TaskName?taskName=';
   getTaskDetailsById = this.URL + 'TaskDetails/EmployeeId?EmployeeId=';
+  updateByProjectId = this.URL + 'ProjectDetails/ProjectId?projectId=';
+  updateByTaskDetails = this.URL + 'TaskDetails/Update';
+  deleteEmployee = this.URL + "Employee/DeleteEmployee?Id="
   // jwtToken = this.URL + "jwt";
 
   constructor(private http: HttpClient) { }
@@ -43,10 +48,17 @@ export class ApiServiceService {
     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
   });
 
-  // getToken() {
-  //   return this.http.get(this.jwtToken)
-  // }
+  allEmployeeAttendance() {
+    return this.http.get(this.getOverAllAttendance)
+  }
 
+  getByProjectId(id: any) {
+    return this.http.get(this.updateByProjectId + id)
+  }
+
+  getEmployeeName() {
+    return this.http.get(this.employeeDetailsName)
+  }
 
   getLogin(params: any) {
     return this.http.post(this.dologin, params)
@@ -62,42 +74,47 @@ export class ApiServiceService {
     return this.http.post(this.addemployeeDetail + createLogin, params)
   }
   getallEmployeeDetails() {
-    return this.http.get(this.allEmployeeDetails)
+    return this.http.get(this.allEmployeeDetails);
   }
   getUserDetails(data: any) {
-    return this.http.get(this.getUser + data)
+    return this.http.get(this.getUser + data);
   }
   updateEmployeeDetails(paramas: any) {
-    return this.http.put(this.updateEmployeeDetail, paramas)
+    return this.http.put(this.updateEmployeeDetail, paramas);
   }
-
+  updateProject(paramas: any) {
+    return this.http.put(this.updateProjectDetails, paramas);
+  }
+  updateTaskDeatils(paramas: any) {
+    return this.http.put(this.updateByTaskDetails, paramas);
+  }
   uploadFileAttachment(params: any) {
-    return this.http.post(this.uploadFile, params)
+    return this.http.post(this.uploadFile, params);
   }
   getAttachmentDetail(candidateId: any) {
     return this.http.get(this.attachmentFileDetails + candidateId);
   }
   applyLeaveOn(params: any) {
-    return this.http.post(this.applyLeave, params)
+    return this.http.post(this.applyLeave, params);
   }
   updateLeaveDetails(paramas: any) {
-    return this.http.put(this.updateLeaveDetail, paramas)
+    return this.http.put(this.updateLeaveDetail, paramas);
   }
 
   getLeaveDetails(id: any) {
-    return this.http.get(this.getLeave + id)
+    return this.http.get(this.getLeave + id);
   }
   addAttendance(params: any) {
-    return this.http.post(this.attendance, params)
+    return this.http.post(this.attendance, params);
   }
   updateAttendance(params: any) {
-    return this.http.put(this.updAttendance, params)
+    return this.http.put(this.updAttendance, params);
   }
   getAttendanceDetails(id: any) {
-    return this.http.get(this.getAttendance + id)
+    return this.http.get(this.getAttendance + id);
   }
   addTaskDetails(params: any) {
-    return this.http.post(this.taskDetails, params)
+    return this.http.post(this.taskDetails, params);
   }
   employeeTaskDetail(employeeId: any) {
     return this.http.get(this.getEmployeeTaskDetails + employeeId);
@@ -109,21 +126,24 @@ export class ApiServiceService {
     return this.http.get(this.getTeamLeader + params);
   }
   addProjectDetails(params: any) {
-    return this.http.post(this.addProjectDetail, params)
+    return this.http.post(this.addProjectDetail, params);
   }
   projectDetails(params: any) {
-    return this.http.get(this.getProjectDetails + params)
+    return this.http.get(this.getProjectDetails + params);
   }
   getProjectTeamMembers(params: any) {
-    return this.http.get(this.getProjectMembers + params)
+    return this.http.get(this.getProjectMembers + params);
   }
   getprojectTaskDetails(params: any) {
-    return this.http.get(this.getTaskDetails + params)
+    return this.http.get(this.getTaskDetails + params);
   }
   getEmployeeDetailsById(params: string) {
     return this.http.get(this.getEmployeeDetailById + params);
   }
   getTaskDetailById = (params: any) => {
     return this.http.get(this.getTaskDetailsById + params);
+  }
+  deleteUser(id: any) {
+    return this.http.delete(this.deleteEmployee + id)
   }
 }

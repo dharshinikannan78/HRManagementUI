@@ -62,6 +62,7 @@ export class EmployeeDetailsComponent implements OnInit {
     number: new FormControl(''),
     emailId: new FormControl(''),
     dob: new FormControl(''),
+    attachmentIds: new FormControl(''),
     joiningDate: new FormControl(''),
   });
 
@@ -108,10 +109,6 @@ export class EmployeeDetailsComponent implements OnInit {
 
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService,
   ) {
-    console.log("came");
-  }
-
-  ngOnInit(): void {
     setInterval(() => {
       const date = new Date();
       this.updateDate(date);
@@ -122,6 +119,14 @@ export class EmployeeDetailsComponent implements OnInit {
     //   console.log(this.attendace, 'dat')
     // })
     this.getAllDetails();
+    console.log("came");
+  }
+
+  ngOnInit(): void {
+    // if (localStorage.getItem('checkIn' + this.EmployeeId) != null) {
+    //   let test = localStorage.getItem('checkIn' + this.EmployeeId);
+    //   this.check = JSON.parse(test);
+    // }
   }
   getAllDetails() {
     this.api.getUserDetails(this.EmployeeId).subscribe(data => {
@@ -369,23 +374,82 @@ export class EmployeeDetailsComponent implements OnInit {
   }
 
   attendanceDetails(params: any) {
-    this.api.addAttendance(params).subscribe((data: any) => {
-      this.AttendanceIds.push(data.attendanceId);
-      this.InTime.push(data.inTime);
-      this.check = !this.check;
+    // this.api.addAttendance(params).subscribe((data: any) => {
+    //   this.AttendanceIds.push(data.attendanceId);
+    //   this.InTime.push(data.inTime);
+    //   this.check = !this.check;
+    // });
+    Swal.fire({
+      title: "Are you sure want to CheckIn ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'CheckIn'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.addAttendance(params).subscribe((data: any) => {
+          this.AttendanceIds.push(data.attendanceId);
+          localStorage.setItem("AttendanceId", data.attendanceId);
+          this.InTime.push(data.inTime);
+          this.check = !this.check
+          localStorage.setItem('checkIn' + this.EmployeeId, JSON.stringify(this.check));
+          Swal.fire({
+            text: 'CheckIn Sucessfully!',
+            icon: 'success',
+            timer: 1000
+          });
+
+        }, (error: Response) => {
+          if (error.status === 400) {
+            Swal.fire({
+              text: 'User Already Checkin Today',
+              icon: 'error',
+              timer: 1000
+            });
+          }
+        });
+      }
+
     });
+
   }
 
   updateattendanceDetails(params: any) {
+    // params.attendanceId = this.AttendanceIds.toString();
+    // params.inTime = this.InTime.toString();
+    // this.api.updateAttendance(params).subscribe((data: any) => {
+    //   this.check = !this.check;
+    // });
+    // Swal.fire({
+    //   text: 'Updated Sucessfully!',
+    //   icon: 'success',
+    //   timer: 900
+    // });
     params.attendanceId = this.AttendanceIds.toString();
     params.inTime = this.InTime.toString();
-    this.api.updateAttendance(params).subscribe((data: any) => {
-      this.check = !this.check;
-    });
     Swal.fire({
-      text: 'Updated Sucessfully!',
-      icon: 'success',
-      timer: 900
+      title: "Are you sure want to CheckOut ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'CheckOut'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.api.updateAttendance(params).subscribe(data => {
+
+          this.check = !this.check
+          localStorage.setItem('checkIn' + this.EmployeeId, JSON.stringify(this.check));
+
+          Swal.fire({
+            text: 'CheckOut Sucessfully!',
+            icon: 'success',
+            timer: 1000
+          });
+          this.getAttendanceDetail();
+        });
+      }
+
     });
   }
 

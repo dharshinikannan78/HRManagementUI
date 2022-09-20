@@ -25,12 +25,12 @@
             </li>
             <div class="collapse" id="collapseExample">
                 <ul [ngClass]="isNavOpen ? 'none': 'show'">
-                    <li class="cursorP" [ngClass]="{'active': step==='step5'}"
+                    <!-- <li class="cursorP" [ngClass]="{'active': step==='step5'}"
                         (click)="step='step5' ; shortNav('addUser')">
                         <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-                            aria-controls="collapseExample" class="fa-solid fa-user-gear"></i>
+                            aria-controls="collapseExample" class="fa-solid fa-user-plus"></i>
                         <p [ngClass]="isNavOpen ? 'none': 'show'">Add User</p>
-                    </li>
+                    </li> -->
                     <li class="cursorP" [ngClass]="{'active': step==='step6'}"
                         (click)="step='step6' ; shortNav('main/Employee/addEmployee')">
                         <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
@@ -44,17 +44,17 @@
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Attendance</p>
             </li> -->
             <li [ngClass]="{'active': step==='step4'}" (click)="step='step4' ; shortNav('/leave')" class="cursorP">
-                <i class="fa-solid fa-sheet-plastic"></i>
+                <i class="fa-solid fa-person-walking-luggage"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Leave</p>
             </li>
-            <li [ngClass]="{'active': step==='step5'}" (click)="step='step4' ; shortNav('/projectDetails')"
+            <li [ngClass]="{'active': step==='step5'}" (click)="step='step5' ; shortNav('/projectDetails')"
                 class="cursorP">
                 <i class="fa-solid fa-sheet-plastic"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Project</p>
             </li>
             <li class="cursorP" [ngClass]="{'active': step==='step6'}" (click)="step='step6' ; shortNav('/list')">
                 <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-                    aria-controls="collapseExample" class="fa-solid fa-user-gear"></i>
+                    aria-controls="collapseExample" class="fa-solid fa-laptop-file"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">ProjectDetails</p>
             </li>
         </ul>

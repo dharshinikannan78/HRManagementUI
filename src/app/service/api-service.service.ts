@@ -10,10 +10,10 @@ export class ApiServiceService {
   URL = 'https://localhost:44394/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
-  employeeDetailsName = this.URL + 'Employee/AllEmployee';
-  getOverAllAttendance = this.URL + 'Attendance/AllAttendance';
+  editUserCredentials = this.URL + 'Login/EditLogin';
+  // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
   allEmployeeDetails = this.URL + 'Employee/GetEmployeeDetails';
-  addemployeeDetail = this.URL + 'Employee/AddEmployee';
+  addemployeeDetail = this.URL + 'Employee/AddEmployee?login=';
   updateEmployeeDetail = this.URL + 'Employee/Update';
   uploadFile = this.URL + 'FileAttachment/Attachment';
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
@@ -67,9 +67,11 @@ export class ApiServiceService {
   addUser(params: any) {
     return this.http.post(this.addUserCredentials, params)
   }
-
-  addemployeeDetails(params: any) {
-    return this.http.post(this.addemployeeDetail, params);
+  editUser(params: any) {
+    return this.http.post(this.editUserCredentials, params)
+  }
+  addemployeeDetails(createLogin: string, params: any) {
+    return this.http.post(this.addemployeeDetail + createLogin, params)
   }
   getallEmployeeDetails() {
     return this.http.get(this.allEmployeeDetails);

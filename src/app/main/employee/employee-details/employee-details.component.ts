@@ -7,25 +7,13 @@ import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { UserServiceService } from 'src/app/service/user-service.service';
-
 // calendar
-
 import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
+  startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
+  CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,
 } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
 import * as moment from 'moment';
@@ -43,6 +31,10 @@ const colors: Record<string, EventColor> = {
     primary: '#e3bc08',
     secondary: '#FDF1BA',
   },
+  green: {
+    primary: "#28ba62",
+    secondary: "#2dd36f1f"
+  }
 };
 
 @Component({
@@ -73,6 +65,7 @@ export class EmployeeDetailsComponent implements OnInit {
   isData: any;
   oneEmployee: boolean = true;
   employee: any
+  attd: any;
   isEditTable: boolean = false;
   firstName: any;
   lastName: any;
@@ -217,17 +210,35 @@ export class EmployeeDetailsComponent implements OnInit {
     this.router.navigate(['/attendance']);
   }
 
+  getAttendanceDetails() {
+    this.api.getAttendanceDetails(this.EmployeeId).subscribe(data => {
+      this.attd = data;
+      console.log(data, "ahghgh details");
+      for (let i = 0; i < this.attd.length; i++) {
+        this.events = [
+          ...this.events,
+          {
+            title: 'Present',
+            start: startOfDay(new Date(this.attd[i].inTime)),
+            color: colors.green,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+          },
+        ];
+      }
+      console.log(this.events, "events array")
+    })
+  }
+
 
   // for calendar
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-
+  weekdays: string[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
   view: CalendarView = CalendarView.Month;
-
-  CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -255,8 +266,8 @@ export class EmployeeDetailsComponent implements OnInit {
 
   events: CalendarEvent[] = [
     {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
+      start: new Date(2022, 8, 2),
+      end: new Date(2022, 8, 2),
       title: 'A 3 day event',
       color: { ...colors.red },
       actions: this.actions,
@@ -264,37 +275,11 @@ export class EmployeeDetailsComponent implements OnInit {
       resizable: {
         beforeStart: true,
         afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: { ...colors.yellow },
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 2),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: { ...colors.blue },
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: { ...colors.yellow },
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
+      }
     },
   ];
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false;
 
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {

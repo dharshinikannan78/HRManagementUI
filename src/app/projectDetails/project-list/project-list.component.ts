@@ -217,6 +217,7 @@ export class ProjectListComponent implements OnInit {
         icon: 'success',
         timer: 1500
       });
+      // this.getProjectDetails('');
       window.location.reload();
     });
   }

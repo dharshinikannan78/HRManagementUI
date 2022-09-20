@@ -53,8 +53,7 @@
                     <div class="row mb-2">
                         <div class="col-10">
                             <p class="card-text"><small class="text-muted cursorP" (click)="getProjectClick(data)"
-                                    data-toggle="modal"
-                                    data-target="#bootstrapModel"><b>{{data.projectName}}{{data.projectId}}</b>
+                                    data-toggle="modal" data-target="#bootstrapModel"><b>{{data.projectName}}</b>
                                     TEAM</small>
                             </p>
                         </div>
@@ -177,15 +176,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
                     <div class="card-footer">
                         <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
                                 class="badge">{{data.position }}</span>

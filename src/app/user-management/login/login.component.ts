@@ -31,42 +31,28 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required]
   });
 
+  addUser: FormGroup = new FormGroup({
+    oldPassword: new FormControl('', Validators.required),
+    newPassword: new FormControl('', Validators.required),
+    reNewPassword: new FormControl('', Validators.required)
+  });
 
-  // getCredentails(form: any) {
-  // // this.submitted = true;
-  // this.api.getLogin(form).subscribe(data => {
-  //   this.submitted = true;
-  //   this.router.navigate(['/addUser']);
-  //   console.log(data, 'login')
-  // }, (error: Response) => {
-  //   if (error.status === 404) {
-  //     Swal.fire({
-  //       text: 'You have enter the Wrong Credentials',
-  //       icon: 'error',
-  //       timer: 1000
-  //     });
-  //   }
-  // });
+
+
+  firstUser: boolean = false;
+  protected userData: any;
   getCredentails(form: any) {
-    this.api.getLogin(form).subscribe((data: any) => {
-      console.log(data, 'geetha')
+    this.api.getLogin(form).subscribe((data: any): any => {
+      this.userData = data;
+      console.log(this.userData, "user data")
       if (data) {
-        console.log(data, "role")
+        if (data.isFirstLogin == true) {
+          return this.firstUser = true;
+        }
         this.userService.EmployeeId = data.employeeId;
-        console.log(this.userService.EmployeeId, " this.userService.EmployeeId")
-
         this.userService.Role = data.role;
-        console.log(this.userService.Role, " this.userService.Role")
-
         this.userService.Name = data.firstName + ' ' + data.lastName;
-        console.log(this.userService.Name, "this.userService.Name")
-
-        if (data.role == "Admin") {
-          this.router.navigate(['main'], { replaceUrl: true });
-        }
-        else {
-          this.router.navigate(['main'], { replaceUrl: true });
-        }
+        this.router.navigate(['main'], { replaceUrl: true });
       }
     }, (error: Response) => {
       if (error.status === 404) {
@@ -78,7 +64,7 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-  
+
 
   thisFormValid() {
     if (this.dologin.invalid) {
@@ -91,5 +77,22 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/addUser']);
   }
   get f() { return this.dologin.controls; }
+
+
+  submitChangedPassword(formData: any) {
+    let payload = {
+      'OldPassword': formData.oldPassword,
+      'NewPassword': formData.newPassword,
+      'UserId': this.userData.userId
+    }
+    console.log(this.userData.userId, "hello this is user id")
+    if (formData.newPassword != formData.reNewPassword) {
+      return alert("password must be same")
+    }
+    this.api.editUser(payload).subscribe(data => {
+      console.log(data, "data from login edit");
+      this.router.navigate(['main'], { replaceUrl: true });
+    });
+  }
 
 }

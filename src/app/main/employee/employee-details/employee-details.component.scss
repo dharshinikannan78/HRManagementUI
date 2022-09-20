@@ -262,6 +262,7 @@ main {
 @media (max-width: 500px) {
     .testingOverflow {
         min-height: 500px;
+        position: relative;
     }
     .scrollWrap {
         opacity: 0 !important;

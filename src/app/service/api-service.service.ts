@@ -9,9 +9,10 @@ export class ApiServiceService {
   URL = 'https://localhost:44394/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
+  editUserCredentials = this.URL + 'Login/EditLogin';
   // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
   allEmployeeDetails = this.URL + 'Employee/GetEmployeeDetails';
-  addemployeeDetail = this.URL + 'Employee/AddEmployee';
+  addemployeeDetail = this.URL + 'Employee/AddEmployee?login=';
   updateEmployeeDetail = this.URL + 'Employee/Update';
   uploadFile = this.URL + 'FileAttachment/Attachment';
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
@@ -28,7 +29,7 @@ export class ApiServiceService {
   getEmployeeTaskDetails = this.URL + 'TaskDetails/EmployeeId?EmployeeId=';
   getTeamTaskDetails = this.URL + 'TaskDetails/employeeId?id=';
   getTeamLeader = this.URL + 'TaskDetails/Team?team=';
-  addProjectDetail = this.URL + 'ProjectDetails/AddEmployeeDetails';
+  addProjectDetail = this.URL + 'ProjectDetails/AddEmployee';
   getProjectDetails = this.URL + 'ProjectDetails/getDetails?projectTitle=';
   getProjectMembers = this.URL + 'ProjectDetails/TeamMembers?team=';
   getTaskDetails = this.URL + 'ProjectDetails/TaskName?taskName=';
@@ -54,9 +55,11 @@ export class ApiServiceService {
   addUser(params: any) {
     return this.http.post(this.addUserCredentials, params)
   }
-
-  addemployeeDetails(params: any) {
-    return this.http.post(this.addemployeeDetail, params)
+  editUser(params: any) {
+    return this.http.post(this.editUserCredentials, params)
+  }
+  addemployeeDetails(createLogin: string, params: any) {
+    return this.http.post(this.addemployeeDetail + createLogin, params)
   }
   getallEmployeeDetails() {
     return this.http.get(this.allEmployeeDetails)

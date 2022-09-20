@@ -17,36 +17,57 @@ export class AddEmployeeDetailsComponent implements OnInit {
   isenable: boolean = false;
   formData: any;
   fileList: any[] = [];
+  loginAcess: string = 'none';
+  createLogin: boolean = false;
   resumeFormat: string[] = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'application/msword'];
   imageFormat: string[] = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
   attachmentIds: any = [];
   attachmentName: any = [];
 
-  
-  employeeDetail:any;
+
+  employeeDetail: any;
   constructor(private router: Router, private api: ApiServiceService) {
     this.formData = new FormData();
-    
+
 
 
     this.employeeDetail = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      dob: new FormControl('', Validators.required),
-      gender: new FormControl('', Validators.required),
-      address: new FormControl('', Validators.required),
-      number: new FormControl('', Validators.required),
-      emailId: new FormControl('', Validators.required),
-      qualification: new FormControl('', Validators.required),
-      college: new FormControl('', Validators.required),
-      passedOut: new FormControl('', Validators.required),
-      skills: new FormControl('', Validators.required),
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      dob: new FormControl(''),
+      gender: new FormControl(''),
+      address: new FormControl(''),
+      number: new FormControl(''),
+      emailId: new FormControl(''),
+      qualification: new FormControl(''),
+      college: new FormControl(''),
+      passedOut: new FormControl(''),
+      skills: new FormControl(''),
       // employeeReferenceNo: new FormControl( '',Validators.required ),
-      workMode: new FormControl('', Validators.required),
-      filesResume: new FormControl('', Validators.required),
-      designation: new FormControl('', Validators.required),
-      joiningDate: new FormControl('', Validators.required)
+      workMode: new FormControl(''),
+      filesResume: new FormControl(''),
+      designation: new FormControl(''),
+      joiningDate: new FormControl('')
     });
+
+    // this.employeeDetail = new FormGroup({
+    //   firstName: new FormControl('', Validators.required),
+    //   lastName: new FormControl('', Validators.required),
+    //   dob: new FormControl('', Validators.required),
+    //   gender: new FormControl('', Validators.required),
+    //   address: new FormControl('', Validators.required),
+    //   number: new FormControl('', Validators.required),
+    //   emailId: new FormControl('', Validators.required),
+    //   qualification: new FormControl('', Validators.required),
+    //   college: new FormControl('', Validators.required),
+    //   passedOut: new FormControl('', Validators.required),
+    //   skills: new FormControl('', Validators.required),
+    //   // employeeReferenceNo: new FormControl( '',Validators.required ),
+    //   workMode: new FormControl('', Validators.required),
+    //   filesResume: new FormControl('', Validators.required),
+    //   designation: new FormControl('', Validators.required),
+    //   joiningDate: new FormControl('', Validators.required)
+    // });
   }
 
   ngOnInit(): void {
@@ -59,12 +80,12 @@ export class AddEmployeeDetailsComponent implements OnInit {
       this.attachmentName.push(data.attachmentPath);
       console.log(this.attachmentIds, 'file 2');
       console.log(this.attachmentName, 'file 3');
-
+      console.log(this.createLogin, "login create")
       employeeDetail.AttachmentIds = this.attachmentIds.toString();
       console.log(employeeDetail.AttachmentIds, 'data 4')
       console.log(employeeDetail, 'form data 5')
 
-      this.api.addemployeeDetails(employeeDetail).subscribe((data: any) => {
+      this.api.addemployeeDetails('hello', employeeDetail).subscribe((data: any) => {
         console.log(data, 'data 6')
         console.log(employeeDetail, 'employee 7');
         this.employeeDetail.reset();
@@ -106,14 +127,15 @@ export class AddEmployeeDetailsComponent implements OnInit {
   }
 
   submit(employeeDetail: any) {
+    console.log(this.loginAcess, "login access") 
     if (this.step == 4)
       this.api.uploadFileAttachment(this.formData).subscribe((data: any) => {
         this.attachmentIds.push(data.attachmentId);
         this.attachmentName.push(data.attachmentPath);
 
         employeeDetail.AttachmentIds = this.attachmentIds.toString();
-
-        this.api.addemployeeDetails(employeeDetail).subscribe((data: any) => {
+        console.log(this.createLogin, "login create")
+        this.api.addemployeeDetails(this.loginAcess, employeeDetail).subscribe((data: any) => {
           this.step = this.step + 1;
           setTimeout(() => {
             this.step = this.step = 1;
@@ -121,6 +143,7 @@ export class AddEmployeeDetailsComponent implements OnInit {
           console.log(data, 'data')
           console.log(employeeDetail, 'employee');
           this.employeeDetail.reset();
+          this.createLogin = false;
           Swal.fire({
             text: 'Added Sucessfully!',
             icon: 'success',

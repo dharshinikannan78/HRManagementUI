@@ -85,5 +85,7 @@ export class MainComponent {
       console.log(data, "photo foe nav")
     })
   }
-
+  logout = () => {
+    this.router.navigate(['./login']);
+  }
 }

@@ -11,7 +11,7 @@ export class ApiServiceService {
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   editUserCredentials = this.URL + 'Login/EditLogin';
-  // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
+  employeeDetailsName = this.URL + 'Employee/AllEmployee';
   allEmployeeDetails = this.URL + 'Employee/GetEmployeeDetails';
   addemployeeDetail = this.URL + 'Employee/AddEmployee?login=';
   updateEmployeeDetail = this.URL + 'Employee/Update';
@@ -40,6 +40,8 @@ export class ApiServiceService {
   updateByTaskDetails = this.URL + 'TaskDetails/Update';
   deleteEmployee = this.URL + "Employee/DeleteEmployee?Id="
   // jwtToken = this.URL + "jwt";
+  getOverAllAttendance = this.URL + 'Attendance/AllAttendance';
+
 
   constructor(private http: HttpClient) { }
 
@@ -76,7 +78,7 @@ export class ApiServiceService {
   getallEmployeeDetails() {
     return this.http.get(this.allEmployeeDetails);
   }
-  getUserDetails(data: any) {
+  getUserDetails(data: any, team: any) {
     return this.http.get(this.getUser + data);
   }
   updateEmployeeDetails(paramas: any) {

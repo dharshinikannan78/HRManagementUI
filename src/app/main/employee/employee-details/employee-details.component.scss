@@ -302,3 +302,16 @@ main {
     color: #a5a2a2;
     padding: 6px;
 }
+
+.accordion:focus {
+    outline: 0 !important;
+}
+
+.accordion-item {
+    border: 0.1px solid rgb(189, 185, 185);
+}
+.accordion-item :focus {
+    outline: 0 !important;
+    background-color: #d2daff;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}

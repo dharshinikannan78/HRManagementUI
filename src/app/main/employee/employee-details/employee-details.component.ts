@@ -121,25 +121,54 @@ export class EmployeeDetailsComponent implements OnInit {
     //   this.check = JSON.parse(test);
     // }
   }
-  getAllDetails() {
-    this.api.getUserDetails(this.EmployeeId).subscribe(data => {
-      console.log(data, 'Geetha')
+  getAllDetails(params:any) {
+    this.api.getUserDetails(this.EmployeeId,params).subscribe((data:any) => {
+      console.log(data,"data for accordion")
+      if(this.userService.Role=="Admin"){
       this.isData = data;
-      console.log(this.oneEmployee, "wonenknkn")
-      if (this.userService.Role == "Employee") {
+   
+   }  
+      if (this.userService.Role == "TeamLeader"||this.userService.Role=="TeamMember") {
         this.oneEmployee = false;
-        // console.log(this.oneEmployee, "wonenknkn")
-        // this.isData = Array.of(this.isData);
+        console.log(this.oneEmployee, "wonenknkn")
+         this.isData = Array.of(this.isData);
 
-        // console.log(this.isData, "while one emp");
+         console.log(this.isData, "while one emp");
       }
       this.api.getTaskDetailById(this.EmployeeId).subscribe(data => {
         this.taskDetails = data;
       })
     });
   }
+  uploadcandidateFile = (files: any, type: string) => {
+    console.log(files)
+    for (var i = 0; i < files.length; i++) {
+      console.log(this.formData, "form data")
+      if (files[i].size > 1000000) {
+        alert("file size should be less than 10MB");
+      }
+      else {
+        if (type == 'resume' && this.resumeFormat.indexOf(files[i].type) != -1) {
+          this.formData.append("resume", files[i]);
+        }
+        if (type == 'image' && this.imageFormat.indexOf(files[i].type) != -1) {
+          this.formData.append("image", files[i]);
+        }
+        else {
+          this.formData.append("other", files[i]);
+        }
+      }
+    }
+  }
+
+ 
+ 
+
+     
 
   updateEmployee(employeeDetail: any) {
+    if (this.step == 4)
+   
     this.api.updateEmployeeDetails(employeeDetail).subscribe(data => {
       console.log(data, 'update')
       Swal.fire({
@@ -150,7 +179,9 @@ export class EmployeeDetailsComponent implements OnInit {
       this.showModal = false;
       location.reload();
     });
-  }
+  
+
+}
 
   getEmployeeDetails(data: any) {
     console.log(data, 'geetha')
@@ -163,6 +194,46 @@ export class EmployeeDetailsComponent implements OnInit {
       console.log(this.attachment, 'data')
     });
   }
+
+
+  deleteEmployeedetails(id:any,uname:any){
+    Swal.fire({
+      title: "Are you sure want to delete "+uname+" ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.isConfirmed) {
+    this.api.deleteUser(id).subscribe(()=>{
+      Swal.fire({
+        text: 'Deleted Sucessfully!',
+        icon: 'success',
+        timer: 1000
+      });
+      this.getAllDetails('');
+    });
+      }
+});
+  }
+  
+  thisFormValid() {
+    if (this.updateEmployeeDetail.invalid) {
+      return true;
+    }
+    return false;
+  }
+
+
+  prev() {
+    this.step = this.step - 1;
+  }
+
+  next() {
+    this.step = this.step + 1;
+  }
+     
+  
 
   onClick() {
     this.router.navigate(['/addemployee'])
@@ -461,9 +532,10 @@ export class EmployeeDetailsComponent implements OnInit {
             icon: 'success',
             timer: 1000
           });
-          this.getAllDetails();
+          this.getAllDetails('');
         });
       }
     });
   }
 }
+

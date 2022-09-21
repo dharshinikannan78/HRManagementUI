@@ -64,7 +64,7 @@
                 </div>
                 
             </div>
-            <div *ngIf="step==2" id="step2">
+            <div *ngIf="step==2" id="step2" class="row">
                 <h4>Contact Details</h4>
                 <div class="form-group">
                     <label class=" form-label">Email Id</label>
@@ -84,18 +84,9 @@
                     <span class="text-danger" *ngIf="!employeeDetail.controls['address'].valid && 
                             employeeDetail.controls['address']?.touched"> <b>Address</b> is required *</span>
                 </div>
-                <div class="form-group">
-                    <label class=" form-label">Gender</label>
-                    <select class="form-select" class="form-control" formControlName="gender">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="Female">Female</option>
-                        <option value="Male">Male</option>
-                    </select>
-                    <span class="text-danger" *ngIf="!employeeDetail.controls['gender'].valid && 
-                            employeeDetail.controls['gender']?.touched"> <b>Gender</b> is required *</span>
-                </div>
+            
             </div>
-            <div *ngIf="step==3" id="step3">
+            <div *ngIf="step==3" id="step3" class="row">
                 <h4>Education Details</h4>
                 <div class="form-group">
                     <label class=" form-label">Qualification</label>
@@ -120,28 +111,29 @@
                     <input type="text" class="form-control" formControlName="skills">
                     <span class="text-danger" *ngIf="!employeeDetail.controls['skills'].valid && 
                         employeeDetail.controls['skills']?.touched"> <b>Skills</b> is required *</span>
-                </div>
             </div>
-            <div *ngIf="step==4" class="row" id="step4">
-                <h4>Work Details</h4>
-                <div class="form-group col-md-6">
-                    <label class=" form-label">Designation</label>
-                    <select class="form-select" class="form-control" formControlName="designation">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="Fron End">Fron End</option>
-                        <option value="Back End">Back End</option>
-                        <option value="Full Stack">Full Stack</option>
-                    </select>
-                    <span class="text-danger" *ngIf="!employeeDetail.controls['designation'].valid && 
+        </div>
+        <div *ngIf="step==4" id="step4" class="row">
+            <h4>Work Details</h4>
+            <div class="form-group mb-3">
+                <label class=" form-label">Designation</label>
+                <select class="form-select" class="form-control" formControlName="designation">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="Fron End">Front End</option>
+                    <option value="Back End">Back End</option>
+                    <option value="Full Stack">Full Stack</option>
+                </select>
+                <span class="text-danger" *ngIf="!employeeDetail.controls['designation'].valid && 
                         employeeDetail.controls['designation']?.touched"> <b>Designation</b> is required *</span>
                 </div>
+                
                 <div class="form-group col-md-6">
                     <label class=" form-label">Joining Date</label>
                     <input type="date" class="form-control" formControlName="joiningDate">
                     <span class="text-danger" *ngIf="!employeeDetail.controls['joiningDate'].valid && 
                         employeeDetail.controls['joiningDate']?.touched"> <b>Joining Date</b> is required *</span>
                 </div>
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                     <label class=" form-label">Work Mode</label>
                     <select class="form-select" class="form-control" formControlName="workMode">
                         <option disabled selected value> -- select an option -- </option>
@@ -184,3 +176,4 @@
         </div>
     </form>
 </div>
+

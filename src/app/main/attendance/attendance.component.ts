@@ -3,9 +3,13 @@ import { FormControl, FormGroup, NgModel, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
-
 import { ApiServiceService } from '../../service/api-service.service';
 import { UserServiceService } from '../../service/user-service.service';
+import { Injectable } from '@angular/core';
+import { keyframes } from '@angular/animations';
+import { HttpErrorResponse } from '@angular/common/http';
+
+
 
 
 @Component({
@@ -39,9 +43,7 @@ export class AttendanceComponent implements OnInit {
   attendace: any;
   constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) {
     this.getAttendanceDetail();
-  }
-
-  ngOnInit(): void {
+    console.log(this.second,"second")
     setInterval(() => {
       const date = new Date();
       this.updateDate(date);

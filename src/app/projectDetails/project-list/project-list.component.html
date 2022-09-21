@@ -174,14 +174,33 @@
                                     </small>
                                 </p>
                             </div>
+                        <p class="card-text mt-1"><small class="text-muted">{{data.taskDescription}}</small>
+                        </p>
                         </div>
                     </div>
                     <div class="card-footer">
                         <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
                                 class="badge">{{data.position }}</span>
                     </div>
-                </div>
-            </div>
+                <div class="modal" [style.display]="isshowModal ? 'block' : 'none'" [formGroup]="updateTaskDetails">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title text-white"> Task Details</h3>
+                                <button type="button" class="btn-close closebutton"
+                                    (click)="isshowModal=false"></button>
+                            </div>
+                            <div class="modal-body scrollbar" id="style-1">
+                                <div class="row modalbody">
+                                    <div class="mb-3">
+                                        <label class=" form-label">Task Id</label>
+                                        <input class="form-control" [ngModel]="isTaskData?.taskId"
+                                            formControlName="taskId">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class=" form-label">Project Id</label>
+                                        <input class="form-control" [ngModel]="isTaskData?.projectId"
+                                            formControlName="projectId">
         </div>
         <div class="col-md-4 mt-4">
             <div class="card mb-3" *ngFor="let data of taskDetails">

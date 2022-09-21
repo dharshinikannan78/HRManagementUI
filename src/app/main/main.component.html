@@ -2,8 +2,9 @@
     <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
         <div class="d-flex align-items-center justify-content-center">
             <div>
-                <ngx-avatar name="salman khan" class="margin-auto dflex" size="80" [style]="customStyle"></ngx-avatar>
-                <!-- [src]="'https://localhost:44394/'+ forNav[0].photoPath" -->
+                <ngx-avatar [name]="loggerName" class="margin-auto dflex" size="80" [style]="customStyle"
+                  ></ngx-avatar>
+                  <!-- [src]="'https://localhost:44394/'+ forNav[0].photoPath" -->
                 <div class="d-flex pt-3 align-items-center justify-content-center">
                     <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
                         {{ loggerRole }}</h6>
@@ -19,11 +20,11 @@
             </li>
             <li class="cursorP" [ngClass]="{'active': step==='step2'}" data-bs-toggle="collapse" href="#collapseExample"
                 role="button" aria-expanded="false" aria-controls="collapseExample" (click)="step='step2'"
-                (click)="isNavOpen ? shortNav('/Employee'): 'none'">
+                (click)="isNavOpen ? shortNav('/Employee'): 'none'" *ngIf="!isEmployee" >
                 <i class="fa-solid fa-user-gear"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Employee</p>
             </li>
-            <div class="collapse" id="collapseExample">
+            <div class="collapse" id="collapseExample" *ngIf="!isEmployee">
                 <ul [ngClass]="isNavOpen ? 'none': 'show'">
                     <!-- <li class="cursorP" [ngClass]="{'active': step==='step5'}"
                         (click)="step='step5' ; shortNav('addUser')">

@@ -18,6 +18,7 @@ export class UserServiceService {
   _userId: any;
   _employeeTaskId: any;
 _team:any
+_check:any;
   constructor() { }
 
 
@@ -92,6 +93,13 @@ _team:any
     localStorage.setItem('Role', role);
     this._role = role;
   }
+  get Team(): any {
+    return localStorage.getItem('Team');
+  }
+  set Team(team: any) {
+    localStorage.setItem('Team', team);
+    this._team = team;
+  }
 
   get UserId(): any {
     return localStorage.getItem('UserId');
@@ -107,6 +115,16 @@ _team:any
     localStorage.setItem('Name', name);
     this._name = name;
   }
+
+  get InTime(): any {
+    return this._inTime;
+  }
+
+  set InTime(intime: any) {
+    localStorage.setItem('InTime', intime);
+    this._inTime = intime;
+  }
+
   setEmployeeId(params: any) {
     this.employeeId = params;
   }

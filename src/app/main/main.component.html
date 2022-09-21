@@ -8,10 +8,8 @@
                 <div class="d-flex pt-3 align-items-center justify-content-center">
                     <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
                         {{ loggerRole }}</h6>
-
                 </div>
             </div>
-
         </div>
     </div>
     <div class="likeUl">
@@ -28,12 +26,12 @@
             </li>
             <div class="collapse" id="collapseExample" *ngIf="!isEmployee">
                 <ul [ngClass]="isNavOpen ? 'none': 'show'">
-                    <li class="cursorP" [ngClass]="{'active': step==='step5'}"
+                    <!-- <li class="cursorP" [ngClass]="{'active': step==='step5'}"
                         (click)="step='step5' ; shortNav('addUser')">
                         <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-                            aria-controls="collapseExample" class="fa-solid fa-user-gear"></i>
+                            aria-controls="collapseExample" class="fa-solid fa-user-plus"></i>
                         <p [ngClass]="isNavOpen ? 'none': 'show'">Add User</p>
-                    </li>
+                    </li> -->
                     <li class="cursorP" [ngClass]="{'active': step==='step6'}"
                         (click)="step='step6' ; shortNav('main/Employee/addEmployee')">
                         <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
@@ -42,22 +40,22 @@
                     </li>
                 </ul>
             </div>
-            <li [ngClass]="{'active': step==='step3'}" (click)="step='step3' ; shortNav('/attendance')" class="cursorP">
+            <!-- <li [ngClass]="{'active': step==='step3'}" (click)="step='step3' ; shortNav('/attendance')" class="cursorP">
                 <i class="fa-solid fa-display"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Attendance</p>
-            </li>
+            </li> -->
             <li [ngClass]="{'active': step==='step4'}" (click)="step='step4' ; shortNav('/leave')" class="cursorP">
-                <i class="fa-solid fa-sheet-plastic"></i>
+                <i class="fa-solid fa-person-walking-luggage"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Leave</p>
             </li>
-            <li [ngClass]="{'active': step==='step5'}" (click)="step='step4' ; shortNav('/projectDetails')"
-                class="cursorP" *ngIf="!isEmployee">
+            <li [ngClass]="{'active': step==='step5'}" (click)="step='step5' ; shortNav('/projectDetails')"
+                class="cursorP">
                 <i class="fa-solid fa-sheet-plastic"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Project</p>
             </li>
             <li class="cursorP" [ngClass]="{'active': step==='step6'}" (click)="step='step6' ; shortNav('/list')">
                 <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-                    aria-controls="collapseExample" class="fa-solid fa-user-gear"></i>
+                    aria-controls="collapseExample" class="fa-solid fa-laptop-file"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">ProjectDetails</p>
             </li>
         </ul>
@@ -66,16 +64,14 @@
 
 <main id="main">
     <nav class="navbar navbar-dark">
-        <div class="container-fluid">
+        <div class="container-fluid" style="height: 4rem;">
             <button class="navbar-toggler" type="button" (click)="openNav()">
                 <i class="fa-solid fa-bars text-dark"></i>
             </button>
             <div class="d-flex align-items-center">
                 <p class="m-0">{{ loggerName }}</p>
                 <a class="navbar-brand" href="#">
-                    <ngx-avatar [name]="loggerName" [style]="customStyle"
-                        ></ngx-avatar>
-                        <!-- [src]="'https://localhost:44394/'+ forNav[0].photoPath" -->
+                    <ngx-avatar [name]="loggerName" [style]="customStyle"></ngx-avatar>
                 </a>
             </div>
         </div>

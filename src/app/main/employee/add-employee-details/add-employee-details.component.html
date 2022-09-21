@@ -1,5 +1,3 @@
-<!-- <h4>Add Employee Details</h4> -->
-
 <div class="container">
     <div class="step-wizard mt-3 mb-3">
         <ul class="step-wizard-list p-0">
@@ -45,16 +43,26 @@
                     <span class="text-danger" *ngIf="!employeeDetail.controls['dob'].valid && 
                 employeeDetail.controls['dob']?.touched"> <b>Dob</b> is required *</span>
                 </div>
-                <div class="form-group">
-                    <label class=" form-label">Gender</label>
-                    <select class="form-select" class="form-control" formControlName="gender">
+                <div class="form-group col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" (change)="createLogin = !createLogin" 
+                            type="checkbox" id="flexCheckChecked">
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Create Login For this User
+                        </label>
+                    </div>
+                </div>
+                <div *ngIf="createLogin" class="form-group">
+                    <label class=" form-label">Role</label>
+                    <select class="form-select" [(ngModel)]="loginAcess" [ngModelOptions]="{standalone: true}" class="form-control">
                         <option disabled selected value> -- select an option -- </option>
-                        <option value="Female">Female</option>
-                        <option value="Male">Male</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Employee">Employee</option>
                     </select>
                     <span class="text-danger" *ngIf="!employeeDetail.controls['gender'].valid && 
-                            employeeDetail.controls['gender']?.touched"> <b>Gender</b> is required *</span>
+                            employeeDetail.controls['gender']?.touched"> <b>Role</b> is required *</span>
                 </div>
+                
             </div>
             <div *ngIf="step==2" id="step2" class="row">
                 <h4>Contact Details</h4>
@@ -159,11 +167,11 @@
                 </div>
             </div>
         </div>
-        <div class="mt-3 footerbtn ">
-            <button type="button" class="btn btn-primary  " *ngIf="step!=4 " (click)=" next()">Next</button>
-            <button type="submit" class="btn btn-primary " style="margin-right: 1rem;" *ngIf="step==4"
-                [disabled]="thisFormValid()">Finish</button>
-            <button type="button" class="btn btn-primary  " style="margin-right: 1rem; text-align: center !important;"
+        <div class="mt-3 butt">
+            <button type="button" class="btn btn-primary " *ngIf="step!=4 " (click)=" next()">Next</button>
+            <button type="submit" class="btn btn-primary " style="margin-right: 1rem;" *ngIf="step==4">Finish</button>
+            <!-- [disabled]="thisFormValid()" -->
+            <button type="button" class="btn btn-primary " style="margin-right: 1rem; text-align: center !important;"
                 *ngIf="step!=1" (click)="prev()">Prev</button>
         </div>
     </form>

@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef
+  Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef, ComponentFactoryResolver
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -7,28 +7,16 @@ import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { UserServiceService } from 'src/app/service/user-service.service';
-
 // calendar
-
 import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
+  startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours
 } from 'date-fns';
 import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
+  CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,
 } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
+import * as moment from 'moment';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -43,6 +31,10 @@ const colors: Record<string, EventColor> = {
     primary: '#e3bc08',
     secondary: '#FDF1BA',
   },
+  green: {
+    primary: "#28ba62",
+    secondary: "#2dd36f1f"
+  }
 };
 
 @Component({
@@ -52,7 +44,24 @@ const colors: Record<string, EventColor> = {
 })
 export class EmployeeDetailsComponent implements OnInit {
 
+<<<<<<< HEAD
  
+=======
+  employeeDetail: FormGroup = new FormGroup({
+    employeeId: new FormControl(''),
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    gender: new FormControl(''),
+    designation: new FormControl(''),
+    address: new FormControl(''),
+    number: new FormControl(''),
+    emailId: new FormControl(''),
+    dob: new FormControl(''),
+    attachmentIds: new FormControl(''),
+    joiningDate: new FormControl(''),
+  });
+
+>>>>>>> master
   customStyle = {
     objectFit: "cover",
     cursor: "pointer"
@@ -60,6 +69,7 @@ export class EmployeeDetailsComponent implements OnInit {
   isData: any;
   oneEmployee: boolean = true;
   employee: any
+  attd: any;
   isEditTable: boolean = false;
   firstName: any;
   lastName: any;
@@ -71,6 +81,7 @@ export class EmployeeDetailsComponent implements OnInit {
   UserId: string = localStorage.getItem('userId');
   isShown: boolean = true;
   EmployeeId: any = localStorage.getItem("EmployeeId");
+<<<<<<< HEAD
 Team:string=localStorage.getItem("teamName");
 isOpen:boolean=false;
 
@@ -111,6 +122,51 @@ updateEmployeeDetail: FormGroup = new FormGroup({
 
   ngOnInit(): void {
     this.getAllDetails('');
+=======
+  // AttendanceId: any = localStorage.getItem('AttendanceId');
+  // InTime: any = localStorage.getItem('InTime');
+  attDetails: any;
+  hour: any;
+  minute: string;
+  second: string;
+  AMPM: any;
+  check: boolean = true;
+  AttendanceIds: any = [];
+  InTime: any = [];
+  addAttendance: FormGroup = new FormGroup({
+    inTime: new FormControl(moment().format()),
+    employeeId: new FormControl(this.EmployeeId)
+  });
+
+  updateAttendance: FormGroup = new FormGroup({
+    attendanceId: new FormControl(),
+    inTime: new FormControl(),
+    outTime: new FormControl(moment().format()),
+    employeeId: new FormControl(this.EmployeeId)
+  });
+
+
+  constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService,
+  ) {
+    setInterval(() => {
+      const date = new Date();
+      this.updateDate(date);
+    }, 1000);
+    // this.attendanceDetails('')
+    // this.api.allEmployeeAttendance().subscribe(data => {
+    //   this.attendace = data;
+    //   console.log(this.attendace, 'dat')
+    // })
+    this.getAllDetails();
+    console.log("came");
+  }
+
+  ngOnInit(): void {
+    // if (localStorage.getItem('checkIn' + this.EmployeeId) != null) {
+    //   let test = localStorage.getItem('checkIn' + this.EmployeeId);
+    //   this.check = JSON.parse(test);
+    // }
+>>>>>>> master
   }
   getAllDetails(params:any) {
     this.api.getUserDetails(this.EmployeeId,params).subscribe((data:any) => {
@@ -272,17 +328,35 @@ updateEmployeeDetail: FormGroup = new FormGroup({
     this.router.navigate(['/attendance']);
   }
 
+  getAttendanceDetails() {
+    this.api.getAttendanceDetails(this.EmployeeId).subscribe(data => {
+      this.attd = data;
+      console.log(data, "ahghgh details");
+      for (let i = 0; i < this.attd.length; i++) {
+        this.events = [
+          ...this.events,
+          {
+            title: 'Present',
+            start: startOfDay(new Date(this.attd[i].inTime)),
+            color: colors.green,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+          },
+        ];
+      }
+      console.log(this.events, "events array")
+    })
+  }
+
 
   // for calendar
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-
+  weekdays: string[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
   view: CalendarView = CalendarView.Month;
-
-  CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -310,8 +384,8 @@ updateEmployeeDetail: FormGroup = new FormGroup({
 
   events: CalendarEvent[] = [
     {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
+      start: new Date(2022, 8, 2),
+      end: new Date(2022, 8, 2),
       title: 'A 3 day event',
       color: { ...colors.red },
       actions: this.actions,
@@ -319,37 +393,11 @@ updateEmployeeDetail: FormGroup = new FormGroup({
       resizable: {
         beforeStart: true,
         afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: { ...colors.yellow },
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 2),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: { ...colors.blue },
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: { ...colors.yellow },
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
+      }
     },
   ];
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false;
 
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -415,6 +463,126 @@ updateEmployeeDetail: FormGroup = new FormGroup({
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+  updateDate(date: Date) {
+    const hours = date.getHours();
+    this.AMPM = hours >= 12 ? 'PM' : 'AM';
+    this.hour = hours % 12;
+    this.hour = this.hour ? this.hour : 12;
+    this.hour = this.hour < 10 ? '0' + this.hour : this.hour;
+    const minutes = date.getMinutes();
+    this.minute = minutes < 10 ? '0' + minutes : minutes.toString();
+    const seconds = date.getSeconds();
+    this.second = seconds < 10 ? '0' + seconds : seconds.toString();
+  }
+
+  attendanceDetails(params: any) {
+    // this.api.addAttendance(params).subscribe((data: any) => {
+    //   this.AttendanceIds.push(data.attendanceId);
+    //   this.InTime.push(data.inTime);
+    //   this.check = !this.check;
+    // });
+    Swal.fire({
+      title: "Are you sure want to CheckIn ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'CheckIn'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.addAttendance(params).subscribe((data: any) => {
+          this.AttendanceIds.push(data.attendanceId);
+          localStorage.setItem("AttendanceId", data.attendanceId);
+          this.InTime.push(data.inTime);
+          this.check = !this.check
+          localStorage.setItem('checkIn' + this.EmployeeId, JSON.stringify(this.check));
+          Swal.fire({
+            text: 'CheckIn Sucessfully!',
+            icon: 'success',
+            timer: 1000
+          });
+
+        }, (error: Response) => {
+          if (error.status === 400) {
+            Swal.fire({
+              text: 'User Already Checkin Today',
+              icon: 'error',
+              timer: 1000
+            });
+          }
+        });
+      }
+
+    });
+
+  }
+
+  updateattendanceDetails(params: any) {
+    // params.attendanceId = this.AttendanceIds.toString();
+    // params.inTime = this.InTime.toString();
+    // this.api.updateAttendance(params).subscribe((data: any) => {
+    //   this.check = !this.check;
+    // });
+    // Swal.fire({
+    //   text: 'Updated Sucessfully!',
+    //   icon: 'success',
+    //   timer: 900
+    // });
+    params.attendanceId = this.AttendanceIds.toString();
+    params.inTime = this.InTime.toString();
+    Swal.fire({
+      title: "Are you sure want to CheckOut ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'CheckOut'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.api.updateAttendance(params).subscribe(data => {
+
+          this.check = !this.check
+          localStorage.setItem('checkIn' + this.EmployeeId, JSON.stringify(this.check));
+
+          Swal.fire({
+            text: 'CheckOut Sucessfully!',
+            icon: 'success',
+            timer: 1000
+          });
+          this.getAttendanceDetail();
+        });
+      }
+
+    });
+  }
+
+  getAttendanceDetail() {
+    this.api.getAttendanceDetails(this.EmployeeId).subscribe(data => {
+      console.log(data, "fgfgdfg");
+      this.attDetails = data
+      console.log(this.attDetails, "this.attDetails");
+    });
+  }
+
+  deleteEmployeedetails(id: any, uname: any) {
+    Swal.fire({
+      title: "Are you sure want to delete " + uname + " ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.deleteUser(id).subscribe(() => {
+          Swal.fire({
+            text: 'Deleted Sucessfully!',
+            icon: 'success',
+            timer: 1000
+          });
+          this.getAllDetails();
+        });
+      }
+    });
   }
 }
 

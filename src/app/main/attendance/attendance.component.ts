@@ -19,121 +19,89 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AttendanceComponent implements OnInit {
 
-  EmployeeId: string = localStorage.getItem('EmployeeId');
-  AttendanceId:string=localStorage.getItem('AttendanceId');
- 
+  EmployeeId: any = localStorage.getItem('EmployeeId');
+  AttendanceId: any = localStorage.getItem('AttendanceId');
+  InTime: any = localStorage.getItem('InTime');
   attDetails: any;
-hour:any;
-minute:string;
-second:string;
-AMPM:any;
-check:boolean=true;
+  hour: any;
+  minute: string;
+  second: string;
+  AMPM: any;
+  check: boolean = true;
 
+  addAttendance: FormGroup = new FormGroup({
+    inTime: new FormControl(moment().format()),
+    employeeId: new FormControl(this.EmployeeId)
+  });
 
-addAttendance: FormGroup = new FormGroup({
-  date: new FormControl(moment().format()),
-  inTime: new FormControl(moment().format()),
-  employeeId:new FormControl(this.EmployeeId)
-});
-
-updateAttendance: FormGroup = new FormGroup({
-  attendanceId:new FormControl(this.AttendanceId),
-  outTime: new FormControl(moment().format()),
-  employeeId:new FormControl(this.EmployeeId)
-});
+  updateAttendance: FormGroup = new FormGroup({
+    attendanceId: new FormControl(this.AttendanceId),
+    inTime: new FormControl(this.InTime),
+    outTime: new FormControl(moment().format()),
+    employeeId: new FormControl(this.EmployeeId)
+  });
+  attendace: any;
   constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) {
     this.getAttendanceDetail();
     console.log(this.second,"second")
     setInterval(() => {
-      const date=new Date();
+      const date = new Date();
       this.updateDate(date);
+    }, 1000);
+    // this.attendanceDetails('')
+    this.api.allEmployeeAttendance().subscribe(data => {
+      this.attendace = data;
+      console.log(this.attendace, 'dat')
+    })
+  }
+  updateDate(date: Date) {
+    const hours = date.getHours();
+    this.AMPM = hours >= 12 ? 'PM' : 'AM';
+    this.hour = hours % 12;
+    this.hour = this.hour ? this.hour : 12;
+    this.hour = this.hour < 10 ? '0' + this.hour : this.hour;
+    const minutes = date.getMinutes();
+    this.minute = minutes < 10 ? '0' + minutes : minutes.toString();
+    const seconds = date.getSeconds();
+    this.second = seconds < 10 ? '0' + seconds : seconds.toString();
+  }
+
+  attendanceDetails(params: any) {
+    // console.log(params, 'params')
+    // this.userService.AttendanceId = params;
+    this.api.addAttendance(params).subscribe((data: any) => {
+      console.log(data, 'attendance');
+      //  localStorage.setItem("AttendanceId", data.attendanceId);
+      this.userService.AttendanceId = data.attendanceId;
+      this.userService.InTime = data.inTime;
+      console.log(this.userService.AttendanceId, 'this.userService.AttendanceId')
+
+      this.check = !this.check
     });
-    console.log(this.AttendanceId, "att id");
-    console.log(typeof(this.AttendanceId), "att id");
+
   }
 
-  ngOnInit(): void {
-    
-   if(localStorage.getItem('checkIn'+this.EmployeeId) != null) {
-    let test = localStorage.getItem('checkIn' + this.EmployeeId);
-    this.check = JSON.parse(test);
-    
-   }
-   
-    
- 
-  }
-  updateDate(date:Date){
-    const hours=date.getHours();
-    this.AMPM=hours>=12?'PM':'AM';
-    this.hour=hours%12;
-    this.hour=this.hour?this.hour:12;
-    this.hour=this.hour<10?'0' +this.hour:this.hour;
-    const minutes=date.getMinutes();
-    this.minute=minutes<10?'0' +minutes:minutes.toString();
-    const seconds=date.getSeconds();
-    this.second=seconds<10?'0' +seconds:seconds.toString()  ;
-  }
-  
-  
- attendanceDetails(params: any) {
+  updateattendanceDetails(params: any) {
+    // this.AttendanceId =  
+    console.log(this.userService.AttendanceId, 'this.userService.AttendanceId')
+    this.api.updateAttendance(params).subscribe((data: any) => {
+      console.log(data , 'updattendance');
+      data.attendanceId = this.userService.AttendanceId;
+      // data.inTime = this.userService.InTime;
+      console.log(data , 'updattendance');
+      // ...at
+      // this.userService.AttendanceId = data.attendanceId;
+      this.check = !this.check
+    });
     Swal.fire({
-      title: "Are you sure want to CheckIn ?",
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'CheckIn'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.api.addAttendance(params).subscribe((data:any) => {
-         
-     localStorage.setItem("AttendanceId", data.attendanceId);
-          this.check=!this.check
-          localStorage.setItem('checkIn'+this.EmployeeId, JSON.stringify(this.check));       
-      Swal.fire({
-        text: 'CheckIn Sucessfully!',
-        icon: 'success',
-        timer: 1000
-      });
-     
-     }, (error: Response) => {
-        if (error.status === 400) {
-          Swal.fire({
-            text: 'User Already Checkin Today',
-            icon: 'error',
-            timer: 1000
-          });
-        }
-          });
-        }
-        
-        });
-}
-    updateattendanceDetails(params:any) {
-      
-      Swal.fire({
-        title: "Are you sure want to CheckOut ?",
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'CheckOut'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.api.updateAttendance(params).subscribe(data => {
-           
-            this.check=!this.check
-            localStorage.setItem('checkIn'+this.EmployeeId, JSON.stringify(this.check));
+      text: 'Updated Sucessfully!',
+      icon: 'success',
+      timer: 900
+    });
+    // this.showModal = false;
+    // location.reload();
 
-        Swal.fire({
-          text: 'CheckOut Sucessfully!',
-          icon: 'success',
-          timer: 1000
-        });
-     this.getAttendanceDetail();
-      });
-        }
-  });
-     }
+  }
   getAttendanceDetail() {
     this.api.getAttendanceDetails(this.EmployeeId).subscribe(data => {
       console.log(data, "fgfgdfg");

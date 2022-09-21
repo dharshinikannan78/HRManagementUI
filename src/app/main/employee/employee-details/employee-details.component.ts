@@ -52,19 +52,7 @@ const colors: Record<string, EventColor> = {
 })
 export class EmployeeDetailsComponent implements OnInit {
 
-  employeeDetail: FormGroup = new FormGroup({
-    employeeId: new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    gender: new FormControl(''),
-    designation: new FormControl(''),
-    address: new FormControl(''),
-    number: new FormControl(''),
-    emailId: new FormControl(''),
-    dob: new FormControl(''),
-    joiningDate: new FormControl(''),
-  });
-
+ 
   customStyle = {
     objectFit: "cover",
     cursor: "pointer"
@@ -86,8 +74,39 @@ export class EmployeeDetailsComponent implements OnInit {
 Team:string=localStorage.getItem("teamName");
 isOpen:boolean=false;
 
+
+step: number = 1;
+isenable: boolean = false;
+formData: any;
+fileList: any[] = [];
+resumeFormat: string[] = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'application/msword'];
+imageFormat: string[] = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+attachmentIds: any = [];
+attachmentName: any = [];
+updateEmployeeDetail: FormGroup = new FormGroup({
+  employeeId:new FormControl(''),
+  firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    dob: new FormControl('', Validators.required),
+    gender: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    number: new FormControl('', Validators.required),
+    emailId: new FormControl('', Validators.required),
+    qualification: new FormControl('', Validators.required),
+    college: new FormControl('', Validators.required),
+    passedOut: new FormControl('', Validators.required),
+    skills: new FormControl('', Validators.required),
+    workMode: new FormControl('', Validators.required),
+   
+    designation: new FormControl('', Validators.required),
+    joiningDate: new FormControl('', Validators.required),
+    teamName: new FormControl(''),
+    position: new FormControl(''),
+});
+
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService,
   ) {
+    
   }
 
   ngOnInit(): void {
@@ -112,8 +131,35 @@ isOpen:boolean=false;
       })
     });
   }
+  uploadcandidateFile = (files: any, type: string) => {
+    console.log(files)
+    for (var i = 0; i < files.length; i++) {
+      console.log(this.formData, "form data")
+      if (files[i].size > 1000000) {
+        alert("file size should be less than 10MB");
+      }
+      else {
+        if (type == 'resume' && this.resumeFormat.indexOf(files[i].type) != -1) {
+          this.formData.append("resume", files[i]);
+        }
+        if (type == 'image' && this.imageFormat.indexOf(files[i].type) != -1) {
+          this.formData.append("image", files[i]);
+        }
+        else {
+          this.formData.append("other", files[i]);
+        }
+      }
+    }
+  }
+
+ 
+ 
+
+     
 
   updateEmployee(employeeDetail: any) {
+    if (this.step == 4)
+   
     this.api.updateEmployeeDetails(employeeDetail).subscribe(data => {
       console.log(data, 'update')
       Swal.fire({
@@ -124,7 +170,9 @@ isOpen:boolean=false;
       this.showModal = false;
       location.reload();
     });
-  }
+  
+
+}
 
   getEmployeeDetails(data: any) {
     console.log(data, 'geetha')
@@ -160,10 +208,21 @@ isOpen:boolean=false;
 });
   }
   
+  thisFormValid() {
+    if (this.updateEmployeeDetail.invalid) {
+      return true;
+    }
+    return false;
+  }
 
 
+  prev() {
+    this.step = this.step - 1;
+  }
 
-  
+  next() {
+    this.step = this.step + 1;
+  }
      
   
 

@@ -48,6 +48,8 @@ updateAttendance: FormGroup = new FormGroup({
       const date=new Date();
       this.updateDate(date);
     });
+    console.log(this.AttendanceId, "att id");
+    console.log(typeof(this.AttendanceId), "att id");
   }
 
   ngOnInit(): void {

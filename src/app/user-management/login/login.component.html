@@ -42,19 +42,6 @@
               <input type="password" class="form-control" formControlName="password">
               <span class=" text-danger mt-1" *ngIf="!dologin.controls['password'].valid && 
             dologin.controls['password']?.touched"> <b>Password</b> is required *</span>
-<<<<<<< HEAD
-          </div>
-          <!-- <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input">
-            <label class="form-check-label" for="exampleCheck1">Remember me</label>
-          </div> -->
-          <button type="submit" (keyup.enter)="getCredentails(dologin.value)" class="btn btn-primary" [ngClass]="{ 'is-invalid': submitted}"
-            [disabled]="thisFormValid()">Submit</button>
-          <div class="invalid-feedback mb-4 mt-4">
-            Incorrect EmailId & Password
-          </div>
-        </form>
-=======
             </div>
             <button type="submit" (keyup.enter)="getCredentails(dologin.value)" class="btn btn-primary mt-5"
               [ngClass]="{ 'is-invalid': submitted}" [disabled]="thisFormValid()">Submit</button>
@@ -63,7 +50,6 @@
             </div>
           </form>
         </ng-container>
->>>>>>> master
       </div>
       <div class="col-md-8">
         <img src="../assets/login.jpg" class="imgprop w-100 h-100" alt="">

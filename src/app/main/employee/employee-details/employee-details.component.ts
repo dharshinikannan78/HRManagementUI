@@ -44,9 +44,6 @@ const colors: Record<string, EventColor> = {
 })
 export class EmployeeDetailsComponent implements OnInit {
 
-<<<<<<< HEAD
- 
-=======
   employeeDetail: FormGroup = new FormGroup({
     employeeId: new FormControl(''),
     firstName: new FormControl(''),
@@ -61,7 +58,6 @@ export class EmployeeDetailsComponent implements OnInit {
     joiningDate: new FormControl(''),
   });
 
->>>>>>> master
   customStyle = {
     objectFit: "cover",
     cursor: "pointer"
@@ -81,48 +77,6 @@ export class EmployeeDetailsComponent implements OnInit {
   UserId: string = localStorage.getItem('userId');
   isShown: boolean = true;
   EmployeeId: any = localStorage.getItem("EmployeeId");
-<<<<<<< HEAD
-Team:string=localStorage.getItem("teamName");
-isOpen:boolean=false;
-
-
-step: number = 1;
-isenable: boolean = false;
-formData: any;
-fileList: any[] = [];
-resumeFormat: string[] = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'application/msword'];
-imageFormat: string[] = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-attachmentIds: any = [];
-attachmentName: any = [];
-updateEmployeeDetail: FormGroup = new FormGroup({
-  employeeId:new FormControl(''),
-  firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    dob: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    number: new FormControl('', Validators.required),
-    emailId: new FormControl('', Validators.required),
-    qualification: new FormControl('', Validators.required),
-    college: new FormControl('', Validators.required),
-    passedOut: new FormControl('', Validators.required),
-    skills: new FormControl('', Validators.required),
-    workMode: new FormControl('', Validators.required),
-   
-    designation: new FormControl('', Validators.required),
-    joiningDate: new FormControl('', Validators.required),
-    teamName: new FormControl(''),
-    position: new FormControl(''),
-});
-
-  constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService,
-  ) {
-    
-  }
-
-  ngOnInit(): void {
-    this.getAllDetails('');
-=======
   // AttendanceId: any = localStorage.getItem('AttendanceId');
   // InTime: any = localStorage.getItem('InTime');
   attDetails: any;
@@ -166,7 +120,6 @@ updateEmployeeDetail: FormGroup = new FormGroup({
     //   let test = localStorage.getItem('checkIn' + this.EmployeeId);
     //   this.check = JSON.parse(test);
     // }
->>>>>>> master
   }
   getAllDetails(params:any) {
     this.api.getUserDetails(this.EmployeeId,params).subscribe((data:any) => {
@@ -579,7 +532,7 @@ updateEmployeeDetail: FormGroup = new FormGroup({
             icon: 'success',
             timer: 1000
           });
-          this.getAllDetails();
+          this.getAllDetails('');
         });
       }
     });

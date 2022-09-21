@@ -17,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './attendance.component.html',
   styleUrls: ['./attendance.component.scss']
 })
-export class AttendanceComponent implements OnInit {
+export class AttendanceComponent  {
 
   EmployeeId: any = localStorage.getItem('EmployeeId');
   AttendanceId: any = localStorage.getItem('AttendanceId');

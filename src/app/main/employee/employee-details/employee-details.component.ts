@@ -111,7 +111,7 @@ export class EmployeeDetailsComponent implements OnInit {
     //   this.attendace = data;
     //   console.log(this.attendace, 'dat')
     // })
-    this.getAllDetails();
+    this.getAllDetails('');
     console.log("came");
   }
 
@@ -140,6 +140,10 @@ export class EmployeeDetailsComponent implements OnInit {
       })
     });
   }
+  formData:any;
+  resumeFormat:any =[];
+  imageFormat:any =[];
+  step:number = 1;
   uploadcandidateFile = (files: any, type: string) => {
     console.log(files)
     for (var i = 0; i < files.length; i++) {
@@ -218,7 +222,7 @@ export class EmployeeDetailsComponent implements OnInit {
   }
   
   thisFormValid() {
-    if (this.updateEmployeeDetail.invalid) {
+    if (this.employeeDetail.invalid) {
       return true;
     }
     return false;
@@ -517,25 +521,5 @@ export class EmployeeDetailsComponent implements OnInit {
     });
   }
 
-  deleteEmployeedetails(id: any, uname: any) {
-    Swal.fire({
-      title: "Are you sure want to delete " + uname + " ?",
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Delete'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.api.deleteUser(id).subscribe(() => {
-          Swal.fire({
-            text: 'Deleted Sucessfully!',
-            icon: 'success',
-            timer: 1000
-          });
-          this.getAllDetails('');
-        });
-      }
-    });
-  }
 }
 

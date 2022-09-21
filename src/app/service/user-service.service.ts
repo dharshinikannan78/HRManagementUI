@@ -5,9 +5,6 @@ import { ComponentFactoryResolver, Injectable } from '@angular/core';
 })
 export class UserServiceService {
 
-
-
-
   employeeId: any;
   attendanceId: any;
   _role: any;
@@ -17,8 +14,8 @@ export class UserServiceService {
   _name: any;
   _userId: any;
   _employeeTaskId: any;
-_team:any
-_check:any;
+  _team: any
+  _check: any;
   constructor() { }
 
 
@@ -69,14 +66,7 @@ _check:any;
     localStorage.setItem('AttendanceId', id);
     this.attendanceId = id;
   }
-  get Team(): any {
-    return localStorage.getItem('Team');
-  }
-  set Team(team: any) {
-    localStorage.setItem('Team', team);
-    this._team = team;
-  }
-
+  
   get InTime(): any {
     return this._inTime;
   }
@@ -114,15 +104,6 @@ _check:any;
   set Name(name: any) {
     localStorage.setItem('Name', name);
     this._name = name;
-  }
-
-  get InTime(): any {
-    return this._inTime;
-  }
-
-  set InTime(intime: any) {
-    localStorage.setItem('InTime', intime);
-    this._inTime = intime;
   }
 
   setEmployeeId(params: any) {

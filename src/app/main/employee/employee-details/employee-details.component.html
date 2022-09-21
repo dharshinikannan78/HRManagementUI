@@ -19,57 +19,61 @@
         </div>
 
         <!-- admin view -->
-    
 
-  <div class="accordion" id="accordionExample">
-    <div class="accordion-item" *ngFor="let data of isData; let i = index">
-      <h2 class="accordion-header" id="headingOne{{i}}">
-        <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
-          attr.data-bs-target="#collapseOne{{i}}" aria-expanded="false" attr.aria-controls="collapseOne{{i}}">
-          {{data[i].teamName}}
-        </button>
-      </h2>
-      <div id="collapseOne{{i}}" class="accordion-collapse collapse" attr.aria-labelledby="headingOne{{i}}"
-        data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-          <div class="container" id="Employeedata">
-            <ng-container *ngIf="oneEmployee">
-              <div class="row">
-                <div class="col-6 col-sm-6 col-md-6 col-lg-4 h-100" *ngFor="let data of isData[i]">
-                    <div class="card h-100">
-                        <div class="card-body position-relative">
-                            <div class="deleteButton btn"  (click)="deleteEmployeedetails(data.employeeId,data.firstName)">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </div>
 
-                            <div class="row g-0 dflex">
-                                <div class="col-5 col-sm-4 dflex">
-                                    <div class="me-4">
-                                        <ngx-avatar size="70" [style]="customStyle"
-                                            [name]="data.firstName + ' ' + data.lastName"
-                                            [src]="'https://localhost:44394/' + data.photoPath" class="card-img-top"
-                                            alt="..." (click)="getEmployeeDetails(data)"></ngx-avatar>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item" *ngFor="let data of isData; let i = index">
+                <h2 class="accordion-header" id="headingOne{{i}}">
+                    <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
+                        attr.data-bs-target="#collapseOne{{i}}" aria-expanded="false"
+                        attr.aria-controls="collapseOne{{i}}">
+                        {{data[i].teamName}}
+                    </button>
+                </h2>
+                <div id="collapseOne{{i}}" class="accordion-collapse collapse" attr.aria-labelledby="headingOne{{i}}"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="container" id="Employeedata">
+                            <ng-container *ngIf="oneEmployee">
+                                <div class="row">
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-4 h-100" *ngFor="let data of isData[i]">
+                                        <div class="card h-100">
+                                            <div class="card-body position-relative">
+                                                <div class="deleteButton btn"
+                                                    (click)="deleteEmployeedetails(data.employeeId,data.firstName)">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </div>
+
+                                                <div class="row g-0 dflex">
+                                                    <div class="col-5 col-sm-4 dflex">
+                                                        <div class="me-4">
+                                                            <ngx-avatar size="70" [style]="customStyle"
+                                                                [name]="data.firstName + ' ' + data.lastName"
+                                                                [src]="'https://localhost:44394/' + data.photoPath"
+                                                                class="card-img-top" alt="..."
+                                                                (click)="getEmployeeDetails(data)"></ngx-avatar>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-7 text-muted">
+                                                        {{data.employeeId}}<b>&nbsp;&nbsp;{{data.firstName}}&nbsp;{{data.lastName}}
+                                                        </b>
+                                                    </div>
+                                                </div>
+                                                <div class="dflex mt-3">
+                                                    <p class="card-text w-75">{{data.teamName}} <span
+                                                            class="float-end">{{data.position}}</span></p>
+                                                    <p class="card-text"><small class="text-muted"></small></p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-7 text-muted">
-                                    {{data.employeeId}}<b>&nbsp;&nbsp;{{data.firstName}}&nbsp;{{data.lastName}} </b>
-                                </div>
-                            </div>
-                            <div class="dflex mt-3">
-                                <p class="card-text w-75">{{data.teamName}} <span
-                                        class="float-end">{{data.position}}</span></p>
-                                <p class="card-text"><small class="text-muted"></small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
-        <!-- admin view ends -->
+                            </ng-container>
+                            <!-- admin view ends -->
 
 
-        <ng-container *ngIf="!oneEmployee">
-            <!-- <div class="coverImage dflex">
+                            <ng-container *ngIf="!oneEmployee">
+                                <!-- <div class="coverImage dflex">
                 <img [src]="'https://localhost:44394/'+ isData[0].photoPath" class="img-9" alt="">
             </div>
             <div class="p-5">
@@ -98,194 +102,223 @@
                 </div>
             </div> -->
 
-            <div class="row py-4 g-3">
-                <div class="col-md-8">
-                    <div class="row g-3">
-                        <div class="col-md-12 Ename p-4 rounded-4 bg-white d-flex align-items-center">
-                            <ngx-avatar size="46" [style]="customStyle"
-                                [name]="isData[0].firstName + ' ' + isData[0].lastName"
-                                [src]="'https://localhost:44394/' + isData[0].photoPath" alt="...">
-                            </ngx-avatar>
-                            <div class="mx-4">
-                                <h5 class="m-0 fw-600">{{isData[0].firstName + ' ' +
-                                    isData[0].lastName}}</h5>
-                                <p class="m-0">{{isData[0].designation}}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-12 rounded-4 bg-white mt-3 p-4">
-                            <h5 class="mb-4">All Personal Details<span class="float-end primary-textc"><i
-                                        class="fa-solid fa-pencil"></i>&nbsp;Edit</span></h5>
-                            <div class="row g-5">
-                                <div class="col-md-6  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-at"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].emailId}}</p>
-                                        <h6 class="m-0">Mail Address</h6>
-                                    </div>
-                                </div>
-                                <div class="col-md-6  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-mobile-screen-button"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].number}}</p>
-                                        <h6 class="m-0">Mobile Number</h6>
-                                    </div>
-                                </div>
-                                <div class="col-md-6  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-cake-candles"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].dob | date:'MMMM d, y'}}</p>
-                                        <h6 class="m-0">DOB</h6>
-                                    </div>
-                                </div>
+                                <div class="row py-4 g-3">
+                                    <div class="col-md-8">
+                                        <div class="row g-3">
+                                            <div
+                                                class="col-md-12 Ename p-4 rounded-4 bg-white d-flex align-items-center">
+                                                <ngx-avatar size="46" [style]="customStyle"
+                                                    [name]="isData[0].firstName + ' ' + isData[0].lastName"
+                                                    [src]="'https://localhost:44394/' + isData[0].photoPath" alt="...">
+                                                </ngx-avatar>
+                                                <div class="mx-4">
+                                                    <h5 class="m-0 fw-600">{{isData[0].firstName + ' ' +
+                                                        isData[0].lastName}}</h5>
+                                                    <p class="m-0">{{isData[0].designation}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 rounded-4 bg-white mt-3 p-4">
+                                                <h5 class="mb-4">All Personal Details<span
+                                                        class="float-end primary-textc"><i
+                                                            class="fa-solid fa-pencil"></i>&nbsp;Edit</span></h5>
+                                                <div class="row g-5">
+                                                    <div class="col-md-6  d-flex align-items-center">
+                                                        <div
+                                                            class="iconWrap d-flex align-items-center justify-content-center">
+                                                            <i class="fa-solid fa-at"></i>
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <p class="m-0 fw-bold">{{isData[0].emailId}}</p>
+                                                            <h6 class="m-0">Mail Address</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6  d-flex align-items-center">
+                                                        <div
+                                                            class="iconWrap d-flex align-items-center justify-content-center">
+                                                            <i class="fa-solid fa-mobile-screen-button"></i>
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <p class="m-0 fw-bold">{{isData[0].number}}</p>
+                                                            <h6 class="m-0">Mobile Number</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6  d-flex align-items-center">
+                                                        <div
+                                                            class="iconWrap d-flex align-items-center justify-content-center">
+                                                            <i class="fa-solid fa-cake-candles"></i>
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <p class="m-0 fw-bold">{{isData[0].dob | date:'MMMM d, y'}}
+                                                            </p>
+                                                            <h6 class="m-0">DOB</h6>
+                                                        </div>
+                                                    </div>
 
-                                <div class="col-md-6  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-file-signature"></i>
+                                                    <div class="col-md-6  d-flex align-items-center">
+                                                        <div
+                                                            class="iconWrap d-flex align-items-center justify-content-center">
+                                                            <i class="fa-solid fa-file-signature"></i>
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <p class="m-0 fw-bold">{{isData[0].joiningDate |
+                                                                date:'MMMMd, y'}}</p>
+                                                            <h6 class="m-0">Date of Joining</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12  d-flex align-items-center">
+                                                        <div
+                                                            class="iconWrap d-flex align-items-center justify-content-center">
+                                                            <i class="fa-solid fa-location-arrow"></i>
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <p class="m-0 fw-bold">{{isData[0].address}}</p>
+                                                            <h6 class="m-0">Address</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12  d-flex align-items-center">
+                                                        <div
+                                                            class="iconWrap d-flex align-items-center justify-content-center">
+                                                            <i class="fa-solid fa-computer-mouse"></i>
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <p class="m-0 fw-bold">{{isData[0].workMode}}</p>
+                                                            <h6 class="m-0">Work Mode</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].joiningDate | date:'MMMM d, y'}}</p>
-                                        <h6 class="m-0">Date of Joining</h6>
+                                    <div class="col-md-4 taskDetails position-relative">
+                                        <div class="p-3 testingOverflow rounded-4 bg-white">
+                                            <h5>Task Details</h5>
+                                            <div class="row g-2">
+                                                <div class="col-12" *ngFor="let item of taskDetails">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">{{item.taskName}}<span
+                                                                    [ngClass]="{'redBadge': item.taskStatus === 'Rejected', 'orangeBadge': item.taskStatus === 'Pending' }"
+                                                                    class="badge float-end">{{item.taskStatus}}</span>
+                                                            </h5>
+                                                            <p class="card-text">{{item.taskDescription}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="scroll">
+                                            <div
+                                                class="scrollWrap rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="fa-solid fa-chevron-down"></i>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-location-arrow"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].address}}</p>
-                                        <h6 class="m-0">Address</h6>
-                                    </div>
-                                </div>
-                                <div class="col-md-12  d-flex align-items-center">
-                                    <div class="iconWrap d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-computer-mouse"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <p class="m-0 fw-bold">{{isData[0].workMode}}</p>
-                                        <h6 class="m-0">Work Mode</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 taskDetails position-relative">
-                    <div class="p-3 testingOverflow rounded-4 bg-white">
-                        <h5>Task Details</h5>
-                        <div class="row g-2">
-                            <div class="col-12" *ngFor="let item of taskDetails">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{item.taskName}}<span
-                                                [ngClass]="{'redBadge': item.taskStatus === 'Rejected', 'orangeBadge': item.taskStatus === 'Pending' }"
-                                                class="badge float-end">{{item.taskStatus}}</span></h5>
-                                        <p class="card-text">{{item.taskDescription}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="scroll">
-                        <div class="scrollWrap rounded-circle d-flex align-items-center justify-content-center">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 p-0">
-                    <div class="rounded-4 bg-white p-3">
-                        <h5>Attendance Details</h5>
+                                    <div class="col-md-12 p-0">
+                                        <div class="rounded-4 bg-white p-3">
+                                            <h5>Attendance Details</h5>
 
-                        <!-- calendar -->
-                        <div class="row text-center">
-                            <div class="col-md-4">
-                                <div class="btn-group">
-                                    <div class="btn btn-primary" mwlCalendarPreviousView [view]="view"
-                                        [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
-                                        Previous
-                                    </div>
-                                    <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
-                                        Today
-                                    </div>
-                                    <div class="btn btn-primary" mwlCalendarNextView [view]="view"
-                                        [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
-                                        Next
+                                            <!-- calendar -->
+                                            <div class="row text-center">
+                                                <div class="col-md-4">
+                                                    <div class="btn-group">
+                                                        <div class="btn btn-primary" mwlCalendarPreviousView
+                                                            [view]="view" [(viewDate)]="viewDate"
+                                                            (viewDateChange)="closeOpenMonthViewDay()">
+                                                            Previous
+                                                        </div>
+                                                        <div class="btn btn-outline-secondary" mwlCalendarToday
+                                                            [(viewDate)]="viewDate">
+                                                            Today
+                                                        </div>
+                                                        <div class="btn btn-primary" mwlCalendarNextView [view]="view"
+                                                            [(viewDate)]="viewDate"
+                                                            (viewDateChange)="closeOpenMonthViewDay()">
+                                                            Next
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <mwl-calendar-month-view [viewDate]="viewDate" [events]="events"
+                                                    [refresh]="refresh">
+                                                </mwl-calendar-month-view>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-                            </div>
-                        </div>
-                        <br />
-                        <div>
-                            <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [refresh]="refresh">
-                            </mwl-calendar-month-view>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
-    </div>
-
-    <div class="modal" [style.display]="showModal ? 'block' : 'none'">
-        <div class="modal-dialog">
-            <div class="modal-content" [formGroup]="employeeDetail">
-                <div class="modal-header">
-                    <h3 class="modal-title text-white"> EMPLOYEE DETAILS</h3>
-                    <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
-                </div>
-                <div class="modal-body scrollbar" id="style-1">
-                    <div class="row modalbody">
-                        <div class="mb-3">
-                            <label class=" form-label">First Name</label>
-                            <input class="form-control" [ngModel]="employee?.employeeId" formControlName="employeeId">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">First Name</label>
-                            <input class="form-control" [ngModel]="employee?.firstName" formControlName="firstName">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Last Name</label>
-                            <input class="form-control" [ngModel]="employee?.lastName" formControlName="lastName">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Email Id</label>
-                            <input class="form-control" [ngModel]="employee?.emailId" formControlName="emailId">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Date Of Birth</label>
-                            <input class="form-control" [ngModel]="employee?.dob" formControlName="dob">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Number</label>
-                            <input class="form-control" [ngModel]="employee?.number" formControlName="number">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Date Of Joining</label>
-                            <input class="form-control" [ngModel]="employee?.joiningDate" formControlName="joiningDate">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Address</label>
-                            <input class="form-control" [ngModel]="employee?.address" formControlName="address">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Desigination</label>
-                            <input class="form-control" [ngModel]="employee?.designation" formControlName="designation">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Gender</label>
-                            <input class="form-control" [ngModel]="employee?.gender" formControlName="gender">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Gender</label>
-                            <input class="form-control" [ngModel]="employee?.attachmentIds" formControlName="attachmentIds">
+                            </ng-container>
                         </div>
 
-  </div>
-</div>
+                        <div class="modal" [style.display]="showModal ? 'block' : 'none'">
+                            <div class="modal-dialog">
+                                <div class="modal-content" [formGroup]="employeeDetail">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title text-white"> EMPLOYEE DETAILS</h3>
+                                        <button type="button" class="btn-close closebutton"
+                                            (click)="showModal=false"></button>
+                                    </div>
+                                    <div class="modal-body scrollbar" id="style-1">
+                                        <div class="row modalbody">
+                                            <div class="mb-3">
+                                                <label class=" form-label">First Name</label>
+                                                <input class="form-control" [ngModel]="employee?.employeeId"
+                                                    formControlName="employeeId">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class=" form-label">First Name</label>
+                                                <input class="form-control" [ngModel]="employee?.firstName"
+                                                    formControlName="firstName">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class=" form-label">Last Name</label>
+                                                <input class="form-control" [ngModel]="employee?.lastName"
+                                                    formControlName="lastName">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class=" form-label">Email Id</label>
+                                                <input class="form-control" [ngModel]="employee?.emailId"
+                                                    formControlName="emailId">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class=" form-label">Date Of Birth</label>
+                                                <input class="form-control" [ngModel]="employee?.dob"
+                                                    formControlName="dob">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class=" form-label">Number</label>
+                                                <input class="form-control" [ngModel]="employee?.number"
+                                                    formControlName="number">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class=" form-label">Date Of Joining</label>
+                                                <input class="form-control" [ngModel]="employee?.joiningDate"
+                                                    formControlName="joiningDate">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class=" form-label">Address</label>
+                                                <input class="form-control" [ngModel]="employee?.address"
+                                                    formControlName="address">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class=" form-label">Desigination</label>
+                                                <input class="form-control" [ngModel]="employee?.designation"
+                                                    formControlName="designation">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class=" form-label">Gender</label>
+                                                <input class="form-control" [ngModel]="employee?.gender"
+                                                    formControlName="gender">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class=" form-label">Gender</label>
+                                                <input class="form-control" [ngModel]="employee?.attachmentIds"
+                                                    formControlName="attachmentIds">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    

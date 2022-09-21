@@ -3,7 +3,6 @@
         <div class="d-flex align-items-center justify-content-center">
             <div>
                 <ngx-avatar name="salman khan" class="margin-auto dflex" size="80" [style]="customStyle"></ngx-avatar>
-                <!-- [src]="'https://localhost:44394/'+ forNav[0].photoPath" -->
                 <div class="d-flex pt-3 align-items-center justify-content-center">
                     <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
                         {{ loggerRole }}</h6>
@@ -47,15 +46,19 @@
                 <i class="fa-solid fa-person-walking-luggage"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Leave</p>
             </li>
-            <li [ngClass]="{'active': step==='step5'}" (click)="step='step5' ; shortNav('/projectDetails')"
+            <!-- <li [ngClass]="{'active': step==='step5'}" (click)="step='step5' ; shortNav('/projectDetails')"
                 class="cursorP">
                 <i class="fa-solid fa-sheet-plastic"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Project</p>
-            </li>
+            </li> -->
             <li class="cursorP" [ngClass]="{'active': step==='step6'}" (click)="step='step6' ; shortNav('/list')">
                 <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                     aria-controls="collapseExample" class="fa-solid fa-laptop-file"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">ProjectDetails</p>
+            </li>
+            <li [ngClass]="{'active': step==='step5'}" (click)="step='step5'" class="cursorP" (click)="logout()">
+                <i class="fa fa-power-off" aria-hidden="true"></i>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">LogOut</p>
             </li>
         </ul>
     </div>
@@ -63,8 +66,8 @@
 
 <main id="main">
     <nav class="navbar navbar-dark">
-        <div class="container-fluid" style="height: 4rem;">
-            <button class="navbar-toggler" type="button" (click)="openNav()">
+        <div class="container-fluid " style="height: 4rem;">
+            <!-- <button class="navbar-toggler" type="button" (click)="openNav()">
                 <i class="fa-solid fa-bars text-dark"></i>
             </button>
             <div class="d-flex align-items-center">
@@ -72,7 +75,7 @@
                 <a class="navbar-brand" href="#">
                     <ngx-avatar [name]="loggerName" [style]="customStyle"></ngx-avatar>
                 </a>
-            </div>
+            </div> -->
         </div>
     </nav>
     <router-outlet></router-outlet>

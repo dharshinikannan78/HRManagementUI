@@ -40,7 +40,8 @@ export class ApiServiceService {
   updateByTaskDetails = this.URL + 'TaskDetails/Update';
   deleteEmployee = this.URL + "Employee/DeleteEmployee?Id="
   // jwtToken = this.URL + "jwt";
-
+  getOverAllAttendance = this.URL + 'Attendance/AllAttendance';
+  employeeDetailsName = this.URL + 'Employee/AllEmployee';
   constructor(private http: HttpClient) { }
 
   public headers = new HttpHeaders({

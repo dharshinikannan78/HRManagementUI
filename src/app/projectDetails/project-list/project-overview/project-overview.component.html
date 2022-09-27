@@ -1,0 +1,153 @@
+<section class="projectOverview">
+    <div class="container-fluid">
+        <div class="row p-5 shadow-lg">
+            <div class="col-md-12">
+                <p class="mb-1 card-subtitle text-muted"><small>{{ projectdetails.startDate | date
+                    :'MMM d'}} - {{projectdetails.endDate | date :'MMM d'}}</small></p>
+                <!-- <p><small>Created on Aug 12 2022</small></p> -->
+                <h4 class="fw-bold">{{ projectdetails.projectTitle }} &nbsp;&nbsp;&nbsp; <span class="badge fw-semobold"
+                        style="font-size: 13px;"
+                        [ngClass]="{'orangeBadge' : projectdetails.projectStatus === 'InProgress' }">{{
+                        projectdetails.projectStatus
+                        }}</span></h4>
+                <div class="d-flex mb-4 justify-content-between">
+                    <div>
+                        <p class="mb-2 card-subtitle text-muted">Due in {{projectdetails.dueDate}} days</p>
+                        <p class="m-0"><span class="badge badge1 text-success shadow-sm"
+                                [ngClass]="{'text-warning': projectdetails.priority === 'High', 'text-primary': projectdetails.priority === 'low'}">{{projectdetails.priority}}</span>
+                        </p>
+                    </div>
+                    <div>
+                        <p class="m-0">Team</p>
+                        <div class="teamMembers">
+                            <ngx-avatar *ngFor="let data of taskDetails | slice:0:3 " borderColor="#fff" size="30"
+                                name="{{data.firstName}} Khan" alt="...">
+                            </ngx-avatar>
+                            <ngx-avatar size="30" *ngIf="teamOverflow" [name]="'+ ' + count" bgColor="#c0c0c0"
+                                alt="...">
+                            </ngx-avatar>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="fw-bold">Description</h6>
+                <p>{{projectdetails.projectDescription}}</p>
+            </div>
+        </div>
+
+        <div class="row bgAzure g-4 py-4">
+            <div class="col-md-4" *ngFor="let data of taskdetails; let i = index;">
+                <div [ngClass]="{'border-primary': data[0].taskStatus == 'InProgress', 'border-success' : data[0].taskStatus === 'Completed' }"
+                    class="taskTitle border-primary p-3 mb-4">
+                    <h5 class="fw-bold">
+                        {{data[0].taskStatus}}
+                    </h5>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-12" *ngFor="let data of taskdetails[i]; let p = index;">
+                        <div class="card border-0 rounded-3 shadow">
+                            <div class="card-body p-4">
+                                <p class="mb-1 card-subtitle text-muted text-uppercase"> <small>{{ data.startDate | date
+                                        :'MMM d'}} - {{data.endDate | date :'MMM d'}}</small>
+                                </p>
+                                <p class="mb-1 card-subtitle text-muted"> <small></small></p>
+                                <h5 class="card-title fw-bold mb-3">{{ data.taskName }}</h5>
+                                <div>
+                                    <p class="m-0"><span class="badge badge1 shadow-sm text-success float-end"
+                                            [ngClass]="{'text-warning': data.priority === 'High', 'text-primary': data.priority === 'low'}">{{data.priority}}</span>
+                                    </p>
+                                    <p class="mb-3 card-subtitle text-muted">{{data.dueDate}}</p>
+                                </div>
+                                <p class="card-text">{{ data.taskDescription }}</p>
+                            </div>
+                            <div class="card-footer border-0 bg-transparent py-3">
+                                <span class="badge"
+                                    [ngClass]="{'redBadge': data.taskStatus === 'InProgress', 'orangeBadge' : data.taskStatus === 'TODO' }">{{
+                                    data.taskStatus }}</span>
+                                <div class="avatarLine">
+                                    <ngx-avatar borderColor="#fff" size="30"
+                                        name="{{data.firstName +' '+ data.lastName}}" alt="...">
+                                    </ngx-avatar>
+                                    <ngx-avatar size="30" *ngIf="teamOverflow" [name]="'+ ' + count" bgColor="#c0c0c0"
+                                        alt="...">
+                                    </ngx-avatar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="col-md-4">
+                <div class="taskTitle border-bottom border-primary border-2 p-3 mb-4">
+                    <h5 class="fw-bold">
+                        InProgress
+                    </h5>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-12" *ngFor="let data of taskdetails[1]; let i = index;">
+                        <div class="card border-0 rounded-3 shadow">
+                            <div class="card-body p-4">
+                                <p class="mb-1 card-subtitle text-muted"> <small>AUG 21 - AUG 23 {{data.test}}</small>
+                                </p>
+                                <h5 class="card-title fw-bold mb-3">Card paithiyam geetha title</h5>
+                                <div>
+                                    <p class="m-0"><span class="badge badge1 shadow-sm float-end">MEDIUM</span></p>
+                                    <p class="mb-3 card-subtitle text-muted">Due in 2 days</p>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and
+                                    make up the
+                                    bulk of the card's content.</p>
+                            </div>
+                            <div class="card-footer border-0 bg-transparent py-3">
+                                <span class="badge">Completed</span>
+                                <div class="avatarLine">
+                                    <ngx-avatar *ngFor="let data of taskDetails | slice:0:3 " borderColor="#fff"
+                                        size="30" name="{{data.firstName}}" alt="...">
+                                    </ngx-avatar>
+                                    <ngx-avatar size="30" *ngIf="teamOverflow" [name]="'+ ' + count" bgColor="#c0c0c0"
+                                        alt="...">
+                                    </ngx-avatar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="taskTitle border-bottom border-success border-2 p-3 mb-4">
+                    <h5 class="fw-bold">
+                        Completed
+                    </h5>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-12" *ngFor="let data of taskdetails[0]; let i = index;">
+                        <div class="card border-0 rounded-3 shadow">
+                            <div class="card-body p-4">
+                                <p class="mb-1 card-subtitle text-muted"> <small>AUG 21 - AUG 23</small></p>
+                                <h5 class="card-title fw-bold mb-3">Card paithiyam geetha title</h5>
+                                <div>
+                                    <p class="m-0"><span class="badge badge1 shadow-sm float-end">MEDIUM</span></p>
+                                    <p class="mb-3 card-subtitle text-muted">Due in 2 days</p>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and
+                                    make up the
+                                    bulk of the card's content.</p>
+                            </div>
+                            <div class="card-footer border-0 bg-transparent py-3">
+                                <span class="badge">Completed</span>
+                                <div class="avatarLine">
+                                    <ngx-avatar *ngFor="let data of taskDetails | slice:0:3 " borderColor="#fff"
+                                        size="30" name="{{data.firstName}}" alt="...">
+                                    </ngx-avatar>
+                                    <ngx-avatar size="30" *ngIf="teamOverflow" [name]="'+ ' + count" bgColor="#c0c0c0"
+                                        alt="...">
+                                    </ngx-avatar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>

@@ -9,31 +9,30 @@ import { RouterModule } from '@angular/router';
 import { MainModule } from './main/main.module';
 import { UserManagementModule } from './user-management/user.module';
 import { CommonModule } from '@angular/common';
-import { ProjectListComponent } from './projectDetails/project-list/project-list.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
-
-
+import { ProjectOverviewComponent } from './projectDetails/project-list/project-overview/project-overview.component';
+import { ProjectListComponent } from './projectDetails/project-list/project-list.component';
+import { AvatarModule } from 'ngx-avatar';
+import { DndModule } from 'ngx-drag-drop';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectDetailsComponent,
     ProjectListComponent,
-   
+    ProjectOverviewComponent,
   ],
   imports: [
-    BrowserModule,
-    CommonModule,
-    RouterModule,
     AppRoutingModule,
-    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    CommonModule,
     RouterModule,
     MainModule,
-    UserManagementModule,
+    DndModule,
+    AvatarModule,
+    UserManagementModule
     
-   
   ],
   providers: [],
   bootstrap: [AppComponent],

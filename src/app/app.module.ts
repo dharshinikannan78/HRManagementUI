@@ -27,6 +27,8 @@ import { DndModule } from 'ngx-drag-drop';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
+    BrowserModule,
+    HttpClientModule,
     RouterModule,
     MainModule,
     DndModule,

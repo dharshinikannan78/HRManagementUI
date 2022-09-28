@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -41,8 +42,7 @@ export class ApiServiceService {
   deleteEmployee = this.URL + "Employee/DeleteEmployee?Id="
   // jwtToken = this.URL + "jwt";
   getOverAllAttendance = this.URL + 'Attendance/AllAttendance';
-
-
+  kanbandetails = this.URL + 'ProjectDetails/GetTaskDetails?id=';
   constructor(private http: HttpClient) { }
 
   public headers = new HttpHeaders({
@@ -136,7 +136,7 @@ export class ApiServiceService {
   getProjectTeamMembers(params: any) {
     return this.http.get(this.getProjectMembers + params);
   }
-  getprojectTaskDetails(params: any) {
+  getprojectTaskDetails(params: any): Observable<any> {
     return this.http.get(this.getTaskDetails + params);
   }
   getEmployeeDetailsById(params: string) {
@@ -147,5 +147,8 @@ export class ApiServiceService {
   }
   deleteUser(id: any) {
     return this.http.delete(this.deleteEmployee + id)
+  }
+  kanbanTaskDetails(id: any) {
+    return this.http.get(this.kanbandetails + id)
   }
 }

@@ -28,7 +28,8 @@ import { AvatarModule } from 'ngx-avatar';
     HttpClientModule,
     MainRoutingModule,
     EmployeeModule,
-    AvatarModule
+    AvatarModule,
+    
   ]
 })
 export class MainModule { }

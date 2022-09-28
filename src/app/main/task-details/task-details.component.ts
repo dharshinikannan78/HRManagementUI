@@ -58,7 +58,7 @@ export class TaskDetailsComponent implements OnInit {
         console.log(data, 'taskDetails')
       });
 
-    } else if (this.Role == "Employee") {
+    } else if (this.Role == "TeamMember") {
       this.isOpenTask = false;
       this.api.employeeTaskDetail(this.UserId).subscribe(data => {
         this.isTaskDetails = data;

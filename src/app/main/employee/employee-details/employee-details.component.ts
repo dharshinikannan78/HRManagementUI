@@ -130,13 +130,7 @@ export class EmployeeDetailsComponent implements OnInit {
       this.check = JSON.parse(test);
     }
   }
-  thisFormValid() {
-    if (this.employeeDetail.invalid) {
-      return true;
-    }
-    return false;
-  }
-
+  
   getAllDetails(params: any) {
     this.api.getUserDetails(this.EmployeeId, params).subscribe((data: any) => {
       console.log(data, "data for accordion")
@@ -154,8 +148,38 @@ export class EmployeeDetailsComponent implements OnInit {
       })
     });
   }
+  formData:any;
+  resumeFormat:any =[];
+  imageFormat:any =[];
+  uploadcandidateFile = (files: any, type: string) => {
+    console.log(files)
+    for (var i = 0; i < files.length; i++) {
+      console.log(this.formData, "form data")
+      if (files[i].size > 1000000) {
+        alert("file size should be less than 10MB");
+      }
+      else {
+        if (type == 'resume' && this.resumeFormat.indexOf(files[i].type) != -1) {
+          this.formData.append("resume", files[i]);
+        }
+        if (type == 'image' && this.imageFormat.indexOf(files[i].type) != -1) {
+          this.formData.append("image", files[i]);
+        }
+        else {
+          this.formData.append("other", files[i]);
+        }
+      }
+    }
+  }
+
+ 
+ 
+
+     
 
   updateEmployee(employeeDetail: any) {
+    if (this.step == 4)
+   
     this.api.updateEmployeeDetails(employeeDetail).subscribe(data => {
       console.log(data, 'update')
       Swal.fire({
@@ -166,7 +190,9 @@ export class EmployeeDetailsComponent implements OnInit {
       this.showModal = false;
       location.reload();
     });
-  }
+  
+
+}
 
   getEmployeeDetails(data: any) {
     console.log(data, 'geetha')
@@ -179,6 +205,16 @@ export class EmployeeDetailsComponent implements OnInit {
       console.log(this.attachment, 'data')
     });
   }
+
+
+  
+  thisFormValid() {
+    if (this.employeeDetail.invalid) {
+      return true;
+    }
+    return false;
+  }
+
 
   onClick() {
     this.router.navigate(['/addemployee'])
@@ -485,3 +521,4 @@ export class EmployeeDetailsComponent implements OnInit {
     window.location.reload()
   }
 }
+

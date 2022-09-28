@@ -9,6 +9,9 @@ import { UserServiceService } from '../service/user-service.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
+ 
+isEmployee:boolean=true;
+
 
   showNavContent: boolean;
   isNavOpen: boolean = true;
@@ -18,12 +21,18 @@ export class MainComponent {
   customStyle = {
     objectFit: "cover"
   };
+  userService: any;
+ 
   constructor(public router: Router, userService: UserServiceService, private api: ApiServiceService) {
     this.step = 'step1'
     // this.loggerName = userService.Name;
     this.loggerRole = userService.Role;
     this.getImageForNav();
+   
   }
+ 
+
+  
 
   openNav() {
     let sidenav = document.getElementById("sideNav");

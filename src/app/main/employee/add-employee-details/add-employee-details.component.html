@@ -71,7 +71,7 @@
                             employeeDetail.controls['gender']?.touched"> <b>Role</b> is required *</span>
                 </div>
             </div>
-            <div *ngIf="step==2" id="step2">
+            <div *ngIf="step==2" id="step2" class="row">
                 <h4>Contact Details</h4>
                 <div class="form-group">
                     <label class=" form-label">Email Id</label>
@@ -91,18 +91,9 @@
                     <span class="text-danger" *ngIf="!employeeDetail.controls['address'].valid && 
                             employeeDetail.controls['address']?.touched"> <b>Address</b> is required *</span>
                 </div>
-                <div class="form-group">
-                    <label class=" form-label">Gender</label>
-                    <select class="form-select" class="form-control" formControlName="gender">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="Female">Female</option>
-                        <option value="Male">Male</option>
-                    </select>
-                    <span class="text-danger" *ngIf="!employeeDetail.controls['gender'].valid && 
-                            employeeDetail.controls['gender']?.touched"> <b>Gender</b> is required *</span>
-                </div>
+            
             </div>
-            <div *ngIf="step==3" id="step3">
+            <div *ngIf="step==3" id="step3" class="row">
                 <h4>Education Details</h4>
 
                 <div class="row">
@@ -175,13 +166,14 @@
                     <span class="text-danger" *ngIf="!employeeDetail.controls['designation'].valid && 
                         employeeDetail.controls['designation']?.touched"> <b>Designation</b> is required *</span>
                 </div>
+                
                 <div class="form-group col-md-6">
                     <label class=" form-label">Joining Date</label>
                     <input type="date" class="form-control" formControlName="joiningDate">
                     <span class="text-danger" *ngIf="!employeeDetail.controls['joiningDate'].valid && 
                         employeeDetail.controls['joiningDate']?.touched"> <b>Joining Date</b> is required *</span>
                 </div>
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                     <label class=" form-label">Work Mode</label>
                     <select class="form-select" class="form-control" formControlName="workMode">
                         <option disabled selected value> -- select an option -- </option>
@@ -223,3 +215,4 @@
 
     </form>
 </div>
+

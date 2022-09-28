@@ -8,11 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class ApiServiceService {
 
-  URL = 'https://localhost:5001/api/';
+  URL = 'https://localhost:44394/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   editUserCredentials = this.URL + 'Login/EditLogin';
-  // allEmployeeDetails = this.URL + 'Employee/AllEmployee';
+  employeeDetailsName = this.URL + 'Employee/AllEmployee';
   allEmployeeDetails = this.URL + 'Employee/GetEmployeeDetails';
   addemployeeDetail = this.URL + 'Employee/AddEmployee?login=';
   updateEmployeeDetail = this.URL + 'Employee/Update';
@@ -42,7 +42,6 @@ export class ApiServiceService {
   deleteEmployee = this.URL + "Employee/DeleteEmployee?Id="
   // jwtToken = this.URL + "jwt";
   getOverAllAttendance = this.URL + 'Attendance/AllAttendance';
-  employeeDetailsName = this.URL + 'Employee/AllEmployee';
   kanbandetails = this.URL + 'ProjectDetails/GetTaskDetails?id=';
   constructor(private http: HttpClient) { }
 
@@ -79,8 +78,8 @@ export class ApiServiceService {
   getallEmployeeDetails() {
     return this.http.get(this.allEmployeeDetails);
   }
-  getUserDetails(data: any,team:any) {
-    return this.http.get(this.getUser + data )
+  getUserDetails(data: any, team: any) {
+    return this.http.get(this.getUser + data);
   }
   updateEmployeeDetails(paramas: any) {
     return this.http.put(this.updateEmployeeDetail, paramas);

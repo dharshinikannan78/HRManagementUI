@@ -43,26 +43,33 @@ const colors: Record<string, EventColor> = {
   styleUrls: ['./employee-details.component.scss']
 })
 export class EmployeeDetailsComponent implements OnInit {
-
   employeeDetail: FormGroup = new FormGroup({
     employeeId: new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    gender: new FormControl(''),
-    designation: new FormControl(''),
-    address: new FormControl(''),
-    number: new FormControl(''),
-    emailId: new FormControl(''),
-    dob: new FormControl(''),
-    attachmentIds: new FormControl(''),
-    joiningDate: new FormControl(''),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    dob: new FormControl('', Validators.required),
+    gender: new FormControl('', Validators.required),
+    emailId: new FormControl('', Validators.required),
+    number: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    qualification: new FormControl('', Validators.required),
+    college: new FormControl('', Validators.required),
+    passedOut: new FormControl('', Validators.required),
+    skills: new FormControl('', Validators.required),
+    designation: new FormControl('', Validators.required),
+    attachmentIds: new FormControl('', Validators.required),
+    joiningDate: new FormControl('', Validators.required),
+    workMode: new FormControl('', Validators.required),
+    teamName: new FormControl('', Validators.required),
+    position: new FormControl('', Validators.required),
   });
 
   customStyle = {
     objectFit: "cover",
     cursor: "pointer"
   };
-  isData: any;
+  step: number = 1;
+  isData: any = [];
   oneEmployee: boolean = true;
   employee: any
   attd: any;
@@ -77,7 +84,7 @@ export class EmployeeDetailsComponent implements OnInit {
   UserId: string = localStorage.getItem('userId');
   isShown: boolean = true;
   EmployeeId: any = localStorage.getItem("EmployeeId");
-  // AttendanceId: any = localStorage.getItem('AttendanceId');
+  AttendanceId: any = localStorage.getItem("AttendanceId");
   // InTime: any = localStorage.getItem('InTime');
   attDetails: any;
   hour: any;
@@ -88,52 +95,53 @@ export class EmployeeDetailsComponent implements OnInit {
   AttendanceIds: any = [];
   InTime: any = [];
   addAttendance: FormGroup = new FormGroup({
+    date: new FormControl(moment().format()),
     inTime: new FormControl(moment().format()),
     employeeId: new FormControl(this.EmployeeId)
   });
 
-  updateAttendance: FormGroup = new FormGroup({
-    attendanceId: new FormControl(),
-    inTime: new FormControl(),
-    outTime: new FormControl(moment().format()),
-    employeeId: new FormControl(this.EmployeeId)
-  });
+
 
 
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient, private userService: UserServiceService,
   ) {
-    setInterval(() => {
-      const date = new Date();
-      this.updateDate(date);
-    }, 1000);
+    // this.AttendanceId = localStorage.getItem('AttendanceId')
     // this.attendanceDetails('')
     // this.api.allEmployeeAttendance().subscribe(data => {
     //   this.attendace = data;
     //   console.log(this.attendace, 'dat')
     // })
+
     this.getAllDetails('');
     console.log("came");
   }
 
   ngOnInit(): void {
-    // if (localStorage.getItem('checkIn' + this.EmployeeId) != null) {
-    //   let test = localStorage.getItem('checkIn' + this.EmployeeId);
-    //   this.check = JSON.parse(test);
-    // }
+    setInterval(() => {
+      const date = new Date();
+      this.updateDate(date);
+    }, 1000);
+
+    if (localStorage.getItem('checkIn' + this.EmployeeId)) {
+      console.log(this.EmployeeId, 'first')
+      let test = localStorage.getItem('checkIn' + this.EmployeeId);
+      console.log(test, 'second')
+
+      this.check = JSON.parse(test);
+    }
   }
-  getAllDetails(params:any) {
-    this.api.getUserDetails(this.EmployeeId,params).subscribe((data:any) => {
-      console.log(data,"data for accordion")
-      if(this.userService.Role=="Admin"){
-      this.isData = data;
-   
-   }  
-      if (this.userService.Role == "TeamLeader"||this.userService.Role=="TeamMember") {
+  
+  getAllDetails(params: any) {
+    this.api.getUserDetails(this.EmployeeId, params).subscribe((data: any) => {
+      console.log(data, "data for accordion")
+      if (this.userService.Role == "Admin") {
+        this.isData = data;
+      }
+      if (this.userService.Role == "TeamLeader" || this.userService.Role == "TeamMember") {
         this.oneEmployee = false;
         console.log(this.oneEmployee, "wonenknkn")
-         this.isData = Array.of(this.isData);
-
-         console.log(this.isData, "while one emp");
+        this.isData = Array.of(this.isData);
+        console.log(this.isData, "while one emp");
       }
       this.api.getTaskDetailById(this.EmployeeId).subscribe(data => {
         this.taskDetails = data;
@@ -143,7 +151,6 @@ export class EmployeeDetailsComponent implements OnInit {
   formData:any;
   resumeFormat:any =[];
   imageFormat:any =[];
-  step:number = 1;
   uploadcandidateFile = (files: any, type: string) => {
     console.log(files)
     for (var i = 0; i < files.length; i++) {
@@ -200,26 +207,6 @@ export class EmployeeDetailsComponent implements OnInit {
   }
 
 
-  deleteEmployeedetails(id:any,uname:any){
-    Swal.fire({
-      title: "Are you sure want to delete "+uname+" ?",
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Delete'
-    }).then((result) => {
-      if (result.isConfirmed) {
-    this.api.deleteUser(id).subscribe(()=>{
-      Swal.fire({
-        text: 'Deleted Sucessfully!',
-        icon: 'success',
-        timer: 1000
-      });
-      this.getAllDetails('');
-    });
-      }
-});
-  }
   
   thisFormValid() {
     if (this.employeeDetail.invalid) {
@@ -228,16 +215,6 @@ export class EmployeeDetailsComponent implements OnInit {
     return false;
   }
 
-
-  prev() {
-    this.step = this.step - 1;
-  }
-
-  next() {
-    this.step = this.step + 1;
-  }
-     
-  
 
   onClick() {
     this.router.navigate(['/addemployee'])
@@ -474,19 +451,12 @@ export class EmployeeDetailsComponent implements OnInit {
 
   }
 
-  updateattendanceDetails(params: any) {
-    // params.attendanceId = this.AttendanceIds.toString();
-    // params.inTime = this.InTime.toString();
-    // this.api.updateAttendance(params).subscribe((data: any) => {
-    //   this.check = !this.check;
-    // });
-    // Swal.fire({
-    //   text: 'Updated Sucessfully!',
-    //   icon: 'success',
-    //   timer: 900
-    // });
-    params.attendanceId = this.AttendanceIds.toString();
-    params.inTime = this.InTime.toString();
+  updateattendanceDetails() {
+    let payload = {
+      attendanceId: localStorage.getItem("AttendanceId"),
+      employeeId: this.EmployeeId,
+      outTime: moment().format()
+    }
     Swal.fire({
       title: "Are you sure want to CheckOut ?",
       showCancelButton: true,
@@ -495,9 +465,7 @@ export class EmployeeDetailsComponent implements OnInit {
       confirmButtonText: 'CheckOut'
     }).then((result) => {
       if (result.isConfirmed) {
-
-        this.api.updateAttendance(params).subscribe(data => {
-
+        this.api.updateAttendance(payload).subscribe(data => {
           this.check = !this.check
           localStorage.setItem('checkIn' + this.EmployeeId, JSON.stringify(this.check));
 
@@ -521,5 +489,36 @@ export class EmployeeDetailsComponent implements OnInit {
     });
   }
 
+  deleteEmployeedetails(id: any, uname: any) {
+    Swal.fire({
+      title: "Are you sure want to delete " + uname + " ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.deleteUser(id).subscribe(() => {
+          Swal.fire({
+            text: 'Deleted Sucessfully!',
+            icon: 'success',
+            timer: 1000
+          });
+          this.getAllDetails('');
+        });
+      }
+    });
+  }
+  prev() {
+    this.step = this.step - 1;
+  }
+
+  next() {
+    this.step = this.step + 1;
+  }
+  CloseButton() {
+    this.showModal = false;
+    window.location.reload()
+  }
 }
 

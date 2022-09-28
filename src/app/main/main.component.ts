@@ -25,27 +25,8 @@ isEmployee:boolean=true;
  
   constructor(public router: Router, userService: UserServiceService, private api: ApiServiceService) {
     this.step = 'step1'
-    this.loggerName = userService.Name;
-   this.loggerRole = userService.Role;
-   console.log(this.loggerRole,"logg")
-   if (this.loggerRole=="Admin")
-   {
-     console.log(this.loggerRole,"admin")
- this.isEmployee=false;    
-   }
-   else
-  if(this.loggerRole=="TeamLeader")
-  { console.log(this.loggerRole,"Teamleader")
-    this.isEmployee=true;
-  }
-  else
-if(this.loggerRole=="TeamMember")
-  {
-   console.log(this.loggerRole,"teammember")
-    this.isEmployee=true;
-  }
-
-   
+    // this.loggerName = userService.Name;
+    this.loggerRole = userService.Role;
     this.getImageForNav();
    
   }
@@ -107,13 +88,13 @@ if(this.loggerRole=="TeamMember")
   }
   forNav: any;
   getImageForNav() {
-    this.api.getEmployeeDetailsById(localStorage.getItem("EmployeeId")).subscribe(data => {
+    this.api.getEmployeeDetailsById(localStorage.getItem("EmployeeId")).subscribe((data: any) => {
       console.log(data, 'data');
       this.forNav = data;
-      console.log(data, "photo foe nav")
-     
+      this.loggerName = data[0].firstName + ' ' + data[0].lastName;
     })
   }
-
-
+  logout = () => {
+    this.router.navigate(['./login']);
+  }
 }

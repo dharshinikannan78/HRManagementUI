@@ -102,7 +102,6 @@ export class LeaveComponent implements OnInit {
   }
 
   applyLeave(params: any) {
-
     this.api.applyLeaveOn(params).subscribe(data => {
       console.log(data, 'data');
       console.log("after the await");
@@ -131,6 +130,13 @@ export class LeaveComponent implements OnInit {
       location.reload();
 
     });
+  }
+  thisFormValid() {
+    if (this.applyOnLeave.invalid) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 

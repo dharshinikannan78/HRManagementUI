@@ -58,7 +58,8 @@
                             <div class="mb-3 d-flex align-items-center justify-content-end">
                                 <button #closeModal class="btn btn-secondary mx-3"
                                     data-bs-dismiss="modal">Close</button>
-                                <button class="btn btn-danger" type="submit"> Apply</button>
+                                <button class="btn btn-danger" type="submit" [disabled]="!thisFormValid()">
+                                    Apply</button>
                             </div>
                             <!-- <div class="modal-footer">
                                 <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -72,7 +73,7 @@
         </div>
     </div>
 </div>
-
+<!-- 
 <section>
     <div class="container-fluid" *ngIf="isShow">
         <h5 class="mt-5 mb-5">Leave Management</h5>
@@ -102,7 +103,7 @@
                         <textarea type="text" class="form-control" formControlName="reason"></textarea>
                     </div>
                     <div class="mb-3">
-                        <button class="btn btn-danger" type="submit"> Apply</button>
+                        <button class="btn btn-danger" type="submit" [disabled]="!thisFormValid()"> Apply</button>
                     </div>
                 </form>
             </div>
@@ -110,7 +111,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <section class="px-4">
     <table class="table">

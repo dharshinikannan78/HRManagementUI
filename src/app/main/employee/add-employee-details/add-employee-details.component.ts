@@ -32,22 +32,24 @@ export class AddEmployeeDetailsComponent implements OnInit {
 
 
     this.employeeDetail = new FormGroup({
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      dob: new FormControl(''),
-      gender: new FormControl(''),
-      address: new FormControl(''),
-      number: new FormControl(''),
-      emailId: new FormControl(''),
-      qualification: new FormControl(''),
-      college: new FormControl(''),
-      passedOut: new FormControl(''),
-      skills: new FormControl(''),
-      // employeeReferenceNo: new FormControl( '',Validators.required ),
-      workMode: new FormControl(''),
-      filesResume: new FormControl(''),
-      designation: new FormControl(''),
-      joiningDate: new FormControl('')
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      dob: new FormControl('', Validators.required),
+      gender: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
+      number: new FormControl('', Validators.required),
+      emailId: new FormControl('', Validators.required),
+      qualification: new FormControl('', Validators.required),
+      college: new FormControl('', Validators.required),
+      passedOut: new FormControl('', Validators.required),
+      skills: new FormControl('', Validators.required),
+      employeeReferenceNo: new FormControl('', Validators.required),
+      workMode: new FormControl('', Validators.required),
+      filesResume: new FormControl('', Validators.required),
+      designation: new FormControl('', Validators.required),
+      joiningDate: new FormControl('', Validators.required),
+      teamName: new FormControl('', Validators.required),
+      position: new FormControl('', Validators.required)
     });
 
     // this.employeeDetail = new FormGroup({
@@ -127,7 +129,7 @@ export class AddEmployeeDetailsComponent implements OnInit {
   }
 
   submit(employeeDetail: any) {
-    console.log(this.loginAcess, "login access") 
+    console.log(this.loginAcess, "login access")
     if (this.step == 4)
       this.api.uploadFileAttachment(this.formData).subscribe((data: any) => {
         this.attachmentIds.push(data.attachmentId);

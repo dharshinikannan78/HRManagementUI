@@ -34,7 +34,7 @@ export class ProjectOverviewComponent implements OnInit {
   taskdetails: any = [];
 
   getKanbanDetails() {
-    this.api.kanbanTaskDetails(20).subscribe((data: any) => {
+    this.api.kanbanTaskDetails(53).subscribe((data: any) => {
       this.kanban = data
       this.projectdetails = data.projectDetails[0];
       this.taskdetails = data.taskDetails;

@@ -45,19 +45,23 @@ const colors: Record<string, EventColor> = {
 export class EmployeeDetailsComponent implements OnInit {
   employeeDetail: FormGroup = new FormGroup({
     employeeId: new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    gender: new FormControl(''),
-    designation: new FormControl(''),
-    address: new FormControl(''),
-    number: new FormControl(''),
-    emailId: new FormControl(''),
-    dob: new FormControl(''),
-    attachmentIds: new FormControl(''),
-    joiningDate: new FormControl(''),
-    workMode: new FormControl(''),
-    teamName: new FormControl(''),
-    position: new FormControl('')
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    dob: new FormControl('', Validators.required),
+    gender: new FormControl('', Validators.required),
+    emailId: new FormControl('', Validators.required),
+    number: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    qualification: new FormControl('', Validators.required),
+    college: new FormControl('', Validators.required),
+    passedOut: new FormControl('', Validators.required),
+    skills: new FormControl('', Validators.required),
+    designation: new FormControl('', Validators.required),
+    attachmentIds: new FormControl('', Validators.required),
+    joiningDate: new FormControl('', Validators.required),
+    workMode: new FormControl('', Validators.required),
+    teamName: new FormControl('', Validators.required),
+    position: new FormControl('', Validators.required),
   });
 
   customStyle = {
@@ -125,6 +129,12 @@ export class EmployeeDetailsComponent implements OnInit {
 
       this.check = JSON.parse(test);
     }
+  }
+  thisFormValid() {
+    if (this.employeeDetail.invalid) {
+      return true;
+    }
+    return false;
   }
 
   getAllDetails(params: any) {

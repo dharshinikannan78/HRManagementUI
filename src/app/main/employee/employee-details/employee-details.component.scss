@@ -27,10 +27,9 @@
 }
 
 .modal-header {
-    // background: #8e2de2;
-    // background: -webkit-linear-gradient(to left, #4f10cb, #8e2de2);
-    // background: linear-gradient(to left, #4a00e0, #8e2de2);\
-    background: darkblue !important;
+   
+    background: #03045e !important;
+  
 }
 
 .modal-content {
@@ -63,7 +62,7 @@
 }
 
 .card-title {
-    color: #1a076c;
+    color: #03045e;
 }
 
 h5 {
@@ -101,10 +100,7 @@ label {
     font-weight: bold;
     color: #03045e;
     text-transform: uppercase;
-}
 
-input {
-    color: #a49e9e;
 }
 
 .scrollbar {
@@ -194,6 +190,17 @@ main {
     main {
         margin-left: 0;
     }
+   
+}
+
+@media (max-width: 767px) {
+    .modal-content {
+        height: 900px !important; 
+      }
+      .editForm{
+        height: 600px !important;
+      }
+
 }
 
 .coverImage {
@@ -276,7 +283,7 @@ main {
     }
     .scrollWrap {
         opacity: 0 !important;
-    }
+    }   
 }
 
 .testingOverflow::-webkit-scrollbar {
@@ -358,7 +365,7 @@ main {
 }
 
 .progress-count {
-    height: 40px;
+    height: 15px;
     width: 40px;
     display: flex;
     align-items: center;
@@ -426,8 +433,41 @@ main {
 .current-item .progress-count {
     color: #03045e;
 }
-.butt {
-    position: fixed;
-    bottom: 2%;
-    right: 5%;
+.submitButton {
+    padding: 5px;
+    float:right;
+    width: 100px;
+    background: #03045e ;
+    color: #fff;
+    border-radius: 5px;
+  
 }
+
+.NextPrev {
+    padding: 5px;
+    float:right;
+    width: 100px;
+   
+   
+    border-radius: 5px;
+  
+}
+h4 {
+    color: #03045e;
+    text-align: center;
+    font-weight: bold;
+    font-family: sans-serif;
+    position: relative;
+    font-size: 200%;
+   margin-bottom: 3rem;
+    
+}
+
+  .modal-content {
+    height: 650px; 
+  }
+  .editForm{
+    height: 370px;
+    padding: 0 2rem 0 2rem;
+  }
+  

@@ -20,7 +20,7 @@ export class MainComponent {
   };
   constructor(public router: Router, userService: UserServiceService, private api: ApiServiceService) {
     this.step = 'step1'
-    this.loggerName = userService.Name;
+    // this.loggerName = userService.Name;
     this.loggerRole = userService.Role;
     this.getImageForNav();
   }
@@ -79,10 +79,10 @@ export class MainComponent {
   }
   forNav: any;
   getImageForNav() {
-    this.api.getEmployeeDetailsById(localStorage.getItem("EmployeeId")).subscribe(data => {
+    this.api.getEmployeeDetailsById(localStorage.getItem("EmployeeId")).subscribe((data: any) => {
       console.log(data, 'data');
       this.forNav = data;
-      console.log(data, "photo foe nav")
+      this.loggerName = data[0].firstName + ' ' + data[0].lastName;
     })
   }
   logout = () => {

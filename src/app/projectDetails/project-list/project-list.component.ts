@@ -77,7 +77,8 @@ export class ProjectListComponent implements OnInit {
   ngOnInit(): void {
     this.getEmployeeName();
     this.getEmployeId('');
-    this.getProjectDetails('xml');
+    // this.getProjectDetails('xml');
+    this.getAllProjectDetails();
   }
   addProjectDetails(params: any) {
     this.api.addProjectDetails(params).subscribe((data: any) => {
@@ -91,6 +92,7 @@ export class ProjectListComponent implements OnInit {
       window.location.reload();
     });
   }
+
   getProjectId(params: any) {
     this.userService.ProjectId = params;
     // this.projectId = params;
@@ -233,5 +235,17 @@ export class ProjectListComponent implements OnInit {
       });
       window.location.reload();
     });
+  }
+
+  getAllProjectDetails() {
+    this.api.getAllProjectDetails().subscribe(data => {
+      console.log(data);
+      this.ProjectDetails = data
+
+    })
+  }
+  getProjectDetailsId(Id: any) {
+    console.log(Id, 'geetha');
+    this.router.navigate(['projectOverview' , Id])
   }
 }

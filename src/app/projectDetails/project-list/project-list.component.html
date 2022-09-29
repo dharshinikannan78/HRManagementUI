@@ -3,275 +3,28 @@
     </button>
 </div>
 
-<!-- 
-<div class="container mt-5" style="margin-top: 2rem;">
-    <div class="row">
-        <div class="col-2">
-            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('xml')">XML</span>
-        </div>
-        <div class="col-2">
-            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('E-pup')">E - Pub</span>
-        </div>
-        <div class="col-2">
-            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('Table')">Table</span>
-        </div>
-        <div class="col-2">
-            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('software')">Software</span>
-        </div>
-    </div>
-</div> -->
 <div class="container">
-    <div class="row mt-5 mb-5">
-        <div class="col-3" *ngIf="isXml">
-            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('xml')">
-                XML
-            </span>
-        </div>
-        <div class="col-3" *ngIf="isSoftware">
-            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('software')">
-                SoftWare
-            </span>
-        </div>
-        <div class="col-3" *ngIf="isEpub">
-            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('E-Pup')">
-                E-Pup
-            </span>
-        </div>
-        <div class="col-3" *ngIf="isTable">
-            <span class="badge rounded-pill text-bg-primary" (click)="getProjectDetails('Table')">
-                Table
-            </span>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid" *ngIf="isOpen">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card mt-4" *ngFor="let data of ProjectDetails; let i = index;">
-                <div class="card-body">
-                    <div class="row mb-2">
-                        <div class="col-10">
-                            <p class="card-text"><small class="text-muted cursorP" (click)="getProjectClick(data)"
-                                    data-toggle="modal" data-target="#bootstrapModel"><b>{{data.projectName}}</b>
-                                    TEAM</small>
-                            </p>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" (click)="getProjectId(data.projectId)">
-                                <i class="fa-sharp fa-solid fa-plus"></i></button>
-                        </div>
-                        <h6><b>{{data.projectTitle}}</b></h6>
-                        <div class="row mt-3">
-                            <div class="col-8">
-                                <p class="card-text"><small class="text-muted">Created By
-                                        <b>{{data.createdBy}}</b>
-                                        <br /> Created On <b>{{data.startDate | date:'dd MMM YYYY'}}</b></small>
-                                </p>
-                            </div>
-                            <div class="col-4 mt-3">
-                                <p><span [ngClass]="{'redBadge': data.projectStatus === 'Inprogress', 'orangeBadge': data.projectStatus === 'Completed' }"
-                                        class="badge">{{data.projectStatus}}</span></p>
-                            </div>
-                        </div>
-                        <p class="card-text"><small class="text-muted">{{data.projectDescription}}</small></p>
-                        <div class="row">
-                            <div class="col-8">
-
-                            </div>
-                            <div class="col-4">
-                                <p><span class="badge rounded-pill text-bg-secondary">Details</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal" [style.display]="showModal ? 'block' : 'none'" [formGroup]="updateForm">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title text-white"> Project Details</h3>
-                                <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
-                            </div>
-                            <div class="modal-body scrollbar" id="style-1">
-                                <div class="row modalbody">
-                                    <div class="mb-3">
-                                        <label class=" form-label">Project Id</label>
-                                        <input class="form-control" [ngModel]="isProjectdata?.projectId"
-                                            formControlName="projectId">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class=" form-label">Project AssiginId</label>
-                                        <input class="form-control" [ngModel]="isProjectdata?.assignedId"
-                                            formControlName="assiginedId">
-                                        <div class="mb-3">
-                                            <label class=" form-label">Project Title</label>
-                                            <input class="form-control" [ngModel]="data?.projectTitle"
-                                                formControlName="projectTitle">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class=" form-label">Project Name</label>
-                                            <input class="form-control" [ngModel]="data?.projectName"
-                                                formControlName="projectName">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class=" form-label">Project Description</label>
-                                            <textarea class="form-control" style="height: 10rem;"
-                                                [ngModel]="data?.projectDescription"
-                                                formControlName="projectDescription"></textarea>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class=" form-label">Project StartDate</label>
-                                            <input class="form-control" [ngModel]="data?.startDate"
-                                                formControlName="startDate">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class=" form-label">Project CreateBy</label>
-                                            <input class="form-control" [ngModel]="data?.createdBy"
-                                                formControlName="createdBy">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class=" form-label">Project EndDate</label>
-                                            <input type="date" class="form-control" [ngModel]="data?.endDate"
-                                                formControlName="endDate">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class=" form-label">Project Status</label>
-                                            <select class="form-select" class="form-control"
-                                                [ngModel]="data?.projectStatus" formControlName="projectStatus">
-                                                <option value="Completed">Completed</option>
-                                                <option value="Rejected">Rejected</option>
-                                            </select>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item" *ngFor="let data of ProjectDetails; let i = index;">
+            <h2 class="accordion-header" id="headingOne{{i}}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    attr.data-bs-target="#collapseOne{{i}}" aria-expanded="true" aria-controls="collapseOne">
+                    {{ data[0].projectName }}
+                </button>
+            </h2>
+            <div id="collapseOne{{i}}" [ngClass]="i==0? 'show':''" class="accordion-collapse collapse"
+                attr.aria-labelledby="headingOne{{i}}" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="container">
+                        <div class="row row-cols-1 row-cols-md-3 py-4">
+                            <div class="col" *ngFor="let data of ProjectDetails[i]; let q = index;">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="row" (click)="getProjectDetailsId(data.projectId)">
+                                            {{data.projectTitle}}
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        (click)="showModal=false">Close</button>
-                                    <button type="button" class="btn btn-primary"
-                                        (click)="updateProject(updateForm.value)">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mt-4  col-12">
-            <div class="." id="">
-                <div class="card mb-3" *ngFor="let data of teamMembers">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-2">
-                                <img class="avatar  avatar-user" src="../../../assets/bg-1.png" width="40"
-                                    height="40" />
-                            </div>
-                            <div class="col-10 mt-2">
-                                <p class="card-text"><small class="text-muted">{{data.firstName}}
-                                        {{data.lastName}}
-                                    </small>
-                                </p>
-                            </div>
-                        <p class="card-text mt-1"><small class="text-muted">{{data.taskDescription}}</small>
-                        </p>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <p><span [ngClass]="{'redBadge': data.position === 'TeamLeader', 'orangeBadge': data.position === 'TeamMember' }"
-                                class="badge">{{data.position }}</span>
-                    </div>
-                <div class="modal" [style.display]="isshowModal ? 'block' : 'none'" [formGroup]="updateTaskDetails">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title text-white"> Task Details</h3>
-                                <button type="button" class="btn-close closebutton"
-                                    (click)="isshowModal=false"></button>
-                            </div>
-                            <div class="modal-body scrollbar" id="style-1">
-                                <div class="row modalbody">
-                                    <div class="mb-3">
-                                        <label class=" form-label">Task Id</label>
-                                        <input class="form-control" [ngModel]="isTaskData?.taskId"
-                                            formControlName="taskId">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class=" form-label">Project Id</label>
-                                        <input class="form-control" [ngModel]="isTaskData?.projectId"
-                                            formControlName="projectId">
-        </div>
-        <div class="col-md-4 mt-4">
-            <div class="card mb-3" *ngFor="let data of taskDetails">
-                <div class="card-body">
-                    <div class="row">
-                        <h6>{{data.firstName}} &nbsp;{{data.lastName}}</h6>
-                        <div class="col-4">
-                            <p class="card-text"><small class="text-muted cursorP" (click)="getTaskClick(data)">
-                                    {{data.taskName}}
-                                </small></p>
-                        </div>
-                        <div class="col-4">
-                            <p><span [ngClass]="{'redBadge': data.taskStatus=== 'Completed', 'orangeBadge': data.taskStatus === 'Pending' }"
-                                    class="badge">{{data.taskStatus}}</span></p>
-                        </div>
-                        <p class="card-text mt-1"><small class="text-muted">{{data.taskDescription}}</small>
-                        </p>
-                    </div>
-                </div>
-                <div class="modal" [style.display]="isshowModal ? 'block' : 'none'" [formGroup]="updateTaskDetails">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title text-white"> Task Details</h3>
-                                <button type="button" class="btn-close closebutton"
-                                    (click)="isshowModal=false"></button>
-                            </div>
-                            <div class="modal-body scrollbar" id="style-1">
-                                <div class="row modalbody">
-                                    <div class="mb-3">
-                                        <label class=" form-label">Task Id</label>
-                                        <input class="form-control" [ngModel]="isTaskData?.taskId"
-                                            formControlName="taskId">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class=" form-label">Project Id</label>
-                                        <input class="form-control" [ngModel]="isTaskData?.projectId"
-                                            formControlName="projectId">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class=" form-label">Employee Id</label>
-                                        <input class="form-control" [ngModel]="isTaskData?.employeeId"
-                                            formControlName="employeeId">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class=" form-label">Task Name</label>
-                                        <input class="form-control" [ngModel]="isTaskData?.taskName"
-                                            formControlName="taskName">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class=" form-label">Task Description</label>
-                                        <input class="form-control" style="height: 5rem;"
-                                            [ngModel]="isTaskData?.taskDescription" formControlName="taskDescription">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class=" form-label">Task Status</label>
-                                        <input class="form-control" [ngModel]="isTaskData?.taskStatus"
-                                            formControlName="taskStatus">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class=" form-label">Assigind Id</label>
-                                        <input class="form-control" [ngModel]="isTaskData?.assigingId"
-                                            formControlName="assigingId">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    (click)="isshowModal=false">Close</button>
-                                <button type="button" class="btn btn-primary"
-                                    (click)="UpdateTaskDetails(updateTaskDetails.value)">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -283,82 +36,14 @@
 
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add People</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="scrollbar" id="style-1">
-                <div class="modal-body" *ngFor="let data of employeName">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-6">
-                                    {{data.firstName}} {{data.lastName}}
-
-                                </div>
-                                <div class="col-3">
-                                    {{data.teamName}}
-                                </div>
-                                <div class="col-3">
-                                    <button type="button" class="btn btn-primary"
-                                        (click)="getEmployeId(data.employeeId)" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal1">
-                                        <i class="fa-sharp fa-solid fa-plus"></i></button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Add Task</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="addTaskDetail">
-                    <div class="mb-3">
-                        <label class=" form-label">Project Name</label>
-                        <select class="form-select" class="form-control" formControlName="taskName">
-                            <option disabled selected value> -- select an option -- </option>
-                            <option value="E-pub">E-pub</option>
-                            <option value="XML">XML</option>
-                            <option value="Table">Table</option>
-                            <option value="SoftWare">SoftWare</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class=" form-label">Task Description</label>
-                        <textarea class="form-control" formControlName="taskDescription"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <button type="button" (click)="addTaskDetails(addTaskDetail.value)"
-                            class="btn btn-primary mt-3">Create Task
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade" id="example" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Create Project</h5>
+                <h5 class="modal-title text-white" id="exampleModalLabel">Create
+                    Project
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -366,7 +51,8 @@
                     <div class="mb-3">
                         <label class=" form-label">Project Name</label>
                         <select class="form-select" class="form-control" formControlName="projectName">
-                            <option disabled selected value> -- select an option -- </option>
+                            <option disabled selected value> -- select an option --
+                            </option>
                             <option value="E-pub">E-pub</option>
                             <option value="XML">XML</option>
                             <option value="Table">Table</option>

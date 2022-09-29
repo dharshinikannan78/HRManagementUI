@@ -43,6 +43,8 @@ export class ApiServiceService {
   // jwtToken = this.URL + "jwt";
   getOverAllAttendance = this.URL + 'Attendance/AllAttendance';
   kanbandetails = this.URL + 'ProjectDetails/GetTaskDetails?id=';
+  allProjectDetails = this.URL + 'ProjectDetails/GetAllProjectDetails';
+
   constructor(private http: HttpClient) { }
 
   public headers = new HttpHeaders({
@@ -150,5 +152,8 @@ export class ApiServiceService {
   }
   kanbanTaskDetails(id: any) {
     return this.http.get(this.kanbandetails + id)
+  }
+  getAllProjectDetails() {
+    return this.http.get(this.allProjectDetails);
   }
 }

@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: 'taskDetails', component: TaskDetailsComponent },
       { path: 'taskDetails', component: TaskDetailsComponent },
       { path: 'projectDetails', component: ProjectDetailsComponent },
-      { path: 'projectOverview', component: ProjectOverviewComponent },
+      { path: 'projectOverview/:id', component: ProjectOverviewComponent },
       { path: 'list', component: ProjectListComponent },
       { path: 'Employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule) },
       { path: '', redirectTo: 'Employee', pathMatch: 'full' },

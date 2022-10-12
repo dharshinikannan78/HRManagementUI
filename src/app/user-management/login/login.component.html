@@ -43,6 +43,13 @@
               <span class=" text-danger mt-1" *ngIf="!dologin.controls['password'].valid && 
             dologin.controls['password']?.touched"> <b>Password</b> is required *</span>
             </div>
+            <div class="mb-3">
+              <a (click)="forgotPassword()" style=" text-decoration: none;">
+                <p class="text-end cursorP">
+                  <small>Forgot Password?</small>
+                </p>
+              </a>
+            </div>
             <button type="submit" (keyup.enter)="getCredentails(dologin.value)" class="btn btn-primary mt-5"
               [ngClass]="{ 'is-invalid': submitted}" [disabled]="thisFormValid()">Submit</button>
             <div class="invalid-feedback mb-4 mt-4">

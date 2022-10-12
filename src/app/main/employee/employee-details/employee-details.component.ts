@@ -121,29 +121,27 @@ export class EmployeeDetailsComponent implements OnInit {
     //   this.check = JSON.parse(test);
     // }
   }
-  getAllDetails(params:any) {
-    this.api.getUserDetails(this.EmployeeId,params).subscribe((data:any) => {
-      console.log(data,"data for accordion")
-      if(this.userService.Role=="Admin"){
-      this.isData = data;
-   
-   }  
-      if (this.userService.Role == "TeamLeader"||this.userService.Role=="TeamMember") {
+  getAllDetails(params: any) {
+    this.api.getUserDetails(this.EmployeeId, params).subscribe((data: any) => {
+      console.log(data, "data for accordion")
+      if (this.userService.Role == "Admin") {
+        this.isData = data;
+      }
+      if (this.userService.Role == "TeamLeader" || this.userService.Role == "Employess") {
         this.oneEmployee = false;
         console.log(this.oneEmployee, "wonenknkn")
-         this.isData = Array.of(this.isData);
-
-         console.log(this.isData, "while one emp");
+        this.isData = Array.of(this.isData);
+        console.log(this.isData, "while one emp");
       }
       this.api.getTaskDetailById(this.EmployeeId).subscribe(data => {
         this.taskDetails = data;
       })
     });
   }
-  formData:any;
-  resumeFormat:any =[];
-  imageFormat:any =[];
-  step:number = 1;
+  formData: any;
+  resumeFormat: any = [];
+  imageFormat: any = [];
+  step: number = 1;
   uploadcandidateFile = (files: any, type: string) => {
     console.log(files)
     for (var i = 0; i < files.length; i++) {
@@ -165,27 +163,27 @@ export class EmployeeDetailsComponent implements OnInit {
     }
   }
 
- 
- 
 
-     
+
+
+
 
   updateEmployee(employeeDetail: any) {
     if (this.step == 4)
-   
-    this.api.updateEmployeeDetails(employeeDetail).subscribe(data => {
-      console.log(data, 'update')
-      Swal.fire({
-        text: 'Updated Sucessfully!',
-        icon: 'success',
-        timer: 1000
-      });
-      this.showModal = false;
-      location.reload();
-    });
-  
 
-}
+      this.api.updateEmployeeDetails(employeeDetail).subscribe(data => {
+        console.log(data, 'update')
+        Swal.fire({
+          text: 'Updated Sucessfully!',
+          icon: 'success',
+          timer: 1000
+        });
+        this.showModal = false;
+        location.reload();
+      });
+
+
+  }
 
   getEmployeeDetails(data: any) {
     console.log(data, 'geetha')
@@ -200,27 +198,27 @@ export class EmployeeDetailsComponent implements OnInit {
   }
 
 
-  deleteEmployeedetails(id:any,uname:any){
+  deleteEmployeedetails(id: any, uname: any) {
     Swal.fire({
-      title: "Are you sure want to delete "+uname+" ?",
+      title: "Are you sure want to delete " + uname + " ?",
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Delete'
     }).then((result) => {
       if (result.isConfirmed) {
-    this.api.deleteUser(id).subscribe(()=>{
-      Swal.fire({
-        text: 'Deleted Sucessfully!',
-        icon: 'success',
-        timer: 1000
-      });
-      this.getAllDetails('');
-    });
+        this.api.deleteUser(id).subscribe(() => {
+          Swal.fire({
+            text: 'Deleted Sucessfully!',
+            icon: 'success',
+            timer: 1000
+          });
+          this.getAllDetails('');
+        });
       }
-});
+    });
   }
-  
+
   thisFormValid() {
     if (this.employeeDetail.invalid) {
       return true;
@@ -236,42 +234,44 @@ export class EmployeeDetailsComponent implements OnInit {
   next() {
     this.step = this.step + 1;
   }
-     
-  
+
+
 
   onClick() {
     this.router.navigate(['/addemployee'])
   }
   showNavContent: boolean;
-  openNav() {
-    let sidenav = document.getElementById("sideNav");
-    let main = document.getElementById("main");
-    if (window.innerWidth < 500) {
-      if (this.showNavContent == false) {
-        sidenav.style.width = "0px";
-        main.style.marginLeft = "0px";
-        this.showNavContent = true;
-      }
-      else {
-        sidenav.style.width = "60px";
-        main.style.marginLeft = "60px";
-        this.showNavContent = false;
-      }
-    }
-    else {
 
-      if (this.isNavOpen == false) {
-        sidenav.style.width = "60px";
-        main.style.marginLeft = "60px";
-        this.isNavOpen = true;
-      }
-      else {
-        sidenav.style.width = "200px";
-        main.style.marginLeft = "200px";
-        this.isNavOpen = false;
-      }
-    }
-  }
+  // openNav() {
+  //   let sidenav = document.getElementById("sideNav");
+  //   let main = document.getElementById("main");
+  //   if (window.innerWidth < 500) {
+  //     if (this.showNavContent == false) {
+  //       sidenav.style.width = "0px";
+  //       main.style.marginLeft = "0px";
+  //       this.showNavContent = true;
+  //     }
+  //     else {
+  //       sidenav.style.width = "60px";
+  //       main.style.marginLeft = "60px";
+  //       this.showNavContent = false;
+  //     }
+  //   }
+  //   else {
+
+  //     if (this.isNavOpen == false) {
+  //       sidenav.style.width = "60px";
+  //       main.style.marginLeft = "60px";
+  //       this.isNavOpen = true;
+  //     }
+  //     else {
+  //       sidenav.style.width = "200px";
+  //       main.style.marginLeft = "200px";
+  //       this.isNavOpen = false;
+  //     }
+  //   }
+  // }
+
   leaveApplyOn(id: any) {
     console.log(id, 'helo')
     this.userService.EmployeeId = id

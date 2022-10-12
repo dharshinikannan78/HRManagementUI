@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   getCredentails(form: any) {
     this.api.getLogin(form).subscribe((data: any): any => {
       this.userData = data;
-      console.log(this.userData, "user data")
+      console.log(this.userData, "user data");
       if (data) {
         if (data.isFirstLogin == true) {
           return this.firstUser = true;
@@ -93,6 +93,10 @@ export class LoginComponent implements OnInit {
       console.log(data, "data from login edit");
       this.router.navigate(['main'], { replaceUrl: true });
     });
+  }
+
+  forgotPassword() {
+    console.log("hello");
   }
 
 }

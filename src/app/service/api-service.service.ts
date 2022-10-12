@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiServiceService {
 
-  URL = 'https://localhost:5001/api/';
+  URL = 'https://localhost:44394/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   editUserCredentials = this.URL + 'Login/EditLogin';

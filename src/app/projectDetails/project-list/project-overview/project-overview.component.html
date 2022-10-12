@@ -36,6 +36,12 @@
                     (click)="getProjectId(projectdetails.projectId)">Add People</button>
                 <button class="btn btn-danger position-absolute end-0 buttondanger" type="submit"
                     (click)="IsArchieved()">Move to Archive</button>
+                <br />
+
+
+
+                <button type="submit" class="btn btn-primary mt-5" data-bs-toggle="modal"
+                    data-bs-target="#ISexampleModal" (click)="IsSelectEmployee()"> Add </button>
             </div>
 
         </div>
@@ -54,12 +60,13 @@
                             <div class="card-body p-4">
                                 <div class="mb-3" style="float: right;">
                                     <!-- <span class="badge"  > Move to Archive</span> -->
-                                    <button type="submit" class="btn btn-danger" (click)="IsTaskArchieved()">Move to Archive</button>
+                                    <button type="submit" class="btn btn-danger" (click)="IsTaskArchieved()">Move to
+                                        Archive</button>
                                 </div>
                                 <p class="mb-1 card-subtitle text-muted text-uppercase"> <small>{{ data?.startDate |
                                         date:'MMM d'}} - {{data?.endDate | date :'MMM d'}}</small>
                                 </p>
-                                <p class="mb-1 card-subtitle text-muted"> <small></small></p>
+                                <p class="mb-1 card-subtitle text-muted"> <small> </small></p>
                                 <h5 class="card-title fw-bold mb-3 cursorP" (click)="getTaskClick(data)">{{
                                     data.taskName }}
                                 </h5>
@@ -448,6 +455,40 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <div class="modal fade" id="ISexampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">List of Employees</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="scrollbar" id="style-1">
+                    <div class="row dflex">
+                    </div>
+                    <div style="padding: 20px;">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 dflex justify-content-between" *ngFor="let data of employeName">
+                                    <input id="checkbox" type="checkbox" name="sendemail" (click)="getEmployeeIds(data.employeeId)">
+                                    <div>
+                                        <ngx-avatar size="30" [style]="customStyle"
+                                            [name]="data.firstName + ' ' + data.lastName"
+                                            [src]="'https://localhost:44394/' + data.photoPath" alt="...">
+                                        </ngx-avatar>
+                                    </div>
+                                    <p class="m-0">{{data.firstName}}&nbsp;{{data.lastName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

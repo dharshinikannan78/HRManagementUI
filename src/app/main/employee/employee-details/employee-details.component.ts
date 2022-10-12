@@ -52,6 +52,7 @@ export class EmployeeDetailsComponent implements OnInit {
     emailId: new FormControl('', Validators.required),
     number: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
+    employeeReferenceNo: new FormControl('', Validators.required),
     qualification: new FormControl('', Validators.required),
     college: new FormControl('', Validators.required),
     passedOut: new FormControl('', Validators.required),
@@ -66,11 +67,15 @@ export class EmployeeDetailsComponent implements OnInit {
 
   customStyle = {
     objectFit: "cover",
-    cursor: "pointer"
+    cursor: "pointer",
+    fontWeight: '700'
   };
+  employeeData: any = [];
+  employeeAttendance: any;
+  employeeTaskDetail: any;
   step: number = 1;
   isData: any = [];
-  oneEmployee: boolean = true;
+  oneEmployee: boolean;
   employee: any
   attd: any;
   isEditTable: boolean = false;
@@ -129,28 +134,66 @@ export class EmployeeDetailsComponent implements OnInit {
 
       this.check = JSON.parse(test);
     }
+    this.getEmployeeDetailById('');
+    this.getAttendanceById('');
+    this.getemployeeTaskDetail();
   }
-  
+
+  getEmployeeDetailById(params: any) {
+
+    this.api.getEmployeeDetailsById(this.EmployeeId).subscribe(data => {
+      if (this.userService.Role == "Employee") {
+        this.oneEmployee = true;
+        this.employeeData = data
+        console.log(params, 'params')
+        console.log(this.employeeData, 'EmployeeData')
+      }
+    });
+
+
+  }
+  getAttendanceById(params: any) {
+    this.api.getAttendanceDetailsById(this.EmployeeId).subscribe(data => {
+      if (this.userService.Role == "Employee") {
+        this.oneEmployee = true;
+        console.log(this.userService.Role, 'this.userService.Role')
+        this.employeeAttendance = data
+        console.log(params, 'params')
+        console.log(this.employeeAttendance, 'employeeAttendance')
+      }
+    });
+  }
+  getemployeeTaskDetail() {
+    this.api.employeeTaskDetail(this.EmployeeId).subscribe(data => {
+      if (this.userService.Role == "Employee") {
+        this.oneEmployee = true;
+        this.employeeTaskDetail = data
+        console.log(data, 'paithjiyam geetha')
+      }
+
+    });
+  }
+
   getAllDetails(params: any) {
     this.api.getUserDetails(this.EmployeeId, params).subscribe((data: any) => {
       console.log(data, "data for accordion")
       if (this.userService.Role == "Admin") {
         this.isData = data;
       }
-      if (this.userService.Role == "TeamLeader" || this.userService.Role == "TeamMember") {
+      if (this.userService.Role == "Employee") {
         this.oneEmployee = false;
         console.log(this.oneEmployee, "wonenknkn")
         this.isData = Array.of(this.isData);
         console.log(this.isData, "while one emp");
       }
-      this.api.getTaskDetailById(this.EmployeeId).subscribe(data => {
-        this.taskDetails = data;
-      })
+      // this.api.getTaskDetailById(this.EmployeeId).subscribe(data => {
+      //   this.taskDetails = data;
+      // })
     });
   }
-  formData:any;
-  resumeFormat:any =[];
-  imageFormat:any =[];
+  formData: any;
+  resumeFormat: any = [];
+  imageFormat: any = [];
   uploadcandidateFile = (files: any, type: string) => {
     console.log(files)
     for (var i = 0; i < files.length; i++) {
@@ -172,27 +215,27 @@ export class EmployeeDetailsComponent implements OnInit {
     }
   }
 
- 
- 
 
-     
+
+
+
 
   updateEmployee(employeeDetail: any) {
     if (this.step == 4)
-   
-    this.api.updateEmployeeDetails(employeeDetail).subscribe(data => {
-      console.log(data, 'update')
-      Swal.fire({
-        text: 'Updated Sucessfully!',
-        icon: 'success',
-        timer: 1000
-      });
-      this.showModal = false;
-      location.reload();
-    });
-  
 
-}
+      this.api.updateEmployeeDetails(employeeDetail).subscribe(data => {
+        console.log(data, 'update')
+        Swal.fire({
+          text: 'Updated Sucessfully!',
+          icon: 'success',
+          timer: 1000
+        });
+        this.showModal = false;
+        location.reload();
+      });
+
+
+  }
 
   getEmployeeDetails(data: any) {
     console.log(data, 'geetha')
@@ -207,7 +250,7 @@ export class EmployeeDetailsComponent implements OnInit {
   }
 
 
-  
+
   thisFormValid() {
     if (this.employeeDetail.invalid) {
       return true;
@@ -450,6 +493,47 @@ export class EmployeeDetailsComponent implements OnInit {
     });
 
   }
+  // attendanceDetails(params: any) {
+  //   Swal.fire({
+  //     title: "Are you sure want to CheckIn ?",
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'CheckIn'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       this.api.addAttendance(params).subscribe((data: any) => {
+  //         this.AttendanceIds.push(data.attendanceId);
+  //         localStorage.setItem("AttendanceId", data.attendanceId);
+  //         this.InTime.push(data.inTime);
+  //         this.check = !this.check
+  //         localStorage.setItem('checkIn' + this.EmployeeId, JSON.stringify(this.check));
+  //         Swal.fire({
+  //           text: 'CheckIn Sucessfully!',
+  //           icon: 'success',
+  //           timer: 3000
+  //         });
+
+  //       }, (error: Response) => {
+  //         if (error.status === 400) {
+  //           Swal.fire({
+  //             text: ' Applied for leave..Please Try Again',
+  //             icon: 'error',
+  //             timer: 3000
+  //           });
+  //         }
+
+  //         if (error.status === 404) {
+  //           Swal.fire({
+  //             text: 'User Already Checkin Today ...Please Try Again',
+  //             icon: 'error',
+  //             timer: 3000
+  //           });
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
 
   updateattendanceDetails() {
     let payload = {
@@ -467,6 +551,7 @@ export class EmployeeDetailsComponent implements OnInit {
       if (result.isConfirmed) {
         this.api.updateAttendance(payload).subscribe(data => {
           this.check = !this.check
+
           localStorage.setItem('checkIn' + this.EmployeeId, JSON.stringify(this.check));
 
           Swal.fire({
@@ -516,6 +601,7 @@ export class EmployeeDetailsComponent implements OnInit {
   next() {
     this.step = this.step + 1;
   }
+  
   CloseButton() {
     this.showModal = false;
     window.location.reload()

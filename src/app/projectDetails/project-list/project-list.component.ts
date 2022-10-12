@@ -48,6 +48,11 @@ export class ProjectListComponent implements OnInit {
     projectName: new FormControl(''),
     projectDescription: new FormControl(''),
     createdBy: new FormControl(this.createdBy),
+    priority: new FormControl(''),
+    totalDays: new FormControl(),
+    // startDate: new FormControl(),
+    endDate: new FormControl()
+
   });
   updateForm: FormGroup = new FormGroup({
     projectId: new FormControl(),
@@ -60,6 +65,7 @@ export class ProjectListComponent implements OnInit {
     endDate: new FormControl(),
     // todayDays: new FormControl(),
     createdBy: new FormControl(),
+    priority: new FormControl()
   });
 
   updateTaskDetails: FormGroup = new FormGroup({
@@ -106,9 +112,9 @@ export class ProjectListComponent implements OnInit {
   }
 
   getProjectClick(params: any) {
+    this.showModal = true;
     this.isProjectdata = params;
     console.log(this.isProjectdata, 'Geetha');
-    this.showModal = true;
     console.log(params, 'Salman');
   }
 
@@ -239,13 +245,13 @@ export class ProjectListComponent implements OnInit {
 
   getAllProjectDetails() {
     this.api.getAllProjectDetails().subscribe(data => {
-      console.log(data);
+      console.log(data, "1 of 20");
       this.ProjectDetails = data
 
     })
   }
   getProjectDetailsId(Id: any) {
     console.log(Id, 'geetha');
-    this.router.navigate(['projectOverview' , Id])
+    this.router.navigate(['projectOverview', Id])
   }
 }

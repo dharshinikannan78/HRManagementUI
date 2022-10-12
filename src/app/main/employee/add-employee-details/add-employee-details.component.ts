@@ -106,6 +106,13 @@ export class AddEmployeeDetailsComponent implements OnInit {
     }
     return false;
   }
+  isEmailExist: boolean;
+  validateEmail(ev: any) {
+    this.api.ValidateEmail(ev.target.value).subscribe((data: string): boolean => {
+      if (data.toLowerCase() === 'user found') return this.isEmailExist = true;
+      return this.isEmailExist = false;
+    });
+  }
 
   uploadcandidateFile = (files: any, type: string) => {
     console.log(files)

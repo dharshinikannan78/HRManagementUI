@@ -244,3 +244,21 @@ label {
 input:focus {
     box-shadow: none;
 }
+
+
+.submitButton {
+    padding: 5px;
+    float:right;
+    width: 100px;
+    background: #03045e ;
+    color: #fff;
+    border-radius: 5px;
+  
+}
+
+.NextPrev {
+    padding: 5px;
+    float:right;
+    width: 100px;
+    border-radius: 5px;
+}

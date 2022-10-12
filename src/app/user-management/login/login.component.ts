@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
   submitted = false;
   isData: any;
+  ForgotPassword: boolean = false;
 
   constructor(
     private router: Router,
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
   });
 
 
-
+  ForgotMailId: string;
   firstUser: boolean = false;
   protected userData: any;
   getCredentails(form: any) {
@@ -47,24 +48,33 @@ export class LoginComponent implements OnInit {
       console.log(this.userData, "user data")
       if (data) {
         if (data.isFirstLogin == true) {
-          return this.firstUser = true;
+          return this.state = "ChangePassword";
         }
         this.userService.EmployeeId = data.employeeId;
         this.userService.Role = data.role;
         this.userService.Name = data.firstName + ' ' + data.lastName;
         this.router.navigate(['main'], { replaceUrl: true });
       }
-    }), (error: Response) => {
+    }, (error: Response) => {
       if (error.status === 404) {
         Swal.fire({
           text: 'You have enter the Wrong Credentials',
           icon: 'error',
-          timer: 1000
+          timer: 1500
         });
       }
-    };
+    });
   }
-
+  state: string = "login";
+  submitForgotPassword() {
+    console.log(this.ForgotMailId, "jhjhjhuyuyuytyt")
+    this.api.ResetPassword(this.ForgotMailId).subscribe(data => {
+      console.log(data);
+    });
+  }
+  forgotPassword() {
+    this.state = "forgotPasword";
+  }
 
   thisFormValid() {
     if (this.dologin.invalid) {

@@ -11,6 +11,7 @@ export class ApiServiceService {
   URL = 'https://localhost:44394/api/';
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
+  attendanceDetails = this.URL + 'Attendance/AttendanceDetails?data=';
   editUserCredentials = this.URL + 'Login/EditLogin';
   employeeDetailsName = this.URL + 'Employee/AllEmployee';
   allEmployeeDetails = this.URL + 'Employee/GetEmployeeDetails';
@@ -28,7 +29,7 @@ export class ApiServiceService {
   updAttendance = this.URL + 'Attendance/updateAttendance';
   updateLeaveDetail = this.URL + 'Leave/UpdateLeaveDetails'
   taskDetails = this.URL + 'TaskDetails/AddTaskDeatils';
-  getEmployeeTaskDetails = this.URL + 'TaskDetails/EmployeeId?EmployeeId=';
+  getEmployeeTaskDetails = this.URL + 'TaskDetails/taskDetailsForProfile?EmployeeId=';
   getTeamTaskDetails = this.URL + 'TaskDetails/employeeId?id=';
   getTeamLeader = this.URL + 'TaskDetails/Team?team=';
   addProjectDetail = this.URL + 'ProjectDetails/AddEmployeeDetails';
@@ -44,6 +45,8 @@ export class ApiServiceService {
   getOverAllAttendance = this.URL + 'Attendance/AllAttendance';
   kanbandetails = this.URL + 'ProjectDetails/GetTaskDetails?id=';
   allProjectDetails = this.URL + 'ProjectDetails/GetAllProjectDetails';
+  resetPassword = this.URL + 'Login/ForgotPassword?Data=';
+  validateEmail = this.URL + 'Employee/ValidateEmail?data='
 
   constructor(private http: HttpClient) { }
 
@@ -56,6 +59,9 @@ export class ApiServiceService {
     return this.http.get(this.getOverAllAttendance)
   }
 
+  getAttendanceDetailsById(id: any) {
+    return this.http.get(this.attendanceDetails + id)
+  }
   getByProjectId(id: any) {
     return this.http.get(this.updateByProjectId + id)
   }
@@ -155,5 +161,11 @@ export class ApiServiceService {
   }
   getAllProjectDetails() {
     return this.http.get(this.allProjectDetails);
+  }
+  ResetPassword(params: string) {
+    return this.http.get(this.resetPassword + params);
+  }
+  ValidateEmail(params: string) {
+    return this.http.get(this.validateEmail + params, { responseType: 'text' });
   }
 }

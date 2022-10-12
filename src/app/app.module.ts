@@ -15,6 +15,9 @@ import { ProjectListComponent } from './projectDetails/project-list/project-list
 import { AvatarModule } from 'ngx-avatar';
 import { DndModule } from 'ngx-drag-drop';
 import { ProjectOverviewComponent } from './projectDetails/project-list/project-overview/project-overview.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+
 
 @NgModule({
   declarations: [
@@ -22,6 +25,7 @@ import { ProjectOverviewComponent } from './projectDetails/project-list/project-
     ProjectDetailsComponent,
     ProjectListComponent,
     ProjectOverviewComponent,
+
   ],
   imports: [
     AppRoutingModule,
@@ -34,9 +38,12 @@ import { ProjectOverviewComponent } from './projectDetails/project-list/project-
     MainModule,
     DndModule,
     AvatarModule,
-    UserManagementModule
-    
+    UserManagementModule,
+    // Ng2SearchPipeModule,
+
   ],
+
+
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { ApiServiceService } from '../../service/api-service.service';
 import { UserServiceService } from '../../service/user-service.service';
@@ -13,7 +14,6 @@ import { UserServiceService } from '../../service/user-service.service';
 export class LeaveComponent implements OnInit {
 
   @ViewChild('closeModal') closeModal: ElementRef
-
   isPopUp: boolean = false;
   leaveDetails: any;
   isShow: string;
@@ -24,12 +24,12 @@ export class LeaveComponent implements OnInit {
   EmployeeId: string = localStorage.getItem('EmployeeId')
   Role: string = localStorage.getItem('Role')
 
-
+today:string = moment().format('YYYY-MM-DD');
 
   duration: string;
 
   applyOnLeave: FormGroup = new FormGroup({
-    Duration: new FormControl('', Validators.required),
+    leaveDay: new FormControl('', Validators.required),
     startDate: new FormControl('', Validators.required),
     endDate: new FormControl('', Validators.required),
     leaveType: new FormControl('', Validators.required),
@@ -38,9 +38,10 @@ export class LeaveComponent implements OnInit {
     employeeId: new FormControl(this.EmployeeId)
   });
   updateLeaveForm: FormGroup = new FormGroup({
-    // startDate: new FormControl('', Validators.required),
+    
     employeeId: new FormControl('', Validators.required),
     leaveId: new FormControl('', Validators.required),
+    leaveDay: new FormControl('', Validators.required),
     firstName: new FormControl('', Validators.required),
     designation: new FormControl('', Validators.required),
     appliedOn: new FormControl('', Validators.required),
@@ -57,6 +58,7 @@ export class LeaveComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLeaveDetails();
+    console.log(this.today,"today");
   }
 
   getLeaveDetail(data: any) {
@@ -78,15 +80,15 @@ export class LeaveComponent implements OnInit {
 
   changeDuration(params: any) {
     let elements = document.getElementsByClassName("forSelectMenu");
-    if (params.target.value != 'Day') {
+    if (params.target.value == 'Day'||params.target.value == 'HalfDay') {
       console.log(elements);
       for (var i = 0; i < elements.length; i++) {
-        elements[i].setAttribute('type', 'datetime-local');
+        elements[i].setAttribute('type', 'date');
       }
     }
     else {
       for (var i = 0; i < elements.length; i++) {
-        elements[i].setAttribute('type', 'date');
+        elements[i].setAttribute('type', 'datetime-local');
       }
     }
   }
@@ -95,19 +97,47 @@ export class LeaveComponent implements OnInit {
     this.api.getLeaveDetails(this.EmployeeId).subscribe(data => {
       console.log(data, 'helo')
       this.leaveDetails = data
-      // if (this.userService.Role == "Employee") {
-      //   this.leaveDetails = Array.of(this.leaveDetails)
-      // }
     });
   }
 
   applyLeave(params: any) {
-    this.api.applyLeaveOn(params).subscribe(data => {
+
+    this.api.applyLeaveOn(params).subscribe((data) => {
       console.log(data, 'data');
       console.log("after the await");
+      Swal.fire({
+        text: 'Leave Applied Sucessfully!',
+        icon: 'success',
+        timer: 1000
+      });
       this.getLeaveDetails();
-    });
-    this.closeModal.nativeElement.click();
+    },(error: Response) => {
+      if (error.status === 400) {
+        Swal.fire({
+          text: 'Already Applied for leave',
+          icon: 'error',
+          timer: 3000
+        });
+      }
+   
+      if (error.status === 404) {
+        Swal.fire({
+          text: 'User Already Checkin Today ',
+          icon: 'error',
+          timer: 3000
+        });
+      }
+   
+    if (error.status === 403) {
+      Swal.fire({
+        text: 'Select Valid Date ',
+        icon: 'error',
+        timer: 3000
+      });
+    }
+  });
+
+
   }
 
 
@@ -117,8 +147,6 @@ export class LeaveComponent implements OnInit {
 
   updateLeaveDetails(updateLeaveForm: any) {
     console.log('dataEmployee')
-    // this.isPopUp = !this.isPopUp;
-
     this.api.updateLeaveDetails(updateLeaveForm).subscribe(data => {
       console.log(data, 'dataEmployee')
       Swal.fire({
@@ -131,13 +159,4 @@ export class LeaveComponent implements OnInit {
 
     });
   }
-  thisFormValid() {
-    if (this.applyOnLeave.invalid) {
-      return false;
-    } else {
-      return true;
-    }
-  }
 }
-
-

@@ -18,7 +18,181 @@
         </div>
     </div>
 </section>
-<section class="oneEmployee" *ngIf="oneEmployee">
+
+
+
+
+<section class="pb-3" *ngIf="oneEmployee">
+    <div class="container">
+        <!-- employee details -->
+        <div class="row my-5">
+            <div class="rounded-4 bg-white shadow col-md-4">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card py-3" *ngFor="let data of employeeData">
+                            <div class="ms-0">
+                                <div class="row justify-content-center">
+                                    <div class="col-1 mt-2">
+                                        <ngx-avatar size="40" [style]="customStyle"
+                                            [name]="data.firstName + ' ' + data.lastName"
+                                            [src]="'https://localhost:44394/' + data.photoPath" class="card-img-top"
+                                            alt="..." (click)="getEmployeeDetails(data)"></ngx-avatar>
+                                    </div>
+                                    <div class="col-6 ms-3 mt-2">
+                                        <b style="color: #323232;">{{data.firstName}}&nbsp;{{data.lastName}}</b>
+                                        <br />
+                                        <small class="text-muted">{{data.designation}}</small>
+                                    </div>
+                                    <div class="col-4 mt-3">
+                                        <span class="badge">{{data.position}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- personal details -->
+                    <div class="col-12 mt-4">
+                        <div class="card shadow-none mt-3 p-4" *ngFor="let data of employeeData">
+                            <!-- <h5 class="mb-4">All Personal Details<span class="float-end primary-textc">
+                                    <i class="fa-solid fa-pencil"></i>&nbsp;Edit</span>
+                                </h5> -->
+                            <div class="row g-5  mb-2">
+                                <div class="col-md-12  d-flex align-items-center">
+                                    <div class="iconWrap d-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-at"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <small class="m-0 fw-bold">{{data.emailId}}</small>
+                                        <h6 class="m-0 text-muted"><small>Email</small></h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-12  d-flex align-items-center">
+                                    <div class="iconWrap d-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-mobile-screen-button"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <p class="m-0 fw-bold">{{data.number}}</p>
+                                        <h6 class="m-0 text-muted"><small>Mobile Number</small></h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-12  d-flex align-items-center">
+                                    <div class="iconWrap d-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-cake-candles"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <p class="m-0 fw-bold">{{data.dob | date:'MMMM d, y'}}
+                                        </p>
+                                        <h6 class="m-0 text-muted"><small>Date of Birth</small></h6>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12  d-flex align-items-center">
+                                    <div class="iconWrap d-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-file-signature"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <p class="m-0 fw-bold">{{data.joiningDate |
+                                            date:'MMMMd, y'}}</p>
+                                        <h6 class="m-0 text-muted"><small>Date of Joining</small></h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-12  d-flex align-items-center">
+                                    <div class="iconWrap d-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-location-arrow"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <p class="m-0 fw-bold">{{data.address}}</p>
+                                        <h6 class="m-0 text-muted"><small>Address</small></h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-12  d-flex align-items-center">
+                                    <div class="iconWrap d-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-computer-mouse"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <p class="m-0 fw-bold">{{data.workMode}}</p>
+                                        <h6 class="m-0 text-muted"><small>Work Mode</small></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- attendance details -->
+            <div class="col-8">
+                <h5 class="p-3">
+                    Attendance Details
+                </h5>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card py-4">
+                            <table class="table">
+                                <thead style="text-align: center;">
+                                    <tr class="thead">
+                                        <th scope="col">Name</th>
+                                        <th scope="col">InTime</th>
+                                        <th scope="col">OutTime</th>
+                                        <th scope="col">WorkDuration</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let data of employeeAttendance" class="text-center">
+                                    <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.firstName}}</td>
+                                    <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.inTime}}</td>
+                                    <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.outTime}}</td>
+                                    <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.workDuration}}</td>
+                                    <td class="col-md-2 py-2 ms-2" style="border: none;"><span
+                                            class="badge">{{data.status}}</span>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- task details -->
+                    <div class="mt-4 col-12">
+                        <h5 class="p-3">
+                            Task Details
+                        </h5>
+                        <div class="card overflow-hidden">
+                            <div class="row g-4 p-4 taskRow position-relative">
+                                <div class="col-6" *ngFor="let data of employeeTaskDetail">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                <h5>
+                                                    {{data.taskName}}
+                                                </h5>
+                                            </div>
+                                            <small><span class="badge"
+                                                    [ngClass]="{'redBadge': data.taskStatus === 'InProgress', 'orangeBadge' : data.taskStatus === 'TODO' }">{{data.taskStatus}}</span></small>
+                                            <p class="text-muted mt-3">
+                                                <small>{{data.taskDescription}}</small>
+                                            </p>
+                                            <small><span
+                                                    [ngClass]="{'redBadge': data.priority === 'High', 'orangeBadge': data.priority === 'Medium' }"
+                                                    class="badge">{{data.priority}}</span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<section class="oneEmployee" *ngIf="!oneEmployee">
+
     <div class="accordion container" id="employeeDetails">
         <div class="accordion-item mt-3 mb-3" *ngFor="let data of isData; let i = index">
             <h2 class="accordion-header" id="headingOne{{i}}">
@@ -29,8 +203,12 @@
                     {{data[0].teamName}}
                 </button>
             </h2>
+
             <div id="collapseOne{{i}}" class="accordion-collapse collapse" attr.aria-labelledby="headingOne{{i}}"
                 data-bs-parent="#employeeDetails">
+
+
+
                 <div class="accordion-body">
                     <div class="container" id="Employeedata">
                         <ng-container>
@@ -38,38 +216,39 @@
                                 <div class="col-6 col-sm-6 col-md-6 col-lg-4 h-100" *ngFor="let data of isData[i]">
                                     <div class="row mb-5 g-4 bg-forrow">
                                         <div>
-                                            <div class="card h-100">
+                                            <div class="card h-40">
                                                 <div class="card-body position-relative">
-                                                    <div class="deleteButton btn"
-                                                        (click)="deleteEmployeedetails(data.employeeId,data.firstName)">
-                                                        <i class="fa-solid fa-trash-can"></i>
-                                                    </div>
-                                                    <div class="row g-0 dflex">
-                                                        <div class="col-5 col-sm-4 dflex">
-                                                            <div class="me-4">
-                                                                <ngx-avatar size="70" [style]="customStyle"
-                                                                    [name]="data.firstName + ' ' + data.lastName"
-                                                                    [src]="'https://localhost:44394/' + data.photoPath"
-                                                                    class="card-img-top" alt="..."
-                                                                    (click)="getEmployeeDetails(data)"></ngx-avatar>
+
+
+                                                    <div class="row justify-content-center">
+
+                                                        <div class="col-2 mt-2">
+
+                                                            <ngx-avatar size="40" [style]="customStyle"
+                                                                [name]="data.firstName + ' ' + data.lastName"
+                                                                [src]="'https://localhost:44394/' + data.photoPath"
+                                                                class="card-img-top" alt="..."
+                                                                (click)="getEmployeeDetails(data)"></ngx-avatar>
+
+                                                        </div>
+                                                        <div class="col-8 mt-2">
+                                                            <b
+                                                                style="color: #323232;">{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</b>
+                                                            <br />
+                                                            <small class="text-muted">{{data.designation}}</small>
+                                                        </div>
+                                                        <div class="col-2 mt-3">
+                                                            <div class="deleteButton btn"
+                                                                (click)="deleteEmployeedetails(data.employeeId,data.firstName)">
+                                                                <i class="fa-solid fa-trash-can"></i>
                                                             </div>
                                                         </div>
-                                                        <div class="col-7 text-muted">
-                                                            {{data.employeeId}}<b>&nbsp;&nbsp;{{data.firstName}}&nbsp;{{data.lastName}}
-                                                            </b>
-                                                        </div>
                                                     </div>
-                                                    <div class="dflex mt-3">
-                                                        <p class="card-text w-75">{{data.teamName}} <span
-                                                                class="float-end">{{data.position}}</span></p>
-                                                        <p class="card-text"><small class="text-muted"></small>
-                                                        </p>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </ng-container>
@@ -108,7 +287,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="container">
                     <div class="editForm">
                         <div *ngIf="step==1" id="step1" class="row">
@@ -161,12 +340,21 @@
                                 <span class="text-danger" *ngIf="!employeeDetail.controls['emailId'].valid && 
     employeeDetail.controls['emailId']?.touched"> <b>Email Id</b> is required *</span>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label class=" form-label mt-3">Mobile Number</label>
                                 <input type="text" class="form-control" [ngModel]="employee?.number"
                                     formControlName="number">
                                 <span class="text-danger" *ngIf="!employeeDetail.controls['number'].valid && 
     employeeDetail.controls['number']?.touched"> <b>Number</b> is required *</span>
+                            </div>
+                            <div class="form-group col-md-6 mt-3">
+                                <label class=" form-label">Employee Refernce Number</label>
+                                <input type="text" class="form-control" formControlName="employeeReferenceNo"
+                                    [ngModel]="employee?.employeeReferenceNo">
+                                <span class="text-danger" *ngIf="!employeeDetail.controls['employeeReferenceNo'].valid && 
+                                employeeDetail.controls['employeeReferenceNo']?.touched"> <b>Employee Refernce
+                                        Number</b> is
+                                    required *</span>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class=" form-label mt-3">Address</label>
@@ -284,3 +472,70 @@
         </div>
     </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="deleteButton btn"
+                                                        (click)="deleteEmployeedetails(data.employeeId,data.firstName)">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </div> -->
+
+
+<!-- <div class="row justify-content-center">
+                                                        <p class="card-text mt-1"><small
+                                                                class="text-muted">{{data.designation}}</small></p>
+                                                    </div> -->
+
+
+
+<!-- <div class="row g-0 dflex">
+                                                        <div class="col-2 col-sm-4 dflex">
+                                                            <div class="me-5">
+                                                                <ngx-avatar size="40" [style]="customStyle"
+                                                                    [name]="data.firstName + ' ' + data.lastName"
+                                                                    [src]="'https://localhost:44394/' + data.photoPath"
+                                                                    class="card-img-top" alt="..."
+                                                                    (click)="getEmployeeDetails(data)"></ngx-avatar>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-8 text-muted">
+                                                            <b>
+                                                                {{data.firstName}}&nbsp;{{data.lastName}}
+                                                            </b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dflex mt-3">
+                                                        <p class="card-text w-75">{{data.teamName}} <span
+                                                                class="float-end">{{data.position}}</span></p>
+                                                        <p class="card-text"><small class="text-muted"></small>
+                                                        </p>
+                                                    </div> -->

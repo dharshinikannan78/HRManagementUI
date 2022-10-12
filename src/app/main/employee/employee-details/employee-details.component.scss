@@ -20,7 +20,6 @@
 //     object-fit: cover !important;
 // }
 
-
 // .modal-header {
 //     // background: #8e2de2;
 //     // background: -webkit-linear-gradient(to left, #4f10cb, #8e2de2);
@@ -380,7 +379,6 @@
 //     left: 0;
 //     transition: all 0.5s ease 0s;
 // }
- 
 
 // .our-team:hover .contact {
 //     bottom: 0;
@@ -415,12 +413,6 @@
     align-items: center;
     display: flex;
 }
-.container {
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    background-size: contain;
-}
 
 .avatar-container img {
     width: 6rem !important;
@@ -439,9 +431,7 @@
 }
 
 .modal-header {
-   
     background: #03045e !important;
-  
 }
 
 .modal-content {
@@ -512,7 +502,6 @@ label {
     font-weight: bold;
     color: #03045e;
     text-transform: uppercase;
-
 }
 
 .scrollbar {
@@ -602,17 +591,15 @@ main {
     main {
         margin-left: 0;
     }
-   
 }
 
 @media (max-width: 767px) {
     .modal-content {
-        height: 900px !important; 
-      }
-      .editForm{
+        height: 900px !important;
+    }
+    .editForm {
         height: 600px !important;
-      }
-
+    }
 }
 
 .coverImage {
@@ -623,7 +610,19 @@ main {
         rgba(116, 182, 247, 1) 90%
     );
 }
+.badge {
+    background-color: rgba(45, 211, 111, 0.12);
+    color: #28ba62;
+    min-width: 100px;
+    padding: 9px 12px;
+    border-radius: 25px;
+    letter-spacing: 0.5px;
+    font-weight: 800;
+}
 
+.badge:hover {
+    background-color: rgba(45, 211, 111, 0.16);
+}
 .img-9 {
     border-radius: 50%;
     width: 9rem !important;
@@ -695,7 +694,7 @@ main {
     }
     .scrollWrap {
         opacity: 0 !important;
-    }   
+    }
 }
 
 .testingOverflow::-webkit-scrollbar {
@@ -723,10 +722,11 @@ main {
 }
 .deleteButton {
     position: absolute;
-    top: 7%;
-    right: 6%;
+    // top: 14%;
+    // right: 6%;
     color: #a5a2a2;
-    padding: 6px;
+    border: none;
+    padding: 0px;
 }
 
 .accordion:focus {
@@ -734,15 +734,25 @@ main {
 }
 
 .accordion-item {
-    border: 0.1px solid rgb(223, 218, 218);
+    border: 0.1px solid #eeeeee;
 }
 .accordion-item :focus {
     outline: 0 !important;
-    background-color: #f2f3f9;
-    color: #25316d;
+    // background-color: #f2f3f9;
+    // color: #25316d;
+    color: #6f38c5;
     font-weight: 800;
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+    // box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
 }
+
+.accordion-button {
+    background-color: #ffffff;
+    color: #957fb8;
+    font-weight: 800;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
 .step-wizard-list {
     color: #333;
     list-style: none;
@@ -847,22 +857,18 @@ main {
 }
 .submitButton {
     padding: 5px;
-    float:right;
+    float: right;
     width: 100px;
-    background: #03045e ;
+    background: #03045e;
     color: #fff;
     border-radius: 5px;
-  
 }
 
 .NextPrev {
     padding: 5px;
-    float:right;
+    float: right;
     width: 100px;
-   
-   
     border-radius: 5px;
-  
 }
 h4 {
     color: #03045e;
@@ -871,15 +877,17 @@ h4 {
     font-family: sans-serif;
     position: relative;
     font-size: 200%;
-   margin-bottom: 3rem;
-    
+    margin-bottom: 3rem;
 }
 
-  .modal-content {
-    height: 650px; 
-  }
-  .editForm{
+.modal-content {
+    height: 650px;
+}
+.editForm {
     height: 370px;
     padding: 0 2rem 0 2rem;
-  }
-  
+}
+.taskRow {
+    max-height: 450px;
+    overflow: auto;
+}

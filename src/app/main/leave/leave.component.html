@@ -18,13 +18,13 @@
                     <div class="col-12">
                         <form [formGroup]="applyOnLeave" (ngSubmit)="applyLeave(applyOnLeave.value)">
                             <div class="mb-3">
-                                <label class="form-label">Duration</label>
+                                <label class="form-label">LeaveDay</label>
                                 <select (change)="changeDuration($event)" class="form-select"
-                                    aria-label="Default select example" formControlName="Duration">
+                                    aria-label="Default select example" formControlName="leaveDay">
                                     <option disabled selected value> -- select an option -- </option>
                                     <option value="Day">Day</option>
                                     <option value="HalfDay">HalfDay</option>
-                                    <option value="Timing">Timing</option>
+                                    <option value="Permission">Permission</option>
                                 </select>
                             </div>
                             <div class="row">
@@ -32,13 +32,13 @@
                                     <div class="mb-3">
                                         <label class="form-label">Start Date</label>
                                         <input type="date" class="forSelectMenu form-control"
-                                            formControlName="startDate">
+                                            formControlName="startDate" [min]="today">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label">End Date</label>
-                                        <input type="date" class="forSelectMenu form-control" formControlName="endDate">
+                                        <input type="date" [min]="today" class="forSelectMenu form-control" formControlName="endDate">
                                     </div>
                                 </div>
                             </div>
@@ -56,10 +56,9 @@
                                 <textarea type="text" class="form-control" formControlName="reason"></textarea>
                             </div>
                             <div class="mb-3 d-flex align-items-center justify-content-end">
-                                <button #closeModal class="btn btn-secondary mx-3"
+                                <button #closeModal type="button" class="btn btn-secondary mx-3"
                                     data-bs-dismiss="modal">Close</button>
-                                <button class="btn btn-danger" type="submit" [disabled]="!thisFormValid()">
-                                    Apply</button>
+                                <button class="btn btn-danger" type="submit"> Apply</button>
                             </div>
                             <!-- <div class="modal-footer">
                                 <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -73,7 +72,7 @@
         </div>
     </div>
 </div>
-<!-- 
+
 <section>
     <div class="container-fluid" *ngIf="isShow">
         <h5 class="mt-5 mb-5">Leave Management</h5>
@@ -103,7 +102,7 @@
                         <textarea type="text" class="form-control" formControlName="reason"></textarea>
                     </div>
                     <div class="mb-3">
-                        <button class="btn btn-danger" type="submit" [disabled]="!thisFormValid()"> Apply</button>
+                        <button class="btn btn-danger" type="submit"> Apply</button>
                     </div>
                 </form>
             </div>
@@ -111,7 +110,7 @@
             </div>
         </div>
     </div>
-</section> -->
+</section>
 
 <section class="px-4">
     <table class="table">
@@ -121,7 +120,7 @@
                 <th scope="col">Desigination</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">End Date</th>
-                <th scope="col">No Of Days</th>
+                <th scope="col">Duration</th>
                 <th scope="col">LeaveType</th>
                 <th scope="col">AppliedOn</th>
                 <th scope="col">ApprovalStatus</th>
@@ -131,11 +130,11 @@
             <tr *ngFor="let data of leaveDetails" (click)="getLeaveDetail(data)" style="text-align: center;">
                 <td class="col-md-2">{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
                 <td class="col-md-2"> {{data.designation}}</td>
-                <td class="col-md-2">{{data.startDate | date:'MMM d, y, h:mm a' }}</td>
-                <td class="col-md-2">{{data.endDate | date:'MMM d, y, h:mm a' }}</td>
+                <td class="col-md-2">{{data.startDate |date:'yyyy-MM-dd' }}</td>
+                <td class="col-md-2">{{data.endDate |date:'yyyy-MM-dd' }}</td>
                 <td class="col-md-1">{{data.noOfDays}}</td>
                 <td class="col-md-1">{{data.leaveType}}</td>
-                <td class="col-md-2">{{data.appliedOn | date:'MMM d, y'}}</td>
+                <td class="col-md-2">{{data.appliedOn |date:'yyyy-MM-dd'}}</td>
                 <td class="col-md-2"><span
                         [ngClass]="{'redBadge': data.approvalStatus === 'Rejected', 'orangeBadge': data.approvalStatus === 'Pending' }"
                         class="badge">{{data.approvalStatus}}</span></td>
@@ -148,19 +147,19 @@
         <div class="modal-dialog">
             <div class="modal-content" [formGroup]="updateLeaveForm">
                 <div class="modal-header">
-                    <h6 class="modal-title text-white">LEAVE DETAILS</h6>
+                    <h6 class="modal-title text-white">EDIT LEAVE DETAILS</h6>
                     <button type="button" class="btn-close closebutton" (click)="showModal=false"></button>
                 </div>
 
                 <div class="modal-body scrollbar" id="style-1" style="padding: 2rem;">
                     <div class="row modalbody">
                         <div class="mb-3" style="display: none;">
-                            <label class=" form-label">Start Date</label>
+                            <label class=" form-label">Employee Id</label>
                             <input class="form-control" [ngModel]="employeeLeaveDetails?.employeeId"
                                 formControlName="employeeId">
                         </div>
                         <div class="mb-3" style="display: none;">
-                            <label class=" form-label">Start Date</label>
+                            <label class=" form-label">Leave Id</label>
                             <input class="form-control" [ngModel]="employeeLeaveDetails?.leaveId"
                                 formControlName="leaveId">
                         </div>
@@ -175,22 +174,35 @@
                                 formControlName="designation">
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">LeaveDay</label>
+                            <select class="form-select" [ngModel]="employeeLeaveDetails?.leaveDay"
+                                formControlName="leaveDay" (change)="changeDuration($event)">
+                                <option disabled selected value> -- select an option -- </option>
+                                <option value="Day">Day</option>
+                                <option value="HalfDay">HalfDay</option>
+                                <option value="Permission">Permission</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label class=" form-label">Applied On</label>
-                            <input class="form-control" [ngModel]="employeeLeaveDetails?.appliedOn"
-                                formControlName="appliedOn">
+                            <input type="date" class="form-control"
+                                [ngModel]="employeeLeaveDetails?.appliedOn|date:'yyyy-MM-dd'"
+                                (ngModelChange)="employeeLeaveDetails?.appliedOn" formControlName="appliedOn">
                         </div>
                         <div class="mb-3">
                             <label class=" form-label">Start Date</label>
-                            <input class="form-control" [ngModel]="employeeLeaveDetails?.startDate"
-                                formControlName="startDate">
+                            <input type="date" class="form-control"
+                                [ngModel]="employeeLeaveDetails?.startDate|date:'yyyy-MM-dd'"
+                                (ngModelChange)="employeeLeaveDetails?.startDate" formControlName="startDate">
                         </div>
                         <div class="mb-3">
                             <label class=" form-label">End Date</label>
-                            <input class="form-control" [ngModel]="employeeLeaveDetails?.endDate"
-                                formControlName="endDate">
+                            <input type="date" class="form-control"
+                                [ngModel]="employeeLeaveDetails?.endDate|date:'yyyy-MM-dd'"
+                                (ngModelChange)="employeeLeaveDetails?.endDate" formControlName="endDate">
                         </div>
                         <div class="mb-3">
-                            <label class=" form-label">No of Days</label>
+                            <label class=" form-label">Duration</label>
                             <input class="form-control" [ngModel]="employeeLeaveDetails?.noOfDays"
                                 formControlName="noOfDays">
                         </div>
@@ -205,19 +217,21 @@
                                 formControlName="reason">
                                 </textarea>
                         </div>
+
                         <div class="mb-3">
                             <label class=" form-label">Status</label>
                             <select class="form-select" class="form-control"
                                 [ngModel]="employeeLeaveDetails?.approvalStatus" formControlName="approvalStatus">
-                                <!-- <option disabled selected value> -- select an option -- </option> -->
+                              <option disabled selected value> -- select an option -- </option> 
                                 <option value="Pending">Pending</option>
+
                                 <option value="Apporved">Apporved</option>
                                 <option value="Rejected">Rejected</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <button class="btn btn-primary" style="float: right;" type="submit"
-                                (click)="updateLeaveDetails(updateLeaveForm.value)"> Submitted</button>
+                                (click)="updateLeaveDetails(updateLeaveForm.value)"> Submit</button>
                         </div>
                     </div>
                 </div>

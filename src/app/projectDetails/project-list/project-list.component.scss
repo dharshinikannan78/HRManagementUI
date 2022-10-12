@@ -1,6 +1,9 @@
 .card {
     border: none;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    // background-color: #C1EFFF;
+    // border-radius: 15px;
+    // box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
 .card-body {
     padding: 1.5rem;
@@ -30,6 +33,20 @@ img {
     flex-shrink: 0;
     box-shadow: 0 0 0 1px var(--color-avatar-border);
 }
+.editbadge {
+    background-color: rgba(125, 15, 236, 0.12) !important;
+    color: rgba(30, 4, 57, 0.12) #fff !important;
+    min-width: 100px;
+    padding: 9px 12px;
+    border-radius: 25px;
+    letter-spacing: 0.5px;
+    font-weight: 800;
+}
+// .editbadge:hover{
+//     color: #fff !important;
+//     background-color: rgba(37, 4, 69, 0.12) !important;
+
+// }
 .badge {
     background-color: rgba(45, 211, 111, 0.12);
     color: #28ba62;
@@ -42,7 +59,7 @@ img {
 
 .badge:hover {
     color: #fff !important;
-    background-color: grey !important;
+    background-color: rgb(30, 2, 64) !important;
 }
 
 .redBadge {
@@ -120,4 +137,45 @@ textarea {
 }
 .modalbody {
     padding: 1rem;
+}
+.accordion-item {
+    border: 1px solid #f3f1f5 !important;
+
+    // box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    // border-radius: 10px;
+    // border: none;
+}
+.accordion-item :focus {
+    outline: 0 !important;
+
+    // background-color: #f2f3f9;
+    // color: #b299db;
+    font-weight: 700;
+    // box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+.accordion-button {
+    // color: #636361;
+    color: #fff;
+    font-weight: 800;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+.accordion-body {
+    background-color: #e7f1ff;
+}
+input:focus {
+    box-shadow: none;
+    border: solid 1px #d2daff;
+}
+textarea:focus {
+    box-shadow: none;
+    border: solid 1px #d2daff;
+}
+select:focus {
+    box-shadow: none;
+    border: solid 1px #d2daff;
+}
+.badge1 {
+    background-color: rgba(238, 238, 238, 0.7) !important;
+    min-width: 100px;
 }

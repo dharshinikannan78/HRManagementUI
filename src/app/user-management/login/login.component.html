@@ -2,7 +2,22 @@
   <div class="container bg-light">
     <div class="row p-5 g-5">
       <div class="col-md-4 order-1">
-        <ng-container *ngIf="firstUser">
+        <ng-container *ngIf="state=='forgotPasword'">
+          <h1 class="mt-1 mb-3">Forgot Password</h1>
+          <p class="fs-6 text-muted mb-5">
+            Enter your email to reset your password
+          </p>
+          <div class="form-floating mb-3">
+            <input type="email" [(ngModel)]="ForgotMailId" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+            <span class="text-danger" *ngIf="!addUser.controls['oldPassword'].valid && 
+            addUser.controls['oldPassword']?.touched"> <b>Old Password</b> is required *</span>
+          </div>
+          <div class="mt-3">
+            <button (click)="submitForgotPassword()" class="btn btn-primary">Reset My Password</button>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="state=='ChangePassword'">
           <h1 class="mt-1 mb-4">Change Password</h1>
           <form [formGroup]="addUser" (ngSubmit)="submitChangedPassword(addUser.value)">
             <div class="mb-3">
@@ -28,7 +43,7 @@
             </div>
           </form>
         </ng-container>
-        <ng-container *ngIf="!firstUser">
+        <ng-container *ngIf="state=='login'">  <!----login---->
           <h1 class="mt-5 mb-5">Login</h1>
           <form [formGroup]="dologin" (ngSubmit)="getCredentails(dologin.value)">
             <div class="mb-3">
@@ -43,8 +58,13 @@
               <span class=" text-danger mt-1" *ngIf="!dologin.controls['password'].valid && 
             dologin.controls['password']?.touched"> <b>Password</b> is required *</span>
             </div>
+            <div class="mb-3">
+              <a (click)="forgotPassword()" style="text-decoration: none;" class="cursorP text-end">
+                <p><small>Forgot Password?</small></p>
+              </a>
+            </div>
             <button type="submit" (keyup.enter)="getCredentails(dologin.value)" class="btn btn-primary mt-5"
-              [ngClass]="{ 'is-invalid': submitted}" [disabled]="thisFormValid()">Submit</button>
+              [ngClass]="{ 'is-invalid': submitted}" [disabled]="thisFormValid()">Login</button>
             <div class="invalid-feedback mb-4 mt-4">
               Incorrect EmailId & Password
             </div>

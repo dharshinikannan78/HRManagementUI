@@ -9,10 +9,8 @@ import { UserServiceService } from '../service/user-service.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
- 
-isEmployee:boolean=true;
 
-
+  isEmployee: boolean = true;
   showNavContent: boolean;
   isNavOpen: boolean = true;
   step: any;
@@ -22,17 +20,16 @@ isEmployee:boolean=true;
     objectFit: "cover"
   };
   userService: any;
- 
+
   constructor(public router: Router, userService: UserServiceService, private api: ApiServiceService) {
     this.step = 'step1'
     // this.loggerName = userService.Name;
     this.loggerRole = userService.Role;
     this.getImageForNav();
-   
   }
- 
 
-  
+
+
 
   openNav() {
     let sidenav = document.getElementById("sideNav");
@@ -88,6 +85,9 @@ isEmployee:boolean=true;
   }
   forNav: any;
   getImageForNav() {
+    let role = localStorage.getItem('Role')
+    if (role == 'Admin') this.isEmployee = false;
+
     this.api.getEmployeeDetailsById(localStorage.getItem("EmployeeId")).subscribe((data: any) => {
       console.log(data, 'data');
       this.forNav = data;

@@ -606,5 +606,6 @@ export class EmployeeDetailsComponent implements OnInit {
     this.showModal = false;
     window.location.reload()
   }
+ 
 }
 

@@ -16,6 +16,7 @@ export class ProjectOverviewComponent implements OnInit {
 
     this.getKanbanDetails()
   }
+  public isChecked = false;
   EmployeeId: any = localStorage.getItem('EmployeeId');
   EmployeeTaskId: any = localStorage.getItem('EmployeeTaskId');
   ProjectId: any = localStorage.getItem('ProjectId');
@@ -98,7 +99,7 @@ export class ProjectOverviewComponent implements OnInit {
     console.log('getha')
     const data = {
       ...this.projectdetails,
-      ProjectStatus: "archived", isTaskArchieved: true
+      ProjectStatus: "archived", IsArchived: true
     }
     console.log(data, 'helo salman')
     this.api.updateProject(data).subscribe(data => {
@@ -199,9 +200,9 @@ export class ProjectOverviewComponent implements OnInit {
   IsTaskArchieved() {
     console.log('getha')
     const data = {
-      ...this.taskdetails[0],
-      taskStatus: "archived"
-    }
+      ...this.taskdetails[0][0],
+      taskStatus: "Archived", isTaskArchieved: true
+    };
     console.log(data, 'data geetha');
     this.api.updateTaskDeatils(data).subscribe(data => {
       console.log(data, 'data');
@@ -210,8 +211,21 @@ export class ProjectOverviewComponent implements OnInit {
         icon: 'success',
         timer: 1500
       });
-      // window.location.reload();
+      window.location.reload();
     });
+  }
+  IsSelectEmployee() {
+    const data = {
+      ...this.projectdetails,
+      EmployeeIds: 'helo',
+    };
+
+    this.api.updateProject(data).subscribe(data => {
+      console.log(data, 'salman')
+    })
+  }
+  getEmployeeIds(paramas: any) {
+    console.log(paramas, 'geetha')
   }
 }
 

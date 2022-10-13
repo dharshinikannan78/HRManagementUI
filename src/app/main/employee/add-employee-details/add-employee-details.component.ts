@@ -19,12 +19,13 @@ export class AddEmployeeDetailsComponent implements OnInit {
   fileList: any[] = [];
   loginAcess: string = 'none';
   createLogin: boolean = false;
+  createManager:boolean=false;
   resumeFormat: string[] = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'application/msword'];
   imageFormat: string[] = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
   attachmentIds: any = [];
   attachmentName: any = [];
 
-
+  userDetails:any;
   employeeDetail: any;
   constructor(private router: Router, private api: ApiServiceService) {
     this.formData = new FormData();
@@ -49,7 +50,8 @@ export class AddEmployeeDetailsComponent implements OnInit {
       designation: new FormControl('', Validators.required),
       joiningDate: new FormControl('', Validators.required),
       teamName: new FormControl('', Validators.required),
-      position: new FormControl('', Validators.required)
+      position: new FormControl('', Validators.required),
+      userId:new FormControl('')
     });
 
     // this.employeeDetail = new FormGroup({
@@ -134,7 +136,14 @@ export class AddEmployeeDetailsComponent implements OnInit {
       }
     }
   }
+  userLogin()
+  {
+    this.api.userlogin().subscribe((data:any)=>{
 
+this.userDetails=data;
+console.log(this.userDetails,"login")
+    });
+  }
   submit(employeeDetail: any) {
     console.log(this.loginAcess, "login access")
     if (this.step == 4)

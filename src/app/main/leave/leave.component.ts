@@ -41,16 +41,8 @@ today:string = moment().format('YYYY-MM-DD');
     
     employeeId: new FormControl('', Validators.required),
     leaveId: new FormControl('', Validators.required),
-    leaveDay: new FormControl('', Validators.required),
-    firstName: new FormControl('', Validators.required),
-    designation: new FormControl('', Validators.required),
-    appliedOn: new FormControl('', Validators.required),
-    startDate: new FormControl('', Validators.required),
-    endDate: new FormControl('', Validators.required),
-    noOfDays: new FormControl('', Validators.required),
-    leaveType: new FormControl('', Validators.required),
-    reason: new FormControl('', Validators.required),
-    approvalStatus: new FormControl(''),
+    approvalStatus: new FormControl('', Validators.required),
+    finalApproval:new FormControl('',Validators.required),
   });
 
   constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) {
@@ -145,9 +137,23 @@ today:string = moment().format('YYYY-MM-DD');
     console.log(event, 'event')
   }
 
-  updateLeaveDetails(updateLeaveForm: any) {
+  // updateLeaveDetails(updateLeaveForm: any) {
+  //   console.log('dataEmployee')
+  //   this.api.updateLeaveDetails(updateLeaveForm).subscribe(data => {
+  //     console.log(data, 'dataEmployee')
+  //     Swal.fire({
+  //       text: 'Updated Sucessfully!',
+  //       icon: 'success',
+  //       timer: 1000
+  //     });
+  //     this.showModal = false;
+  //     location.reload();
+
+  //   });
+  // }
+  updateLeaveDetails(id:any,updateLeaveForm: any) {
     console.log('dataEmployee')
-    this.api.updateLeaveDetails(updateLeaveForm).subscribe(data => {
+    this.api.updateLeaveDetails(this.EmployeeId,updateLeaveForm).subscribe(data => {
       console.log(data, 'dataEmployee')
       Swal.fire({
         text: 'Updated Sucessfully!',

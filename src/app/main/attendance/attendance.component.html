@@ -1,47 +1,30 @@
-<div class="clock">
-  <button type="button" *ngIf="check" class="btn btn-secondary" (click)="attendanceDetails(addAttendance.value)"
-    style="float:right;background: green;">
-    <div class="checkIn">
-      CheckIn
-    </div>
-    {{hour}}:{{minute}}:{{second}}:{{AMPM}}
-  </button>
-  <!-- <div *ngFor="let data of attendace">
-    {{data.attendanceId}} -->
-  
-  <button  type="button" *ngIf="!check" class="btn btn-secondary"
-    (click)="updateattendanceDetails(updateAttendance.value)" style="float:right;background: red;">
-    <div class="checkOut">
-      CheckOut
-    </div>
-    {{hour}}:{{minute}}:{{second}}:{{AMPM}}
-  </button>
-</div>
-
-
-<section class="tbl">
-  <div class="container">
-    <section class="px-4">
-      <table class="table">
+<section class="px-4 mt-5">
+    <h1>Attendance</h1>
+    <table class="table">
         <thead style="text-align: center;">
-          <tr class="thead">
-            <th scope="col">CheckIn</th>
-            <th scope="col">CheckOut</th>
-            <th scope="col">WorkDuration</th>
-          </tr>
+            <tr class="thead">
+                <th scope="col">Name</th>
+                <th scope="col">Desigination</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">AppliedOn</th>
+                <th scope="col">ApprovalStatus</th>
+            </tr>
         </thead>
-        <tbody style="text-align: center;">
-          <tr *ngFor="let item of attDetails ">
-            <td class="col-md-2">
-              {{item.inTime}}
-            </td>
-            <td class="col-md-2">
-              {{item.outTime}}
-            </td>
-            <td class="col-md-2">
-              {{item.workDuration}}
-            </td>
-          </tr>
+        <tbody>
+            <tr *ngFor="let data of attendanceDetails" style="text-align: center;">
+                <td class="col-md-2">{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
+                <td class="col-md-2"> {{data.designation}}</td>
+                <td class="col-md-2">{{data.inTime |date:'yyyy-MM-dd' }}</td>
+                <td class="col-md-2">{{data.outTime |date:'yyyy-MM-dd' }}</td>
+                <!-- <td class="col-md-1">{{data.noOfDays}}</td> -->
+                <!-- <td class="col-md-1">{{data.leaveType}}</td> -->
+                <td class="col-md-2">{{data.workDuration}}</td>
+                <td class="col-md-2"><span class="badge">{{data.status}}</span></td>
+                <!-- <td class="col-md-2"><span
+                        [ngClass]="{'redBadge': data.finalApproval === 'Rejected', 'orangeBadge': data.finalApproval === 'Pending' }"
+                        class="badge">{{data.finalApproval}}</span></td> -->
+            </tr>
         </tbody>
-      </table>
-    </section>
+    </table>
+</section>

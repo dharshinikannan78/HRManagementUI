@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <div class="row">
         <div class="col-6">
             <form [formGroup]="addProjectDetail">
@@ -28,4 +28,38 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
+
+<section>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 py-4 mt-5">
+            <div class="col" *ngFor="let data of isTaskData; let q = index;">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 mt-4">
+                                <b style=" color: #27122e;cursor: pointer;">
+                                    {{data.projectName}}</b> <br />
+                                <small class="text-muted">{{data.taskName}}</small><br />
+                                <small class="text-muted">Task Starts On &nbsp;
+                                    <b>{{data.startDate|
+                                        date:'MMM d y'}}</b> </small>
+                                <span class="badge badge1 shadow-sm text-success" style="float: right;"
+                                    [ngClass]="{'text-warning': data.priority === 'High', 'text-primary': data.priority === 'low'}">
+                                    <small>{{data.priority}}</small></span>
+
+                                <br />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>

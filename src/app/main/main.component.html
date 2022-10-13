@@ -18,7 +18,7 @@
             </li>
             <li class="cursorP" [ngClass]="{'active': step==='step2'}" data-bs-toggle="collapse" href="#collapseExample"
                 role="button" aria-expanded="false" aria-controls="collapseExample" (click)="step='step2'"
-                (click)="isNavOpen ? shortNav('/Employee'): 'none'" *ngIf="!isEmployee" >
+                (click)="isNavOpen ? shortNav('/Employee'): 'none'" *ngIf="!isEmployee">
                 <i class="fa-solid fa-user-gear"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Employee</p>
             </li>
@@ -38,25 +38,29 @@
                     </li>
                 </ul>
             </div>
-            <!-- <li [ngClass]="{'active': step==='step3'}" (click)="step='step3' ; shortNav('/attendance')" class="cursorP">
+            <li [ngClass]="{'active': step==='step3'}" (click)="step='step3' ; shortNav('/attendance')" class="cursorP">
                 <i class="fa-solid fa-display"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Attendance</p>
-            </li> -->
+            </li>
             <li [ngClass]="{'active': step==='step4'}" (click)="step='step4' ; shortNav('/leave')" class="cursorP">
                 <i class="fa-solid fa-person-walking-luggage"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Leave</p>
             </li>
-            <!-- <li [ngClass]="{'active': step==='step5'}" (click)="step='step5' ; shortNav('/projectDetails')"
-                class="cursorP">
+            <li [ngClass]="{'active': step==='step5'}" *ngIf="isEmployee"
+                (click)="step='step5' ; shortNav('/projectDetails')" class="cursorP">
                 <i class="fa-solid fa-sheet-plastic"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Project</p>
-            </li> -->
-            <li class="cursorP" [ngClass]="{'active': step==='step6'}" (click)="step='step6' ; shortNav('/list')">
+            </li>
+
+
+            <li class="cursorP" [ngClass]="{'active': step==='step6'}" *ngIf="!isEmployee"
+                (click)="step='step6' ; shortNav('/list')">
                 <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                     aria-controls="collapseExample" class="fa-solid fa-laptop-file"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">ProjectDetails</p>
             </li>
-            <li [ngClass]="{'active': step==='step5'}" (click)="step='step5'" class="cursorP" (click)="logout()">
+
+            <li [ngClass]="{'active': step==='step7'}" (click)="step='step5'" class="cursorP" (click)="logout()">
                 <i class="fa fa-power-off" aria-hidden="true"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">LogOut</p>
             </li>

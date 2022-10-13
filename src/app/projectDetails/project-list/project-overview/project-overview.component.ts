@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { da } from 'date-fns/locale';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { UserServiceService } from 'src/app/service/user-service.service';
 import Swal from 'sweetalert2';
@@ -14,9 +15,13 @@ export class ProjectOverviewComponent implements OnInit {
 
   constructor(private api: ApiServiceService, private route: ActivatedRoute, private router: Router, private userService: UserServiceService) {
 
-    this.getKanbanDetails()
+    this.getKanbanDetails();
+    // this.getEmployeeIds('');
   }
   public isChecked = false;
+  isAssigingTaskTo: any =[];
+  EmployeeIds: any = [];
+  employeelist: any
   EmployeeId: any = localStorage.getItem('EmployeeId');
   EmployeeTaskId: any = localStorage.getItem('EmployeeTaskId');
   ProjectId: any = localStorage.getItem('ProjectId');
@@ -25,6 +30,7 @@ export class ProjectOverviewComponent implements OnInit {
   employeName: any
   showModal: boolean = false;
   isshowModal: boolean = false;
+  isshowModalTask: boolean = false;
   customStyle = {
     objectFit: "cover",
     cursor: "pointer"
@@ -33,6 +39,7 @@ export class ProjectOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.getEmployeeName();
     this.getEmployeId('');
+    // this.getEmployeeDetailsForTask('');
 
   }
   taskDetails: any[];
@@ -127,6 +134,13 @@ export class ProjectOverviewComponent implements OnInit {
       console.log(this.projectdetails, "this.projectdetails")
       this.taskdetails = data.taskDetails;
       console.log(data, "hello from kanban")
+    });
+    this.api.getEmployeeListForProjext(id).subscribe(data => {
+      // this.userService.ProjectId = params;
+      // console.log(this.userService.ProjectId, 'geethaparams')
+      this.employeelist = data
+      console.log(data, 'geethaparams')
+
     })
   }
   getProjectId(params: any) {
@@ -215,17 +229,41 @@ export class ProjectOverviewComponent implements OnInit {
     });
   }
   IsSelectEmployee() {
+    console.log(this.EmployeeIds, 'EmployeeIds');
     const data = {
       ...this.projectdetails,
-      EmployeeIds: 'helo',
+      EmployeeIds: this.EmployeeIds.toString(),
     };
 
+    console.log(data, 'geetha');
     this.api.updateProject(data).subscribe(data => {
       console.log(data, 'salman')
+      Swal.fire({
+        text: 'Update Sucessfully!',
+        icon: 'success',
+        timer: 1500
+      });
+      window.location.reload();
     })
   }
-  getEmployeeIds(paramas: any) {
+  selectEmployeeIds(paramas: any) {
     console.log(paramas, 'geetha')
+    this.EmployeeIds.push(paramas);
+    console.log(paramas, 'geetha')
+  }
+  getEmployeeDetailsForTask(params: any) {
+    console.log(params, 'geethaparams')
+    this.api.getEmployeeListForProjext(params).subscribe(data => {
+      this.userService.ProjectId = params;
+      console.log(this.userService.ProjectId, 'geethaparams')
+      console.log(data, 'geethaparams')
+
+    })
+  }
+  getData(data: any) {
+    console.log(data, 'helo')
+    this.isAssigingTaskTo = data
+    console.log(this.isAssigingTaskTo, 'helo')
   }
 }
 

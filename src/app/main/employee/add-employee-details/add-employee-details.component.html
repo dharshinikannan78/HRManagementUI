@@ -69,6 +69,8 @@ employeeDetail.controls['gender']?.touched"> <b>Gender</b> is required *</span>
                         class="form-control">
                         <option disabled selected value> -- select an option -- </option>
                         <option value="Admin">Admin</option>
+                        <option value="Manager">Manager</option>
+                        <option value="TeamLead">TeamLead</option>
                         <option value="Employee">Employee</option>
                     </select>
                     <span class="text-danger" *ngIf="!employeeDetail.controls['gender'].valid && 
@@ -102,6 +104,22 @@ employeeDetail.controls['gender']?.touched"> <b>Gender</b> is required *</span>
                     <span class="text-danger" *ngIf="!employeeDetail.controls['employeeReferenceNo'].valid && 
                     employeeDetail.controls['employeeReferenceNo']?.touched"> <b>Employee Refernce Number</b> is
                         required *</span>
+                </div>
+                <div class="form-group col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" (change)="createManager = !createManager" type="checkbox"
+                            id="flexCheckCheck">
+                        <label class="form-check-label" for="flexCheckCheck">
+                            Select Reporting Manager
+                        </label>
+                    </div>
+                </div>
+                <div *ngIf="createLogin" class="form-group">
+                    <label class="form-label">Managers</label>
+                    <select formControlName="userId" class="form-select" class="form-control">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option *ngFor="let data of userDetails" [value]="data.userId">{{data.firstName}}</option>
+                    </select>
                 </div>
             </div>
             <div *ngIf="step==3" id="step3" class="row">

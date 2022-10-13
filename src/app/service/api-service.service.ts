@@ -46,7 +46,9 @@ export class ApiServiceService {
   kanbandetails = this.URL + 'ProjectDetails/GetTaskDetails?id=';
   allProjectDetails = this.URL + 'ProjectDetails/GetAllProjectDetails';
   resetPassword = this.URL + 'Login/ForgotPassword?Data=';
-  validateEmail = this.URL + 'Employee/ValidateEmail?data='
+  validateEmail = this.URL + 'Employee/ValidateEmail?data=';
+  employeeListForTask = this.URL + 'ProjectDetails/GetEmployeeDetails?projectIds='
+  userLogin = this.URL + "Login/GetLogin";
 
   constructor(private http: HttpClient) { }
 
@@ -65,11 +67,15 @@ export class ApiServiceService {
   getByProjectId(id: any) {
     return this.http.get(this.updateByProjectId + id)
   }
-
+  getEmployeeListForProjext(id: any) {
+    return this.http.get(this.employeeListForTask + id)
+  }
   getEmployeeName() {
     return this.http.get(this.employeeDetailsName)
   }
-
+  userlogin() {
+    return this.http.get(this.userLogin)
+  }
   getLogin(params: any) {
     return this.http.post(this.dologin, params)
   }
@@ -107,8 +113,8 @@ export class ApiServiceService {
   applyLeaveOn(params: any) {
     return this.http.post(this.applyLeave, params);
   }
-  updateLeaveDetails(paramas: any) {
-    return this.http.put(this.updateLeaveDetail, paramas);
+  updateLeaveDetails(id: any, paramas: any) {
+    return this.http.put(this.updateLeaveDetail + id, paramas);
   }
 
   getLeaveDetails(id: any) {

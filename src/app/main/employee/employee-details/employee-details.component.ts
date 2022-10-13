@@ -142,7 +142,7 @@ export class EmployeeDetailsComponent implements OnInit {
   getEmployeeDetailById(params: any) {
 
     this.api.getEmployeeDetailsById(this.EmployeeId).subscribe(data => {
-      if (this.userService.Role == "Employee") {
+      if (this.userService.Role == "Employee" || this.userService.Role == "Manager" || this.userService.Role == "TeamLead") {
         this.oneEmployee = true;
         this.employeeData = data
         console.log(params, 'params')
@@ -154,7 +154,7 @@ export class EmployeeDetailsComponent implements OnInit {
   }
   getAttendanceById(params: any) {
     this.api.getAttendanceDetailsById(this.EmployeeId).subscribe(data => {
-      if (this.userService.Role == "Employee") {
+      if (this.userService.Role == "Employee" || this.userService.Role == "Manager" || this.userService.Role == "TeamLead") {
         this.oneEmployee = true;
         console.log(this.userService.Role, 'this.userService.Role')
         this.employeeAttendance = data
@@ -165,7 +165,7 @@ export class EmployeeDetailsComponent implements OnInit {
   }
   getemployeeTaskDetail() {
     this.api.employeeTaskDetail(this.EmployeeId).subscribe(data => {
-      if (this.userService.Role == "Employee") {
+      if (this.userService.Role == "Employee" || this.userService.Role == "Manager" || this.userService.Role == "TeamLead") {
         this.oneEmployee = true;
         this.employeeTaskDetail = data
         console.log(data, 'paithjiyam geetha')
@@ -601,11 +601,11 @@ export class EmployeeDetailsComponent implements OnInit {
   next() {
     this.step = this.step + 1;
   }
-  
+
   CloseButton() {
     this.showModal = false;
     window.location.reload()
   }
- 
+
 }
 

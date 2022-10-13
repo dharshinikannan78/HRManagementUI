@@ -13,37 +13,51 @@ import Swal from 'sweetalert2';
   styleUrls: ['./project-details.component.scss']
 })
 export class ProjectDetailsComponent implements OnInit {
-  isOpen: boolean = true;
-  createdBy = this.userService.Name;
-  EmployeeId: any = localStorage.getItem('EmployeeId');
 
+  EmployeeId: string = localStorage.getItem('EmployeeId')
+  Role: string = localStorage.getItem('Role')
+  isTaskData: any;
+  isshowModal: boolean = false;
 
-  addProjectDetail: FormGroup = new FormGroup({
-    assiginedId: new FormControl(this.EmployeeId),
-    projectTitle: new FormControl(''),
-    projectName: new FormControl(''),
-    projectDescription: new FormControl(''),
-    createBy: new FormControl(this.createdBy),
+  updateTaskDetails: FormGroup = new FormGroup({
+    taskId: new FormControl(),
+    employeeId: new FormControl(),
+    projectId: new FormControl(),
+    taskName: new FormControl(),
+    taskDescription: new FormControl(),
+    taskStatus: new FormControl(),
+    assigingId: new FormControl(),
+    startDate: new FormControl(),
+    endDate: new FormControl(),
+    priority: new FormControl()
   });
-
   constructor(private api: ApiServiceService, private router: Router, private userService: UserServiceService) { }
 
   ngOnInit(): void {
+    this.getTaskDetails();
   }
-
-  open() {
-    this.isOpen = !this.isOpen;
+  getTaskDetails() {
+    this.api.employeeTaskDetail(this.EmployeeId).subscribe(data => {
+      this.isTaskData = data
+      console.log(data, 'geethatask')
+    })
   }
-  addProjectDetails(params: any) {
-    this.api.addProjectDetails(params).subscribe((data: any) => {
-      console.log(data, 'projectDetails');
+  UpdateTaskDetails(params: any) {
+    console.log(params, 'Geetha');
+    this.api.updateTaskDeatils(params).subscribe(data => {
+      console.log(data, 'data');
       Swal.fire({
-        text: 'Added Sucessfully!',
+        text: 'Update Sucessfully!',
         icon: 'success',
         timer: 1500
       });
-      // this.addProjectDetail.reset();
-      this.router.navigate(['taskDetails'])
+      window.location.reload();
     });
+  }
+  getTaskClick(paramas: any) {
+    console.log(paramas, 'params')
+    this.isTaskData = paramas;
+    this.isshowModal = true;
+    console.log(this.isTaskData, 'isTaskData')
   }
 }

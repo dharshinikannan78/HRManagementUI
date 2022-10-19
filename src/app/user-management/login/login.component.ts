@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
   ForgotMailId: string;
   firstUser: boolean = false;
   protected userData: any;
+
   getCredentails(form: any) {
     this.api.getLogin(form).subscribe((data: any): any => {
       this.userData = data;
@@ -53,6 +54,7 @@ export class LoginComponent implements OnInit {
         this.userService.EmployeeId = data.employeeId;
         this.userService.Role = data.role;
         this.userService.Name = data.firstName + ' ' + data.lastName;
+        this.userService.UserId = data.reportingId
         this.router.navigate(['main'], { replaceUrl: true });
       }
     }, (error: Response) => {
@@ -101,7 +103,8 @@ export class LoginComponent implements OnInit {
     }
     this.api.editUser(payload).subscribe(data => {
       console.log(data, "data from login edit");
-      this.router.navigate(['main'], { replaceUrl: true });
+      this.state = 'login';
+      this.router.navigate(['login'], { replaceUrl: true });
     });
   }
 

@@ -20,12 +20,14 @@ export class MainComponent {
     objectFit: "cover"
   };
   userService: any;
+  isSuperUser: boolean;
 
   constructor(public router: Router, userService: UserServiceService, private api: ApiServiceService) {
     this.step = 'step1'
     // this.loggerName = userService.Name;
     this.loggerRole = userService.Role;
     this.getImageForNav();
+    this.isSuperUser = userService.getRole();
   }
 
 
@@ -34,6 +36,7 @@ export class MainComponent {
   openNav() {
     let sidenav = document.getElementById("sideNav");
     let main = document.getElementById("main");
+
     if (window.innerWidth < 600) {
       console.log(window.innerWidth, "widhth")
       if (this.showNavContent == false) {
@@ -68,6 +71,7 @@ export class MainComponent {
   shortNav(params: string) {
     let sidenav = document.getElementById("sideNav");
     let main = document.getElementById("main");
+
     if (window.innerWidth < 600) {
       this.router.navigate([params]);
       sidenav.style.width = "0px";
@@ -83,14 +87,15 @@ export class MainComponent {
       this.showNavContent = true;
     }
   }
-  forNav: any;
+
+  forNav: any[] = [];
   getImageForNav() {
     let role = localStorage.getItem('Role')
     if (role == 'Admin') this.isEmployee = false;
 
     this.api.getEmployeeDetailsById(localStorage.getItem("EmployeeId")).subscribe((data: any) => {
-      console.log(data, 'data');
       this.forNav = data;
+      console.log(this.forNav, 'data');
       this.loggerName = data[0].firstName + ' ' + data[0].lastName;
     })
   }

@@ -2,10 +2,12 @@
     <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
         <div class="d-flex align-items-center justify-content-center">
             <div>
-                <ngx-avatar name="salman khan" class="margin-auto dflex" size="80" [style]="customStyle"></ngx-avatar>
+                <ngx-avatar [name]="loggerName" [src]="'https://localhost:44394/' + forNav[0]?.photoPath"
+                    class="margin-auto dflex" size="80" [style]="customStyle"></ngx-avatar>
                 <div class="d-flex pt-3 align-items-center justify-content-center">
-                    <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
-                        {{ loggerRole }}</h6>
+                    <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br/>
+                        {{ loggerRole }}
+                    </h6>
                 </div>
             </div>
         </div>
@@ -24,12 +26,6 @@
             </li>
             <div class="collapse" id="collapseExample" *ngIf="!isEmployee">
                 <ul [ngClass]="isNavOpen ? 'none': 'show'">
-                    <!-- <li class="cursorP" [ngClass]="{'active': step==='step5'}"
-                        (click)="step='step5' ; shortNav('addUser')">
-                        <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-                            aria-controls="collapseExample" class="fa-solid fa-user-plus"></i>
-                        <p [ngClass]="isNavOpen ? 'none': 'show'">Add User</p>
-                    </li> -->
                     <li class="cursorP" [ngClass]="{'active': step==='step6'}"
                         (click)="step='step6' ; shortNav('main/Employee/addEmployee')">
                         <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
@@ -39,31 +35,28 @@
                 </ul>
             </div>
             <li [ngClass]="{'active': step==='step3'}" (click)="step='step3' ; shortNav('/attendance')" class="cursorP">
-                <i class="fa-solid fa-display"></i>
+                <i class="fa-solid fa-calendar-days"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Attendance</p>
             </li>
             <li [ngClass]="{'active': step==='step4'}" (click)="step='step4' ; shortNav('/leave')" class="cursorP">
                 <i class="fa-solid fa-person-walking-luggage"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Leave</p>
             </li>
-            <li [ngClass]="{'active': step==='step5'}" *ngIf="isEmployee"
-                (click)="step='step5' ; shortNav('/projectDetails')" class="cursorP">
-                <i class="fa-solid fa-sheet-plastic"></i>
-                <p [ngClass]="isNavOpen ? 'none': 'show'">Project</p>
+            <li [ngClass]="{'active': step==='step10'}" *ngIf="isSuperUser"
+                (click)="step='step10' ; shortNav('/AdminAttendance')" class="cursorP">
+                <i class="fa-solid fa-filter"></i>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">Filter Reports</p>
             </li>
-
-
-            <li class="cursorP" [ngClass]="{'active': step==='step6'}" *ngIf="!isEmployee"
-                (click)="step='step6' ; shortNav('/list')">
+            <li class="cursorP" [ngClass]="{'active': step==='step6'}" (click)="step='step6' ; shortNav('/list')">
                 <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                     aria-controls="collapseExample" class="fa-solid fa-laptop-file"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">ProjectDetails</p>
             </li>
-
             <li [ngClass]="{'active': step==='step7'}" (click)="step='step5'" class="cursorP" (click)="logout()">
                 <i class="fa fa-power-off" aria-hidden="true"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">LogOut</p>
             </li>
+
         </ul>
     </div>
 </div>
@@ -77,7 +70,8 @@
             <div class="d-flex align-items-center">
                 <p class="m-0">{{ loggerName }}</p>
                 <a class="navbar-brand">
-                    <ngx-avatar [name]="loggerName" [style]="customStyle"></ngx-avatar>
+                    <ngx-avatar [name]="loggerName" [src]="'https://localhost:44394/' + forNav[0]?.photoPath"
+                        [style]="customStyle"></ngx-avatar>
                 </a>
             </div>
         </div>

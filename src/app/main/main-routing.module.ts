@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProjectDetailsComponent } from '../project-details/project-details.component';
 import { ProjectListComponent } from '../projectDetails/project-list/project-list.component';
 import { ProjectOverviewComponent } from '../projectDetails/project-list/project-overview/project-overview.component';
+import { AdminAttendanceDetailsComponent } from './admin-attendance-details/admin-attendance-details.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { LeaveComponent } from './leave/leave.component';
 import { MainComponent } from './main.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'projectDetails', component: ProjectDetailsComponent },
       { path: 'projectOverview/:id', component: ProjectOverviewComponent },
       { path: 'list', component: ProjectListComponent },
+      { path: 'AdminAttendance', component:AdminAttendanceDetailsComponent },
       { path: 'Employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule) },
       { path: '', redirectTo: 'Employee', pathMatch: 'full' },
     ]

@@ -2,6 +2,7 @@
   <div class="container bg-light">
     <div class="row p-5 g-5">
       <div class="col-md-4 order-1">
+        <!-- forgot password -->
         <ng-container *ngIf="state=='forgotPasword'">
           <h1 class="mt-1 mb-3">Forgot Password</h1>
           <p class="fs-6 text-muted mb-5">
@@ -17,24 +18,25 @@
             <button (click)="submitForgotPassword()" class="btn btn-primary">Reset My Password</button>
           </div>
         </ng-container>
+        <!-- change password -->
         <ng-container *ngIf="state=='ChangePassword'">
           <h1 class="mt-1 mb-4">Change Password</h1>
           <form [formGroup]="addUser" (ngSubmit)="submitChangedPassword(addUser.value)">
             <div class="mb-3">
               <label class="form-label">Old Password</label>
-              <input type="text" class="form-control mb-1" formControlName="oldPassword">
+              <input type="password" class="form-control mb-1" formControlName="oldPassword">
               <span class="text-danger" *ngIf="!addUser.controls['oldPassword'].valid && 
                         addUser.controls['oldPassword']?.touched"> <b>Old Password</b> is required *</span>
             </div>
             <div class="mb-3">
               <label class="form-label">New Password</label>
-              <input type="text" class="form-control mb-1" formControlName="newPassword">
+              <input type="password" class="form-control mb-1" formControlName="newPassword">
               <span class=" text-danger" *ngIf="!addUser.controls['newPassword'].valid && 
                         addUser.controls['newPassword']?.touched"> <b>New Password</b> is required *</span>
             </div>
             <div class="mb-3">
               <label class="form-label">Re-Enter New Password</label>
-              <input type="text" class="form-control mb-1" formControlName="reNewPassword">
+              <input type="password" class="form-control mb-1" formControlName="reNewPassword">
               <span class=" text-danger" *ngIf="!addUser.controls['reNewPassword'].valid && 
                         addUser.controls['reNewPassword']?.touched"> <b>This field</b> is required *</span>
             </div>

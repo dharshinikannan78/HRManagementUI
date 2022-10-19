@@ -12,32 +12,25 @@ export class AttendanceComponent implements OnInit {
 
   attendanceDetails: any;
   attendanceDetail: any;
-
+  isEmployee: boolean = true;
+  isTeamLead: boolean = true;
+  isManager: boolean = true;
+  isAdmin: boolean = true;
   EmployeeId: string = localStorage.getItem('EmployeeId')
   Role: string = localStorage.getItem('Role')
-
+  leaveData: any;
   constructor(private router: Router, private api: ApiServiceService) { }
 
   ngOnInit(): void {
-
     this.getAttendanceDetails();
   }
+
   getAttendanceDetails() {
-    if (this.Role == "Admin") {
-      this.api.getAttendanceDetailsById(this.EmployeeId).subscribe(data => {
-        this.attendanceDetails = data;
-        console.log(data, 'data')
+    this.api.getAttendanceDetailsById(this.EmployeeId).subscribe(data => {
+      this.attendanceDetails = data;
+      console.log(data, 'data')
 
-      });
-
-    } else if (this.Role == "Employee" || this.Role == "Manager" || this.Role == "TeamLead") {
-      this.api.getAttendanceDetailsById(this.EmployeeId).subscribe(data => {
-        this.attendanceDetails = data;
-        console.log(data, 'data')
-      });
-
-    }
-
+    });
   }
 }
 

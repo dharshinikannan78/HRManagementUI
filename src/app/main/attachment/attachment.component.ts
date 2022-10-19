@@ -20,7 +20,7 @@ export class AttachmentComponent implements OnInit {
     if (value) {
       console.log('CandidateId', this.attachmentId);
       this.attachmentDetails = value;
-      this.isCreate = true;
+     
     }
   }
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient) { }

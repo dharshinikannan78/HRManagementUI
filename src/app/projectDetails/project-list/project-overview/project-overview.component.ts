@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { da } from 'date-fns/locale';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { UserServiceService } from 'src/app/service/user-service.service';
 import Swal from 'sweetalert2';
@@ -13,15 +12,19 @@ import Swal from 'sweetalert2';
 })
 export class ProjectOverviewComponent implements OnInit {
 
+  @ViewChild('closeModal') closeModal: ElementRef
+  @ViewChild('AddTeamModal') AddTeamModal: ElementRef
+  @ViewChild('UpdatetaskModal') UpdatetaskModal: ElementRef
+
   constructor(private api: ApiServiceService, private route: ActivatedRoute, private router: Router, private userService: UserServiceService) {
 
     this.getKanbanDetails();
     // this.getEmployeeIds('');
   }
   public isChecked = false;
-  isAssigingTaskTo: any =[];
+  isAssigingTaskTo: any = [];
   EmployeeIds: any = [];
-  employeelist: any
+  employeelist: any[];
   EmployeeId: any = localStorage.getItem('EmployeeId');
   EmployeeTaskId: any = localStorage.getItem('EmployeeTaskId');
   ProjectId: any = localStorage.getItem('ProjectId');
@@ -36,10 +39,10 @@ export class ProjectOverviewComponent implements OnInit {
     cursor: "pointer"
   };
   particularDetails: any;
+  roleForRestrict: boolean;
   ngOnInit(): void {
-    this.getEmployeeName();
     this.getEmployeId('');
-    // this.getEmployeeDetailsForTask('');
+    this.roleForRestrict = this.userService.getRole()
 
   }
   taskDetails: any[];
@@ -50,12 +53,13 @@ export class ProjectOverviewComponent implements OnInit {
 
   addTaskDetail: FormGroup = new FormGroup({
     assigingId: new FormControl(this.EmployeeId),
-    employeeId: new FormControl(this.EmployeeTaskId),
-    projectId: new FormControl(this.ProjectId),
+    employeeId: new FormControl(),
+    projectId: new FormControl(),
     taskName: new FormControl(''),
     StartDate: new FormControl(''),
     EndDate: new FormControl(''),
     Priority: new FormControl(''),
+
     taskDescription: new FormControl(''),
     createBy: new FormControl(this.createdBy),
   });
@@ -84,173 +88,145 @@ export class ProjectOverviewComponent implements OnInit {
     endDate: new FormControl(),
     priority: new FormControl()
   });
-  // getTaskDetails() {
-  //   this.api.getprojectTaskDetails('xml').subscribe((data: any[]) => {
-  //     this.taskDetails = data;
-  //     console.log(data, "jhjhjhjhjh")
-  //     if (this.taskDetails.length > 3) {
-  //       this.teamOverflow = true;
-  //       this.count = this.taskDetails.length - 3;
-  //     }
-  //   })
-  // }
+
   kanban: any = [];
   projectdetails: any = [];
   taskdetails: any = [];
   listOfMembers: any = [];
-  image: any = [];
-
 
 
   IsArchieved() {
     console.log('getha')
     const data = {
       ...this.projectdetails,
-      ProjectStatus: "archived", IsArchived: true
+      IsArchived: true
     }
-    console.log(data, 'helo salman')
-    this.api.updateProject(data).subscribe(data => {
-      console.log(data,)
-      Swal.fire({
-        text: 'Move to Arichved!!!',
-        confirmButtonText: "Ok",
-        icon: 'success',
-        timer: 1000
+    Swal.fire({
+      title: "Are you sure want to Archive ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Move to Archive'
+    }).then((result) => {
+      this.api.updateProject(data).subscribe(data => {
+        Swal.fire({
+          text: 'Move to Arichved!!!',
+          confirmButtonText: "Ok",
+          icon: 'success',
+          timer: 1000
+        });
+        this.router.navigate(['list']);
       });
-      // this.showModal == false;
-      // this.getKanbanDetails()
-      this.router.navigate(['list']);
-    });
-  }
+    })
 
+  }
+  empIdForRestr: number;
   getKanbanDetails() {
     let id = this.route.snapshot.paramMap.get('id')
-    this.api.kanbanTaskDetails(id).subscribe((data: any) => {
+    if (this.userService.Role != 'Admin' && this.userService.Role != 'Manager') { this.empIdForRestr = this.EmployeeId }
+    this.api.kanbanTaskDetails(id, this.empIdForRestr).subscribe((data: any) => {
       this.kanban = data;
-      console.log(data, "task details new")
-      this.image = data.image;
-      console.log(this.image, 'image')
+      console.log(data, "checking for epl id")
       this.projectdetails = data.details[0];
-      console.log(this.projectdetails, "this.projectdetails")
       this.taskdetails = data.taskDetails;
-      console.log(data, "hello from kanban")
     });
-    this.api.getEmployeeListForProjext(id).subscribe(data => {
-      // this.userService.ProjectId = params;
-      // console.log(this.userService.ProjectId, 'geethaparams')
-      this.employeelist = data
-      console.log(data, 'geethaparams')
+    this.addTaskDetail.controls['projectId'].setValue(id);
+    this.loadTeamList();
+  }
 
-    })
-  }
-  getProjectId(params: any) {
-    this.userService.ProjectId = params;
-    console.log(params, 'id')
-    // this.projectId = params;
-    console.log(params, 'id')
-  }
-  getEmployeeName() {
-    this.api.getEmployeeName().subscribe(data => {
-      console.log(data, 'nameData')
-      this.employeName = data;
-      console.log(this.employeName, 'name')
+  loadTeamList() {
+    let id = this.route.snapshot.paramMap.get('id')
+    this.api.getEmployeeListForProjext(id).subscribe((data: any) => {
+      this.employeelist = data
+      if (this.employeelist.length > 3) {
+        this.teamOverflow = true;
+        this.count = this.employeelist.length - 3;
+      }
     });
   }
+
+  getEmployeeName = (params: number) => this.api.getallEmployeeDetailsWithPhoto(params).subscribe(data => this.employeName = data);
+
 
   getEmployeId(paramas: any) {
     console.log(paramas, 'params')
     this.userService.EmployeeTaskId = paramas;
-    // this.router.navigate(['taskDetails']);
-    console.log(this.userService.EmployeeTaskId, 'this.userService.EmployeeTaskId')
   }
+
   addTaskDetails(params: any) {
     this.api.addTaskDetails(params).subscribe((data: any) => {
-      console.log(data, 'projectDetails');
-      // this.addProjectDetail.reset();
       Swal.fire({
         text: 'Added Sucessfully!',
         icon: 'success',
         timer: 1500
       });
-      window.location.reload();
+      this.closeModal.nativeElement.click();
+      this.getKanbanDetails();
     });
   }
+
   getProjectClick(params: any) {
     this.isProjectdata = params;
-    console.log(this.isProjectdata, 'Geetha');
     this.showModal = true;
-    console.log(params, 'Salman');
   }
-  updateProject(params: any) {
-    this.api.updateProject(params).subscribe(data => {
-      console.log(data,)
-      Swal.fire({
-        text: 'Update Sucessfully!',
-        icon: 'success',
-        timer: 1500
-      });
-      // this.getProjectDetails('');
-      window.location.reload();
-    });
-  }
+
   getTaskClick(params: any) {
-    console.log(params, 'params')
     this.isTaskData = params;
-    this.isshowModal = true;
-    console.log(this.isTaskData, 'isTaskData')
   }
+
   UpdateTaskDetails(params: any) {
-    console.log(params, 'Geetha');
     this.api.updateTaskDeatils(params).subscribe(data => {
-      console.log(data, 'data');
       Swal.fire({
         text: 'Update Sucessfully!',
         icon: 'success',
         timer: 1500
       });
-      window.location.reload();
+      this.UpdatetaskModal.nativeElement.click();
+      this.getKanbanDetails();
     });
   }
+
   IsTaskArchieved() {
     console.log('getha')
     const data = {
       ...this.taskdetails[0][0],
-      taskStatus: "Archived", isTaskArchieved: true
+      isTaskArchieved: true
     };
-    console.log(data, 'data geetha');
-    this.api.updateTaskDeatils(data).subscribe(data => {
-      console.log(data, 'data');
-      Swal.fire({
-        text: 'Update Sucessfully!',
-        icon: 'success',
-        timer: 1500
+    Swal.fire({
+      title: "Are you sure want to Archive ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Move to Archive'
+    }).then((result) => {
+      this.api.updateTaskDeatils(data).subscribe(data => {
+
+        Swal.fire({
+          text: 'Archived Sucessfully!',
+          icon: 'success',
+          timer: 1000
+        });
+        this.getKanbanDetails();
       });
-      window.location.reload();
     });
   }
-  IsSelectEmployee() {
-    console.log(this.EmployeeIds, 'EmployeeIds');
-    const data = {
-      ...this.projectdetails,
-      EmployeeIds: this.EmployeeIds.toString(),
-    };
 
-    console.log(data, 'geetha');
-    this.api.updateProject(data).subscribe(data => {
+  IsSelectEmployee() {
+    let ProjId = this.route.snapshot.paramMap.get('id');
+    this.api.AddPeopleToProject(Number(ProjId), this.EmployeeIds).subscribe(data => {
       console.log(data, 'salman')
       Swal.fire({
         text: 'Update Sucessfully!',
         icon: 'success',
         timer: 1500
       });
-      window.location.reload();
+      this.AddTeamModal.nativeElement.click();
+      this.loadTeamList();
     })
   }
-  selectEmployeeIds(paramas: any) {
-    console.log(paramas, 'geetha')
-    this.EmployeeIds.push(paramas);
-    console.log(paramas, 'geetha')
-  }
+
+  selectEmployeeIds = (paramas: any) => this.EmployeeIds.push(paramas);
+
   getEmployeeDetailsForTask(params: any) {
     console.log(params, 'geethaparams')
     this.api.getEmployeeListForProjext(params).subscribe(data => {

@@ -729,30 +729,6 @@ main {
     padding: 0px;
 }
 
-.accordion:focus {
-    outline: 0 !important;
-}
-
-.accordion-item {
-    border: 0.1px solid #eeeeee;
-}
-.accordion-item :focus {
-    outline: 0 !important;
-    // background-color: #f2f3f9;
-    // color: #25316d;
-    color: #6f38c5;
-    font-weight: 800;
-    // box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
-}
-
-.accordion-button {
-    background-color: #ffffff;
-    color: #957fb8;
-    font-weight: 800;
-    border: none;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-}
-
 .step-wizard-list {
     color: #333;
     list-style: none;
@@ -890,4 +866,15 @@ h4 {
 .taskRow {
     max-height: 450px;
     overflow: auto;
+}
+.accordion-button {
+    font-weight: 800;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+.accordion-body {
+    background-color: #e7f1ff;
+}
+.accordion-item {
+    border: 1px solid #f3f1f5 !important;
 }

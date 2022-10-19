@@ -1,4 +1,6 @@
-import { ComponentFactoryResolver, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { of } from "rxjs";
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,7 @@ export class UserServiceService {
   _employeeTaskId: any;
   _team: any
   _check: any;
+
   constructor() { }
 
 
@@ -26,6 +29,7 @@ export class UserServiceService {
     localStorage.setItem('userName', user);
     this._user = user;
   }
+
   isValid = () => {
     const user = localStorage.getItem('userName');
     if (!user) {
@@ -66,7 +70,7 @@ export class UserServiceService {
     localStorage.setItem('AttendanceId', id);
     this.attendanceId = id;
   }
-  
+
   get InTime(): any {
     return this._inTime;
   }
@@ -92,7 +96,7 @@ export class UserServiceService {
   }
 
   get UserId(): any {
-    return localStorage.getItem('UserId');
+    return this._userId;
   }
   set UserId(Id: any) {
     localStorage.setItem('UserId', Id);
@@ -118,5 +122,18 @@ export class UserServiceService {
   getAttendanceId(): any {
     return this.attendanceId;
   }
-
+  setUserId(params: any) {
+    this._userId = params;
+  }
+  getUserId(): any {
+    return this._userId;
+  }
+  getRole(): boolean {
+    if (this.Role == 'Admin' || this.Role == 'Manager') return true;
+    return false;
+  }
+  getAdminOnlyRole(): boolean {
+    if (this.Role == 'Admin') return true;
+    return false;
+  }
 }

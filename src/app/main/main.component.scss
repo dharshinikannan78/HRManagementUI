@@ -29,6 +29,9 @@ ul li p {
 
 ul li i {
     min-width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .menuList {

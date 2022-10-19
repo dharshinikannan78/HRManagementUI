@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,20 +15,21 @@ export class ApiServiceService {
   attendanceDetails = this.URL + 'Attendance/AttendanceDetails?data=';
   editUserCredentials = this.URL + 'Login/EditLogin';
   employeeDetailsName = this.URL + 'Employee/AllEmployee';
-  allEmployeeDetails = this.URL + 'Employee/GetEmployeeDetails';
+  allEmployeeDetailsWithPhoto = this.URL + 'Employee/getEmployeeDetailsWithPhoto?projId=';
+  GetallEmployeesName = this.URL + 'Employee/getEmployeesName';
   addemployeeDetail = this.URL + 'Employee/AddEmployee?login=';
   updateEmployeeDetail = this.URL + 'Employee/Update';
   uploadFile = this.URL + 'FileAttachment/Attachment';
   attachmentFileDetails = this.URL + 'FileAttachment/GetAttachmentDetails?candidateId=';
   applyLeave = this.URL + 'Leave/ApplyLeave';
-  getEmployeeDetailById = this.URL + 'Employee/GetEmployeeDetailsById?id='
+  getEmployeeDetailById = this.URL + 'Employee/GetEmployeeDetailsById?id=';
   employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
   getUser = this.URL + 'Employee/GetUser?data=';
-  getLeave = this.URL + 'Leave/GetLeave?data=';
+
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
   attendance = this.URL + 'Attendance/AddAttendance';
   updAttendance = this.URL + 'Attendance/updateAttendance';
-  updateLeaveDetail = this.URL + 'Leave/UpdateLeaveDetails'
+
   taskDetails = this.URL + 'TaskDetails/AddTaskDeatils';
   getEmployeeTaskDetails = this.URL + 'TaskDetails/taskDetailsForProfile?EmployeeId=';
   getTeamTaskDetails = this.URL + 'TaskDetails/employeeId?id=';
@@ -40,15 +42,22 @@ export class ApiServiceService {
   getTaskDetailsById = this.URL + 'TaskDetails/EmployeeId?EmployeeId=';
   updateByProjectId = this.URL + 'ProjectDetails/ProjectId?projectId=';
   updateByTaskDetails = this.URL + 'TaskDetails/Update';
-  deleteEmployee = this.URL + "Employee/DeleteEmployee?Id="
+  deleteEmployee = this.URL + "Employee/DeleteEmployee?Id=";
   // jwtToken = this.URL + "jwt";
   getOverAllAttendance = this.URL + 'Attendance/AllAttendance';
   kanbandetails = this.URL + 'ProjectDetails/GetTaskDetails?id=';
-  allProjectDetails = this.URL + 'ProjectDetails/GetAllProjectDetails';
+  allProjectDetails = this.URL + 'ProjectDetails/GetAllProjectDetails?EmpId=';
   resetPassword = this.URL + 'Login/ForgotPassword?Data=';
   validateEmail = this.URL + 'Employee/ValidateEmail?data=';
-  employeeListForTask = this.URL + 'ProjectDetails/GetEmployeeDetails?projectIds='
-  userLogin = this.URL + "Login/GetLogin";
+  employeeListForTask = this.URL + 'ProjectDetails/GetAddedEmpToProject?id=';
+  userLogin = this.URL + "Login/GetLoginDetails";
+  addPeopleToProject = this.URL + 'ProjectDetails/AddEmployeeToProject?ProjId=';
+  updateLeaveDetail = this.URL + 'Leave/UpdateLeaveDetails?id='
+  getLeave = this.URL + 'Leave/GetLeave?data=';
+  getLeaveByID = this.URL + 'Leave/GetLeaveById?id=';
+  filter = this.URL + "Attendance/FilteredItems?id=";
+  GetLeaveStatus = this.URL + 'Leave/GetLeaveStatus?id=';
+  GetEmpDetailsForEdit = this.URL + 'Employee/getIndividualEmployeeDetailsById?id=';
 
   constructor(private http: HttpClient) { }
 
@@ -64,18 +73,23 @@ export class ApiServiceService {
   getAttendanceDetailsById(id: any) {
     return this.http.get(this.attendanceDetails + id)
   }
+
   getByProjectId(id: any) {
     return this.http.get(this.updateByProjectId + id)
   }
+
   getEmployeeListForProjext(id: any) {
     return this.http.get(this.employeeListForTask + id)
   }
+
   getEmployeeName() {
     return this.http.get(this.employeeDetailsName)
   }
+
   userlogin() {
     return this.http.get(this.userLogin)
   }
+
   getLogin(params: any) {
     return this.http.post(this.dologin, params)
   }
@@ -83,95 +97,147 @@ export class ApiServiceService {
   addUser(params: any) {
     return this.http.post(this.addUserCredentials, params)
   }
+
   editUser(params: any) {
     return this.http.post(this.editUserCredentials, params)
   }
+
   addemployeeDetails(createLogin: string, params: any) {
     return this.http.post(this.addemployeeDetail + createLogin, params)
   }
-  getallEmployeeDetails() {
-    return this.http.get(this.allEmployeeDetails);
+
+  getallEmployeeDetailsWithPhoto(id: number) {
+    return this.http.get(this.allEmployeeDetailsWithPhoto + id);
   }
+  getallEmployeesName() {
+    return this.http.get(this.GetallEmployeesName);
+  }
+
   getUserDetails(data: any, team: any) {
     return this.http.get(this.getUser + data);
   }
+
   updateEmployeeDetails(paramas: any) {
     return this.http.put(this.updateEmployeeDetail, paramas);
   }
+
   updateProject(paramas: any) {
     return this.http.put(this.updateProjectDetails, paramas);
   }
+
   updateTaskDeatils(paramas: any) {
     return this.http.put(this.updateByTaskDetails, paramas);
   }
+
   uploadFileAttachment(params: any) {
     return this.http.post(this.uploadFile, params);
   }
+
   getAttachmentDetail(candidateId: any) {
     return this.http.get(this.attachmentFileDetails + candidateId);
   }
+
   applyLeaveOn(params: any) {
     return this.http.post(this.applyLeave, params);
   }
-  updateLeaveDetails(id: any, paramas: any) {
-    return this.http.put(this.updateLeaveDetail + id, paramas);
+
+  updateLeaveDetails(id: any, res: any, paramas: any) {
+    return this.http.put(this.updateLeaveDetail + id + '&response=' + res, paramas);
   }
 
-  getLeaveDetails(id: any) {
-    return this.http.get(this.getLeave + id);
+  getLeaveDetails(id: any, params: any) {
+    return this.http.get(this.getLeave + id + '&reportId=' + params);
   }
+
   addAttendance(params: any) {
     return this.http.post(this.attendance, params);
   }
+
   updateAttendance(params: any) {
     return this.http.put(this.updAttendance, params);
   }
+
   getAttendanceDetails(id: any) {
     return this.http.get(this.getAttendance + id);
   }
+
   addTaskDetails(params: any) {
     return this.http.post(this.taskDetails, params);
   }
+
   employeeTaskDetail(employeeId: any) {
     return this.http.get(this.getEmployeeTaskDetails + employeeId);
   }
+
   getAllEmployeeDetails(employeeId: any) {
     return this.http.get(this.getTeamTaskDetails + employeeId);
   }
+
   getTeamLeaders(params: any) {
     return this.http.get(this.getTeamLeader + params);
   }
+
   addProjectDetails(params: any) {
     return this.http.post(this.addProjectDetail, params);
   }
+
   projectDetails(params: any) {
     return this.http.get(this.getProjectDetails + params);
   }
+
   getProjectTeamMembers(params: any) {
     return this.http.get(this.getProjectMembers + params);
   }
+
   getprojectTaskDetails(params: any): Observable<any> {
     return this.http.get(this.getTaskDetails + params);
   }
+
   getEmployeeDetailsById(params: string) {
     return this.http.get(this.getEmployeeDetailById + params);
   }
+
   getTaskDetailById = (params: any) => {
     return this.http.get(this.getTaskDetailsById + params);
   }
+
   deleteUser(id: any) {
     return this.http.delete(this.deleteEmployee + id)
   }
-  kanbanTaskDetails(id: any) {
-    return this.http.get(this.kanbandetails + id)
+
+  kanbanTaskDetails(id: any, empId?: number) {
+    if (empId) return this.http.get(this.kanbandetails + id + '&EmpId=' + empId);
+    return this.http.get(this.kanbandetails + id);
   }
-  getAllProjectDetails() {
+
+  getAllProjectDetails(id?: number) {
+    if (id) return this.http.get(this.allProjectDetails + id);
     return this.http.get(this.allProjectDetails);
   }
+
   ResetPassword(params: string) {
     return this.http.get(this.resetPassword + params);
   }
+
   ValidateEmail(params: string) {
     return this.http.get(this.validateEmail + params, { responseType: 'text' });
   }
+
+  AddPeopleToProject(ProjId: number, EmpIds: string) {
+    return this.http.get(this.addPeopleToProject + ProjId + '&EmpIds=' + EmpIds);
+  }
+
+  GetEmployeeLeave(id: any) {
+    return this.http.get(this.getLeaveByID + id)
+  }
+  getFilter(id: any, params: any) {
+    return this.http.post(this.filter + id, params)
+  }
+  getLeaveStatus(id: number) {
+    return this.http.get(this.GetLeaveStatus + id);
+  }
+  getEmpDetailsForEdit(id: number) {
+    return this.http.get(this.GetEmpDetailsForEdit + id)
+  }
+
 }

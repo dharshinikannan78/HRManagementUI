@@ -1,7 +1,7 @@
 <section class="px-4 mt-5">
-    <h1>Attendance</h1>
+    <h3 class="text-center mb-4">Attendance</h3>
     <table class="table">
-        <thead style="text-align: center;">
+        <thead class="text-center text-dark">
             <tr class="thead">
                 <th scope="col">Name</th>
                 <th scope="col">Desigination</th>
@@ -12,6 +12,9 @@
             </tr>
         </thead>
         <tbody>
+            <tr *ngIf="attendanceDetails?.length == 0" class="text-center">
+                <td colspan="100%">No Data Found</td>
+            </tr>
             <tr *ngFor="let data of attendanceDetails" style="text-align: center;">
                 <td class="col-md-2">{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
                 <td class="col-md-2"> {{data.designation}}</td>

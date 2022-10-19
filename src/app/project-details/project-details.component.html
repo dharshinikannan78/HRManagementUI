@@ -1,35 +1,3 @@
-<!-- <div class="container mt-5">
-    <div class="row">
-        <div class="col-6">
-            <form [formGroup]="addProjectDetail">
-                <div class="mb-3">
-                    <label class=" form-label">Project Name</label>
-                    <select class="form-select" class="form-control" formControlName="projectName">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="E-pub">E-pub</option>
-                        <option value="XML">XML</option>
-                        <option value="Table">Table</option>
-                        <option value="SoftWare">SoftWare</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class=" form-label">Project Title</label>
-                    <input class="form-control" formControlName="projectTitle">
-                </div>
-                <div class="mb-3">
-                    <label class=" form-label">Project Description</label>
-                    <textarea class="form-control" formControlName="projectDescription"></textarea>
-                </div>
-                <div class="mb-3">
-                    <button type="button" (click)="addProjectDetails(addProjectDetail.value)"
-                        class="btn btn-primary mt-3">Task
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> -->
-
 <section>
     <div class="container">
         <div class="row row-cols-1 row-cols-md-3 py-4 mt-5">
@@ -47,18 +15,11 @@
                                 <span class="badge badge1 shadow-sm text-success" style="float: right;"
                                     [ngClass]="{'text-warning': data.priority === 'High', 'text-primary': data.priority === 'low'}">
                                     <small>{{data.priority}}</small></span>
-
                                 <br />
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
-
-
             </div>
         </div>
     </div>

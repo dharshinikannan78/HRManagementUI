@@ -1,4 +1,4 @@
-<section class="attendance">
+<section *ngIf="!getAdminOnlyRole" class="attendance">
     <div class="container">
         <div class="clock py-4 text-end">
             <button type="button" *ngIf="check" class="btn btn-secondary"
@@ -19,15 +19,11 @@
     </div>
 </section>
 
-
-
-
 <section class="pb-3" *ngIf="oneEmployee">
     <div class="container">
         <!-- employee details -->
         <div class="row my-5">
             <div class="rounded-4 bg-white shadow col-md-4">
-
                 <div class="row">
                     <div class="col-12">
                         <div class="card py-3" *ngFor="let data of employeeData">
@@ -129,25 +125,35 @@
                 </h5>
                 <div class="row">
                     <div class="col-12">
-                        <div class="card py-4">
+                        <div class="card pb-4">
                             <table class="table">
                                 <thead style="text-align: center;">
                                     <tr class="thead">
                                         <th scope="col">Name</th>
+                                        <th scope="col">Date</th>
                                         <th scope="col">InTime</th>
                                         <th scope="col">OutTime</th>
                                         <th scope="col">WorkDuration</th>
                                         <th scope="col">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let data of employeeAttendance" class="text-center">
-                                    <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.firstName}}</td>
-                                    <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.inTime}}</td>
-                                    <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.outTime}}</td>
-                                    <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.workDuration}}</td>
-                                    <td class="col-md-2 py-2 ms-2" style="border: none;"><span
-                                            class="badge">{{data.status}}</span>
-                                    </td>
+                                <tbody>
+                                    <tr *ngIf="employeeAttendance?.length == 0" class="text-center">
+                                        <td colspan="100%">No Data Found</td>
+                                    <tr *ngFor="let data of employeeAttendance" class="text-center">
+                                        <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.firstName}}</td>
+                                        <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.date |
+                                            date:'mediumDate'}}</td>
+                                        <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.inTime |
+                                            date:'shortTime'}}</td>
+                                        <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.outTime == null?
+                                            0:data.outTime |
+                                            date:'shortTime'}}</td>
+                                        <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.workDuration}}</td>
+                                        <td class="col-md-2 py-2 ms-2" style="border: none;"><span
+                                                class="badge">{{data.status}}</span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -157,6 +163,11 @@
                         <h5 class="p-3">
                             Task Details
                         </h5>
+                        <div *ngIf="employeeTaskDetail?.length == 0" class="container text-center">
+                            <p>
+                                No Data Found
+                            </p>
+                        </div>
                         <div class="card overflow-hidden">
                             <div class="row g-4 p-4 taskRow position-relative">
                                 <div class="col-6" *ngFor="let data of employeeTaskDetail">
@@ -189,81 +200,73 @@
 </section>
 
 
-
-
-
-
 <section class="oneEmployee" *ngIf="!oneEmployee">
-
-    <div class="accordion container" id="employeeDetails">
-        <div class="accordion-item mt-3 mb-3" *ngFor="let data of isData; let i = index">
-            <h2 class="accordion-header" id="headingOne{{i}}">
-                <button class="accordion-button collapsed "
-                    style="display: flex;justify-content: center;text-align: center; " type="button"
-                    data-bs-toggle="collapse" attr.data-bs-target="#collapseOne{{i}}" aria-expanded="false"
-                    attr.aria-controls="collapseOne{{i}}">
-                    {{data[0].teamName}}
-                </button>
-            </h2>
-
-            <div id="collapseOne{{i}}" class="accordion-collapse collapse" attr.aria-labelledby="headingOne{{i}}"
-                data-bs-parent="#employeeDetails">
-
-
-
-                <div class="accordion-body">
-                    <div class="container" id="Employeedata">
-                        <ng-container>
-                            <div class="row">
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-4 h-100" *ngFor="let data of isData[i]">
-                                    <div class="row mb-5 g-4 bg-forrow">
-                                        <div>
-                                            <div class="card h-40">
-                                                <div class="card-body position-relative">
-                                                    <div class="row justify-content-center">
-                                                        <div class="col-2 mt-2">
-                                                            <ngx-avatar size="40" [style]="customStyle"
-                                                                [name]="data.firstName + ' ' + data.lastName"
-                                                                [src]="'https://localhost:44394/' + data.photoPath"
-                                                                class="card-img-top" alt="..."
-                                                                (click)="getEmployeeDetails(data)"></ngx-avatar>
-
-                                                        </div>
-                                                        <div class="col-8 mt-2">
-                                                            <b
-                                                                style="color: #323232;">{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</b>
-                                                            <br />
-                                                            <small class="text-muted">{{data.designation}}</small>
-                                                        </div>
-                                                        <div class="col-2 mt-3">
-                                                            <div class="deleteButton btn"
-                                                                (click)="deleteEmployeedetails(data.employeeId,data.firstName)">
-                                                                <i class="fa-solid fa-trash-can"></i>
+    <div class="container">
+        <div class="accordion" id="accordionExample1">
+            <div class="accordion-item mt-3 mb-3" *ngFor="let data of isData; let i = index;">
+                <h2 class="accordion-header" id="headingOne1{{i}}">
+                    <button class="accordion-button text-dark" [ngClass]=" i!=0 ? 'collapsed' : ''" type="button"
+                        data-bs-toggle="collapse" attr.data-bs-target="#collapseOne1{{i}}" aria-expanded="true"
+                        attr.aria-controls="collapseOne1{{i}}">
+                        {{ data[0].teamName }}
+                    </button>
+                </h2>
+                <div id="collapseOne1{{i}}" [ngClass]=" i==0 ? 'show' : ''" class="accordion-collapse collapse"
+                    attr.aria-labelledby="headingOne1{{i}}" data-bs-parent="#accordionExample1">
+                    <div class="accordion-body">
+                        <div class="container" id="Employeedata">
+                            <ng-container>
+                                <div class="row">
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-4 h-100" *ngFor="let data of isData[i]">
+                                        <div class="row mb-5 g-4 bg-forrow">
+                                            <div>
+                                                <div class="card h-40">
+                                                    <div class="card-body position-relative">
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-2 mt-2">
+                                                                <ngx-avatar size="40" [style]="customStyle"
+                                                                    [name]="data.firstName + ' ' + data.lastName"
+                                                                    [src]="'https://localhost:44394/' + data.photoPath"
+                                                                    class="card-img-top" data-bs-toggle="modal"
+                                                                    data-bs-target="#editEmpModal"
+                                                                    (click)="getEmployeeDetails(data.employeeId)">
+                                                                </ngx-avatar>
+                                                            </div>
+                                                            <div class="col-8 mt-2">
+                                                                <b
+                                                                    style="color: #323232;">{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</b>
+                                                                <br />
+                                                                <small class="text-muted">{{data.designation}}</small>
+                                                            </div>
+                                                            <div class="col-2 mt-3">
+                                                                <div class="deleteButton btn"
+                                                                    (click)="deleteEmployeedetails(data.employeeId,data.firstName)">
+                                                                    <i class="fa-solid fa-trash-can"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </ng-container>
+                            </ng-container>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal h-100" [style.display]="showModal ? 'block' : 'none'">
-        <div class="modal-dialog modal-lg h-100">
-            <div class="modal-content" [formGroup]="employeeDetail">
-                <div class="modal-header text-center">
-                    <h3 class="modal-title text-white"> EDIT EMPLOYEE DETAILS</h3>
-                    <button type="button" class="btn-close closebutton" (click)="CloseButton()"></button>
-                </div>
-                <div class="container">
+        <div class="modal h-100" id="editEmpModal" tabindex="-1" aria-labelledby="editEmpModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg h-100">
+                <div class="modal-content" [formGroup]="employeeDetail">
+                    <div class="modal-header text-center">
+                        <h3 class="modal-title text-white"> EDIT EMPLOYEE DETAILS</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- <div class="container">
                     <div class="step-wizard mt-3 mb-3">
                         <ul class="step-wizard-list p-0">
                             <li class="step-wizard-item " [class.current-item]="step==1">
@@ -465,75 +468,254 @@
                             (click)="updateEmployee(employeeDetail.value)" [disabled]="!thisFormValid()">Finish <i
                                 class="fa-solid fa-circle-check"></i></button>
                     </div>
+                </div> -->
+
+                    <div class="container">
+                        <div class="step-wizard mt-3 mb-3">
+                            <ul class="step-wizard-list p-0">
+                                <li class="step-wizard-item  " [class.current-item]="step==1">
+                                    <span class="progress-count">1</span>
+                                    <span class="progress-label">Basic Details</span>
+                                </li>
+                                <li class="step-wizard-item" [class.current-item]="step==2">
+                                    <span class="progress-count">2</span>
+                                    <span class="progress-label">Contact Details</span>
+                                </li>
+                                <li class="step-wizard-item" [class.current-item]="step==3">
+                                    <span class="progress-count">3</span>
+                                    <span class="progress-label">Education Details</span>
+                                </li>
+                                <li class="step-wizard-item" [class.current-item]="step==4">
+                                    <span class="progress-count">4</span>
+                                    <span class="progress-label">Work Details</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <form class="add-form" (ngSubmit)="submit(employeeDetail)" [formGroup]="employeeDetail">
+                            <div class="widhtTest">
+                                <div *ngIf="step==1" id="step1" class="row">
+                                    <h4>Basic Details</h4>
+                                    <div class="form-group col-md-6">
+                                        <label class=" form-label">First Name</label>
+                                        <input type="text" class="form-control" formControlName="firstName">
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['firstName'].valid && 
+                                employeeDetail.controls['firstName']?.touched"> <b>First Name</b> is required *</span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class=" form-label">Last Name</label>
+                                        <input type="text" class="form-control" formControlName="lastName">
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['lastName'].valid && 
+                                employeeDetail.controls['lastName']?.touched"> <b>Last Name </b> is required *</span>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label class=" form-label">Date Of Birth</label>
+                                        <input type="date" class="form-control" formControlName="dob">
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['dob'].valid && 
+                                employeeDetail.controls['dob']?.touched"> <b>Dob</b> is required *</span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class=" form-label mt-3">Gender</label>
+                                        <select class="form-select" class="form-control" formControlName="gender">
+                                            <option disabled selected value> -- select an option -- </option>
+                                            <option value="Female">Female</option>
+                                            <option value="Male">Male</option>
+                                        </select>
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['gender'].valid && 
+                employeeDetail.controls['gender']?.touched"> <b>Gender</b> is required *</span>
+                                    </div>
+                                    <!-- <div class="form-group col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" (change)="createLogin = !createLogin" type="checkbox"
+                                            id="flexCheckChecked">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Create Login For this User
+                                        </label>
+                                    </div>
+                                </div>
+                                <div *ngIf="createLogin" class="form-group">
+                                    <label class=" form-label">Role</label>
+                                    <select class="form-select" (change)="loginAccess()" [(ngModel)]="loginAcess"
+                                        [ngModelOptions]="{standalone: true}" class="form-control">
+                                        <option disabled selected value> -- select an option -- </option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Manager">Manager</option>
+                                        <option value="TeamLead">TeamLead</option>
+                                        <option value="Employee">Employee</option>
+                                    </select>
+                                    <span class="text-danger" *ngIf="!employeeDetail.controls['gender'].valid && 
+                                            employeeDetail.controls['gender']?.touched"> <b>Role</b> is required *</span>
+                                </div> -->
+                                </div>
+                                <div *ngIf="step==2" id="step2" class="row">
+                                    <h4>Contact Details</h4>
+                                    <div class="form-group col-md-12">
+                                        <label class=" form-label">Email Id</label>
+                                        <input type="text" class="form-control" formControlName="emailId">
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['emailId'].valid && 
+                                employeeDetail.controls['emailId']?.touched"> <b>Email Id</b> is required *</span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class=" form-label">Mobile Number</label>
+                                        <input type="text" class="form-control" formControlName="number">
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['number'].valid && 
+                                    employeeDetail.controls['number']?.touched"> <b>Number</b> is required *</span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class=" form-label">Address</label>
+                                        <textarea class="form-control" formControlName="address"></textarea>
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['address'].valid && 
+                                            employeeDetail.controls['address']?.touched"> <b>Address</b> is required
+                                            *</span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class=" form-label">Employee Refernce Number</label>
+                                        <input type="text" class="form-control" formControlName="employeeReferenceNo">
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['employeeReferenceNo'].valid && 
+                                    employeeDetail.controls['employeeReferenceNo']?.touched"> <b>Employee Refernce
+                                                Number</b> is
+                                            required *</span>
+                                    </div>
+                                    <!-- <div class="form-group col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" (checked)="createManager= !createManager" type="checkbox"
+                                            id="flexCheckCheck">
+                                        <label class="form-check-label" for="flexCheckCheck">
+                                            Select Reporting Manager
+                                        </label>
+                                    </div>
+                                </div>
+                                <div *ngIf="createLogin" class="form-group">
+                                    <label class="form-label">Reporting Person</label>
+                                    <select formControlName="userId" class="form-select" class="form-control">
+                                        <option disabled selected value> -- select an option -- </option>
+                
+                                        <option *ngFor="let data of reportingPerson" [value]="data.userId">{{data.firstName}}</option>
+                                    </select>
+                                </div> -->
+                                </div>
+                                <div *ngIf="step==3" id="step3" class="row">
+                                    <h4>Education Details</h4>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label class=" form-label">Qualification</label>
+                                            <input type="text" class="form-control" formControlName="qualification">
+                                            <span class="text-danger" *ngIf="!employeeDetail.controls['qualification'].valid && 
+                                    employeeDetail.controls['qualification']?.touched"> <b>Qualification</b> is
+                                                required *</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class=" form-label">College OR University</label>
+                                            <input type="text" class="form-control" formControlName="college">
+                                            <span class="text-danger" *ngIf="!employeeDetail.controls['college'].valid && 
+                                        employeeDetail.controls['college']?.touched"> <b>College/University</b> is
+                                                required *</span>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label class=" form-label">Year Of Passing</label>
+                                            <input type="date" class="form-control" formControlName="passedOut">
+                                            <span class="text-danger" *ngIf="!employeeDetail.controls['passedOut'].valid && 
+                            employeeDetail.controls['passedOut']?.touched"> <b>Year Of Passing</b> is required *</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class=" form-label">Team Name</label>
+                                            <select class="form-select" class="form-control" formControlName="teamName">
+                                                <option disabled selected value> -- select an option -- </option>
+                                                <option value="XML">XML</option>
+                                                <option value="Software">Software</option>
+                                                <option value="E-Pub">E-Pub</option>
+                                                <option value="Table">Table</option>
+                                            </select>
+                                            <span class="text-danger" *ngIf="!employeeDetail.controls['teamName'].valid && 
+                            employeeDetail.controls['teamName']?.touched"> <b>TeamName</b> is required *</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label class=" form-label">Position</label>
+                                            <select class="form-select" class="form-control" formControlName="position">
+                                                <option disabled selected value> -- select an option -- </option>
+                                                <option value="TeamLeader">Team Leader</option>
+                                                <option value="TeamMember">Team Member</option>
+                                            </select>
+                                            <span class="text-danger" *ngIf="!employeeDetail.controls['position'].valid && 
+                            employeeDetail.controls['position']?.touched"> <b>Position</b> is required *</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label class=" form-label">Skills</label>
+                                            <input type="text" class="form-control" formControlName="skills">
+                                            <span class="text-danger" *ngIf="!employeeDetail.controls['skills'].valid && 
+                        employeeDetail.controls['skills']?.touched"> <b>Skills</b> is required *</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="step==4" class="row" id="step4">
+                                    <h4>Work Details</h4>
+                                    <div class="form-group col-md-6">
+                                        <label class=" form-label">Designation</label>
+                                        <select class="form-select" class="form-control" formControlName="designation">
+                                            <option disabled selected value> -- select an option -- </option>
+                                            <option value="Front End">Front End</option>
+                                            <option value="Back End">Back End</option>
+                                            <option value="Full Stack">Full Stack</option>
+                                        </select>
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['designation'].valid && 
+                                        employeeDetail.controls['designation']?.touched"> <b>Designation</b> is
+                                            required *</span>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label class=" form-label">Joining Date</label>
+                                        <input type="date" class="form-control" formControlName="joiningDate">
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['joiningDate'].valid && 
+                                        employeeDetail.controls['joiningDate']?.touched"> <b>Joining Date</b> is
+                                            required *</span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class=" form-label">Work Mode</label>
+                                        <select class="form-select" class="form-control" formControlName="workMode">
+                                            <option disabled selected value> -- select an option -- </option>
+                                            <option value="Frontt End">Part Time</option>
+                                            <option value="Back End">Full Time</option>
+                                        </select>
+                                        <span class="text-danger" *ngIf="!employeeDetail.controls['workMode'].valid && 
+                                            employeeDetail.controls['workMode']?.touched"> <b>WorkMode</b> is required
+                                            *</span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class=" form-label mt-3">Download Attachment</label>
+                                        <app-attachment [attachmentId]="attachment.attachmentIds"
+                                            style="margin-top: -10px;"></app-attachment>
+                                    </div>
+                                </div>
+                                <div class="modal-footer mt-5">
+                                    <button type="button" class="submitButton"
+                                        style="margin-right: 1rem; text-align: center !important;" *ngIf="step!=1"
+                                        (click)="prev()"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+                                    <button type="button" class="submitButton" *ngIf="step!=4 " (click)=" next()">Next
+                                        <i class="fa-solid fa-chevron-right"></i></button>
+                                    <button type="submit" class="submitButton" *ngIf="step==4">Finish <i
+                                            class="fa-solid fa-circle-check"></i></button>
+                                </div>
+                                <!-- <div class="mt-3 buttons">
+                                <button type="button" class="submitButton" *ngIf="step!=4 " (click)=" next()">Next</button>
+                                <button type="submit" class="submitButton" style="margin-right: 1rem;" *ngIf="step==4">Finish</button>
+                                <button type="button" class="submitButton" style="margin-right: 1rem; text-align: center !important;"
+                                    *ngIf="step!=1" (click)="prev()">Preview</button>
+                            </div> -->
+                            </div>
+
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="deleteButton btn"
-                                                        (click)="deleteEmployeedetails(data.employeeId,data.firstName)">
-                                                        <i class="fa-solid fa-trash-can"></i>
-                                                    </div> -->
-
-
-<!-- <div class="row justify-content-center">
-                                                        <p class="card-text mt-1"><small
-                                                                class="text-muted">{{data.designation}}</small></p>
-                                                    </div> -->
-
-
-
-<!-- <div class="row g-0 dflex">
-                                                        <div class="col-2 col-sm-4 dflex">
-                                                            <div class="me-5">
-                                                                <ngx-avatar size="40" [style]="customStyle"
-                                                                    [name]="data.firstName + ' ' + data.lastName"
-                                                                    [src]="'https://localhost:44394/' + data.photoPath"
-                                                                    class="card-img-top" alt="..."
-                                                                    (click)="getEmployeeDetails(data)"></ngx-avatar>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-8 text-muted">
-                                                            <b>
-                                                                {{data.firstName}}&nbsp;{{data.lastName}}
-                                                            </b>
-                                                        </div>
-                                                    </div>
-                                                    <div class="dflex mt-3">
-                                                        <p class="card-text w-75">{{data.teamName}} <span
-                                                                class="float-end">{{data.position}}</span></p>
-                                                        <p class="card-text"><small class="text-muted"></small>
-                                                        </p>
-                                                    </div> -->

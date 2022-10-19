@@ -1,0 +1,85 @@
+<div class="container">
+    <section>
+        <div class="row mt-5">
+            <div class="col-md-3">
+                <label class="form-label">From</label>
+                <input type="date" class="forSelectMenu form-control" [(ngModel)]="from">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">To</label>
+                <input type="date" class="forSelectMenu form-control" [(ngModel)]="to">
+            </div>
+            <div class="col-md-3">
+                <label class=" form-label">Employee</label>
+                <select class="form-select" class="form-control" [(ngModel)]="user">
+                    <option *ngFor="let item of employeName" [value]="item.employeeId">{{item.firstName}}
+                        {{item.lastName}}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary Filter-btn" (click)="LeaveFilter()">Filter</button>
+            </div>
+        </div>
+        <section class="Attendance">
+            <h3>Attendance Details</h3>
+            <table class="table">
+                <thead class="text-center text-dark">
+                    <tr class="thead">
+                        <th scope="col-md-2">Name</th>
+                        <th scope="col-md-2">Date</th>
+                        <th scope="col-md-2">InTime</th>
+                        <th scope="col-md-2">OutTime</th>
+                        <th scope="col-md-2">Duration</th>
+                        <th scope="col-md-2">Status</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="filterAttendanceDetails?.length == 0" class="text-center">
+                        <td colspan="100%">No Data Found</td>
+                    </tr>
+                    <tr *ngFor="let data of filterAttendanceDetails" style="text-align: center;">
+                        <td class="col-md-2">{{data.firstName}}{{data.lastName}}</td>
+                        <td class="col-md-2">{{data.date |date:'yyyy-MM-dd' }}</td>
+                        <td class="col-md-2">{{data.inTime |date:'HH:mm'}}</td>
+                        <td class="col-md-2">{{data.outTime|date:'HH:mm'}}</td>
+                        <td class="col-md-2">{{data.workDuration}}</td>
+                        <td class="col-md-2"><span class="badge">{{data.status}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="leave">
+            <h3>Leave Details</h3>
+            <table class="table">
+                <thead style="text-align: center;">
+                    <tr class="thead">
+                        <th scope="col-md-2">Name</th>
+                        <th scope="col-md-2">Leave Type</th>
+                        <th scope="col-md-2">Start Date</th>
+                        <th scope="col-md-2">End Date</th>
+                        <th scope="col-md-2">Duration</th>
+                        <th scope="col-md-2">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="filterLeaveDetails?.length == 0" class="text-center">
+                        <td colspan="100%">No Data Found</td>
+                    </tr>
+                    <tr *ngFor="let data of filterLeaveDetails" style="text-align: center;">
+                        <td class="col-md-2">{{data.firstName}}{{data.lastName}}</td>
+                        <td class="col-md-2">{{data.leaveDay}}</td>
+                        <td class="col-md-2">{{data.startDate |date:'yyyy-MM-dd' }}</td>
+                        <td class="col-md-2">{{data.endDate |date:'yyyy-MM-dd' }}</td>
+                        <td class="col-md-2">{{data.noOfDays}}</td>
+                        <td class="col-md-2"><span
+                                [ngClass]="{'redBadge': data.leaveType === 'Sick Leave', 'orangeBadge': data.leaveType === 'Casual Leave' }"
+                                class="badge"> {{data.leaveType}} </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+</div>

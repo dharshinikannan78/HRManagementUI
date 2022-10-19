@@ -1,16 +1,16 @@
-<div style="text-align: right;">
+<div class="text-end">
     <button type="button" class="btn btn-primary mt-4 mb-4" style="margin-right: 2rem;" data-bs-toggle="modal"
         data-bs-target="#LeaveModal">
         Apply Leave
     </button>
 </div>
-
-
-<div class="modal fade" id="LeaveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Apply Leave -->
+<div class="modal fade" id="LeaveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    [style.display]="showModal ? 'block' : 'none'">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Leave Management</h5>
+                <h5 class="modal-title text-white" id="exampleModalLabel">Apply Leave</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -38,7 +38,8 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label">End Date</label>
-                                        <input type="date" [min]="today" class="forSelectMenu form-control" formControlName="endDate">
+                                        <input type="date" [min]="today" class="forSelectMenu form-control"
+                                            formControlName="endDate">
                                     </div>
                                 </div>
                             </div>
@@ -53,17 +54,13 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Reason</label>
-                                <textarea type="text" class="form-control" formControlName="reason"></textarea>
+                                <textarea type="text" class="form-control" formControlName="leaveReason"></textarea>
                             </div>
                             <div class="mb-3 d-flex align-items-center justify-content-end">
                                 <button #closeModal type="button" class="btn btn-secondary mx-3"
                                     data-bs-dismiss="modal">Close</button>
                                 <button class="btn btn-danger" type="submit"> Apply</button>
                             </div>
-                            <!-- <div class="modal-footer">
-                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button class="btn btn-danger" type="submit"> Apply</button>
-                            </div> -->
                         </form>
                     </div>
                 </div>
@@ -73,121 +70,235 @@
     </div>
 </div>
 
-<section>
-    <div class="container-fluid" *ngIf="isShow">
-        <h5 class="mt-5 mb-5">Leave Management</h5>
-        <div class="row">
-            <div class="col-6">
-                <form [formGroup]="applyOnLeave" (ngSubmit)="applyLeave(applyOnLeave.value)">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <label class="form-label">Start Date</label>
-                                <input type="date" class="form-control" formControlName="startDate">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <label class="form-label">End Date</label>
-                                <input type="date" class="form-control" formControlName="endDate">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Leave Type</label>
-                        <input type="text" class="form-control" formControlName="leaveType">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Reason</label>
-                        <textarea type="text" class="form-control" formControlName="reason"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <button class="btn btn-danger" type="submit"> Apply</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-6">
+
+<!-- test modal -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="MyLeave-tab" data-bs-toggle="tab" data-bs-target="#MyLeave-tab-pane"
+            type="button" role="tab" aria-controls="MyLeave-tab-pane" aria-selected="true">
+            My Leave
+        </button>
+    </li>
+    <li class="nav-item" *ngIf="!isSuperUser" role="presentation">
+        <button class="nav-link" id="Approval-tab" data-bs-toggle="tab" data-bs-target="#Approval-tab-pane"
+            type="button" role="tab" aria-controls="Approval-tab-pane" aria-selected="false">
+            Leave For Approvals
+        </button>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="MyLeave-tab-pane" role="tabpanel" aria-labelledby="MyLeave-tab"
+        tabindex="0">
+        <div class="container-fluid mt-4">
+            <table class="table">
+                <thead class="text-center">
+                    <tr class="thead">
+                        <th>Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Duration</th>
+                        <th>LeaveType</th>
+                        <th>AppliedOn</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="leaveData?.length == 0" class="text-center">
+                        <td colspan="100%">No Data Found</td>
+                    </tr>
+                    <tr *ngFor="let data of leaveData" style="text-align: center;">
+                        <td>{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
+                        <td>{{data.startDate |date:'MMM d, y' }}</td>
+                        <td>{{data.endDate |date:'MMM d, y' }}</td>
+                        <td>{{data.noOfDays}}</td>
+                        <td>{{data.leaveDay}}</td>
+                        <td>{{data.appliedOn |date:'MMM d, y'}}</td>
+                        <td><span
+                                [ngClass]="{'redBadge': data.adminApprovalStatus === 'Rejected', 'orangeBadge': data.adminApprovalStatus === 'Pending' }"
+                                class="badge cursorP" data-bs-toggle="modal" data-bs-target="#leaveStatusModal"
+                                (click)="getLeaveStatus(data.leaveId)">{{data.adminApprovalStatus}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="Approval-tab-pane" *ngIf="!isSuperUser" role="tabpanel"
+        aria-labelledby="Approval-tab" tabindex="0">
+        <div class="container-fluid mt-4">
+            <div class="table-responsive">
+                <table class="table mb-5">
+                    <thead class="text-center">
+                        <tr class="thead">
+                            <th>Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Duration</th>
+                            <th>LeaveType</th>
+                            <th>AppliedOn</th>
+                            <th>Reason</th>
+                            <th *ngIf="isManager&&isAdmin&&isEmployee">Status</th>
+                            <th *ngIf="isTeamLead&&isAdmin&&isEmployee">Status</th>
+                            <th *ngIf="isTeamLead&&isManager">Status</th>
+                            <th *ngIf="isEmployee">Accept</th>
+                            <th *ngIf="isEmployee">Reject</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="leaveDetails?.length == 0" class="text-center">
+                            <td colspan="100%">No Data Found</td>
+                        </tr>
+                        <tr *ngFor="let data of leaveDetails" (click)="getLeaveDetail(data)"
+                            style="text-align: center;">
+
+                            <td>{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
+                            <td>{{data.startDate |date:'MMM d' }}</td>
+                            <td>{{data.endDate |date:'MMM d' }}</td>
+                            <td>{{data.noOfDays}}</td>
+                            <td>{{data.leaveDay}}</td>
+                            <td>{{data.appliedOn |date:'MMM d'}}</td>
+                            <td>{{data.leaveReason}}
+
+                            </td>
+                            <td *ngIf="isManager&&isAdmin&&isEmployee"><span
+                                    [ngClass]="{'redBadge': data.teamLeadApprovalStatus === 'Rejected', 'orangeBadge': data.teamLeadApprovalStatus === 'Pending' }"
+                                    class="badge">{{data.teamLeadApprovalStatus}}</span>
+                            </td>
+                            <td *ngIf="isTeamLead&&isAdmin&&isEmployee"><span
+                                    [ngClass]="{'redBadge': data.managerApprovalStatus === 'Rejected', 'orangeBadge': data.managerApprovalStatus === 'Pending' }"
+                                    class="badge">{{data.managerApprovalStatus}}</span></td>
+                            <td *ngIf="isTeamLead&&isManager">
+                                <span
+                                    [ngClass]="{'redBadge': data.adminApprovalStatus === 'Rejected', 'orangeBadge': data.adminApprovalStatus === 'Pending' }"
+                                    class="badge">
+                                    {{data.adminApprovalStatus}}
+                                </span>
+                            </td>
+                            <td *ngIf="isEmployee">
+                                <button type="button" class="btn btn-success" value="Approved"
+                                    (click)="updateLeaveDetail('Approved')"><i class="fa-solid fa-check"></i>
+                                </button>
+                            <td class="col-md-0.5" *ngIf="isEmployee">
+                                <button type="button" class="btn btn-danger" value="Rejected" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal"><i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-</section>
+</div>
 
-<section class="px-4">
-    <table class="table">
-        <thead style="text-align: center;">
-            <tr class="thead">
-                <th scope="col">Name</th>
-                <th scope="col">Desigination</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">Duration</th>
-                <th scope="col">LeaveType</th>
-                <th scope="col">AppliedOn</th>
-                <th scope="col">ApprovalStatus</th>
-                <th scope="col">Final Approval</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let data of leaveDetails" (click)="getLeaveDetail(data)" style="text-align: center;">
-                <td class="col-md-2">{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
-                <td class="col-md-2"> {{data.designation}}</td>
-                <td class="col-md-2">{{data.startDate |date:'yyyy-MM-dd' }}</td>
-                <td class="col-md-2">{{data.endDate |date:'yyyy-MM-dd' }}</td>
-                <td class="col-md-1">{{data.noOfDays}}</td>
-                <td class="col-md-1">{{data.leaveType}}</td>
-                <td class="col-md-2">{{data.appliedOn |date:'yyyy-MM-dd'}}</td>
-                <td class="col-md-2"><span
-                        [ngClass]="{'redBadge': data.approvalStatus === 'Rejected', 'orangeBadge': data.approvalStatus === 'Pending' }"
-                        class="badge">{{data.approvalStatus}}</span></td>
-                        <td class="col-md-2"><span
-                            [ngClass]="{'redBadge': data.finalApproval === 'Rejected', 'orangeBadge': data.finalApproval === 'Pending' }"
-                            class="badge">{{data.finalApproval}}</span></td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-<section>
+<!-- test modal -->
 
-            <div class="modal-content" [formGroup]="updateLeaveForm">
-                    <div class="row modalbody">
-                        <div class="mb-3" style="display: none;">
-                            <label class=" form-label">Employee Id</label>
-                            <input class="form-control" [ngModel]="employeeLeaveDetails?.employeeId"
-                                formControlName="employeeId">
-                        </div>
-                        <div class="mb-3" style="display: none;">
-                            <label class=" form-label">Leave Id</label>
-                            <input class="form-control" [ngModel]="employeeLeaveDetails?.leaveId"
-                                formControlName="leaveId">
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Status</label>
-                            <select class="form-select" class="form-control"
-                                [ngModel]="employeeLeaveDetails?.approvalStatus" formControlName="approvalStatus">
-                              <option disabled selected value> -- select an option -- </option> 
-                               
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
 
-                                <option value="Apporved">Apporved</option>
-                                <option value="Rejected">Rejected</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class=" form-label">Final Approval</label>
-                            <select class="form-select" class="form-control"
-                                [ngModel]="employeeLeaveDetails?.finalApproval" formControlName="finalApproval">
-                              <option disabled selected value> -- select an option -- </option> 
-                               
-
-                                <option value="Apporved">Apporved</option>
-                                <option value="Rejected">Rejected</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <button class="btn btn-primary" style="float: right;" type="submit"
-                                (click)="updateLeaveDetails(this.EmployeeId,updateLeaveForm.value)"> Submit</button>
-                        </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div [formGroup]="updateLeaveForm">
+                    <div class="mb-3" style="display: none;">
+                        <input class="form-control" [ngModel]="employeeLeaveDetails?.employeeId"
+                            formControlName="employeeId">
+                    </div>
+                    <div class="mb-3" style="display: none;">
+                        <input class="form-control" [ngModel]="employeeLeaveDetails?.leaveId" formControlName="leaveId">
+                    </div>
+                    <div class="mb-3" style="display: none;">
+                        <input type="text" class="form-control" formControlName="teamLeadApprovalStatus">
+                        <input type="text" class="form-control" formControlName="managerApprovalStatus">
+                        <input type="text" class="form-control" formControlName="adminApprovalStatus">
+                    </div>
+                    <div class="mb-3" *ngIf="isManager&&isAdmin">
+                        <label class=" form-label">Reason</label>
+                        <textarea class="form-control" formControlName="teamLeadRejectReason"></textarea>
+                    </div>
+                    <div class="mb-3" *ngIf="isTeamLead&&isAdmin">
+                        <label class=" form-label">Reason</label>
+                        <textarea class="form-control" formControlName="managerRejectReason"></textarea>
+                    </div>
+                    <div class="mb-3" *ngIf="isTeamLead&&isManager">
+                        <label class=" form-label">Reason</label>
+                        <textarea class="form-control" formControlName="adminRejectReason"></textarea>
                     </div>
                 </div>
-         
-</section> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" #closeUpdateLeaveModal
+                    data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" (click)="updateLeaveDetail('Rejected')">Reject</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Leave Status Modal -->
+<div class="modal fade" id="leaveStatusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4 text-white" id="exampleModalLabel">Leave Request Status</h1>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="step-wizard mt-3 mb-3">
+                        <ul class="step-wizard-list p-0">
+                            <li class="step-wizard-item" [ngClass]="{'current-item':status == 'teamLead'}">
+                                <span *ngIf="!teamLeadReject" class="progress-count"><i
+                                        class="fa-solid fa-hourglass-start"></i></span>
+                                <span *ngIf="teamLeadReject" class="progress-count"><i
+                                        class="fa-solid fa-xmark"></i></span>
+                                <span class="progress-label">Team Leader</span>
+                            </li>
+                            <li class="step-wizard-item" [ngClass]="{'current-item':status == 'Manager'}">
+                                <span *ngIf="!managerReject" class="progress-count"><i
+                                        class="fa-solid fa-hourglass-start"></i></span>
+                                <span *ngIf="managerReject" class="progress-count"><i
+                                        class="fa-solid fa-xmark"></i></span>
+                                <span class="progress-label">Manager</span>
+                            </li>
+                            <li class="step-wizard-item" [ngClass]="{'current-item':status == 'Admin'}">
+                                <span *ngIf="!adminReject" class="progress-count"><i
+                                        class="fa-solid fa-hourglass-start"></i></span>
+                                <span *ngIf="adminReject" class="progress-count"><i
+                                        class="fa-solid fa-xmark"></i></span>
+                                <span class="progress-label">Admin</span>
+                            </li>
+                            <li class="step-wizard-item">
+                                <span *ngIf="!adminReject" class="progress-count"><i
+                                        class="fa-solid fa-hourglass-start"></i></span>
+                                <span *ngIf="adminReject" class="progress-count"><i
+                                        class="fa-solid fa-xmark"></i></span>
+                                <span class="progress-label">Final</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="reason mt-3">
+                        <p class="p-4" *ngIf="teamLeadReject">
+                            {{leaveStatusData.teamLeadRejectReason}}
+                        </p>
+                        <p class="p-4" *ngIf="adminReject">
+                            {{leaveStatusData.adminRejectReason}}
+                        </p>
+                        <p class="p-4" *ngIf="managerReject">
+                            {{leaveStatusData.managerRejectReason}}
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

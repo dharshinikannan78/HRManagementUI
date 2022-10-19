@@ -1,10 +1,10 @@
-<div *ngIf="isCreate">
-    <div *ngFor="let attachment of attachmentDetails">
+<div>
+    <div>
         <div class="row">
             <div class="col-5 mt-2">
                 <!-- <img src="attachment?.attachmentPath"> -->
-                <button class=" btn btn-outline-primary" (click)="downloadAttachment(attachment?.attachmentId)"> <i
-                        class="bi bi-download"></i> {{attachment?.certificateName}}</button>
+                <button type="button" class="btn btn-outline-primary" (click)="downloadAttachment(attachmentDetails)">
+                    <i class="bi bi-download"></i> {{attachmentDetails}}</button>
             </div>
         </div>
     </div>

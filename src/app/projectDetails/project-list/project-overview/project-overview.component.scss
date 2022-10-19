@@ -16,7 +16,7 @@ ngx-avatar {
     margin-left: -12px;
 }
 
-.buttondanger{
+.buttondanger {
     margin-right: 3.5rem;
 }
 .card-footer {
@@ -111,4 +111,9 @@ h5 {
 
 .badge:hover {
     background-color: rgba(45, 211, 111, 0.16);
+}
+
+#checkbox_id {
+    width: 16px;
+    aspect-ratio: 1;
 }

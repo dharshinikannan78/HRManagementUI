@@ -13,66 +13,90 @@ import { UserServiceService } from '../../service/user-service.service';
 })
 export class LeaveComponent implements OnInit {
 
+  @ViewChild('closeUpdateLeaveModal') closeUpdateLeaveModal: ElementRef
   @ViewChild('closeModal') closeModal: ElementRef
-  isPopUp: boolean = false;
-  leaveDetails: any;
-  isShow: string;
 
-  showModal: boolean = false;
   employeeLeaveDetails: any;
-
+  leaveDetails: any;
+  isShow: boolean = false;
+  duration: string;
+  showModal: boolean = false;
+  isPopUp: boolean = false;
+  isStatus: boolean = true;
   EmployeeId: string = localStorage.getItem('EmployeeId')
   Role: string = localStorage.getItem('Role')
+  UserId: string = localStorage.getItem('UserId')
+  today: string = moment().format('YYYY-MM-DD');
+  isEmployee: boolean = true;
+  isTeamLead: boolean = true;
+  isManager: boolean = true;
+  isAdmin: boolean = true;
+  isClick: boolean = false;
+  leaveData: any;
+  leaveStatusData: any = [];
+  step: number;
+  isSuperUser: boolean;
 
-today:string = moment().format('YYYY-MM-DD');
 
-  duration: string;
 
   applyOnLeave: FormGroup = new FormGroup({
     leaveDay: new FormControl('', Validators.required),
     startDate: new FormControl('', Validators.required),
     endDate: new FormControl('', Validators.required),
     leaveType: new FormControl('', Validators.required),
-    reason: new FormControl('', Validators.required),
-    approvalStatus: new FormControl('', Validators.required),
+    leaveReason: new FormControl('', Validators.required),
+    teamLeadApprovalStatus: new FormControl('', Validators.required),
+    managerApprovalStatus: new FormControl('', Validators.required),
+    adminApprovalStatus: new FormControl('', Validators.required),
     employeeId: new FormControl(this.EmployeeId)
   });
   updateLeaveForm: FormGroup = new FormGroup({
-    
-    employeeId: new FormControl('', Validators.required),
-    leaveId: new FormControl('', Validators.required),
-    approvalStatus: new FormControl('', Validators.required),
-    finalApproval:new FormControl('',Validators.required),
+    employeeId: new FormControl(''),
+    leaveId: new FormControl(''),
+    teamLeadApprovalStatus: new FormControl(''),
+    managerApprovalStatus: new FormControl(''),
+    adminApprovalStatus: new FormControl(''),
+    teamLeadRejectReason: new FormControl(''),
+    managerRejectReason: new FormControl(''),
+    adminRejectReason: new FormControl(''),
   });
 
+
   constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) {
+    this.getEmployeeLeave();
+    this.check();
   }
 
   ngOnInit(): void {
     this.getLeaveDetails();
-    console.log(this.today,"today");
+    this.getRole()
+  }
+  getRole() {
+    console.log(this.isSuperUser, "hello role")
+    let Role = localStorage.getItem('Role')
+    console.log(Role, "hello role let")
+
+    if (Role == "Employee") { this.isSuperUser = true; }
+    else {
+      this.isSuperUser = false;
+    }
   }
 
   getLeaveDetail(data: any) {
     console.log('dataEmployee')
     console.log(this.Role, 'this.userService.Role')
-    if (this.Role == "Admin") {
-      console.log('userService')
-      this.showModal = true;
-      console.log(data, 'geetha')
+    if (this.Role == "Admin" || this.Role == "Manager" || this.Role == "TeamLead") {
       this.employeeLeaveDetails = data;
       console.log(this.employeeLeaveDetails, 'employeeLeaveDetails')
-    } else if (this.Role == "Employee") {
+    }
+    else if (this.Role == "Employee") {
       console.log('Employee')
-
-      this.showModal = false;
-
     }
   }
 
   changeDuration(params: any) {
     let elements = document.getElementsByClassName("forSelectMenu");
-    if (params.target.value == 'Day'||params.target.value == 'HalfDay') {
+    if (params.target.value == 'Day' || params.target.value == 'HalfDay') {
       console.log(elements);
       for (var i = 0; i < elements.length; i++) {
         elements[i].setAttribute('type', 'date');
@@ -86,14 +110,13 @@ today:string = moment().format('YYYY-MM-DD');
   }
 
   getLeaveDetails() {
-    this.api.getLeaveDetails(this.EmployeeId).subscribe(data => {
-      console.log(data, 'helo')
+    this.api.getLeaveDetails(this.EmployeeId, this.UserId).subscribe(data => {
+      console.log(data, "leave approval data")
       this.leaveDetails = data
     });
   }
 
   applyLeave(params: any) {
-
     this.api.applyLeaveOn(params).subscribe((data) => {
       console.log(data, 'data');
       console.log("after the await");
@@ -102,16 +125,17 @@ today:string = moment().format('YYYY-MM-DD');
         icon: 'success',
         timer: 1000
       });
+      this.closeModal.nativeElement.click();
+      this.showModal = true;
       this.getLeaveDetails();
-    },(error: Response) => {
+    }, (error: Response) => {
       if (error.status === 400) {
         Swal.fire({
-          text: 'Already Applied for leave',
+          text: 'Already Applied for leave or Permisson',
           icon: 'error',
           timer: 3000
         });
       }
-   
       if (error.status === 404) {
         Swal.fire({
           text: 'User Already Checkin Today ',
@@ -119,50 +143,135 @@ today:string = moment().format('YYYY-MM-DD');
           timer: 3000
         });
       }
-   
-    if (error.status === 403) {
-      Swal.fire({
-        text: 'Select Valid Date ',
-        icon: 'error',
-        timer: 3000
-      });
-    }
-  });
-
-
+      if (error.status === 403) {
+        Swal.fire({
+          text: 'Select Valid Date ',
+          icon: 'error',
+          timer: 3000
+        });
+      }
+    });
   }
-
-
   approvalStatus(event: any) {
     console.log(event, 'event')
   }
 
-  // updateLeaveDetails(updateLeaveForm: any) {
-  //   console.log('dataEmployee')
-  //   this.api.updateLeaveDetails(updateLeaveForm).subscribe(data => {
-  //     console.log(data, 'dataEmployee')
-  //     Swal.fire({
-  //       text: 'Updated Sucessfully!',
-  //       icon: 'success',
-  //       timer: 1000
-  //     });
-  //     this.showModal = false;
-  //     location.reload();
-
-  //   });
-  // }
-  updateLeaveDetails(id:any,updateLeaveForm: any) {
-    console.log('dataEmployee')
-    this.api.updateLeaveDetails(this.EmployeeId,updateLeaveForm).subscribe(data => {
-      console.log(data, 'dataEmployee')
+  updateLeaveDetail(response: string) {
+    if (response == "Approved") {
       Swal.fire({
-        text: 'Updated Sucessfully!',
-        icon: 'success',
-        timer: 1000
+        title: "Are you sure want to Approve?",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Approve'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.api.updateLeaveDetails(this.EmployeeId, response, this.updateLeaveForm.value).subscribe((data) => {
+            console.log(data, 'dataEmployee')
+            Swal.fire({
+              text: 'Approved',
+              icon: 'success',
+              timer: 1000
+            });
+            this.closeUpdateLeaveModal.nativeElement.click();
+            this.getLeaveDetails();
+            this.updateLeaveForm.reset();
+          }, (error: Response) => {
+            if (error.status === 400) {
+              Swal.fire({
+                text: 'Request Already Approved or Rejected ',
+                icon: 'error',
+                timer: 1000
+              });
+            }
+          });
+        }
       });
-      this.showModal = false;
-      location.reload();
+    }
+    if (response == "Rejected") {
+      Swal.fire({
+        title: "Are you sure want to Reject?",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Reject'
+      }).then((result) => {
+        if (result.isConfirmed)
+          this.api.updateLeaveDetails(this.EmployeeId, response, this.updateLeaveForm.value).subscribe((data) => {
+            console.log(data, 'dataEmployee')
+            Swal.fire({
+              text: 'Rejected!',
+              icon: 'success',
+              timer: 1000
+            });
+            this.closeUpdateLeaveModal.nativeElement.click();
+            this.getLeaveDetails();
+            this.updateLeaveForm.reset();
+          }, (error: Response) => {
+            if (error.status === 400) {
+              Swal.fire({
+                text: 'Request Already Approved or Rejected ',
+                icon: 'error',
+                timer: 1000
+              });
+            }
+          });
+      });
+    }
 
+  }
+  getEmployeeLeave() {
+    this.api.GetEmployeeLeave(this.EmployeeId).subscribe(data => {
+      this.leaveData = data
+      console.log(this.leaveData, "leave")
+    })
+  }
+  status: string;
+  managerReject: boolean = false;
+  teamLeadReject: boolean = false;
+  adminReject: boolean = false;
+
+  getLeaveStatus(id: number) {
+    this.api.getLeaveStatus(id).subscribe(data => {
+      console.log(data, "leave status data");
+      this.leaveStatusData = data;
+      this.resetVariable();
+      if (this.leaveStatusData.teamLeadApprovalStatus == 'Pending') return this.status = 'teamLead';
+      if (this.leaveStatusData.teamLeadApprovalStatus == 'Rejected') return this.teamLeadReject = true, this.status = 'teamLead';
+
+      if (this.leaveStatusData.managerApprovalStatus == 'Pending') return this.status = 'Manager';
+      if (this.leaveStatusData.managerApprovalStatus == 'Rejected') return this.managerReject = true, this.status = 'Manager';
+
+      if (this.leaveStatusData.adminApprovalStatus == 'Pending') return this.status = 'Admin';
+      if (this.leaveStatusData.adminApprovalStatus == 'Rejected') return this.adminReject = true, this.status = 'Admin';
+
+      return 0;
     });
   }
+  resetVariable() {
+    this.managerReject = false;
+    this.adminReject = false;
+    this.teamLeadReject = false;
+    this.status = '';
+  }
+
+  check() {
+    if (this.userService.Role == "Employee") {
+
+      this.isEmployee = !this.isEmployee;
+    }
+    if (this.userService.Role == "TeamLead") {
+
+      this.isTeamLead = !this.isTeamLead;
+    }
+    if (this.userService.Role == "Manager") {
+
+      this.isManager = !this.isManager;
+    }
+    if (this.userService.Role == "Admin") {
+      this.isAdmin = !this.isAdmin;
+    }
+  }
+
 }
+

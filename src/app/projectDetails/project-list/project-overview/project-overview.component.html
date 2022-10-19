@@ -1,10 +1,10 @@
 <section class="projectOverview">
     <div class="container-fluid">
+        <!-- project details upper card starts -->
         <div class="row p-5 shadow-lg">
             <div class="col-md-12">
                 <p class="mb-1 card-subtitle text-muted"><small>{{ projectdetails.startDate | date
                         :'MMM d'}} - {{projectdetails.endDate | date :'MMM d'}}</small></p>
-                <!-- <p><small>Created on Aug 12 2022</small></p> -->
                 <h4 class="fw-bold" (click)="getProjectClick(projectdetails)">{{ projectdetails.projectTitle }}
                     &nbsp;&nbsp;&nbsp; <span class="badge fw-semobold" style="font-size: 13px;"
                         [ngClass]="{'orangeBadge' : projectdetails.projectStatus === 'InProgress' }">{{
@@ -20,93 +20,41 @@
                     <div>
                         <p class="m-0">Team</p>
                         <div class="teamMembers">
-                            <ngx-avatar *ngFor="let data of image" borderColor="#fff" size="35"
-                                name="{{data.firstName}} Khan" alt="...">
+                            <ngx-avatar *ngFor='let data of employeelist | slice:0:4' borderColor="#fff" size="35"
+                                [name]="data.firstName + ' ' + data.lastName"
+                                [src]="'https://localhost:44394/' + data.photoPath">
                             </ngx-avatar>
                             <ngx-avatar size="30" *ngIf="teamOverflow" [name]="'+ ' + count" bgColor="#c0c0c0"
                                 alt="...">
                             </ngx-avatar>
+                            <ngx-avatar *ngIf="roleForRestrict" [textSizeRatio]="2" class="ms-4" size="40" type="button"
+                                (click)="getEmployeeName(projectdetails.projectId)" name="+" data-bs-toggle="modal"
+                                data-bs-target="#ISexampleModal" bgColor="#1919f4" alt="...">
+                            </ngx-avatar>
                         </div>
-
                     </div>
                 </div>
                 <h6 class="fw-bold">Description</h6>
                 <p>{{projectdetails.projectDescription}}</p>
-                <button class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="getProjectId(projectdetails.projectId)">Add People</button>
-                <button class="btn btn-danger position-absolute end-0 buttondanger" type="submit"
-                    (click)="IsArchieved()">Move to Archive</button>
+                <button *ngIf="roleForRestrict" class="btn position-absolute end-0 buttondanger" style="border: none;"
+                    type="submit" (click)="IsArchieved()"><i class="fa fa-archive" style="color: red;"
+                        aria-hidden="true"></i></button>
+                <button *ngIf="roleForRestrict" class="btn btn-primary mt-2 mb-2 rounded-pill" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal1" (click)="getData(employeelist)">Assign Task</button>
                 <br />
-
-
-
-
-            </div>
-            <div class="card mt-5 container">
-                <div class="row">
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal"
-                            data-bs-target="#ISexampleModal">
-                            Add To The Project </button>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="teamMembers">
-                            <ngx-avatar *ngFor="let data of employeelist" borderColor="#fff" size="35"
-                                name="{{data.firstName}} Khan" alt="...">
-                            </ngx-avatar>
-                            <ngx-avatar size="30" *ngIf="teamOverflow" [name]="'+ ' + count" bgColor="#c0c0c0"
-                                alt="...">
-                            </ngx-avatar>
-                        </div>
-                    </div>
-                    <div class="col-md-5 mt-2" >
-                        <button class="btn btn-primary"  style="float: right;" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal100" (click)="getData(employeelist)">Add Task</button>
-                    </div>
-
-
-
-
-                    <div class="modal fade" id="exampleModal100"  let i = index; tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-white" id="exampleModalLabel">Add Task
-                                    </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label class=" form-label">Task Status</label>
-                                        <!-- <select class="form-select" class="form-control">
-                                            <option disabled selected value> -- select an option --
-                                            </option>
-                                            <option value="Completed">{{isAssigingTaskTo?.firstName}}</option>
-
-                                        </select> -->
-                                        {{isAssigingTaskTo?.firstName}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
         </div>
-
-
-
+        <!-- project details upper card ends -->
 
 
         <div class="row bgAzure g-4 py-4">
+            <div *ngIf="taskdetails?.length == 0" class="text-center container">
+                No Task Found
+            </div>
             <div class="col-md-4" *ngFor="let data of taskdetails; let i = index;">
-                <div [ngClass]="{'border-primary': data[0].taskStatus == 'InProgress', 'border-success' : data[0].taskStatus === 'Completed' }"
-                    class="taskTitle border-primary p-3 mb-4">
-                    <h5 class="fw-bold text-dark">
+                <div class="taskTitle border-primary p-3 mb-4">
+                    <h5 [ngClass]="{'border-primary': data[0].taskStatus == 'InProgress', 'border-success' : data[0].taskStatus === 'Completed' }"
+                        class="fw-bold text-dark">
                         {{data[0]?.taskStatus}}
                     </h5>
                 </div>
@@ -116,14 +64,16 @@
                             <div class="card-body p-4">
                                 <div class="mb-3" style="float: right;">
                                     <!-- <span class="badge"  > Move to Archive</span> -->
-                                    <button type="submit" class="btn btn-danger" (click)="IsTaskArchieved()">Move to
-                                        Archive</button>
+                                    <button *ngIf="roleForRestrict" type="submit" class="btn" style="border: none;"
+                                        (click)="IsTaskArchieved()"><i class="fa fa-archive" style="color: red;"
+                                            aria-hidden="true"></i></button>
                                 </div>
                                 <p class="mb-1 card-subtitle text-muted text-uppercase"> <small>{{ data?.startDate |
                                         date:'MMM d'}} - {{data?.endDate | date :'MMM d'}}</small>
                                 </p>
                                 <p class="mb-1 card-subtitle text-muted"> <small> </small></p>
-                                <h5 class="card-title fw-bold mb-3 cursorP" (click)="getTaskClick(data)">{{
+                                <h5 class="card-title fw-bold mb-3 cursorP" (click)="getTaskClick(data)"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">{{
                                     data.taskName }}
                                 </h5>
                                 <div>
@@ -142,13 +92,14 @@
                                     <ngx-avatar borderColor="#fff" size="30"
                                         name="{{data.firstName +' '+ data.lastName}}" alt="...">
                                     </ngx-avatar>
-                                    <ngx-avatar size="30" *ngIf="teamOverflow" [name]="'+ ' + count" bgColor="#c0c0c0"
-                                        alt="...">
-                                    </ngx-avatar>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal" [style.display]="showModal ? 'block' : 'none'" [formGroup]="updateForm">
+
+                        <!-- **************************************** -->
+                        <!-- Edit Project Details Modal -->
+                        <!-- **************************************** -->
+                        <!-- <div class="modal" [style.display]="showModal ? 'block' : 'none'" [formGroup]="updateForm">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -209,7 +160,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 (click)="showModal=false">Close</button>
@@ -219,9 +169,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal" [style.display]="isshowModal ? 'block' : 'none'"
-                            [formGroup]="updateTaskDetails">
+                        </div> -->
+
+                        <!-- **************************************** -->
+                        <!-- Edit Task Details Modal -->
+                        <!-- **************************************** -->
+                        <div class="modal" [formGroup]="updateTaskDetails" id="exampleModal" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -279,6 +233,7 @@
                                                     [ngModel]="isTaskData?.taskStatus" formControlName="taskStatus">
                                                     <!-- <option disabled selected value> -- select an option --
                                                     </option> -->
+                                                    <option value="TODO">TODO</option>
                                                     <option value="Completed">Completed</option>
                                                     <option value="InProgress">InProgress</option>
                                                 </select>
@@ -291,89 +246,18 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            (click)="isshowModal=false">Close</button>
+                                        <button type="button" #UpdatetaskModal data-bs-dismiss="modal"
+                                            class="btn btn-secondary">Close</button>
                                         <button type="button" class="btn btn-primary"
                                             (click)="UpdateTaskDetails(updateTaskDetails.value)">Save changes</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- <div class="col-md-4">
-                <div class="taskTitle border-bottom border-primary border-2 p-3 mb-4">
-                    <h5 class="fw-bold">
-                        InProgress
-                    </h5>
-                </div>
-                <div class="row g-2">
-                    <div class="col-md-12" *ngFor="let data of taskdetails[1]; let i = index;">
-                        <div class="card border-0 rounded-3 shadow">
-                            <div class="card-body p-4">
-                                <p class="mb-1 card-subtitle text-muted"> <small>AUG 21 - AUG 23 {{data.test}}</small>
-                                </p>
-                                <h5 class="card-title fw-bold mb-3">Card paithiyam geetha title</h5>
-                                <div>
-                                    <p class="m-0"><span class="badge badge1 shadow-sm float-end">MEDIUM</span></p>
-                                    <p class="mb-3 card-subtitle text-muted">Due in 2 days</p>
-                                </div>
-                                <p class="card-text">Some quick example text to build on the card title and
-                                    make up the
-                                    bulk of the card's content.</p>
-                            </div>
-                            <div class="card-footer border-0 bg-transparent py-3">
-                                <span class="badge">Completed</span>
-                                <div class="avatarLine">
-                                    <ngx-avatar *ngFor="let data of taskDetails | slice:0:3 " borderColor="#fff"
-                                        size="30" name="{{data.firstName}}" alt="...">
-                                    </ngx-avatar>
-                                    <ngx-avatar size="30" *ngIf="teamOverflow" [name]="'+ ' + count" bgColor="#c0c0c0"
-                                        alt="...">
-                                    </ngx-avatar>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="taskTitle border-bottom border-success border-2 p-3 mb-4">
-                    <h5 class="fw-bold">
-                        Completed
-                    </h5>
-                </div>
-                <div class="row g-2">
-                    <div class="col-md-12" *ngFor="let data of taskdetails[0]; let i = index;">
-                        <div class="card border-0 rounded-3 shadow">
-                            <div class="card-body p-4">
-                                <p class="mb-1 card-subtitle text-muted"> <small>AUG 21 - AUG 23</small></p>
-                                <h5 class="card-title fw-bold mb-3">Card paithiyam geetha title</h5>
-                                <div>
-                                    <p class="m-0"><span class="badge badge1 shadow-sm float-end">MEDIUM</span></p>
-                                    <p class="mb-3 card-subtitle text-muted">Due in 2 days</p>
-                                </div>
-                                <p class="card-text">Some quick example text to build on the card title and
-                                    make up the
-                                    bulk of the card's content.</p>
-                            </div>
-                            <div class="card-footer border-0 bg-transparent py-3">
-                                <span class="badge">Completed</span>
-                                <div class="avatarLine">
-                                    <ngx-avatar *ngFor="let data of taskDetails | slice:0:3 " borderColor="#fff"
-                                        size="30" name="{{data.firstName}}" alt="...">
-                                    </ngx-avatar>
-                                    <ngx-avatar size="30" *ngIf="teamOverflow" [name]="'+ ' + count" bgColor="#c0c0c0"
-                                        alt="...">
-                                    </ngx-avatar>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </section>
@@ -470,18 +354,17 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form [formGroup]="addTaskDetail">
+            <form [formGroup]="addTaskDetail">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class=" form-label">Assigned To</label>
+                        <select class="form-select" class="form-control" formControlName="employeeId">
+                            <option *ngFor="let item of employeelist" [value]="item.employeeId">{{item.firstName}}
+                                {{item.lastName}}</option>
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <label class=" form-label">Task Name</label>
-                        <!-- <select class="form-select" class="form-control" formControlName="taskName">
-                            <option disabled selected value> -- select an option --
-                            </option>
-                            <option value="E-pub">E-pub</option>
-                            <option value="XML">XML</option>
-                            <option value="Table">Table</option>
-                            <option value="SoftWare">SoftWare</option>
-                        </select> -->
                         <input type="email" class="form-control" formControlName="taskName">
                     </div>
                     <div class="mb-3">
@@ -505,13 +388,14 @@
                             <option value="High">High</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <button type="button" (click)="addTaskDetails(addTaskDetail.value)"
-                            class="btn btn-primary mt-3">Create Task
-                        </button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" #closeModal data-bs-dismiss="modal">Close</button>
+                    <button type="button" (click)="addTaskDetails(addTaskDetail.value)" class="btn btn-primary">Create
+                        Task
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -525,37 +409,37 @@
                     <h5 class="modal-title text-white" id="exampleModalLabel">List of Employees</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="scrollbar" id="style-1">
-                    <div class="row dflex">
-                    </div>
-                    <div style="padding: 20px;">
-                        <div class="modal-body">
-                            <div class="container">
-                                <!-- <h3>Select Employees</h3> -->
-                                <div class="row">
-                                    <div class="col-md-12" *ngFor="let data of employeName">
-                                        <div class="form-check">
-                                            <input type="checkbox" name="checkbox" id="checkbox_id" value="value"
-                                                (click)="selectEmployeeIds(data.employeeId)">
-                                            <label for="hh" class="form-check-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                {{data.firstName}}&nbsp;{{data.lastName}}</label>
-                                        </div>
+                <!-- <div class="scrollbar" id="style-1"> -->
+                <div class="modal-body p-0">
+                    <table class="table-borderless my-4 table align-middle">
+                        <tbody>
+                            <tr *ngFor="let data of employeName">
+                                <td>
+                                    <div class="form-check ps-0 d-flex">
+                                        <ngx-avatar size="30" class="ms-4" [style]="customStyle"
+                                            [name]="data.firstName + ' ' + data.lastName"
+                                            [src]="'https://localhost:44394/' + data.photoPath" alt="...">
+                                        </ngx-avatar>
+                                        <label for="hh"
+                                            class="form-check-label ms-3 mt-1">{{data.firstName}}&nbsp;{{data.lastName}}</label>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-5 mt-4 mb-4">
-                                            <button type="submit" style="float: left;" class="btn btn-primary"
-                                                (click)="IsSelectEmployee()"> Add
-                                                project</button>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="checkbox" id="checkbox_id" value="value"
+                                        (click)="selectEmployeeIds(data.employeeId)">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary" #AddTeamModal data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" (click)="IsSelectEmployee()">
+                        Add peoples to project
+                    </button>
+                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>
+</div>

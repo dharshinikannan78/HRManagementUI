@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
   getCredentails(form: any) {
     this.api.getLogin(form).subscribe((data: any): any => {
       this.userData = data;
-      console.log(this.userData, "user data")
       if (data) {
         if (data.isFirstLogin == true) {
           return this.state = "ChangePassword";
@@ -69,9 +68,7 @@ export class LoginComponent implements OnInit {
   }
   state: string = "login";
   submitForgotPassword() {
-    console.log(this.ForgotMailId, "jhjhjhuyuyuytyt")
     this.api.ResetPassword(this.ForgotMailId).subscribe(data => {
-      console.log(data);
     });
   }
   forgotPassword() {
@@ -97,15 +94,24 @@ export class LoginComponent implements OnInit {
       'NewPassword': formData.newPassword,
       'UserId': this.userData.userId
     }
-    console.log(this.userData.userId, "hello this is user id")
     if (formData.newPassword != formData.reNewPassword) {
       return alert("password must be same")
     }
     this.api.editUser(payload).subscribe(data => {
-      console.log(data, "data from login edit");
       this.state = 'login';
       this.router.navigate(['login'], { replaceUrl: true });
     });
+  }
+
+  showPass: string = 'password';
+  reAppear: boolean;
+  showPassword() {
+    if (this.reAppear) {
+      this.showPass = 'password';
+      return this.reAppear = false;
+    }
+    this.showPass = 'text';
+    return this.reAppear = true;      
   }
 
 }

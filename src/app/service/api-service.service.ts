@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -9,7 +10,9 @@ import { Observable } from 'rxjs';
 })
 export class ApiServiceService {
 
-  URL = 'https://localhost:44394/api/';
+  // URL = 'http://localhost:8082/api/';
+  URL = environment.baseURL;
+  photoUrl = environment.photoURL;
   dologin = this.URL + 'Login/Login';
   addUserCredentials = this.URL + 'Login/AddUser';
   attendanceDetails = this.URL + 'Attendance/AttendanceDetails?data=';
@@ -27,8 +30,9 @@ export class ApiServiceService {
   getUser = this.URL + 'Employee/GetUser?data=';
 
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
-  attendance = this.URL + 'Attendance/AddAttendance';
-  updAttendance = this.URL + 'Attendance/updateAttendance';
+  attendance = this.URL + 'Attendance/AddAttendance?id=';
+  updAttendance = this.URL + 'Attendance/updateAttendance?id=';
+  checkAttdStatus = this.URL + 'Attendance/CheckAttendanceState?id=';
 
   taskDetails = this.URL + 'TaskDetails/AddTaskDeatils';
   getEmployeeTaskDetails = this.URL + 'TaskDetails/taskDetailsForProfile?EmployeeId=';
@@ -37,7 +41,6 @@ export class ApiServiceService {
   addProjectDetail = this.URL + 'ProjectDetails/AddEmployeeDetails';
   updateProjectDetails = this.URL + 'ProjectDetails/UpdateTaskDetails';
   getProjectDetails = this.URL + 'ProjectDetails/getDetails?projectTitle=';
-  getProjectMembers = this.URL + 'ProjectDetails/TeamMembers?team=';
   getTaskDetails = this.URL + 'ProjectDetails/TaskName?taskName=';
   getTaskDetailsById = this.URL + 'TaskDetails/EmployeeId?EmployeeId=';
   updateByProjectId = this.URL + 'ProjectDetails/ProjectId?projectId=';
@@ -58,6 +61,9 @@ export class ApiServiceService {
   filter = this.URL + "Attendance/FilteredItems?id=";
   GetLeaveStatus = this.URL + 'Leave/GetLeaveStatus?id=';
   GetEmpDetailsForEdit = this.URL + 'Employee/getIndividualEmployeeDetailsById?id=';
+  totalLeave = this.URL + "Leave/GetTotalLeave?id=";
+  totalPermission = this.URL + "Leave/GetTotalPermission?id=";
+  notification = this.URL + "Leave/GetNotification?id=";
 
   constructor(private http: HttpClient) { }
 
@@ -102,8 +108,8 @@ export class ApiServiceService {
     return this.http.post(this.editUserCredentials, params)
   }
 
-  addemployeeDetails(createLogin: string, params: any) {
-    return this.http.post(this.addemployeeDetail + createLogin, params)
+  addemployeeDetails(createLogin: string, params: any, repId: number = 0) {
+    return this.http.post(this.addemployeeDetail + createLogin + '&RepId=' + repId, params)
   }
 
   getallEmployeeDetailsWithPhoto(id: number) {
@@ -113,7 +119,7 @@ export class ApiServiceService {
     return this.http.get(this.GetallEmployeesName);
   }
 
-  getUserDetails(data: any, team: any) {
+  getUserDetails(data: any) {
     return this.http.get(this.getUser + data);
   }
 
@@ -150,11 +156,15 @@ export class ApiServiceService {
   }
 
   addAttendance(params: any) {
-    return this.http.post(this.attendance, params);
+    return this.http.get(this.attendance + params);
   }
 
-  updateAttendance(params: any) {
-    return this.http.put(this.updAttendance, params);
+  updateAttendance(id: any) {
+    return this.http.get(this.updAttendance + id);
+  }
+
+  CheckAttdStatus(param: number) {
+    return this.http.get(this.checkAttdStatus + param);
   }
 
   getAttendanceDetails(id: any) {
@@ -183,10 +193,6 @@ export class ApiServiceService {
 
   projectDetails(params: any) {
     return this.http.get(this.getProjectDetails + params);
-  }
-
-  getProjectTeamMembers(params: any) {
-    return this.http.get(this.getProjectMembers + params);
   }
 
   getprojectTaskDetails(params: any): Observable<any> {
@@ -238,6 +244,15 @@ export class ApiServiceService {
   }
   getEmpDetailsForEdit(id: number) {
     return this.http.get(this.GetEmpDetailsForEdit + id)
+  }
+  getTotalLeave(id: any, mon: any) {
+    return this.http.get(this.totalLeave + id + '&month=' + mon);
+  }
+  getTotalPermission(id: any, mon: any) {
+    return this.http.get(this.totalPermission + id + '&month=' + mon, { responseType: 'text' });
+  }
+  getNotification(id: any) {
+    return this.http.get(this.notification + id)
   }
 
 }

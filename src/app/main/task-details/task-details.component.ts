@@ -38,7 +38,6 @@ export class TaskDetailsComponent implements OnInit {
   }
   addTaskDetails(params: any) {
     this.api.addTaskDetails(params).subscribe(data => {
-      console.log(data, 'data')
       Swal.fire({
         text: 'Added Sucessfully!',
         icon: 'success',
@@ -52,25 +51,21 @@ export class TaskDetailsComponent implements OnInit {
     if (this.Role == "Admin") {
       this.isOpenTask = true;
       // this.UserId = params;
-      console.log(this.UserId, 'user')
       this.api.getAllEmployeeDetails(this.UserId).subscribe(data => {
         this.isTaskDetails = data;
-        console.log(data, 'taskDetails')
       });
 
     } else if (this.Role == "TeamMember") {
       this.isOpenTask = false;
       this.api.employeeTaskDetail(this.UserId).subscribe(data => {
         this.isTaskDetails = data;
-        console.log(data, 'taskDetails')
       });
     }
   }
 
   getAllTeamLeaders(params: any) {
     this.api.getTeamLeaders(params).subscribe(data => {
-      console.log(data, "geeth paithiyam");
-    })
+    });
   }
-  
+
 }

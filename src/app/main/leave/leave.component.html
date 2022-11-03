@@ -1,4 +1,32 @@
-<div class="text-end">
+<div class="totalLeave m-5" *ngIf="isAdmin">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h3 class="card-title">Total Leave</h3>
+                    <h5 class="card-text">{{this.totalLeave}} Day</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h3 class="card-title">Total Permission</h3>
+                    <h5 class="card-text">{{this.totalPermission}} </h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Select Month & Year</label>
+            <input type="month" [(ngModel)]="currentMonth" class="forSelectMenu form-control">
+
+        </div>
+        <div class="col-md-2 ">
+            <button type="button " class="btn btn-primary filter" (click)="GetTotalLeave(currentMonth)">Submit</button>
+        </div>
+    </div>
+</div>
+<div class="text-end" *ngIf="isAdmin">
     <button type="button" class="btn btn-primary mt-4 mb-4" style="margin-right: 2rem;" data-bs-toggle="modal"
         data-bs-target="#LeaveModal">
         Apply Leave
@@ -50,6 +78,7 @@
                                     <option disabled selected value> -- select an option -- </option>
                                     <option value="Sick Leave">Sick Leave</option>
                                     <option value="Casual Leave">Casual Leave</option>
+                                    <option value="Permission">Permission</option>
                                 </select>
                             </div>
                             <div class="mb-3">

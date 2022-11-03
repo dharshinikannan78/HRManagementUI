@@ -38,6 +38,7 @@ export class ProjectOverviewComponent implements OnInit {
     objectFit: "cover",
     cursor: "pointer"
   };
+  baseUrl: string = this.api.photoUrl;
   particularDetails: any;
   roleForRestrict: boolean;
   ngOnInit(): void {
@@ -96,7 +97,6 @@ export class ProjectOverviewComponent implements OnInit {
 
 
   IsArchieved() {
-    console.log('getha')
     const data = {
       ...this.projectdetails,
       IsArchived: true
@@ -126,7 +126,6 @@ export class ProjectOverviewComponent implements OnInit {
     if (this.userService.Role != 'Admin' && this.userService.Role != 'Manager') { this.empIdForRestr = this.EmployeeId }
     this.api.kanbanTaskDetails(id, this.empIdForRestr).subscribe((data: any) => {
       this.kanban = data;
-      console.log(data, "checking for epl id")
       this.projectdetails = data.details[0];
       this.taskdetails = data.taskDetails;
     });
@@ -138,9 +137,9 @@ export class ProjectOverviewComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id')
     this.api.getEmployeeListForProjext(id).subscribe((data: any) => {
       this.employeelist = data
-      if (this.employeelist.length > 3) {
+      if (this.employeelist.length > 4) {
         this.teamOverflow = true;
-        this.count = this.employeelist.length - 3;
+        this.count = this.employeelist.length - 4;
       }
     });
   }
@@ -149,7 +148,6 @@ export class ProjectOverviewComponent implements OnInit {
 
 
   getEmployeId(paramas: any) {
-    console.log(paramas, 'params')
     this.userService.EmployeeTaskId = paramas;
   }
 
@@ -187,7 +185,6 @@ export class ProjectOverviewComponent implements OnInit {
   }
 
   IsTaskArchieved() {
-    console.log('getha')
     const data = {
       ...this.taskdetails[0][0],
       isTaskArchieved: true
@@ -214,7 +211,6 @@ export class ProjectOverviewComponent implements OnInit {
   IsSelectEmployee() {
     let ProjId = this.route.snapshot.paramMap.get('id');
     this.api.AddPeopleToProject(Number(ProjId), this.EmployeeIds).subscribe(data => {
-      console.log(data, 'salman')
       Swal.fire({
         text: 'Update Sucessfully!',
         icon: 'success',
@@ -228,18 +224,12 @@ export class ProjectOverviewComponent implements OnInit {
   selectEmployeeIds = (paramas: any) => this.EmployeeIds.push(paramas);
 
   getEmployeeDetailsForTask(params: any) {
-    console.log(params, 'geethaparams')
     this.api.getEmployeeListForProjext(params).subscribe(data => {
       this.userService.ProjectId = params;
-      console.log(this.userService.ProjectId, 'geethaparams')
-      console.log(data, 'geethaparams')
-
-    })
+    });
   }
   getData(data: any) {
-    console.log(data, 'helo')
     this.isAssigingTaskTo = data
-    console.log(this.isAssigingTaskTo, 'helo')
   }
 }
 

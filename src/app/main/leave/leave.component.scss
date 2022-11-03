@@ -73,9 +73,7 @@ label {
     font-weight: 600;
     color: #3c4ac8;
 }
-input {
-    color: #a49e9e;
-}
+
 .modal-header {
     // background: #8e2de2;
     // background: -webkit-linear-gradient(to left, #4f10cb, #8e2de2);
@@ -165,6 +163,12 @@ input {
     background: #03045e;
     color: #fff;
     border-radius: 5px;
+}
+.card {
+    background: linear-gradient(135deg, hsla(225, 40%, 54%, 1) 30%, hsla(284, 75%, 54%, 1) 82%);
+}
+.filter {
+    margin: 2rem;
 }
 
 .progress-count:before {

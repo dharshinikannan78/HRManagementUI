@@ -77,9 +77,6 @@ label {
     font-weight: 600;
     color: #3c4ac8;
 }
-input {
-    color: #a49e9e;
-}
 .modal-header {
     // background: #8e2de2;
     // background: -webkit-linear-gradient(to left, #4f10cb, #8e2de2);
@@ -88,6 +85,7 @@ input {
 }
 .modal-content {
     border: none !important;
+    // height: 18rem;
 }
 .modal {
     background-color: rgb(0, 0, 0, 0.6);

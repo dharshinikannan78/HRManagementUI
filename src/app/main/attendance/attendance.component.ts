@@ -28,8 +28,6 @@ export class AttendanceComponent implements OnInit {
   getAttendanceDetails() {
     this.api.getAttendanceDetailsById(this.EmployeeId).subscribe(data => {
       this.attendanceDetails = data;
-      console.log(data, 'data')
-
     });
   }
 }

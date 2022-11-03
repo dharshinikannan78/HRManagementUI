@@ -12,6 +12,7 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
 const routes: Routes = [
   {
     path: '', component: MainComponent, children: [
+      
       { path: 'leave', component: LeaveComponent },
       { path: 'attendance', component: AttendanceComponent },
       { path: 'taskDetails', component: TaskDetailsComponent },
@@ -19,7 +20,7 @@ const routes: Routes = [
       { path: 'projectDetails', component: ProjectDetailsComponent },
       { path: 'projectOverview/:id', component: ProjectOverviewComponent },
       { path: 'list', component: ProjectListComponent },
-      { path: 'AdminAttendance', component:AdminAttendanceDetailsComponent },
+      { path: 'AdminAttendance', component: AdminAttendanceDetailsComponent },
       { path: 'Employee', loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule) },
       { path: '', redirectTo: 'Employee', pathMatch: 'full' },
     ]

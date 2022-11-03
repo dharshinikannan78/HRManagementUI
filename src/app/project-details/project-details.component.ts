@@ -39,13 +39,10 @@ export class ProjectDetailsComponent implements OnInit {
   getTaskDetails() {
     this.api.employeeTaskDetail(this.EmployeeId).subscribe(data => {
       this.isTaskData = data
-      console.log(data, 'geethatask')
     })
   }
   UpdateTaskDetails(params: any) {
-    console.log(params, 'Geetha');
     this.api.updateTaskDeatils(params).subscribe(data => {
-      console.log(data, 'data');
       Swal.fire({
         text: 'Update Sucessfully!',
         icon: 'success',
@@ -55,9 +52,7 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
   getTaskClick(paramas: any) {
-    console.log(paramas, 'params')
     this.isTaskData = paramas;
     this.isshowModal = true;
-    console.log(this.isTaskData, 'isTaskData')
   }
 }

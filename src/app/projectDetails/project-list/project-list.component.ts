@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiServiceService } from 'src/app/service/api-service.service';
@@ -48,6 +48,10 @@ export class ProjectListComponent implements OnInit {
 
   constructor(private api: ApiServiceService, private router: Router, private userService: UserServiceService) { }
 
+  @ViewChild('createModal') createModal: ElementRef
+  @ViewChild('updateProjectModal') updateProjectModal: ElementRef
+
+
   ngOnInit(): void {
     this.getAllProjectDetails();
     this.roleForRestrict = this.userService.getRole()
@@ -60,37 +64,34 @@ export class ProjectListComponent implements OnInit {
         icon: 'success',
         timer: 1500
       });
-      window.location.reload();
+      this.createModal.nativeElement.click();
+      this.getAllProjectDetails();
     });
   }
 
   getProjectClick(params: any) {
-    this.showModal = true;
     this.isProjectdata = params;
-    console.log(this.isProjectdata, "project data");
   }
 
   updateProject(params: any) {
     this.api.updateProject(params).subscribe(data => {
-      console.log(data,)
       Swal.fire({
         text: 'Update Sucessfully!',
         icon: 'success',
         timer: 1500
       });
-      window.location.reload();
+      this.updateProjectModal.nativeElement.click();
+      this.getAllProjectDetails();
     });
   }
 
   empIdForRestr: number;
   getAllProjectDetails() {
-    if (this.userService.Role != 'Admin' && this.userService.Role != 'Manager') { this.empIdForRestr = this.EmployeeId }
-    console.log(this.userService.Role, "role form kanban")
-    console.log(this.empIdForRestr, "salman   kanban")
+    if (this.userService.Role != 'Admin' && this.userService.Role != 'Manager') this.empIdForRestr = this.EmployeeId;
+
     this.api.getAllProjectDetails(this.empIdForRestr).subscribe(data => {
-      console.log(data, "1 of 20");
       this.ProjectDetails = data
-    })
+    });
   }
 
   getIdAndRouteToOverview = (Id: any) => this.router.navigate(['projectOverview', Id]);

@@ -136,4 +136,8 @@ export class UserServiceService {
     if (this.Role == 'Admin') return true;
     return false;
   }
+  getEmpOnlyRole(): boolean {
+    if (this.Role == 'Employee') return true;
+    return false;
+  }
 }

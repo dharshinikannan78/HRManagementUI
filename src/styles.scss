@@ -1,8 +1,7 @@
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
-
 
 .cursorP {
     cursor: pointer;
@@ -20,6 +19,9 @@
 }
 .primary-textc {
     color: #1919f4;
+}
+.primary-bg {
+    background-color: #1919f4;
 }
 .badge {
     background-color: rgba(45, 211, 111, 0.12);

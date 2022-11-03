@@ -2,10 +2,10 @@
     <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
         <div class="d-flex align-items-center justify-content-center">
             <div>
-                <ngx-avatar [name]="loggerName" [src]="'https://localhost:44394/' + forNav[0]?.photoPath"
-                    class="margin-auto dflex" size="80" [style]="customStyle"></ngx-avatar>
+                <ngx-avatar [name]="loggerName" [src]="baseUrl + forNav[0]?.photoPath" class="margin-auto dflex"
+                    size="80" [style]="customStyle"></ngx-avatar>
                 <div class="d-flex pt-3 align-items-center justify-content-center">
-                    <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br/>
+                    <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
                         {{ loggerRole }}
                     </h6>
                 </div>
@@ -63,15 +63,25 @@
 
 <main id="main">
     <nav class="navbar navbar-dark">
-        <div class="container-fluid" style="height: 4rem;">
+        <div class="container-fluid">
             <button class="navbar-toggler" type="button" (click)="openNav()">
                 <i class="fa-solid fa-bars text-dark"></i>
             </button>
+
+            <div *ngIf="!isEmployeeOnly" class="pe-4 ms-auto">
+                <button type="button" class="ms-auto btn btn-primary primary-bg position-relative" (click)="notificationClick()">
+                    <i class="fa-solid fa-bell text-white"></i>
+                    <span *ngIf="!(this.notify == 0 || this.notify == null)"
+                        class="position-absolute top-0 start-100 text-white translate-middle bg-danger rounded-pill notify">{{this.notify}}
+                    </span>
+                </button>
+            </div>
+
             <div class="d-flex align-items-center">
                 <p class="m-0">{{ loggerName }}</p>
                 <a class="navbar-brand">
-                    <ngx-avatar [name]="loggerName" [src]="'https://localhost:44394/' + forNav[0]?.photoPath"
-                        [style]="customStyle"></ngx-avatar>
+                    <ngx-avatar [name]="loggerName" [src]="baseUrl + forNav[0]?.photoPath" [style]="customStyle">
+                    </ngx-avatar>
                 </a>
             </div>
         </div>

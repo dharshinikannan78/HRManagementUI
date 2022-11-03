@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { ApiServiceService } from '../service/api-service.service';
 import { UserServiceService } from '../service/user-service.service';
 
@@ -16,18 +17,22 @@ export class MainComponent {
   step: any;
   loggerName: string;
   loggerRole: string;
+  notify: any;
   customStyle = {
     objectFit: "cover"
   };
   userService: any;
   isSuperUser: boolean;
-
+  EmployeeId: any = localStorage.getItem('EmployeeId');
+  baseUrl = this.api.photoUrl;
+  isEmployeeOnly: boolean;
   constructor(public router: Router, userService: UserServiceService, private api: ApiServiceService) {
-    this.step = 'step1'
-    // this.loggerName = userService.Name;
+    this.step = 'step1';
     this.loggerRole = userService.Role;
     this.getImageForNav();
     this.isSuperUser = userService.getRole();
+    this.isEmployeeOnly = userService.getEmpOnlyRole();
+    this.getNotification();
   }
 
 
@@ -38,18 +43,15 @@ export class MainComponent {
     let main = document.getElementById("main");
 
     if (window.innerWidth < 600) {
-      console.log(window.innerWidth, "widhth")
       if (this.showNavContent == false) {
         sidenav.style.width = "0px";
         main.style.marginLeft = "0px";
         this.showNavContent = true;
-        console.log(this.showNavContent, "to hide")
       }
       else {
         sidenav.style.width = "60px";
         main.style.marginLeft = "60px";
         this.showNavContent = false;
-        console.log(this.showNavContent, "for shpow")
       }
     }
     else {
@@ -79,6 +81,7 @@ export class MainComponent {
       this.isNavOpen = true;
       this.showNavContent = true;
     }
+
     else {
       sidenav.style.width = "60px";
       main.style.marginLeft = "60px";
@@ -95,11 +98,35 @@ export class MainComponent {
 
     this.api.getEmployeeDetailsById(localStorage.getItem("EmployeeId")).subscribe((data: any) => {
       this.forNav = data;
-      console.log(this.forNav, 'data');
       this.loggerName = data[0].firstName + ' ' + data[0].lastName;
     })
   }
+
   logout = () => {
-    this.router.navigate(['./login']);
+    Swal.fire({
+      title: "Are you sure want to Logout ?",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'LogOut'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['./login']);
+      }
+    });
   }
+
+  getNotification() {
+    this.api.getNotification(this.EmployeeId).subscribe(data => {
+      this.notify = data;
+
+    })
+
+  }
+  notificationClick() {
+    this.router.navigate(['leave']);
+  }
+
+  
+
 }

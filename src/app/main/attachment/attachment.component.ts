@@ -18,16 +18,15 @@ export class AttachmentComponent implements OnInit {
 
   @Input() set attachmentId(value: any) {
     if (value) {
-      console.log('CandidateId', this.attachmentId);
       this.attachmentDetails = value;
-     
+
     }
   }
   constructor(private router: Router, private api: ApiServiceService, private http: HttpClient) { }
 
   ngOnInit(): void {
   }
-  
+
   downloadAttachment(id: any) {
     return this.http.get('https://localhost:44394/api/FileAttachment/Download?id=' + id, { responseType: 'blob' }).subscribe((event) => {
       FileSaver.saveAs(event);

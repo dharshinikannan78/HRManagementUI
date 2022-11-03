@@ -36,8 +36,10 @@ export class LeaveComponent implements OnInit {
   leaveStatusData: any = [];
   step: number;
   isSuperUser: boolean;
-
-
+  totalLeave: any;
+  totalPermission: string;
+  currentMonth = new Date().getFullYear().toString() + '-' + (new Date().getMonth() + 1).toString();
+  month = new Date('MMM d, y');
 
   applyOnLeave: FormGroup = new FormGroup({
     leaveDay: new FormControl('', Validators.required),
@@ -61,21 +63,20 @@ export class LeaveComponent implements OnInit {
     adminRejectReason: new FormControl(''),
   });
 
-
   constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) {
     this.getEmployeeLeave();
     this.check();
+    this.GetTotalLeave(this.currentMonth);
+    this.getLeaveDetails();
   }
 
   ngOnInit(): void {
-    this.getLeaveDetails();
+   
     this.getRole()
   }
-  getRole() {
-    console.log(this.isSuperUser, "hello role")
-    let Role = localStorage.getItem('Role')
-    console.log(Role, "hello role let")
 
+  getRole() {
+    let Role = localStorage.getItem('Role')
     if (Role == "Employee") { this.isSuperUser = true; }
     else {
       this.isSuperUser = false;
@@ -83,21 +84,16 @@ export class LeaveComponent implements OnInit {
   }
 
   getLeaveDetail(data: any) {
-    console.log('dataEmployee')
-    console.log(this.Role, 'this.userService.Role')
     if (this.Role == "Admin" || this.Role == "Manager" || this.Role == "TeamLead") {
       this.employeeLeaveDetails = data;
-      console.log(this.employeeLeaveDetails, 'employeeLeaveDetails')
     }
     else if (this.Role == "Employee") {
-      console.log('Employee')
     }
   }
 
   changeDuration(params: any) {
     let elements = document.getElementsByClassName("forSelectMenu");
     if (params.target.value == 'Day' || params.target.value == 'HalfDay') {
-      console.log(elements);
       for (var i = 0; i < elements.length; i++) {
         elements[i].setAttribute('type', 'date');
       }
@@ -111,23 +107,22 @@ export class LeaveComponent implements OnInit {
 
   getLeaveDetails() {
     this.api.getLeaveDetails(this.EmployeeId, this.UserId).subscribe(data => {
-      console.log(data, "leave approval data")
       this.leaveDetails = data
     });
   }
 
   applyLeave(params: any) {
     this.api.applyLeaveOn(params).subscribe((data) => {
-      console.log(data, 'data');
-      console.log("after the await");
       Swal.fire({
         text: 'Leave Applied Sucessfully!',
         icon: 'success',
         timer: 1000
       });
-      this.closeModal.nativeElement.click();
+       this.closeModal.nativeElement.click();
       this.showModal = true;
+      window.location.reload();
       this.getLeaveDetails();
+      
     }, (error: Response) => {
       if (error.status === 400) {
         Swal.fire({
@@ -152,8 +147,8 @@ export class LeaveComponent implements OnInit {
       }
     });
   }
+
   approvalStatus(event: any) {
-    console.log(event, 'event')
   }
 
   updateLeaveDetail(response: string) {
@@ -167,7 +162,6 @@ export class LeaveComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this.api.updateLeaveDetails(this.EmployeeId, response, this.updateLeaveForm.value).subscribe((data) => {
-            console.log(data, 'dataEmployee')
             Swal.fire({
               text: 'Approved',
               icon: 'success',
@@ -175,7 +169,6 @@ export class LeaveComponent implements OnInit {
             });
             this.closeUpdateLeaveModal.nativeElement.click();
             this.getLeaveDetails();
-            this.updateLeaveForm.reset();
           }, (error: Response) => {
             if (error.status === 400) {
               Swal.fire({
@@ -196,9 +189,8 @@ export class LeaveComponent implements OnInit {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Reject'
       }).then((result) => {
-        if (result.isConfirmed)
+        if (result.isConfirmed) {
           this.api.updateLeaveDetails(this.EmployeeId, response, this.updateLeaveForm.value).subscribe((data) => {
-            console.log(data, 'dataEmployee')
             Swal.fire({
               text: 'Rejected!',
               icon: 'success',
@@ -206,7 +198,6 @@ export class LeaveComponent implements OnInit {
             });
             this.closeUpdateLeaveModal.nativeElement.click();
             this.getLeaveDetails();
-            this.updateLeaveForm.reset();
           }, (error: Response) => {
             if (error.status === 400) {
               Swal.fire({
@@ -216,16 +207,17 @@ export class LeaveComponent implements OnInit {
               });
             }
           });
+        }
       });
     }
-
   }
+
   getEmployeeLeave() {
     this.api.GetEmployeeLeave(this.EmployeeId).subscribe(data => {
       this.leaveData = data
-      console.log(this.leaveData, "leave")
     })
   }
+
   status: string;
   managerReject: boolean = false;
   teamLeadReject: boolean = false;
@@ -233,7 +225,6 @@ export class LeaveComponent implements OnInit {
 
   getLeaveStatus(id: number) {
     this.api.getLeaveStatus(id).subscribe(data => {
-      console.log(data, "leave status data");
       this.leaveStatusData = data;
       this.resetVariable();
       if (this.leaveStatusData.teamLeadApprovalStatus == 'Pending') return this.status = 'teamLead';
@@ -248,6 +239,7 @@ export class LeaveComponent implements OnInit {
       return 0;
     });
   }
+
   resetVariable() {
     this.managerReject = false;
     this.adminReject = false;
@@ -273,5 +265,13 @@ export class LeaveComponent implements OnInit {
     }
   }
 
-}
+  GetTotalLeave(mon: any) {
+    this.api.getTotalLeave(this.EmployeeId, mon).subscribe(data => {
+      this.totalLeave = data
+    });
+    this.api.getTotalPermission(this.EmployeeId, mon).subscribe((datas) => {
+      this.totalPermission = datas.toString();
+    });
+  }
 
+}

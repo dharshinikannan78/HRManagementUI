@@ -34,18 +34,14 @@ export class AdminAttendanceDetailsComponent implements OnInit {
     }
     this.api.getFilter(this.EmployeeId, payload).subscribe(data => {
       this.details = data;
-      console.log(data, "addten =nce filter")
       this.filterAttendanceDetails = this.details.attendanceFilter;
-      console.log(this.filterAttendanceDetails, "addten =nce filter")
       this.filterLeaveDetails = this.details.leaveFilter;
     })
   }
 
   getEmployeeName() {
     this.api.getallEmployeesName().subscribe(data => {
-      console.log(data, 'nameData')
       this.employeName = data;
-      console.log(this.employeName, 'name geetha paithiyam')
     });
   }
 }

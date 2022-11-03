@@ -24,7 +24,6 @@ ul li p {
     transition: all 20s;
     white-space: nowrap;
     color: #c0c0c0;
-
 }
 
 ul li i {
@@ -59,11 +58,10 @@ ul li i {
 }
 
 i {
-    color: #BAC0CA;
+    color: #bac0ca;
 }
 
 main {
-
     margin-left: 60px;
     transition: margin-left 0.5s ease;
     height: 100vh;
@@ -100,4 +98,8 @@ main {
     i {
         color: #fff;
     }
+}
+.notify {
+    font-size: 12px;
+    padding: 0 6px;
 }

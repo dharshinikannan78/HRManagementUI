@@ -9,7 +9,8 @@
             Enter your email to reset your password
           </p>
           <div class="form-floating mb-3">
-            <input type="email" [(ngModel)]="ForgotMailId" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input type="email" [(ngModel)]="ForgotMailId" class="form-control" id="floatingInput"
+              placeholder="name@example.com">
             <label for="floatingInput">Email address</label>
             <span class="text-danger" *ngIf="!addUser.controls['oldPassword'].valid && 
             addUser.controls['oldPassword']?.touched"> <b>Old Password</b> is required *</span>
@@ -45,7 +46,8 @@
             </div>
           </form>
         </ng-container>
-        <ng-container *ngIf="state=='login'">  <!----login---->
+        <ng-container *ngIf="state=='login'">
+          <!----login---->
           <h1 class="mt-5 mb-5">Login</h1>
           <form [formGroup]="dologin" (ngSubmit)="getCredentails(dologin.value)">
             <div class="mb-3">
@@ -54,12 +56,13 @@
               <span class=" text-danger mt-1" *ngIf="!dologin.controls['mailId'].valid && 
             dologin.controls['mailId']?.touched"> <b>Mail Id</b> is required *</span>
             </div>
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input type="password" class="form-control" formControlName="password">
-              <span class=" text-danger mt-1" *ngIf="!dologin.controls['password'].valid && 
-            dologin.controls['password']?.touched"> <b>Password</b> is required *</span>
+            <label class="form-label">Password</label>
+            <div class="input-group">
+              <input [type]="showPass" class="form-control" formControlName="password">
+              <span type="button" (click)="showPassword()" class="eye input-group-text"><i class="fa-regular fa-eye-slash"></i></span>
             </div>
+            <span class="text-danger mt-1" *ngIf="!dologin.controls['password'].valid && 
+            dologin.controls['password']?.touched"> <b>Password</b> is required *</span>
             <div class="mb-3">
               <a (click)="forgotPassword()" style="text-decoration: none;" class="cursorP text-end">
                 <p><small>Forgot Password?</small></p>
@@ -74,7 +77,7 @@
         </ng-container>
       </div>
       <div class="col-md-8">
-        <img src="../assets/login.jpg" class="imgprop w-100 h-100" alt="">
+        <img src="assets/login.jpg" class="imgprop w-100 h-100" alt="">
       </div>
     </div>
   </div>

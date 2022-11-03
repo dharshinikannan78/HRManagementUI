@@ -5,7 +5,7 @@
 
 
 <div class="container">
-    <div *ngIf="ProjectDetails?.length == 0"class="mt-5 text-center container">
+    <div *ngIf="ProjectDetails?.length == 0" class="mt-5 text-center container">
         No Data Found
     </div>
     <div class="accordion" id="accordionExample">
@@ -26,8 +26,6 @@
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <div class="row">
-                                            <!-- <span class="badge mt-2 col-md-6 position-absolute top-0 end-0">Move to
-                                                Archive</span> -->
                                             <div class="col-12 mt-4">
                                                 <b style=" color: #27122e;cursor: pointer;"
                                                     (click)="getIdAndRouteToOverview(data.projectId)">
@@ -38,122 +36,31 @@
                                                 <span class="badge badge1 shadow-sm text-success" style="float: right;"
                                                     [ngClass]="{'text-warning': data.priority === 'High', 'text-primary': data.priority === 'low'}">
                                                     <small>{{data.priority}}</small></span>
-
                                                 <br />
                                             </div>
                                         </div>
-
                                         <div class="row mt-3">
                                             <div *ngIf="roleForRestrict" class="col-8">
-                                                <small><span (click)="getProjectClick(data)" data-toggle="modal"
-                                                        data-target="#bootstrapModel"
+                                                <small>
+                                                    <span (click)="getProjectClick(data)" type="button"
+                                                        data-bs-toggle="modal" data-bs-target="#UpdateProjectModal"
                                                         class="badge mt-1 text-muted cursorP"
                                                         [ngClass]="{'editbadge' : 'Edit' }">
-                                                        Edit</span></small>
+                                                        Edit
+                                                    </span>
+                                                </small>
                                             </div>
-
                                             <div class="col-4">
-                                                <small><span class="badge mt-1"
+                                                <small>
+                                                    <span class="badge mt-1"
                                                         [ngClass]="{'orangeBadge' : data.projectStatus === 'Rejected' }">
-                                                        {{data.projectStatus}}</span></small>
+                                                        {{data.projectStatus}}
+                                                    </span>
+                                                </small>
                                             </div>
                                         </div>
                                         <div class="row">
                                             {{data.status}}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- **************** -->
-                                <!-- Edit Project Details Modal -->
-                                <!-- **************** -->
-                                <div class="modal" [style.display]="showModal ? 'block' : 'none'"
-                                    [formGroup]="updateProjectForm">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h3 class="modal-title text-white">Edit Project Details</h3>
-                                                <button type="button" class="btn-close closebutton"
-                                                    (click)="showModal=false"></button>
-                                            </div>
-                                            <div class="modal-body scrollbar" id="style-1">
-                                                <div class="row modalbody">
-                                                    <div class="d-none mb-3">
-                                                        <label class=" form-label">Project Id</label>
-                                                        <input class="form-control" [ngModel]="isProjectdata?.projectId"
-                                                            formControlName="projectId">
-                                                    </div>
-                                                    <div class="d-none mb-3">
-                                                        <label class=" form-label">Project AssiginId</label>
-                                                        <input class="form-control"
-                                                            [ngModel]="isProjectdata?.assiginedId"
-                                                            formControlName="assiginedId">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class=" form-label">Project Title</label>
-                                                        <input class="form-control"
-                                                            [ngModel]="isProjectdata?.projectTitle"
-                                                            formControlName="projectTitle">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class=" form-label">Project Name</label>
-                                                        <input class="form-control"
-                                                            [ngModel]="isProjectdata?.projectName"
-                                                            formControlName="projectName">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class=" form-label">Project Description</label>
-                                                        <textarea class="form-control" style="height: 10rem;"
-                                                            [ngModel]="isProjectdata?.projectDescription"
-                                                            formControlName="projectDescription"></textarea>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class=" form-label">Project StartDate</label>
-                                                        <input class="form-control" [ngModel]="isProjectdata?.startDate"
-                                                            formControlName="startDate">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class=" form-label">Project CreateBy</label>
-                                                        <input class="form-control" [ngModel]="isProjectdata?.createdBy"
-                                                            formControlName="createdBy">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class=" form-label">Priority</label>
-                                                        <select [ngModel]="isProjectdata?.priority" class="form-select"
-                                                            class="form-control" formControlName="priority">
-                                                            <option disabled selected value>select an option
-                                                            </option>
-                                                            <option value="High">High</option>
-                                                            <option value="Low">Low</option>
-                                                            <option value="Medium">Medium</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class=" form-label">Project EndDate</label>
-                                                        <input type="date" class="form-control"
-                                                            [ngModel]="isProjectdata?.endDate"
-                                                            formControlName="endDate">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class=" form-label">Project Status</label>
-                                                        <select class="form-select" class="form-control" [ngModel]="isProjectdata?.projectStatus
-                                                                " formControlName="projectStatus">
-                                                            <!-- <option disabled selected value> -- select an option --
-                                                                </option> -->
-                                                            <option value="InProgress">InProgress</option>
-                                                            <option value="Completed">Completed</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    (click)="showModal=false">Close</button>
-                                                <button type="button" class="btn btn-primary"
-                                                    (click)="updateProject(updateProjectForm.value)">Save
-                                                    changes</button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -166,11 +73,100 @@
     </div>
 </div>
 
-<!-- </div> -->
 
+<!-- **************** -->
+<!-- Edit Project Details Modal -->
+<!-- **************** -->
+<div class="modal" id="UpdateProjectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    [formGroup]="updateProjectForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-white">
+                    Edit Project Details
+                </h3>
+                <button type="button" class="btn-close closebutton" data-bs-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body scrollbar" id="style-1">
+                <div class="row modalbody">
+                    <div class="d-none mb-3">
+                        <label class=" form-label">Project Id</label>
+                        <input class="form-control" [ngModel]="isProjectdata?.projectId" formControlName="projectId">
+                    </div>
+                    <div class="d-none mb-3">
+                        <label class=" form-label">Project AssiginId</label>
+                        <input class="form-control" [ngModel]="isProjectdata?.assiginedId"
+                            formControlName="assiginedId">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Project Title</label>
+                        <input class="form-control" [ngModel]="isProjectdata?.projectTitle"
+                            formControlName="projectTitle">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Project Type</label>
+                        <select class="form-select" class="form-control" [ngModel]="isProjectdata?.projectName"
+                            formControlName="projectName">
+                            <option disabled selected value>select an option
+                            </option>
+                            <option value="E-pub">E-pub</option>
+                            <option value="XML">XML</option>
+                            <option value="Table">Table</option>
+                            <option value="SoftWare">SoftWare</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Project Description</label>
+                        <textarea class="form-control" style="height: 10rem;"
+                            [ngModel]="isProjectdata?.projectDescription"
+                            formControlName="projectDescription"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Project StartDate</label>
+                        <input class="form-control" type="date" [ngModel]="isProjectdata?.startDate"
+                            formControlName="startDate">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Project CreateBy</label>
+                        <input class="form-control" [ngModel]="isProjectdata?.createdBy" formControlName="createdBy">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Priority</label>
+                        <select [ngModel]="isProjectdata?.priority" class="form-select" class="form-control"
+                            formControlName="priority">
+                            <option disabled selected value>select an option
+                            </option>
+                            <option value="High">High</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Project EndDate</label>
+                        <input type="date" class="form-control" [ngModel]="isProjectdata?.endDate"
+                            formControlName="endDate">
+                    </div>
+                    <div class="mb-3">
+                        <label class=" form-label">Project Status</label>
+                        <select class="form-select" class="form-control" [ngModel]="isProjectdata?.projectStatus"
+                            formControlName="projectStatus">
+                            <option value="InProgress">InProgress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-
-
+            <div class="modal-footer">
+                <button type="button" #updateProjectModal class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="updateProject(updateProjectForm.value)">Save
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- **************** -->
 <!-- Create Project Modal -->
@@ -184,9 +180,8 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form [formGroup]="addProjectDetail">
-
+            <form [formGroup]="addProjectDetail">
+                <div class="modal-body">
                     <div class="mb-3">
                         <label class=" form-label">Project Title</label>
                         <input class="form-control" formControlName="projectTitle">
@@ -195,7 +190,6 @@
                         <label class=" form-label">Project Description</label>
                         <textarea class="form-control" formControlName="projectDescription"></textarea>
                     </div>
-
                     <div class="mb-3">
                         <label class=" form-label">Priority</label>
                         <select class="form-select" class="form-control" formControlName="priority">
@@ -206,10 +200,6 @@
                             <option value="Medium">Medium</option>
                         </select>
                     </div>
-                    <!-- <div class="mb-3">
-                        <label class=" form-label">Start Date</label>
-                        <input type="date" class="form-control" formControlName="startDate">
-                    </div> -->
                     <div class="mb-3">
                         <label class=" form-label">End Date</label>
                         <input type="date" class="form-control" formControlName="endDate">
@@ -225,25 +215,15 @@
                             <option value="SoftWare">SoftWare</option>
                         </select>
                     </div>
-                    <!-- <div class="mb-3">
-                        <label class=" form-label">Select Project Type</label>
-                        <input class="form-control" formControlName="projectName"> -->
-                    <!-- <select class="form-select" class="form-control" formControlName="projectName">
-                            <option disabled selected value>select an option
-                            </option>
-                            <option value="E-pub">E-pub</option>
-                            <option value="XML">XML</option>
-                            <option value="Table">Table</option>
-                            <option value="SoftWare">SoftWare</option>
-                        </select> -->
-                    <!-- </div> -->
-                    <div class="mb-3">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" #createModal
+                            data-bs-dismiss="modal">Close</button>
                         <button type="button" (click)="addProjectDetails(addProjectDetail.value)"
-                            class="btn btn-primary mt-3">Create Project
+                            class="btn btn-primary">Create Project
                         </button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

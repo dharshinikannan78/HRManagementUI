@@ -49,9 +49,7 @@ export class AddEmployeeDetailsComponent implements OnInit {
       filesResume: new FormControl('', Validators.required),
       designation: new FormControl('', Validators.required),
       joiningDate: new FormControl('', Validators.required),
-      teamName: new FormControl('', Validators.required),
-      position: new FormControl('', Validators.required),
-      userId: new FormControl('')
+      teamName: new FormControl('', Validators.required)
     });
   }
 
@@ -75,9 +73,7 @@ export class AddEmployeeDetailsComponent implements OnInit {
   }
 
   uploadcandidateFile = (files: any, type: string) => {
-    console.log(files)
     for (var i = 0; i < files.length; i++) {
-      console.log(this.formData, "form data")
       if (files[i].size > 10000000) {
         return alert("file size should be less than 10MB");
       }
@@ -101,34 +97,36 @@ export class AddEmployeeDetailsComponent implements OnInit {
   userLogin() {
     this.api.userlogin().subscribe((data: any) => {
       this.userDetails = data
-      console.log(data, "report person ARRAY")
+
       this.reportingPerson = this.userDetails;
     });
   }
 
-  loginAccess() {
-    console.log("hello from salman");
-    if (this.loginAcess == "Employee") this.reportingPerson = this.userDetails.employee
-    if (this.loginAcess == "TeamLead") this.reportingPerson = this.userDetails.teamLead
-    if (this.loginAcess == "Manager") this.reportingPerson = this.userDetails.manager
+  createLoginCheck() {
+    this.createLogin = !this.createLogin;
+    this.loginAcess = '';
+
   }
 
+  loginAccess() {
+    if (this.loginAcess == "Employee") return this.reportingPerson = this.userDetails.employee
+    if (this.loginAcess == "TeamLead") return this.reportingPerson = this.userDetails.teamLead
+    if (this.loginAcess == "Manager") return this.reportingPerson = this.userDetails.manager
+  }
+
+  repId: number;
   submit(employeeDetail: any) {
-    console.log(this.loginAcess, "login access")
     if (this.step == 4)
       this.api.uploadFileAttachment(this.formData).subscribe((data: any) => {
         this.attachmentIds.push(data.attachmentId);
         this.attachmentName.push(data.attachmentPath);
 
         employeeDetail.AttachmentIds = this.attachmentIds.toString();
-        console.log(this.createLogin, "login create")
-        this.api.addemployeeDetails(this.loginAcess, employeeDetail).subscribe((data: any) => {
+        this.api.addemployeeDetails(this.loginAcess, employeeDetail, this.repId).subscribe((data: any) => {
           this.step = this.step + 1;
           setTimeout(() => {
             this.step = this.step = 1;
           }, 200);
-          console.log(data, 'data')
-          console.log(employeeDetail, 'employee');
           this.employeeDetail.reset();
           this.createLogin = false;
           Swal.fire({

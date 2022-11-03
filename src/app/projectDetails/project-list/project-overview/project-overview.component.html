@@ -21,8 +21,7 @@
                         <p class="m-0">Team</p>
                         <div class="teamMembers">
                             <ngx-avatar *ngFor='let data of employeelist | slice:0:4' borderColor="#fff" size="35"
-                                [name]="data.firstName + ' ' + data.lastName"
-                                [src]="'https://localhost:44394/' + data.photoPath">
+                                [name]="data.firstName + ' ' + data.lastName" [src]="baseUrl + data.photoPath">
                             </ngx-avatar>
                             <ngx-avatar size="30" *ngIf="teamOverflow" [name]="'+ ' + count" bgColor="#c0c0c0"
                                 alt="...">
@@ -180,23 +179,22 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h3 class="modal-title text-white"> Task Details</h3>
-                                        <button type="button" class="btn-close closebutton"
+                                        <button type="button" data-bs-dismiss="modal" class="btn-close closebutton"
                                             (click)="isshowModal=false"></button>
                                     </div>
-                                    <div class="modal-body scrollbar" id="style-1">
+                                    <div class="modal-body">
                                         <div class="row modalbody">
-
-                                            <div class="mb-3" style="display: none;">
+                                            <div class="mb-3">
                                                 <label class=" form-label">Task Id</label>
-                                                <input class="form-control" [ngModel]="isTaskData?.taskId"
-                                                    formControlName="taskId">
+                                                <input [disabled]="true" class="form-control"
+                                                    [ngModel]="isTaskData?.taskId" formControlName="taskId">
                                             </div>
-                                            <div class="mb-3" style="display: none;">
+                                            <div class="mb-3">
                                                 <label class=" form-label">Project Id</label>
                                                 <input class="form-control" [ngModel]="isTaskData?.projectId"
                                                     formControlName="projectId">
                                             </div>
-                                            <div class="mb-3" style="display: none;">
+                                            <div class="mb-3">
                                                 <label class=" form-label">Employee Id</label>
                                                 <input class="form-control" [ngModel]="isTaskData?.employeeId"
                                                     formControlName="employeeId">
@@ -219,13 +217,15 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label class=" form-label">Start Date</label>
-                                                <input class="form-control" [ngModel]="isTaskData?.startDate"
-                                                    formControlName="startDate">
+                                                <input class="form-control" type="date"
+                                                    [ngModel]="isTaskData?.startDate|date:'yyyy-MM-dd'"
+                                                    (ngModelChange)="isTaskData?.startDate" formControlName="startDate">
                                             </div>
                                             <div class="mb-3">
                                                 <label class=" form-label">End Date</label>
-                                                <input class="form-control" [ngModel]="isTaskData?.endDate"
-                                                    formControlName="endDate">
+                                                <input class="form-control" type="date"
+                                                    [ngModel]="isTaskData?.endDate|date:'yyyy-MM-dd'"
+                                                    (ngModelChange)="isTaskData?.endDate" formControlName="endDate">
                                             </div>
                                             <div class="mb-3">
                                                 <label class=" form-label">Task Status</label>
@@ -281,8 +281,8 @@
                             <div class="col-md-12 dflex justify-content-between" *ngFor="let data of employeName">
                                 <div>
                                     <ngx-avatar size="30" [style]="customStyle"
-                                        [name]="data.firstName + ' ' + data.lastName"
-                                        [src]="'https://localhost:44394/' + data.photoPath" alt="...">
+                                        [name]="data.firstName + ' ' + data.lastName" [src]="baseUrl + data.photoPath"
+                                        alt="...">
                                     </ngx-avatar>
                                 </div>
                                 <p class="m-0">{{data.firstName}}&nbsp;{{data.lastName}}</p>
@@ -418,7 +418,7 @@
                                     <div class="form-check ps-0 d-flex">
                                         <ngx-avatar size="30" class="ms-4" [style]="customStyle"
                                             [name]="data.firstName + ' ' + data.lastName"
-                                            [src]="'https://localhost:44394/' + data.photoPath" alt="...">
+                                            [src]="baseUrl + data.photoPath" alt="...">
                                         </ngx-avatar>
                                         <label for="hh"
                                             class="form-check-label ms-3 mt-1">{{data.firstName}}&nbsp;{{data.lastName}}</label>

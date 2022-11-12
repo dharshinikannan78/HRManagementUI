@@ -19,6 +19,7 @@
     </div>
 </section>
 
+
 <section class="pb-3" *ngIf="oneEmployee">
     <div class="container">
         <!-- To Show Single employee details -->
@@ -35,7 +36,7 @@
                                             [src]="baseUrl + employeeData.photoPath">
                                         </ngx-avatar>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-6 text-capitalize">
                                         <b
                                             style="color: #323232;">{{employeeData.firstName}}&nbsp;{{employeeData.lastName}}</b>
                                         <br />
@@ -45,6 +46,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <!-- personal details -->
                     <div class="col-12 mt-4">
@@ -84,7 +86,7 @@
                                     </div>
                                     <div class="ms-3">
                                         <p class="m-0 fw-bold">{{employeeData.joiningDate |
-                                            date:'MMMMd, y'}}</p>
+                                            date:'MMM d, y'}}</p>
                                         <h6 class="m-0 text-muted"><small>Date of Joining</small></h6>
                                     </div>
                                 </div>
@@ -123,7 +125,6 @@
                             <table class="shadow rounded-4 table">
                                 <thead class="text-center">
                                     <tr class="thead">
-                                        <th scope="col">Name</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">InTime</th>
                                         <th scope="col">OutTime</th>
@@ -135,7 +136,8 @@
                                     <tr *ngIf="employeeAttendance?.length == 0" class="text-center">
                                         <td colspan="100%">No Data Found</td>
                                     <tr *ngFor="let data of employeeAttendance" class="text-center">
-                                        <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.firstName}}</td>
+                                        <!-- <td class="col-md-2 py-2 ms-2 text-capitalize" style="border: none;">
+                                            {{data.firstName}}</td> -->
                                         <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.date |
                                             date:'mediumDate'}}</td>
                                         <td class="col-md-2 py-2 ms-2" style="border: none;">{{data.inTime |
@@ -223,7 +225,8 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <div class="console ps-3">
-                                                        <p class="m-0 card-title fw-bold overflow-eplisis">
+                                                        <p
+                                                            class="m-0 card-title fw-bold text-capitalize overflow-eplisis">
                                                             {{data.firstName}}&nbsp;&nbsp;{{data.lastName}}
                                                         </p>
                                                         <p class="text-muted m-0 fs-6">{{data.designation}}
@@ -347,30 +350,29 @@
                                 updateEmployeeDetailForm.controls['emailId']?.touched"> <b>Email Id</b> is required
                                             *</span>
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
                                         <label class=" form-label">Mobile Number</label>
                                         <input type="text" class="form-control" formControlName="number">
                                         <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['number'].valid && 
                                     updateEmployeeDetailForm.controls['number']?.touched"> <b>Number</b> is required
                                             *</span>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label class=" form-label">Employee Refernce Number</label>
+                                        <input type="text" class="form-control" formControlName="employeeReferenceNo">
+                                        <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['employeeReferenceNo'].valid && 
+                                    updateEmployeeDetailForm.controls['employeeReferenceNo']?.touched"> <b>Employee
+                                                Refernce Number</b> is required *</span>
+                                    </div>
+
                                     <div class="form-group col-md-12">
                                         <label class=" form-label">Address</label>
                                         <textarea class="form-control" formControlName="address"></textarea>
                                         <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['address'].valid && 
                                             updateEmployeeDetailForm.controls['address']?.touched"> <b>Address</b> is
-                                            required
-                                            *</span>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label class=" form-label">Employee Refernce Number</label>
-                                        <input type="text" class="form-control" formControlName="employeeReferenceNo">
-                                        <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['employeeReferenceNo'].valid && 
-                                    updateEmployeeDetailForm.controls['employeeReferenceNo']?.touched"> <b>Employee
-                                                Refernce
-                                                Number</b> is
                                             required *</span>
                                     </div>
+                                   
                                     <!-- <div class="form-group col-12">
                                     <div class="form-check">
                                         <input class="form-check-input" (checked)="createManager= !createManager" type="checkbox"
@@ -388,28 +390,18 @@
                                         <option *ngFor="let data of reportingPerson" [value]="data.userId">{{data.firstName}}</option>
                                     </select>
                                 </div> -->
+
                                 </div>
                                 <div *ngIf="step==3" id="step3" class="row">
                                     <h4>Education Details</h4>
-
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label class=" form-label">Qualification</label>
                                             <input type="text" class="form-control" formControlName="qualification">
                                             <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['qualification'].valid && 
                                     updateEmployeeDetailForm.controls['qualification']?.touched"> <b>Qualification</b>
-                                                is
-                                                required *</span>
+                                                is required *</span>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label class=" form-label">College OR University</label>
-                                            <input type="text" class="form-control" formControlName="college">
-                                            <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['college'].valid && 
-                                        updateEmployeeDetailForm.controls['college']?.touched">
-                                                <b>College/University</b> is
-                                                required *</span>
-                                        </div>
-
                                         <div class="form-group col-md-6">
                                             <label class=" form-label">Year Of Passing</label>
                                             <input type="date" class="form-control" formControlName="passedOut">
@@ -417,19 +409,15 @@
                             updateEmployeeDetailForm.controls['passedOut']?.touched"> <b>Year Of Passing</b> is
                                                 required *</span>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label class=" form-label">Team Name</label>
-                                            <select class="form-select" class="form-control" formControlName="teamName">
-                                                <option disabled selected value> -- select an option -- </option>
-                                                <option value="XML">XML</option>
-                                                <option value="Software">Software</option>
-                                                <option value="E-Pub">E-Pub</option>
-                                                <option value="Table">Table</option>
-                                            </select>
-                                            <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['teamName'].valid && 
-                            updateEmployeeDetailForm.controls['teamName']?.touched"> <b>TeamName</b> is required
-                                                *</span>
+                                        <div class="form-group col-md-12">
+                                            <label class=" form-label">College OR University</label>
+                                            <input type="text" class="form-control" formControlName="college">
+                                            <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['college'].valid && 
+                                        updateEmployeeDetailForm.controls['college']?.touched">
+                                                <b>College/University</b> is required *</span>
                                         </div>
+                                        
+                                       
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
@@ -442,33 +430,42 @@
                                 </div>
                                 <div *ngIf="step==4" class="row" id="step4">
                                     <h4>Work Details</h4>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-12">
                                         <label class=" form-label">Designation</label>
-                                        <select class="form-select" class="form-control" formControlName="designation">
-                                            <option disabled selected value> -- select an option -- </option>
-                                            <option value="Front End">Front End</option>
-                                            <option value="Back End">Back End</option>
-                                            <option value="Full Stack">Full Stack</option>
-                                        </select>
-                                        <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['designation'].valid && 
-                                        updateEmployeeDetailForm.controls['designation']?.touched"> <b>Designation</b>
-                                            is
-                                            required *</span>
-                                    </div>
-                                    <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" formControlName="designation">
+                                            <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['designation'].valid && 
+                                        updateEmployeeDetailForm.controls['designation']?.touched">
+                                                <b>Designation</b> is required *</span>
+                                        </div>
+                                    <div class="form-group col-md-12">
                                         <label class=" form-label">Joining Date</label>
                                         <input type="date" class="form-control" formControlName="joiningDate">
                                         <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['joiningDate'].valid && 
-                                        updateEmployeeDetailForm.controls['joiningDate']?.touched"> <b>Joining Date</b>
-                                            is
+                                        updateEmployeeDetailForm.controls['joiningDate']?.touched"> <b>Joining Date</b>                                            is
                                             required *</span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class=" form-label">Team Name</label>
+                                        <select class="form-select" class="form-control" formControlName="teamName">
+                                            <option disabled selected value> -- select an option -- </option>
+                                            <option value="XML">XML</option>
+                                            <option value="Conversion">Conversion</option>
+                                            <option value="Software">Software</option>
+                                            <option value="E-Pub">E-Pub</option>
+                                            <option value="Table">Table</option>
+                                            <option value="Court Form">Court Form</option>
+                                            <option value="Business development">Business development</option>
+                                        </select>
+                                        <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['teamName'].valid && 
+                        updateEmployeeDetailForm.controls['teamName']?.touched"> <b>TeamName</b> is required
+                                            *</span>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class=" form-label">Work Mode</label>
                                         <select class="form-select" class="form-control" formControlName="workMode">
                                             <option disabled selected value> -- select an option -- </option>
-                                            <option value="Frontt End">Part Time</option>
-                                            <option value="Back End">Full Time</option>
+                                            <option value="Part Time">Part Time</option>
+                                            <option value="Full Time">Full Time</option>
                                         </select>
                                         <span class="text-danger" *ngIf="!updateEmployeeDetailForm.controls['workMode'].valid && 
                                             updateEmployeeDetailForm.controls['workMode']?.touched"> <b>WorkMode</b> is
@@ -476,29 +473,25 @@
                                             *</span>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label class=" form-label mt-3">Download Attachment</label>
-                                        <app-attachment [attachmentId]="attachment.attachmentIds"></app-attachment>
+                                        <label class="form-label">Download Attachment</label>
+                                        <app-attachment [attachmentId]="attachment.attachmentIds" >
+                                        </app-attachment>
                                     </div>
                                 </div>
                                 <div class="modal-footer mt-5">
-                                    <button type="button text-center me-1" class="submitButton" *ngIf="step!=1"
-                                        (click)="prev()">
-                                        <i class="fa-solid fa-chevron-left"></i>
-                                        Prev
-                                    </button>
-                                    <button type="button" class="submitButton" *ngIf="step!=4 " (click)=" next()">Next
-                                        <i class="fa-solid fa-chevron-right"></i></button>
-                                    <button type="submit" class="submitButton" [disabled]="!thisFormValid()"
-                                        *ngIf="step==4">Finish <i class="fa-solid fa-circle-check"></i></button>
+                                    <button type="button" class="btn submitButton" style="margin-right: 1rem; text-align: center !important;"
+                                    *ngIf="step!=1" (click)="prev()"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+                                <button type="button" class="btn submitButton" *ngIf="step!=4 " (click)=" next()">Next <i
+                                        class="fa-solid fa-chevron-right"></i></button>
+                                <button type="submit" class="btn submitButton" [disabled]="thisFormValid()" *ngIf="step==4">Finish <i
+                                        class="fa-solid fa-circle-check"></i></button>
+                                   
                                 </div>
                             </div>
-
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </div>
 </section>

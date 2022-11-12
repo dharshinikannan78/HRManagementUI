@@ -40,6 +40,7 @@ export class LeaveComponent implements OnInit {
   totalPermission: string;
   currentMonth = new Date().getFullYear().toString() + '-' + (new Date().getMonth() + 1).toString();
   month = new Date('MMM d, y');
+  allLeave:any;
 
   applyOnLeave: FormGroup = new FormGroup({
     leaveDay: new FormControl('', Validators.required),
@@ -63,16 +64,19 @@ export class LeaveComponent implements OnInit {
     adminRejectReason: new FormControl(''),
   });
 
+
   constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) {
     this.getEmployeeLeave();
     this.check();
     this.GetTotalLeave(this.currentMonth);
     this.getLeaveDetails();
+    this.getAllLeave();
+    
   }
 
   ngOnInit(): void {
-   
-    this.getRole()
+  
+     this.getRole()
   }
 
   getRole() {
@@ -264,7 +268,12 @@ export class LeaveComponent implements OnInit {
       this.isAdmin = !this.isAdmin;
     }
   }
-
+getAllLeave()
+{
+  this.api.getAllLeaveDetails(this.EmployeeId).subscribe((data)=>{
+  this.allLeave=data
+   });
+}
   GetTotalLeave(mon: any) {
     this.api.getTotalLeave(this.EmployeeId, mon).subscribe(data => {
       this.totalLeave = data

@@ -1,62 +1,47 @@
 <div id="sideNav" class="sideNav">
-    <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox">
+    <div [style.display]="isNavOpen ? 'none': 'block'" class="imageBox pb-4">
         <div class="d-flex align-items-center justify-content-center">
             <div>
                 <ngx-avatar [name]="loggerName" [src]="baseUrl + forNav[0]?.photoPath" class="margin-auto dflex"
                     size="80" [style]="customStyle"></ngx-avatar>
-                <div class="d-flex pt-3 align-items-center justify-content-center">
-                    <h6 style="text-align: center; padding:0.5rem">{{ loggerName }} <br />
-                        {{ loggerRole }}
-                    </h6>
+                <div class="pt-3 text-center">
+                    <h6 class="text-capitalize">{{ loggerName }}</h6>
+                    <!-- <h6 class="fw-bold text-capitalize">{{ loggerRole }}</h6> -->
+                    <span class="badge mt-2">{{loggerRole}}</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="likeUl">
         <ul [ngClass]="isNavOpen ? '':'menuList'">
-            <li class="cursorP bg-select" [ngClass]="{'active': step==='step1'}"
-                (click)="step='step1' ; shortNav('/Employee')"><i class="fa-solid fa-house"></i>
+            <li routerLink="/Employee" routerLinkActive="active" (click)="shortNav()">
+                <i class="fa-solid fa-house"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">About</p>
             </li>
-            <li class="cursorP" [ngClass]="{'active': step==='step2'}" data-bs-toggle="collapse" href="#collapseExample"
-                role="button" aria-expanded="false" aria-controls="collapseExample" (click)="step='step2'"
-                (click)="isNavOpen ? shortNav('/Employee'): 'none'" *ngIf="!isEmployee">
-                <i class="fa-solid fa-user-gear"></i>
-                <p [ngClass]="isNavOpen ? 'none': 'show'">Employee</p>
+            <li routerLink="/main/Employee/addEmployee" routerLinkActive="active" *ngIf="isSuperUser" (click)="shortNav()">
+                <i class="fa-solid fa-user-plus"></i>
+                <p [ngClass]="isNavOpen ? 'none': 'show'">Add Employee</p>
             </li>
-            <div class="collapse" id="collapseExample" *ngIf="!isEmployee">
-                <ul [ngClass]="isNavOpen ? 'none': 'show'">
-                    <li class="cursorP" [ngClass]="{'active': step==='step6'}"
-                        (click)="step='step6' ; shortNav('main/Employee/addEmployee')">
-                        <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-                            aria-controls="collapseExample" class="fa-solid fa-user-plus"></i>
-                        <p [ngClass]="isNavOpen ? 'none': 'show'">Add Employee</p>
-                    </li>
-                </ul>
-            </div>
-            <li [ngClass]="{'active': step==='step3'}" (click)="step='step3' ; shortNav('/attendance')" class="cursorP">
+            <li routerLink="/attendance" routerLinkActive="active" (click)="shortNav()">
                 <i class="fa-solid fa-calendar-days"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Attendance</p>
             </li>
-            <li [ngClass]="{'active': step==='step4'}" (click)="step='step4' ; shortNav('/leave')" class="cursorP">
+            <li routerLink="/leave" routerLinkActive="active" (click)="shortNav()">
                 <i class="fa-solid fa-person-walking-luggage"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Leave</p>
             </li>
-            <li [ngClass]="{'active': step==='step10'}" *ngIf="isSuperUser"
-                (click)="step='step10' ; shortNav('/AdminAttendance')" class="cursorP">
+            <li routerLink="/AdminAttendance" routerLinkActive="active" *ngIf="isSuperUser" (click)="shortNav()">
                 <i class="fa-solid fa-filter"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">Filter Reports</p>
             </li>
-            <li class="cursorP" [ngClass]="{'active': step==='step6'}" (click)="step='step6' ; shortNav('/list')">
-                <i data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-                    aria-controls="collapseExample" class="fa-solid fa-laptop-file"></i>
+            <li routerLink="/list" routerLinkActive="active" (click)="shortNav()">
+                <i class="fa-solid fa-laptop-file"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">ProjectDetails</p>
             </li>
-            <li [ngClass]="{'active': step==='step7'}" (click)="step='step5'" class="cursorP" (click)="logout()">
+            <li [ngClass]="{'active': step==='step7'}" (click)="logout()">
                 <i class="fa fa-power-off" aria-hidden="true"></i>
                 <p [ngClass]="isNavOpen ? 'none': 'show'">LogOut</p>
             </li>
-
         </ul>
     </div>
 </div>
@@ -69,7 +54,8 @@
             </button>
 
             <div *ngIf="!isEmployeeOnly" class="pe-4 ms-auto">
-                <button type="button" class="ms-auto btn btn-primary primary-bg position-relative" (click)="notificationClick()">
+                <button type="button" class="ms-auto btn btn-primary primary-bg position-relative"
+                    (click)="notificationClick()">
                     <i class="fa-solid fa-bell text-white"></i>
                     <span *ngIf="!(this.notify == 0 || this.notify == null)"
                         class="position-absolute top-0 start-100 text-white translate-middle bg-danger rounded-pill notify">{{this.notify}}
@@ -78,7 +64,7 @@
             </div>
 
             <div class="d-flex align-items-center">
-                <p class="m-0">{{ loggerName }}</p>
+                <p class="m-0 text-capitalize">{{ loggerName }}</p>
                 <a class="navbar-brand">
                     <ngx-avatar [name]="loggerName" [src]="baseUrl + forNav[0]?.photoPath" [style]="customStyle">
                     </ngx-avatar>

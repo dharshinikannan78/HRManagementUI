@@ -37,6 +37,8 @@ export class EmployeeDetailsComponent implements OnInit {
   check: boolean = true;
   getAdminOnlyRole: boolean;
   baseUrl: string = this.api.photoUrl;
+  lat: number;
+  lng: number;
 
 
   constructor(
@@ -45,9 +47,11 @@ export class EmployeeDetailsComponent implements OnInit {
   ) {
     this.loadEmployeeDetails();
     this.getAdminOnlyRole = userService.getAdminOnlyRole();
+
   }
 
   ngOnInit(): void {
+
     setInterval(() => {
       const date = new Date();
       this.updateDate(date);
@@ -63,7 +67,7 @@ export class EmployeeDetailsComponent implements OnInit {
         this.employeeData = data[0];
       });
       this.api.employeeTaskDetail(this.EmployeeId).subscribe(data => this.employeeTaskDetail = data);
-      return this.getAttendanceById();
+      return this.getAttendanceDetails();
     }
     this.api.getUserDetails(this.EmployeeId).subscribe(data => this.isData = data);
   }
@@ -72,10 +76,12 @@ export class EmployeeDetailsComponent implements OnInit {
     this.api.CheckAttdStatus(this.EmployeeId).subscribe((data: any) => this.check = data);
   }
 
-  getAttendanceById() {
-    this.api.getAttendanceDetailsById(this.EmployeeId).subscribe(data => this.employeeAttendance = data);
+  getAttendanceDetails() {
+    this.api.getUserAttendance(this.EmployeeId).subscribe(data => {
+      this.employeeAttendance = data;
+      console.log(data, "hello from morning")
+    });
   }
-
   thisFormValid(): boolean {
     if (this.updateEmployeeDetailForm.invalid) return true;
     return false;
@@ -108,7 +114,8 @@ export class EmployeeDetailsComponent implements OnInit {
             icon: 'success',
             timer: 1500
           });
-          this.getAttendanceById();
+
+          this.getAttendanceDetails();
           this.attdstatus();
         }, (error: Response) => {
           if (error.status === 400) {
@@ -129,6 +136,7 @@ export class EmployeeDetailsComponent implements OnInit {
         });
       }
     });
+
   }
 
   updateattendanceDetails() {
@@ -146,7 +154,7 @@ export class EmployeeDetailsComponent implements OnInit {
             icon: 'success',
             timer: 1000
           });
-          this.getAttendanceById();
+          this.getAttendanceDetails();
           this.attdstatus();
         });
       }
@@ -198,7 +206,7 @@ export class EmployeeDetailsComponent implements OnInit {
     employeeReferenceNo: new FormControl('', Validators.required),
     workMode: new FormControl('', Validators.required),
     modifiedBy: new FormControl(this.EmployeeId),
-    filesResume: new FormControl('', Validators.required),
+    filesResume: new FormControl(''),
     designation: new FormControl('', Validators.required),
     joiningDate: new FormControl('', Validators.required),
     teamName: new FormControl('', Validators.required),

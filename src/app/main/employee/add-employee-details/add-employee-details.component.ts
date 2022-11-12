@@ -44,7 +44,7 @@ export class AddEmployeeDetailsComponent implements OnInit {
       college: new FormControl('', Validators.required),
       passedOut: new FormControl('', Validators.required),
       skills: new FormControl('', Validators.required),
-      employeeReferenceNo: new FormControl('', Validators.required),
+      employeeReferenceNo: new FormControl(''),
       workMode: new FormControl('', Validators.required),
       filesResume: new FormControl('', Validators.required),
       designation: new FormControl('', Validators.required),
@@ -57,10 +57,8 @@ export class AddEmployeeDetailsComponent implements OnInit {
     this.userLogin();
   }
 
-  thisFormValid() {
-    if (this.employeeDetail.invalid) {
-      return true;
-    }
+  thisFormValid(): boolean {
+    if (this.employeeDetail.invalid) return true;
     return false;
   }
 

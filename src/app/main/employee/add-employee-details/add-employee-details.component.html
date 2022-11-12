@@ -126,17 +126,16 @@ employeeDetail.controls['gender']?.touched"> <b>Gender</b> is required *</span>
                     employeeDetail.controls['qualification']?.touched"> <b>Qualification</b> is required *</span>
                     </div>
                     <div class="form-group col-md-6">
-                        <label class=" form-label">College OR University</label>
-                        <input type="text" class="form-control" formControlName="college">
-                        <span class="text-danger" *ngIf="!employeeDetail.controls['college'].valid && 
-                        employeeDetail.controls['college']?.touched"> <b>College/University</b> is required *</span>
-                    </div>
-
-                    <div class="form-group col-md-6">
                         <label class=" form-label">Year Of Passing</label>
                         <input type="date" class="form-control" formControlName="passedOut">
                         <span class="text-danger" *ngIf="!employeeDetail.controls['passedOut'].valid && 
             employeeDetail.controls['passedOut']?.touched"> <b>Year Of Passing</b> is required *</span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class=" form-label">College OR University</label>
+                        <input type="text" class="form-control" formControlName="college">
+                        <span class="text-danger" *ngIf="!employeeDetail.controls['college'].valid && 
+                        employeeDetail.controls['college']?.touched"> <b>College/University</b> is required *</span>
                     </div>
                 </div>
                 <div class="row">
@@ -211,11 +210,11 @@ employeeDetail.controls['gender']?.touched"> <b>Gender</b> is required *</span>
                 </div>
             </div>
             <div class="modal-footer mt-5">
-                <button type="button" class="submitButton" style="margin-right: 1rem; text-align: center !important;"
+                <button type="button" class="btn submitButton" style="margin-right: 1rem; text-align: center !important;"
                     *ngIf="step!=1" (click)="prev()"><i class="fa-solid fa-chevron-left"></i> Prev</button>
-                <button type="button" class="submitButton" *ngIf="step!=4 " (click)=" next()">Next <i
+                <button type="button" class="btn submitButton" *ngIf="step!=4 " (click)=" next()">Next <i
                         class="fa-solid fa-chevron-right"></i></button>
-                <button type="submit" class="submitButton" *ngIf="step==4">Finish <i
+                <button type="submit" class="btn submitButton" [disabled]="thisFormValid()" *ngIf="step==4">Finish <i
                         class="fa-solid fa-circle-check"></i></button>
             </div>
         </div>

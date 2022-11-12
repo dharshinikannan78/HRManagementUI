@@ -19,7 +19,8 @@ export class AdminAttendanceDetailsComponent implements OnInit {
   to: string = moment().format('YYYY-MM-DD');
   employeName: any;
   user: any;
-  constructor(private router: Router, private api: ApiServiceService, private userService: UserServiceService) { }
+  
+  constructor(private api: ApiServiceService) { }
 
   ngOnInit(): void {
     this.LeaveFilter();

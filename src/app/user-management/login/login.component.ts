@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   
   }
   bearerToken: any
   dologin: FormGroup = this.formBuilder.group({

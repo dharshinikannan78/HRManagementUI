@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { el } from 'date-fns/locale';
 import Swal from 'sweetalert2';
 import { ApiServiceService } from '../service/api-service.service';
 import { UserServiceService } from '../service/user-service.service';
@@ -26,6 +27,7 @@ export class MainComponent {
   EmployeeId: any = localStorage.getItem('EmployeeId');
   baseUrl = this.api.photoUrl;
   isEmployeeOnly: boolean;
+
   constructor(public router: Router, userService: UserServiceService, private api: ApiServiceService) {
     this.step = 'step1';
     this.loggerRole = userService.Role;
@@ -34,9 +36,6 @@ export class MainComponent {
     this.isEmployeeOnly = userService.getEmpOnlyRole();
     this.getNotification();
   }
-
-
-
 
   openNav() {
     let sidenav = document.getElementById("sideNav");
@@ -54,6 +53,7 @@ export class MainComponent {
         this.showNavContent = false;
       }
     }
+    
     else {
       if (this.showNavContent == false) {
         sidenav.style.width = "60px";
@@ -70,12 +70,12 @@ export class MainComponent {
     }
   }
 
-  shortNav(params: string) {
+  shortNav() {
+
     let sidenav = document.getElementById("sideNav");
     let main = document.getElementById("main");
 
     if (window.innerWidth < 600) {
-      this.router.navigate([params]);
       sidenav.style.width = "0px";
       main.style.marginLeft = "0px";
       this.isNavOpen = true;
@@ -85,7 +85,6 @@ export class MainComponent {
     else {
       sidenav.style.width = "60px";
       main.style.marginLeft = "60px";
-      this.router.navigate([params]);
       this.isNavOpen = true;
       this.showNavContent = true;
     }
@@ -127,6 +126,6 @@ export class MainComponent {
     this.router.navigate(['leave']);
   }
 
-  
+
 
 }

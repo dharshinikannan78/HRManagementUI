@@ -28,12 +28,10 @@ export class ApiServiceService {
   getEmployeeDetailById = this.URL + 'Employee/GetEmployeeDetailsById?id=';
   employeeLeaveDetails = this.URL + 'Leave/GetAllLeaveDetails';
   getUser = this.URL + 'Employee/GetUser?data=';
-
   getAttendance = this.URL + 'Attendance/GetAttendance?data=';
   attendance = this.URL + 'Attendance/AddAttendance?id=';
   updAttendance = this.URL + 'Attendance/updateAttendance?id=';
   checkAttdStatus = this.URL + 'Attendance/CheckAttendanceState?id=';
-
   taskDetails = this.URL + 'TaskDetails/AddTaskDeatils';
   getEmployeeTaskDetails = this.URL + 'TaskDetails/taskDetailsForProfile?EmployeeId=';
   getTeamTaskDetails = this.URL + 'TaskDetails/employeeId?id=';
@@ -64,7 +62,9 @@ export class ApiServiceService {
   totalLeave = this.URL + "Leave/GetTotalLeave?id=";
   totalPermission = this.URL + "Leave/GetTotalPermission?id=";
   notification = this.URL + "Leave/GetNotification?id=";
-
+  getAllLeave = this.URL + "Leave/GetAllLeave?id=";
+  userAttendance=this.URL+"Attendance/UserAttendance?data="
+  myAttendance=this.URL+"Attendance/MyAttendance?data="
   constructor(private http: HttpClient) { }
 
   public headers = new HttpHeaders({
@@ -254,5 +254,14 @@ export class ApiServiceService {
   getNotification(id: any) {
     return this.http.get(this.notification + id)
   }
+  getAllLeaveDetails(id: any) {
+    return this.http.get(this.getAllLeave + id)
+  }
 
+  getUserAttendance(id: any) {
+    return this.http.get(this.userAttendance + id)
+  }
+  getMyAttendance(id: any) {
+    return this.http.get(this.myAttendance + id)
+  }
 }

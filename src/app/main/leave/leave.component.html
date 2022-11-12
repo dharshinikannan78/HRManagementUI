@@ -1,31 +1,3 @@
-<div class="totalLeave m-5" *ngIf="isAdmin">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card text-white bg-info mb-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h3 class="card-title">Total Leave</h3>
-                    <h5 class="card-text">{{this.totalLeave}} Day</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-info mb-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h3 class="card-title">Total Permission</h3>
-                    <h5 class="card-text">{{this.totalPermission}} </h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <label class="form-label">Select Month & Year</label>
-            <input type="month" [(ngModel)]="currentMonth" class="forSelectMenu form-control">
-
-        </div>
-        <div class="col-md-2 ">
-            <button type="button " class="btn btn-primary filter" (click)="GetTotalLeave(currentMonth)">Submit</button>
-        </div>
-    </div>
-</div>
 <div class="text-end" *ngIf="isAdmin">
     <button type="button" class="btn btn-primary mt-4 mb-4" style="margin-right: 2rem;" data-bs-toggle="modal"
         data-bs-target="#LeaveModal">
@@ -73,7 +45,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Leave Type</label>
-                                <select class="form-select" formControlName="leaveType"
+                                <select class="form-select leaveType" formControlName="leaveType"
                                     aria-label="Default select example">
                                     <option disabled selected value> -- select an option -- </option>
                                     <option value="Sick Leave">Sick Leave</option>
@@ -102,9 +74,17 @@
 
 <!-- test modal -->
 <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="MyLeave-tab" data-bs-toggle="tab" data-bs-target="#MyLeave-tab-pane"
-            type="button" role="tab" aria-controls="MyLeave-tab-pane" aria-selected="true">
+    <li *ngIf="isEmployee" class="nav-item " role="presentation">
+        <button class="nav-link" [ngClass]="{'active':isEmployee}" id="AllLeave-tab" data-bs-toggle="tab"
+            data-bs-target="#AllLeave-tab-pane" type="button" role="tab" aria-controls="AllLeave-tab-pane"
+            aria-selected="true">
+            All Leave
+        </button>
+    </li>
+    <li *ngIf="isAdmin" class="nav-item " role="presentation">
+        <button class="nav-link" [ngClass]="{'active':!isEmployee}" id="MyLeave-tab" data-bs-toggle="tab"
+            data-bs-target="#MyLeave-tab-pane" type="button" role="tab" aria-controls="MyLeave-tab-pane"
+            aria-selected="false">
             My Leave
         </button>
     </li>
@@ -115,52 +95,131 @@
         </button>
     </li>
 </ul>
-
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="MyLeave-tab-pane" role="tabpanel" aria-labelledby="MyLeave-tab"
-        tabindex="0">
+<!-- My Leave -->
+<div class="tab-content" id="myTabContent1">
+    <div class="tab-pane fade" id="MyLeave-tab-pane" [ngClass]="{'show active':!isEmployee}" role="tabpanel"
+        aria-labelledby="MyLeave-tab" tabindex="0" *ngIf="isAdmin">
         <div class="container-fluid mt-4">
-            <table class="table">
-                <thead class="text-center">
-                    <tr class="thead">
-                        <th>Name</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Duration</th>
-                        <th>LeaveType</th>
-                        <th>AppliedOn</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngIf="leaveData?.length == 0" class="text-center">
-                        <td colspan="100%">No Data Found</td>
-                    </tr>
-                    <tr *ngFor="let data of leaveData" style="text-align: center;">
-                        <td>{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
-                        <td>{{data.startDate |date:'MMM d, y' }}</td>
-                        <td>{{data.endDate |date:'MMM d, y' }}</td>
-                        <td>{{data.noOfDays}}</td>
-                        <td>{{data.leaveDay}}</td>
-                        <td>{{data.appliedOn |date:'MMM d, y'}}</td>
-                        <td><span
-                                [ngClass]="{'redBadge': data.adminApprovalStatus === 'Rejected', 'orangeBadge': data.adminApprovalStatus === 'Pending' }"
-                                class="badge cursorP" data-bs-toggle="modal" data-bs-target="#leaveStatusModal"
-                                (click)="getLeaveStatus(data.leaveId)">{{data.adminApprovalStatus}}</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="totalLeave m-5" *ngIf="isAdmin">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card text-white bg-info mb-3" style="width: 18rem;">
+                            <div class="card-body">
+                                <h3 class="card-title">Total Leave</h3>
+                                <h5 class="card-text">{{this.totalLeave}} Day</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-info mb-3" style="width: 18rem;">
+                            <div class="card-body">
+                                <h3 class="card-title">Total Permission</h3>
+                                <h5 class="card-text">{{this.totalPermission}} </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Select Month & Year</label>
+                        <input type="month" [(ngModel)]="currentMonth" class="forSelectMenu form-control">
+
+                    </div>
+                    <div class="col-md-2 ">
+                        <button type="button " class="btn btn-primary filter"
+                            (click)="GetTotalLeave(currentMonth)">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-center">
+                        <tr class="thead">
+                            <th>S.No</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Duration</th>
+                            <th>LeaveType</th>
+                            <th>AppliedOn</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="leaveData?.length == 0" class="text-center">
+                            <td colspan="100%">No Data Found</td>
+                        </tr>
+                        <tr *ngFor="let data of leaveData;let i=index;" style="text-align: center;">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{data.startDate |date:'MMM d, y' }}</td>
+                            <td>{{data.endDate |date:'MMM d, y' }}</td>
+                            <td>{{data.noOfDays}}</td>
+                            <td>{{data.leaveDay}}</td>
+                            <td>{{data.appliedOn |date:'MMM d, y'}}</td>
+                            <td><span
+                                    [ngClass]="{'redBadge': data.adminApprovalStatus === 'Rejected', 'orangeBadge': data.adminApprovalStatus === 'Pending' }"
+                                    class="badge cursorP" data-bs-toggle="modal" data-bs-target="#leaveStatusModal"
+                                    (click)="getLeaveStatus(data.leaveId)">{{data.adminApprovalStatus}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="tab-pane fade" id="Approval-tab-pane" *ngIf="!isSuperUser" role="tabpanel"
-        aria-labelledby="Approval-tab" tabindex="0">
+<!-- All Leave -->
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade" [ngClass]="{'show active':isEmployee}" id="AllLeave-tab-pane" role="tabpanel"
+        aria-labelledby="AllLeave-tab" tabindex="0" *ngIf="isEmployee">
+        <div class="container-fluid mt-4">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="text-center">
+                        <tr class="thead">
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Duration</th>
+                            <th>LeaveType</th>
+                            <th>AppliedOn</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="allLeave?.length == 0" class="text-center">
+                            <td colspan="100%">No Data Found</td>
+                        </tr>
+                        <tr *ngFor="let data of allLeave;let i=index;" style="text-align: center;">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
+                            <td>{{data.startDate |date:'MMM d, y' }}</td>
+                            <td>{{data.endDate |date:'MMM d, y' }}</td>
+                            <td>{{data.noOfDays}}</td>
+                            <td>{{data.leaveDay}}</td>
+                            <td>{{data.appliedOn |date:'MMM d, y'}}</td>
+                            <td><span
+                                    [ngClass]="{'redBadge': data.adminApprovalStatus === 'Rejected', 'orangeBadge': data.adminApprovalStatus === 'Pending' }"
+                                    class="badge cursorP" data-bs-toggle="modal" data-bs-target="#leaveStatusModal"
+                                    (click)="getLeaveStatus(data.leaveId)">{{data.adminApprovalStatus}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Leave Approval-->
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade" [ngClass]="{'show active':!isEmployee}" id="Approval-tab-pane" *ngIf="!isSuperUser"
+        role="tabpanel" aria-labelledby="Approval-tab" tabindex="0">
         <div class="container-fluid mt-4">
             <div class="table-responsive">
                 <table class="table mb-5">
                     <thead class="text-center">
                         <tr class="thead">
+                            <th>S.No</th>
                             <th>Name</th>
                             <th>Start Date</th>
                             <th>End Date</th>
@@ -179,9 +238,9 @@
                         <tr *ngIf="leaveDetails?.length == 0" class="text-center">
                             <td colspan="100%">No Data Found</td>
                         </tr>
-                        <tr *ngFor="let data of leaveDetails" (click)="getLeaveDetail(data)"
+                        <tr *ngFor="let data of leaveDetails;let i=index;" (click)="getLeaveDetail(data)"
                             style="text-align: center;">
-
+                            <td>{{ i + 1 }}</td>
                             <td>{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
                             <td>{{data.startDate |date:'MMM d' }}</td>
                             <td>{{data.endDate |date:'MMM d' }}</td>
@@ -220,6 +279,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- test modal -->

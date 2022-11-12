@@ -1,33 +1,133 @@
-<section class="px-4 mt-5">
-    <h3 class="text-center mb-4">Attendance</h3>
-    <table class="table">
-        <thead class="text-center text-dark">
-            <tr class="thead">
-                <th scope="col">Name</th>
-                <th scope="col">Desigination</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">AppliedOn</th>
-                <th scope="col">ApprovalStatus</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngIf="attendanceDetails?.length == 0" class="text-center">
-                <td colspan="100%">No Data Found</td>
-            </tr>
-            <tr *ngFor="let data of attendanceDetails" style="text-align: center;">
-                <td class="col-md-2">{{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
-                <td class="col-md-2"> {{data.designation}}</td>
-                <td class="col-md-2">{{data.inTime |date:'yyyy-MM-dd' }}</td>
-                <td class="col-md-2">{{data.outTime |date:'yyyy-MM-dd' }}</td>
-                <!-- <td class="col-md-1">{{data.noOfDays}}</td> -->
-                <!-- <td class="col-md-1">{{data.leaveType}}</td> -->
-                <td class="col-md-2">{{data.workDuration}}</td>
-                <td class="col-md-2"><span class="badge">{{data.status}}</span></td>
-                <!-- <td class="col-md-2"><span
-                        [ngClass]="{'redBadge': data.finalApproval === 'Rejected', 'orangeBadge': data.finalApproval === 'Pending' }"
-                        class="badge">{{data.finalApproval}}</span></td> -->
-            </tr>
-        </tbody>
-    </table>
-</section>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li *ngIf="isEmployee" class="nav-item " role="presentation">
+        <button class="nav-link" [ngClass]="{'active':isEmployee}" id="AllAttendance-tab" data-bs-toggle="tab"
+            data-bs-target="#AllAttendance-tab-pane" type="button" role="tab" aria-controls="AllAttendance-tab-pane"
+            aria-selected="true">
+            All Attendance
+        </button>
+    </li>
+    <li *ngIf="isAdmin" class="nav-item " role="presentation">
+        <button class="nav-link" [ngClass]="{'active':!isEmployee}" id="MyAttendance-tab" data-bs-toggle="tab"
+            data-bs-target="#MyAttendance-tab-pane" type="button" role="tab" aria-controls="MyAttendance-tab-pane"
+            aria-selected="false">
+            My Attendance
+        </button>
+    </li>
+</ul>
+<!-- All Attendance -->
+<div class="tab-content" id="myTabContent1">
+    <div class="tab-pane fade" id="AllAttendance-tab-pane" [ngClass]="{'show active':isEmployee}" role="tabpanel"
+        aria-labelledby="AllAttendance-tab" tabindex="0" *ngIf="isEmployee">
+        <div class="container-fluid mt-4">
+            <div class="accordion" id="accordionExample1">
+                <div class="accordion-item mt-3 mb-3" *ngFor="let data of attendanceDetails; let i = index;">
+                    <h2 class="accordion-header" id="headingOne1{{i}}">
+                        <button class="accordion-button text-dark" [ngClass]=" i!=0 ? 'collapsed' : ''" type="button"
+                            data-bs-toggle="collapse" attr.data-bs-target="#collapseOne1{{i}}" aria-expanded="true"
+                            attr.aria-controls="collapseOne1{{i}}">
+                            <div>
+                                {{ data[0].date | date:'MMM d, y' }}
+                            </div>
+
+                        </button>
+                    </h2>
+                    <div id="collapseOne1{{i}}" [ngClass]=" i==0 ? 'show' : ''" class="accordion-collapse collapse"
+                        attr.aria-labelledby="headingOne1{{i}}" data-bs-parent="#accordionExample1">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table m-0 bg-white">
+                                    <thead class="text-dark">
+                                        <tr class="thead text-center">
+                                            <th scope="col">S.No</th>
+                                            <th  scope="col" class="text-start">Name</th>
+                                            <th  scope="col">Date</th>
+                                            <th scope="col">In Time</th>
+                                            <th scope="col">Out Time</th>
+                                            <th scope="col">Work Duration</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngIf="attendanceDetails?.length == 0" class="text-center">
+                                            <td colspan="100%">No Data Found</td>
+                                        </tr>
+                                        <tr *ngFor="let data of attendanceDetails[i];let i = index;"
+                                            class="text-center">
+                                            <td>{{i + 1}}</td>
+                                            <td  class="text-start text-capitalize">
+                                                {{data.firstName}}&nbsp;&nbsp;{{data.lastName}}</td>
+                                            <td > {{data.date | date:'MM-dd-yyyy'}}</td>
+                                            <td>{{data.inTime | date:'h:mm a' }}</td>
+                                            <td>{{data.outTime == null?
+                                                0:data.outTime | date:'h:mm a' }}</td>
+                                            <td>{{data.workDuration == null?
+                                                0:data.workDuration }}</td>
+                                            <td><span class="badge">{{data.status}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- My Attendance -->
+<div class="tab-content" id="myTabContent1">
+    <div class="tab-pane fade" id="MyAttendance-tab-pane" [ngClass]="{'show active':!isEmployee}" role="tabpanel"
+        aria-labelledby="MyAttendance-tab" tabindex="0" *ngIf="isAdmin">
+        <div class="container-fluid mt-4">
+            <div class="accordion" id="accordionExample1">
+                <div class="accordion-item mt-3 mb-3" *ngFor="let datas of myAttendance; let i = index;">
+                    <h2 class="accordion-header" id="headingOne1{{i}}">
+                        <button class="accordion-button text-dark" [ngClass]=" i!=0 ? 'collapsed' : ''" type="button"
+                            data-bs-toggle="collapse" attr.data-bs-target="#collapseOne1{{i}}" aria-expanded="true"
+                            attr.aria-controls="collapseOne1{{i}}">
+                            <div>
+                                {{ datas[0].date | date:'MMM , y' }}
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="collapseOne1{{i}}" [ngClass]=" i==0 ? 'show' : ''" class="accordion-collapse collapse"
+                        attr.aria-labelledby="headingOne1{{i}}" data-bs-parent="#accordionExample1">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table m-0 bg-white">
+                                    <thead class="text-dark">
+                                        <tr class="thead text-center">
+                                            <th scope="col">S.No</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">In Time</th>
+                                            <th scope="col">Out Time</th>
+                                            <th scope="col">Work Duration</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngIf="myAttendance?.length == 0" class="text-center">
+                                            <td colspan="100%">No Data Found</td>
+                                        </tr>
+                                        <tr *ngFor="let datas of myAttendance[i];let i = index;"
+                                            class="text-center">
+                                            <td>{{i + 1}}</td>
+                                            <td> {{datas.date | date:'MM-dd-yyyy'}}</td>
+                                            <td>{{datas.inTime | date:'h:mm a' }}</td>
+                                            <td>{{datas.outTime == null?
+                                                0:datas.outTime | date:'h:mm a' }}</td>
+                                            <td>{{datas.workDuration == null?
+                                                0:datas.workDuration }}</td>
+                                            <td><span class="badge">{{datas.status}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

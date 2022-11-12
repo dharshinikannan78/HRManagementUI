@@ -59,7 +59,8 @@
             <label class="form-label">Password</label>
             <div class="input-group">
               <input [type]="showPass" class="form-control" formControlName="password">
-              <span type="button" (click)="showPassword()" class="eye input-group-text"><i class="fa-regular fa-eye-slash"></i></span>
+              <span type="button" (click)="showPassword()" class="eye input-group-text"><i *ngIf="showPassword()"
+                  class="fa-regular fa-eye-slash"></i><i *ngIf="showPassword()" class="fa-regular fa-eye"></i></span>
             </div>
             <span class="text-danger mt-1" *ngIf="!dologin.controls['password'].valid && 
             dologin.controls['password']?.touched"> <b>Password</b> is required *</span>

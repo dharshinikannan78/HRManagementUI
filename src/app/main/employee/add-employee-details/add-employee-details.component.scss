@@ -10,7 +10,6 @@ textarea,
 select {
     border-radius: 10px;
     border: 0.5px solid;
-    
 }
 
 .form-group {
@@ -165,14 +164,6 @@ label {
     border-radius: 50%;
     z-index: -10;
 }
-.submitButton {
-    padding: 5px;
-    float: right;
-    width: 200px;
-    background: #03045e;
-    color: #fff;
-    border-radius: 5px;
-}
 
 .progress-count:before {
     content: "";
@@ -241,24 +232,23 @@ label {
     bottom: 2%;
     right: 10%;
 }
+
 input:focus {
     box-shadow: none;
 }
 
-
 .submitButton {
     padding: 5px;
-    float:right;
+    float: right;
     width: 100px;
-    background: #03045e ;
+    background-color: #03045e;
     color: #fff;
     border-radius: 5px;
-  
 }
 
 .NextPrev {
     padding: 5px;
-    float:right;
+    float: right;
     width: 100px;
     border-radius: 5px;
 }

@@ -7,7 +7,9 @@ ul {
     padding: 0;
     margin: 0;
 }
-
+ul li {
+    cursor: pointer;
+}
 ul li,
 a {
     height: 40px;
@@ -52,7 +54,7 @@ ul li i {
     left: 0;
     background-color: #fff;
     overflow-x: hidden;
-    transition: 0.5s ease;
+    transition: 0.7s ease;
     padding-top: 60px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -63,20 +65,20 @@ i {
 
 main {
     margin-left: 60px;
-    transition: margin-left 0.5s ease;
+    transition: margin-left 0.7s ease;
     height: 100vh;
 }
 
 .show {
     display: block;
     opacity: 1;
-    transition: 0.5s ease;
+    transition: 0.7s ease;
 }
 
 .none {
     display: none;
     opacity: 0;
-    transition: 0.5s ease;
+    transition: 0.7s ease;
 }
 
 @media (max-width: 500px) {
